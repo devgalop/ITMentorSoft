@@ -1,15 +1,4 @@
-# Proyecto de especialización en desarrollo de software: Tutor inteligente para fundamentos de diseño de software y pensamiento computacional
-
-## Descripción del proyecto
-
-Este proyecto tiene como objetivo principal potenciar el dominio de los fundamentos de desarrollo de software y las habilidades de pensamiento computacional en estudiantes que ingresan a programas de ingeniería de software, mediante el diseño e implementación de un tutor inteligente con capacidades de diagnóstico adaptativo y generación de rutas de aprendizaje personalizadas.
-
-## Stack tecnológico
-
-- Python 3.13
-- FastAPI
-
-## Arquitectura del proyecto
+# Arquitectura del proyecto
 
 Este proyecto a nivel de backend se hará mediante un **monolito modular**, con una **arquitectura de capas verticales basadas en features**. Esto permitirá una mejor organización del código y facilitará el mantenimiento y escalabilidad del proyecto.
 
@@ -44,4 +33,10 @@ La estructura del proyecto se organizará de la siguiente manera:
 ├── tests/
 ```
 
-Para más detalles sobre la arquitectura del proyecto, puedes consultar el documento [ARCHITECTURE.md](docs/ARCHITECTURE.md).
+## Diagramas de arquitectura
+
+A continuación se presentan los diagramas de arquitectura del proyecto:
+
+### Diagrama de contenedores
+
+![diagrama_contenedores](./resources/c4_containers_tutor.drawio.png)
