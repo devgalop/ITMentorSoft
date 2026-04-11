@@ -7,7 +7,33 @@ from src.features.user_management.shared.dependencies import get_create_user_han
 
 router = APIRouter()
 
-@router.post("/")
+@router.post("/",
+             status_code=201,
+             summary="Create User",
+             description="Endpoint for creating a new user. Returns a message indicating the result of the user creation.",
+             tags=["User Management"],
+             responses={
+                 201: {
+                     "description": "User created successfully. Returns a message indicating the successful creation.",
+                     "content": {
+                         "application/json": {
+                             "example": {
+                                 "message": "User created successfully."
+                             }
+                         }
+                     }
+                 },
+                 400: {
+                     "description": "Bad Request. User creation failed due to invalid input data.",
+                     "content": {
+                         "application/json": {
+                             "example": {
+                                 "message": "User creation failed. Invalid input data."
+                             }
+                         }
+                     }
+                 }
+             })
 async def create_user(
     request: CreateUserRequest,
     handler: Annotated[CreateUserHandler, Depends(get_create_user_handler)]
