@@ -3,7 +3,7 @@ import jwt
 from datetime import datetime, timedelta, timezone 
 from dotenv import load_dotenv
 
-from src.features.user_management.shared.token_generator import TokenGenerator, TokenRequest, TokenResponse
+from src.features.user_management.shared.token_generator import InvalidTokenError, TokenData, TokenGenerator, TokenRequest, TokenResponse
 load_dotenv()
 
 JWT_SECRET_KEY = os.getenv("JWT_SECRET_KEY")
@@ -36,3 +36,15 @@ class JWTTokenGenerator(TokenGenerator):
             token=jwt.encode(token_payload, JWT_SECRET_KEY, algorithm=JWT_ALGORITHM), # pyright: ignore[reportUnknownMemberType]
             expiration_time=expiration_time.timestamp()
         )
+    
+    def validate_token(self, token: str) -> TokenData:
+        try:
+            payload = jwt.decode(token, JWT_SECRET_KEY, algorithms=JWT_ALGORITHM) # pyright: ignore[reportUnknownMemberType]
+            if(datetime.fromtimestamp(payload["exp"], tz=timezone.utc) < datetime.now(tz=timezone.utc)):
+                raise jwt.ExpiredSignatureError("Expired token")
+            return TokenData(
+                user_name=payload["user_name"],
+                role=payload["role"]
+            )
+        except jwt.PyJWTError as e:
+            raise InvalidTokenError(str(e)) from e
