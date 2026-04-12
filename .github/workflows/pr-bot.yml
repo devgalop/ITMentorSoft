@@ -1,0 +1,83 @@
+name: PR Bot (Analysis + Comments)
+
+on:
+  pull_request:
+    branches: [ master ]
+
+jobs:
+  analysis:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout repo
+        uses: actions/checkout@v4
+
+      - name: Setup Python 3.13
+        uses: actions/setup-python@v5
+        with:
+          python-version: '3.13'
+
+      - name: Install dependencies
+        run: |
+          pip install -r requirements.txt || true
+          pip install pytest ruff black bandit
+
+      # 🧪 Tests
+      - name: Run tests
+        id: tests
+        run: pytest
+        continue-on-error: true
+
+      # 🧹 Lint con Ruff
+      - name: Lint (ruff)
+        id: lint
+        run: ruff check .
+        continue-on-error: true
+
+      # 🎨 Formato con Black
+      - name: Format check (black)
+        id: format
+        run: black --check .
+        continue-on-error: true
+
+      # 🔐 Seguridad con Bandit
+      - name: Security scan (bandit)
+        id: security
+        run: bandit -r .
+        continue-on-error: true
+
+      # 📊 Determinar estado final
+      - name: Set final status
+        id: final
+        run: |
+          if [[ "${{ steps.tests.outcome }}" == "success" && \
+                "${{ steps.lint.outcome }}" == "success" && \
+                "${{ steps.format.outcome }}" == "success" && \
+                "${{ steps.security.outcome }}" == "success" ]]; then
+            echo "status=success" >> $GITHUB_OUTPUT
+          else
+            echo "status=failure" >> $GITHUB_OUTPUT
+          fi
+
+      # 💬 Comentario en el PR
+      - name: Comment PR
+        uses: actions/github-script@v7
+        with:
+          script: |
+            const status = "${{ steps.final.outputs.status }}";
+
+            const message = status === "success"
+              ? "✅ **PR aprobado automáticamente**\n\nTodos los checks pasaron:\n- Tests 🧪\n- Lint 🧹\n- Formato 🎨\n- Seguridad 🔐"
+              : "❌ **PR con problemas**\n\nRevisa los siguientes checks:\n- Tests 🧪\n- Lint 🧹\n- Formato 🎨\n- Seguridad 🔐\n\nVerifica los logs del workflow.";
+
+            github.rest.issues.createComment({
+              issue_number: context.issue.number,
+              owner: context.repo.owner,
+              repo: context.repo.repo,
+              body: message
+            });
+
+      # 🚨 Fallar el job si algo falló
+      - name: Fail if needed
+        if: steps.final.outputs.status == 'failure'
+        run: exit 1
