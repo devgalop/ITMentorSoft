@@ -14,6 +14,12 @@ Para configurar el entorno de desarrollo, es necesario definir las siguientes va
 JWT_SECRET_KEY=your_secret_key_here     # Reemplaza con una clave secreta segura para la generación de JWT
 JWT_ALGORITHM=HS256                     # Algoritmo de encriptación para JWT (puede ser HS256, RS256, etc.)
 JWT_EXPIRATION_DELTA_SECONDS=300        # Tiempo de expiración del token en segundos. Si no se define, el token expirará en 5 minutos (300 segundos).
+
+BREVO_API_KEY=your_brevo_api_key_here   # Reemplaza con tu clave de API de Brevo
+BREVO_BASE_API_URL=brevo_base_api       # Reemplaza con la URL base de la API de Brevo (por ejemplo, https://api.brevo.com/v3)
+
+EMAIL_RECOVERY_SENDER=your_email_here   # Reemplaza con el correo electrónico que deseas usar como remitente para los correos de recuperación de contraseña
+
 ```
 
 **IMPORTANTE**: Recuerda nunca compartir el archivo `.env` ni las claves secretas que contiene, especialmente en repositorios públicos. Asegúrate de agregar el archivo `.env` al archivo `.gitignore` para evitar que se suba al repositorio.
