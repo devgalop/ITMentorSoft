@@ -15,14 +15,14 @@ Este proyecto a nivel de backend se hará mediante un **monolito modular**, con 
 
 La estructura del proyecto se organizará de la siguiente manera:
 
-- `app/`: Contendrá el código principal de la aplicación, organizado en módulos según las features.
+- `src/`: Contendrá el código principal de la aplicación, organizado en módulos según las features.
   - `features/`: Cada feature tendrá su propio módulo con sus respectivas capas (controladores, servicios, repositorios).
   - `infrastructure/`: Contendrá la implementación de la infraestructura necesaria para la aplicación, como la conexión a bases de datos, servicios externos, etc.
   - `main.py`: Punto de entrada de la aplicación.
 - `tests/`: Contendrá los tests unitarios y de integración para asegurar la calidad del código.
 
 ```bash
-├── app/
+├── src/
 │   ├── features/
 │   │   ├── user-management/
 │   │   │    ├── create_user/
@@ -45,3 +45,11 @@ La estructura del proyecto se organizará de la siguiente manera:
 ```
 
 Para más detalles sobre la arquitectura del proyecto, puedes consultar el documento [ARCHITECTURE.md](docs/ARCHITECTURE.md).
+
+## Configuración del entorno de desarrollo
+
+Para obtener detalles sobre cómo configurar el entorno de desarrollo, puedes consultar el documento [SETUP.md](docs/SETUP.md).
+
+## Licencia
+
+Este proyecto está licenciado bajo la Licencia MIT. Puedes consultar el archivo [LICENSE](LICENSE) para más detalles sobre los términos de la licencia.
