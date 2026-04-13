@@ -21,15 +21,16 @@ class CreateUserHandler:
         if await self.user_repository.get_user_by_username(user_data.username):
             return CreateUserResponse(is_success=False, message="Username already in use")
         
-        password_hashed = self.password_hasher.hash_password(user_data.password)        
-        await self.user_repository.save(User(
+        password_hashed = self.password_hasher.hash_password(user_data.password)
+        user_entity = User(
             username=user_data.username,
             email=user_data.email,            
             password_hashed=password_hashed,
             status= UserStatus.ACTIVE,
             role = UserRole.STUDENT
-        ))
+        )    
+        await self.user_repository.save(user_entity)
         
-        return CreateUserResponse(is_success=True, message="User created successfully")
+        return CreateUserResponse(is_success=True, message="User created successfully", user_id=user_entity.id)
 
     

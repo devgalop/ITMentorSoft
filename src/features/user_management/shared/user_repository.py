@@ -1,6 +1,6 @@
 from abc import ABC, abstractmethod
 
-from src.features.user_management.shared.user import User
+from src.features.user_management.shared.user import User, UserResponse
 
 class UserRepository(ABC):
     """ Interface for user repository implementations.
@@ -30,6 +30,18 @@ class UserRepository(ABC):
 
         Returns:
             User: The user object if found, otherwise None.
+        """
+        pass
+    
+    @abstractmethod
+    async def get_user_by_id(self, user_id: str) -> UserResponse | None:
+        """Search user by ID.
+
+        Args:
+            user_id (str): The ID of the user to search for.
+
+        Returns:
+            UserResponse: The user response object if found, otherwise None.
         """
         pass
 

@@ -2,6 +2,7 @@ from typing import Annotated
 from fastapi.params import Depends
 
 from src.features.user_management.create_user.create_user_handler import CreateUserHandler
+from src.features.user_management.get_user.get_user_handler import GetUserHandler
 from src.features.user_management.login.login_handler import LoginHandler
 from src.features.user_management.shared.password_hasher import PasswordHasher
 from src.features.user_management.shared.token_generator import TokenGenerator
@@ -32,4 +33,9 @@ def get_login_handler(
     token_generator: Annotated[TokenGenerator, Depends(get_token_generator)]
 ) -> LoginHandler:
     return LoginHandler(user_repository, password_hasher, token_generator)
+
+def get_get_user_handler(
+    user_repository: Annotated[UserRepository, Depends(get_user_repository)]
+) -> GetUserHandler:
+    return GetUserHandler(user_repository)
 

@@ -1,4 +1,5 @@
 from enum import Enum
+import uuid
 
 class UserStatus(Enum):
     """ User status
@@ -36,6 +37,7 @@ class User:
                  password_hashed: str,
                  status: UserStatus,
                  role: UserRole):
+        self.id = uuid.uuid4().hex
         self.username = username
         self.email = email
         self.password_hashed = password_hashed
@@ -65,3 +67,26 @@ class User:
     def suspend(self):
         """ Suspend the user """
         self.status = UserStatus.SUSPENDED
+        
+
+class UserResponse:
+    """ Represents a user response object
+
+    Args:
+        id (str): The unique identifier of the user.
+        username (str): The username of the user.
+        email (str): The email of the user.
+        status (UserStatus): The status of the user.
+        role (UserRole): The role of the user.
+    """
+    def __init__(self, 
+                 id: str,
+                 username: str, 
+                 email: str, 
+                 status: UserStatus,
+                 role: UserRole):
+        self.id = id
+        self.username = username
+        self.email = email
+        self.status = status
+        self.role = role
