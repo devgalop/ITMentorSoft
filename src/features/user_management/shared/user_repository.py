@@ -34,6 +34,18 @@ class UserRepository(ABC):
         pass
     
     @abstractmethod
+    async def get_user_response_by_email(self, email: str) -> UserResponse | None:
+        """Search user by email.
+
+        Args:
+            email (str): The email of the user to search for.
+
+        Returns:
+            UserResponse: The user response object if found, otherwise None.
+        """
+        pass
+    
+    @abstractmethod
     async def get_user_by_id(self, user_id: str) -> UserResponse | None:
         """Search user by ID.
 

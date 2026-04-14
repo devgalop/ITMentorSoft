@@ -1,3 +1,4 @@
+import json
 from typing import List
 
 import aiohttp
@@ -55,7 +56,7 @@ class BrevoNotificationService(NotificationService):
             "Accept": "application/json"
         }
         API_URL = f"{BREVO_BASE_API_URL}/smtp/email"
-        payload = self.to_brevo_payload(notification_config).__dict__
+        payload = json.loads(json.dumps(self.to_brevo_payload(notification_config), default=lambda o: o.__dict__))
         
         async with aiohttp.ClientSession() as session:
             async with session.post(API_URL, json=payload, headers=headers) as response:

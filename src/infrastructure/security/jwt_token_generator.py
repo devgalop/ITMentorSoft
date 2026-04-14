@@ -1,4 +1,5 @@
 import os
+import uuid
 import jwt
 from datetime import datetime, timedelta, timezone 
 from dotenv import load_dotenv
@@ -9,6 +10,7 @@ load_dotenv()
 JWT_SECRET_KEY = os.getenv("JWT_SECRET_KEY")
 JWT_ALGORITHM = os.getenv("JWT_ALGORITHM")
 JWT_EXPIRATION_DELTA_SECONDS = os.getenv("JWT_EXPIRATION_DELTA_SECONDS", "300")  # Default to 5 minutes if not set
+RANDOM_TOKEN_EXPIRATION_DELTA_SECONDS = os.getenv("RANDOM_TOKEN_EXPIRATION_DELTA_SECONDS", "180")  # Default to 3 minutes if not set
 
 class TokenPayload:
     def __init__(self, user_name: str, role: str, exp: datetime):
@@ -48,3 +50,11 @@ class JWTTokenGenerator(TokenGenerator):
             )
         except jwt.PyJWTError as e:
             raise InvalidTokenError(str(e)) from e
+    
+    def generate_random_token(self) -> TokenResponse:
+        uuid_token = uuid.uuid4().hex
+        expiration_time = datetime.now(tz=timezone.utc) + timedelta(seconds=int(RANDOM_TOKEN_EXPIRATION_DELTA_SECONDS))
+        return TokenResponse(
+            token=uuid_token,
+            expiration_time=expiration_time.timestamp()
+        )

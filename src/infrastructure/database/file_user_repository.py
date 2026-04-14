@@ -65,6 +65,28 @@ class FileUserRepository(UserRepository):
                     )
         return None
     
+    async def get_user_response_by_email(self, email: str) -> UserResponse| None:
+        """Search user by email.
+
+        Args:
+            email (str): The email of the user to search for.
+
+        Returns:
+            UserResponse: The user response object if found, otherwise None.
+        """
+        async with aiofiles.open(self.file_path, 'r') as f:
+            async for line in f:
+                data = line.strip().split(',')
+                if data[1] == email:
+                    return UserResponse(
+                        id=data[5],
+                        username=data[0],
+                        email=data[1],
+                        status=UserStatus(data[3]),
+                        role=UserRole(data[4])
+                    )
+        return None
+    
     async def get_user_by_id(self, user_id: str) -> UserResponse| None:
         """Search user by ID.
 

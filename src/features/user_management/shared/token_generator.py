@@ -68,3 +68,12 @@ class TokenGenerator(ABC):
             Exception: If the token is invalid or expired.
         """
         pass
+    
+    @abstractmethod
+    def generate_random_token(self) -> TokenResponse:
+        """Generate a random token string.
+
+        Returns:
+            TokenResponse: A randomly generated token string and its expiration time.
+        """
+        pass

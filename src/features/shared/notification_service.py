@@ -5,7 +5,7 @@ class NotificationConfig:
     """This class contains the main configuration to send notifications, such as sender, destination, subject, template and attachments.
     """
     def __init__(self, sender: str, destination: str, subject: str):
-        self.uuid: str = str(uuid.uuid4())
+        self.uuid: str = uuid.uuid4().hex
         self.sender = sender
         self.destination = destination
         self.subject = subject
