@@ -12,9 +12,10 @@ from src.features.user_management.shared.user_repository import UserRepository
 load_dotenv()
 
 
-MESSAGE_RECOVERY_TEMPLATE = "<p>Hello %USER%,</p><p>You requested a password recovery. Please click the link below to reset your password:</p><p><a href='http://localhost:8000/reset-password?token=%URL_TOKEN%'>Reset Password</a></p><p>If you did not request this, please ignore this email.</p>"
+MESSAGE_RECOVERY_TEMPLATE = "<p>Hello %USER%,</p><p>You requested a password recovery. Please click the link below to reset your password:</p><p><a href='%URL_BASE%?token=%URL_TOKEN%&trx=%ID_TRX%'>Reset Password</a></p><p>If you did not request this, please ignore this email.</p>"
 EMAIL_RECOVERY_SUBJECT = "Recovery Password Instructions"
 EMAIL_RECOVERY_SENDER = os.getenv("EMAIL_RECOVERY_SENDER", "")
+RECOVERY_URL_BASE = os.getenv("RECOVERY_URL_BASE", "")
 
 class RecoveryPasswordHandler:
     def __init__(self, 
@@ -53,7 +54,7 @@ class RecoveryPasswordHandler:
                                         request.email,
                                         EMAIL_RECOVERY_SUBJECT)
         
-        html_content = MESSAGE_RECOVERY_TEMPLATE.replace("%URL_TOKEN%", token.token).replace("%USER%", user.username)
+        html_content = MESSAGE_RECOVERY_TEMPLATE.replace("%URL_BASE%", RECOVERY_URL_BASE).replace("%URL_TOKEN%", token.token).replace("%USER%", user.username).replace("%ID_TRX%", recovery_token_info.id_trx)
         
         notification_config_builder.set_template(html_content)
         notification_config = notification_config_builder.build()

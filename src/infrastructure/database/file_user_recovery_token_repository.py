@@ -1,6 +1,6 @@
 import aiofiles
 from pathlib import Path
-from src.features.user_management.shared.user_recovery_token_repository import RecoveryTokenInfo, UserRecoveryTokenRepository
+from src.features.user_management.shared.user_recovery_token_repository import RecoveryTokenInfo, UserRecoveryTokenRepository, UserRecoveryTokenResponse
 
 
 class FileUserRecoveryTokenRepository(UserRecoveryTokenRepository):
@@ -16,22 +16,22 @@ class FileUserRecoveryTokenRepository(UserRecoveryTokenRepository):
             recovery_token_info (RecoveryTokenInfo): The information about the recovery token.
         """
         async with aiofiles.open(self.file_path, 'a') as f:
-            await f.write(f"{recovery_token_info.user_id},{recovery_token_info.token},{recovery_token_info.expiration_time},{recovery_token_info.status}\n")
+            await f.write(f"{recovery_token_info.user_id},{recovery_token_info.token},{recovery_token_info.expiration_time},{recovery_token_info.status},{recovery_token_info.id_trx}\n")
     
-    async def get_user_id_by_token(self, token: str) -> str | None:
-        """Retrieve the user ID associated with a given recovery token.
+    async def get_user_id_by_transaction_id(self, transaction_id: str) -> UserRecoveryTokenResponse | None:
+        """Retrieve the user recovery token response associated with a given transaction ID.
 
         Args:
-            token (str): The recovery token to search for.
+            transaction_id (str): The transaction ID to search for.
 
         Returns:
-            str: The user ID associated with the token if found, otherwise None.
+            UserRecoveryTokenResponse: The user recovery token response associated with the transaction ID if found, otherwise None.
         """
         async with aiofiles.open(self.file_path, 'r') as f:
             async for line in f:
                 data = line.strip().split(',')
-                if data[1] == token and data[3] == "active":
-                    return data[0]
+                if data[3] == "active" and data[4] == transaction_id:
+                    return UserRecoveryTokenResponse(user_id=data[0], token_hashed=data[1], expiration_time=float(data[2]), status=data[3])
         return None
     
     async def revoke_token(self, token: str):

@@ -65,3 +65,13 @@ class UserRepository(ABC):
             user (User): The user object to be saved or updated in the database.
         """
         pass
+    
+    @abstractmethod
+    async def change_password(self, user_id: str, new_password_hashed: str):
+        """Change the password of a user.
+
+        Args:
+            user_id (str): The ID of the user whose password is to be changed.
+            new_password_hashed (str): The new hashed password to be set for the user.
+        """
+        pass

@@ -1,4 +1,5 @@
 from abc import ABC, abstractmethod
+import uuid
 
 class RecoveryTokenInfo:
     """Data class to hold information about a recovery token.
@@ -9,9 +10,21 @@ class RecoveryTokenInfo:
         expiration_time (float): The expiration time of the token in seconds.
         status (str): The status of the token (default is "active").
     """
-    def __init__(self, user_id: str, token: str, expiration_time: float, status: str = "active"):
+    def __init__(self, 
+                 user_id: str, 
+                 token: str, 
+                 expiration_time: float, 
+                 status: str = "active"):
         self.user_id = user_id
         self.token = token
+        self.expiration_time = expiration_time
+        self.status = status
+        self.id_trx = uuid.uuid4().hex
+
+class UserRecoveryTokenResponse:
+    def __init__(self, user_id: str, token_hashed:str, expiration_time:float, status:str):
+        self.user_id = user_id
+        self.token_hashed = token_hashed
         self.expiration_time = expiration_time
         self.status = status
 
@@ -32,14 +45,14 @@ class UserRecoveryTokenRepository(ABC):
         pass
     
     @abstractmethod
-    async def get_user_id_by_token(self, token: str) -> str | None:
-        """Retrieve the user ID associated with a given recovery token.
+    async def get_user_id_by_transaction_id(self, transaction_id: str) -> UserRecoveryTokenResponse | None:
+        """Retrieve the user recovery token response associated with a given transaction ID.
 
         Args:
-            token (str): The recovery token to search for.
+            transaction_id (str): The transaction ID to search for.
 
         Returns:
-            str: The user ID associated with the token if found, otherwise None.
+            UserRecoveryTokenResponse: The user recovery token response associated with the transaction ID if found, otherwise None.
         """
         pass
     

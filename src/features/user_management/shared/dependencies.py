@@ -1,6 +1,7 @@
 from typing import Annotated
 from fastapi.params import Depends
 
+from src.features.user_management.change_password.change_password_handler import ChangePasswordHandler
 from src.features.user_management.create_user.create_user_handler import CreateUserHandler
 from src.features.user_management.get_user.get_user_handler import GetUserHandler
 from src.features.user_management.login.login_handler import LoginHandler
@@ -57,4 +58,17 @@ def get_recovery_password_handler(
     token_generator: Annotated[TokenGenerator, Depends(get_token_generator)],
     password_hasher: Annotated[PasswordHasher, Depends(get_password_hasher)]
 ) -> RecoveryPasswordHandler:
-    return RecoveryPasswordHandler(user_repository, user_recovery_token_repository, notification_service, token_generator, password_hasher)
+    return RecoveryPasswordHandler(user_repository, 
+                                   user_recovery_token_repository, 
+                                   notification_service, 
+                                   token_generator, 
+                                   password_hasher)
+
+def get_change_password_handler(
+    user_repository: Annotated[UserRepository, Depends(get_user_repository)],
+    user_recovery_token_repository: Annotated[UserRecoveryTokenRepository, Depends(get_user_recovery_token_repository)],
+    password_hasher: Annotated[PasswordHasher, Depends(get_password_hasher)]
+) -> ChangePasswordHandler:
+    return ChangePasswordHandler(user_repository, 
+                                 user_recovery_token_repository, 
+                                 password_hasher)

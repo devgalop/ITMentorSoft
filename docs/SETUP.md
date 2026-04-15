@@ -20,6 +20,7 @@ BREVO_API_KEY=your_brevo_api_key_here   # Reemplaza con tu clave de API de Brevo
 BREVO_BASE_API_URL=brevo_base_api       # Reemplaza con la URL base de la API de Brevo (por ejemplo, https://api.brevo.com/v3)
 
 EMAIL_RECOVERY_SENDER=your_email_here   # Reemplaza con el correo electrónico que deseas usar como remitente para los correos de recuperación de contraseña
+RECOVERY_URL_BASE=your_recovery_url_base_here # Reemplaza con la URL base que se usará en los correos de recuperación de contraseña (por ejemplo, http://localhost:8000/reset-password)
 
 ```
 
