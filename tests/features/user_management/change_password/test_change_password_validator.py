@@ -18,6 +18,15 @@ def test_when_token_is_missing_then_validation_error():
     id_trx = "valid_id_trx"
     with pytest.raises(ValueError, match="Token is required"):
         ChangePasswordRequestWithToken(token=token, id_trx=id_trx, new_password=request.new_password)
+        
+def test_when_id_trx_is_missing_then_validation_error():
+    new_pass = "NewSecPass123!"
+    request = ChangePasswordRequest(new_password=new_pass)
+    token = "valid_token"
+    id_trx = ""
+    with pytest.raises(ValueError, match="Transaction ID is required"):
+        ChangePasswordRequestWithToken(token=token, id_trx=id_trx, new_password=request.new_password)
+
     
 def test_when_new_password_is_missing_then_validation_error():
     with pytest.raises(ValueError, match="Password is required"):
