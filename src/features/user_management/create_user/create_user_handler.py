@@ -31,7 +31,7 @@ class CreateUserHandler:
             email=user_data.email,
             password_hashed=password_hashed,
             status=UserStatus.ACTIVE,
-            role=UserRole.STUDENT,
+            role=UserRole.USER,
         )
         await self.user_repository.save(user_entity)
 

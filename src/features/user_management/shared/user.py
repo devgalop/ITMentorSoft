@@ -24,6 +24,7 @@ class UserRole(Enum):
     ADMIN = "admin"
     STUDENT = "student"
     TEACHER = "teacher"
+    USER = "user"
 
 
 class User:
