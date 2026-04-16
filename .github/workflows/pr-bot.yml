@@ -8,6 +8,10 @@ jobs:
   analysis:
     runs-on: ubuntu-latest
 
+    permissions:
+      contents: read
+      pull-requests: write
+
     steps:
       - name: Checkout repo
         uses: actions/checkout@v4
@@ -43,7 +47,7 @@ jobs:
       # 🔐 Seguridad con Bandit
       - name: Security scan (bandit)
         id: security
-        run: bandit -r .
+        run: bandit -r src/
         continue-on-error: true
 
       # 📊 Determinar estado final

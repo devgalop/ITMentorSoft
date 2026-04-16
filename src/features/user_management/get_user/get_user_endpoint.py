@@ -8,46 +8,48 @@ from src.features.user_management.shared.dependencies import get_get_user_handle
 
 router = APIRouter()
 
-@router.get("/{user_id}",
-            status_code=200,
-            summary="Get User",
-            description="Endpoint for retrieving user information by user ID. Returns the user details if found, otherwise returns a message indicating that the user was not found.",
-            tags=["User Management"],
-            responses={
-                200: {
-                    "description": "User found. Returns the user details.",
-                    "content": {
-                        "application/json": {
-                            "example": {
-                                "is_success": True,
-                                "message": "User found",
-                                "user": {
-                                    "user_id": "12345",
-                                    "username": "john_doe",
-                                    "email": "john_doe@example.com",
-                                    "role": "STUDENT"
-                                }
-                            }
-                        }
-                    }
-                },
-                404: {
-                    "description": "User not found. Returns a message indicating that the user was not found.",
-                    "content": {
-                        "application/json": {
-                            "example": {
-                                "is_success": False,
-                                "message": "User not found",
-                                "user": None
-                            }
-                        }
+
+@router.get(
+    "/{user_id}",
+    status_code=200,
+    summary="Get User",
+    description="Endpoint for retrieving user information by user ID. Returns the user details if found, otherwise returns a message indicating that the user was not found.",
+    tags=["User Management"],
+    responses={
+        200: {
+            "description": "User found. Returns the user details.",
+            "content": {
+                "application/json": {
+                    "example": {
+                        "is_success": True,
+                        "message": "User found",
+                        "user": {
+                            "user_id": "12345",
+                            "username": "john_doe",
+                            "email": "john_doe@example.com",
+                            "role": "STUDENT",
+                        },
                     }
                 }
-            })
+            },
+        },
+        404: {
+            "description": "User not found. Returns a message indicating that the user was not found.",
+            "content": {
+                "application/json": {
+                    "example": {
+                        "is_success": False,
+                        "message": "User not found",
+                        "user": None,
+                    }
+                }
+            },
+        },
+    },
+)
 async def get_user(
-    user_id: str,
-    handler: Annotated[GetUserHandler, Depends(get_get_user_handler)]
-)-> GetUserResponse:
+    user_id: str, handler: Annotated[GetUserHandler, Depends(get_get_user_handler)]
+) -> GetUserResponse:
     """Endpoint for retrieving user information by user ID.
 
     Args:
