@@ -72,7 +72,12 @@ class BrevoNotificationService(NotificationService):
         )
 
         async with aiohttp.ClientSession() as session:
-            async with session.post(API_URL, json=payload, headers=headers, timeout=aiohttp.ClientTimeout(total=10)) as response:
+            async with session.post(
+                API_URL,
+                json=payload,
+                headers=headers,
+                timeout=aiohttp.ClientTimeout(total=10),
+            ) as response:
                 data = await response.json()
                 if response.status != 201:
                     print(f"Failed to send notification: {data}")

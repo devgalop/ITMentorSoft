@@ -23,7 +23,7 @@ router = APIRouter()
                 "application/json": {
                     "example": {
                         "is_successful": True,
-                        "token": "...token...", #nosec
+                        "token": "...token...",  # nosec
                         "expiration_time": 3600,
                     }
                 }
@@ -35,7 +35,7 @@ router = APIRouter()
                 "application/json": {
                     "example": {
                         "is_successful": False,
-                        "token": "", #nosec
+                        "token": "",  # nosec
                         "expiration_time": 0,
                     }
                 }
