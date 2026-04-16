@@ -1,9 +1,10 @@
 from abc import ABC, abstractmethod
 import uuid
 
+
 class NotificationConfig:
-    """This class contains the main configuration to send notifications, such as sender, destination, subject, template and attachments.
-    """
+    """This class contains the main configuration to send notifications, such as sender, destination, subject, template and attachments."""
+
     def __init__(self, sender: str, destination: str, subject: str):
         self.uuid: str = uuid.uuid4().hex
         self.sender = sender
@@ -11,14 +12,15 @@ class NotificationConfig:
         self.subject = subject
         self.template: str | None = None
         self.attachments: list[str] = []
-        
+
+
 class NotificationConfigBuilder:
-    """Class to build notification configuration with a fluent interface
-    """
+    """Class to build notification configuration with a fluent interface"""
+
     def __init__(self, sender: str, destination: str, subject: str):
         self.config = NotificationConfig(sender, destination, subject)
-        
-    def set_template(self, template: str) -> 'NotificationConfigBuilder':
+
+    def set_template(self, template: str) -> "NotificationConfigBuilder":
         """Add a template body for the notification.
 
         Args:
@@ -29,8 +31,8 @@ class NotificationConfigBuilder:
         """
         self.config.template = template
         return self
-    
-    def add_attachment(self, attachment: str) -> 'NotificationConfigBuilder':
+
+    def add_attachment(self, attachment: str) -> "NotificationConfigBuilder":
         """Add an attachment to the notification.
 
         Args:
@@ -41,9 +43,10 @@ class NotificationConfigBuilder:
         """
         self.config.attachments.append(attachment)
         return self
-    
+
     def build(self) -> NotificationConfig:
         return self.config
+
 
 class NotificationService(ABC):
     @abstractmethod

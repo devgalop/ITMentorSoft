@@ -1,12 +1,13 @@
 from abc import ABC, abstractmethod
 
+
 class PasswordHasher(ABC):
-    """ Interface for password hashing and verification.
+    """Interface for password hashing and verification.
 
     Args:
         ABC (_type_): Abstract base class for password hashing
     """
-    
+
     @abstractmethod
     def hash_password(self, password: str) -> str:
         """Hash a password.
@@ -22,7 +23,7 @@ class PasswordHasher(ABC):
     @abstractmethod
     def verify_password(self, password: str, hashed_password: str) -> bool:
         """Verify a password against a hashed password.
-        
+
         Args:
             password (str): The password to verify.
             hashed_password (str): The hashed password to compare against.

@@ -2,13 +2,14 @@ from abc import ABC, abstractmethod
 
 from src.features.user_management.shared.user import User, UserResponse
 
+
 class UserRepository(ABC):
-    """ Interface for user repository implementations.
+    """Interface for user repository implementations.
 
     Args:
         ABC (ABC): Abstract base class for user repository implementations.
     """
-    
+
     @abstractmethod
     async def get_user_by_username(self, username: str) -> User | None:
         """Search user by username field.
@@ -20,7 +21,7 @@ class UserRepository(ABC):
             User: The user object if found, otherwise None.
         """
         pass
-    
+
     @abstractmethod
     async def get_user_by_email(self, email: str) -> User | None:
         """Search user by email.
@@ -32,7 +33,7 @@ class UserRepository(ABC):
             User: The user object if found, otherwise None.
         """
         pass
-    
+
     @abstractmethod
     async def get_user_response_by_email(self, email: str) -> UserResponse | None:
         """Search user by email.
@@ -44,7 +45,7 @@ class UserRepository(ABC):
             UserResponse: The user response object if found, otherwise None.
         """
         pass
-    
+
     @abstractmethod
     async def get_user_by_id(self, user_id: str) -> UserResponse | None:
         """Search user by ID.
@@ -65,7 +66,7 @@ class UserRepository(ABC):
             user (User): The user object to be saved or updated in the database.
         """
         pass
-    
+
     @abstractmethod
     async def change_password(self, user_id: str, new_password_hashed: str):
         """Change the password of a user.

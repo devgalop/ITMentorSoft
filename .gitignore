@@ -209,3 +209,5 @@ __marimo__/
 db/
 
 .vscode/
+
+bandit/
