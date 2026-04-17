@@ -5,6 +5,8 @@ from src.features.user_management.get_user.get_user_handler import GetUserHandle
 from src.features.user_management.get_user.get_user_request import GetUserRequest
 from src.features.user_management.get_user.get_user_response import GetUserResponse
 from src.features.user_management.shared.dependencies import get_get_user_handler
+from src.features.user_management.shared.require_roles import require_roles
+from src.features.user_management.shared.token_generator import TokenData
 
 router = APIRouter()
 
@@ -45,16 +47,25 @@ router = APIRouter()
                 }
             },
         },
+        401: {
+            "description": "Unauthorized. User retrieval failed due to missing or invalid authentication.",
+            "content": {"application/json": {"example": {"message": "Unauthorized."}}},
+        },
     },
 )
 async def get_user(
-    user_id: str, handler: Annotated[GetUserHandler, Depends(get_get_user_handler)]
+    user_id: str,
+    handler: Annotated[GetUserHandler, Depends(get_get_user_handler)],
+    _: Annotated[
+        TokenData, Depends(require_roles(["admin", "tutor", "student", "user"]))
+    ],
 ) -> GetUserResponse:
     """Endpoint for retrieving user information by user ID.
 
     Args:
         user_id (str): The ID of the user to retrieve.
         handler (Annotated[GetUserHandler, Depends]): The handler responsible for processing the user retrieval.
+        _: Annotated[TokenData, Depends]: The authenticated user data.
     Returns:
         GetUserResponse: The response containing the user details if found, otherwise a message indicating that the user was not found.
     """
