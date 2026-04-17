@@ -11,6 +11,9 @@ from src.features.user_management.create_user.create_user_handler import (
     CreateUserHandler,
 )
 
+from src.features.user_management.get_available_roles.get_available_roles_handler import (
+    GetAvailableRolesHandler,
+)
 from src.features.user_management.get_user.get_user_handler import GetUserHandler
 from src.features.user_management.login.login_handler import LoginHandler
 from src.features.user_management.recovery_password.recovery_password_handler import (
@@ -111,3 +114,9 @@ def get_assign_role_handler(
     user_repository: Annotated[UserRepository, Depends(get_user_repository)],
 ) -> AssignRoleHandler:
     return AssignRoleHandler(user_repository)
+
+
+def get_get_available_roles_handler(
+    user_repository: Annotated[UserRepository, Depends(get_user_repository)],
+) -> GetAvailableRolesHandler:
+    return GetAvailableRolesHandler(user_repository)
