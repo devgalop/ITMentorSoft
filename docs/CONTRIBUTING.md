@@ -126,7 +126,8 @@ Para configurar `pre-commit`, sigue estos pasos:
         rev: 1.7.8
         hooks:
     - id: bandit
-        args: ["-r", "src/", "-f", "json", "-o", "bandit_report.json"]
+        args: ["-r", "src/"]
+        exclude: ^tests/
    ```
 
 3. Instala los hooks:
