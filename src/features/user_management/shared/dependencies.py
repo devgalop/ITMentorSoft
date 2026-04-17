@@ -1,12 +1,16 @@
 from typing import Annotated
 from fastapi.params import Depends
 
+from src.features.user_management.assign_role.assign_role_handler import (
+    AssignRoleHandler,
+)
 from src.features.user_management.change_password.change_password_handler import (
     ChangePasswordHandler,
 )
 from src.features.user_management.create_user.create_user_handler import (
     CreateUserHandler,
 )
+
 from src.features.user_management.get_user.get_user_handler import GetUserHandler
 from src.features.user_management.login.login_handler import LoginHandler
 from src.features.user_management.recovery_password.recovery_password_handler import (
@@ -101,3 +105,9 @@ def get_change_password_handler(
     return ChangePasswordHandler(
         user_repository, user_recovery_token_repository, password_hasher
     )
+
+
+def get_assign_role_handler(
+    user_repository: Annotated[UserRepository, Depends(get_user_repository)],
+) -> AssignRoleHandler:
+    return AssignRoleHandler(user_repository)

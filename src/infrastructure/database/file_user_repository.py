@@ -1,6 +1,9 @@
 import aiofiles
 from pathlib import Path
 
+from src.features.user_management.assign_role.assign_role_request import (
+    AssignRoleRequest,
+)
 from src.features.user_management.shared.user import (
     User,
     UserResponse,
@@ -133,3 +136,27 @@ class FileUserRepository(UserRepository):
 
         async with aiofiles.open(self.file_path, "w") as f:
             await f.writelines(lines)
+
+    async def assign_role_to_user(self, request: AssignRoleRequest):
+        """Assign a role to a user.
+
+        Args:
+            request (AssignRoleRequest): The request object containing user ID and role information.
+        """
+        lines = [str()]
+        async with aiofiles.open(self.file_path, "r") as f:
+            async for line in f:
+                data = line.strip().split(",")
+                if data[5] == request.user_id:
+                    data[4] = request.role
+                lines.append(",".join(data) + "\n")
+
+        async with aiofiles.open(self.file_path, "w") as f:
+            await f.writelines(lines)
+
+    async def get_available_roles(self) -> list[str]:
+        """Get the list of available roles.
+        Returns:
+            list[str]: A list of available roles in the system.
+        """
+        return [role.value for role in UserRole]

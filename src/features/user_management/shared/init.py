@@ -13,6 +13,9 @@ from src.features.user_management.recovery_password.recovery_password_endpoint i
 from src.features.user_management.change_password.change_password_endpoint import (
     router as change_password_router,
 )
+from src.features.user_management.assign_role.assign_role_endpoint import (
+    router as assign_role_router,
+)
 
 router = APIRouter()
 router.include_router(create_user_router)
@@ -20,3 +23,4 @@ router.include_router(login_router)
 router.include_router(get_user_router)
 router.include_router(recovery_password_router)
 router.include_router(change_password_router)
+router.include_router(assign_role_router)

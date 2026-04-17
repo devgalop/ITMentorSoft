@@ -1,5 +1,8 @@
 from abc import ABC, abstractmethod
 
+from src.features.user_management.assign_role.assign_role_request import (
+    AssignRoleRequest,
+)
 from src.features.user_management.shared.user import User, UserResponse
 
 
@@ -74,5 +77,24 @@ class UserRepository(ABC):
         Args:
             user_id (str): The ID of the user whose password is to be changed.
             new_password_hashed (str): The new hashed password to be set for the user.
+        """
+        pass
+
+    @abstractmethod
+    async def assign_role_to_user(self, request: AssignRoleRequest):
+        """ "Assign a role to a user.
+
+        Args:
+            request (AssignRoleRequest): The request object containing user ID and role information.
+
+        """
+        pass
+
+    @abstractmethod
+    async def get_available_roles(self) -> list[str]:
+        """Get the list of available roles.
+
+        Returns:
+            list[str]: A list of available roles in the system.
         """
         pass

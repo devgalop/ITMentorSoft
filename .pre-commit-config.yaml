@@ -14,3 +14,4 @@ repos:
     hooks:
       - id: bandit
         args: ["-r", "src/"]
+        exclude: ^tests/
