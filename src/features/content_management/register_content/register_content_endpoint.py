@@ -59,7 +59,7 @@ router = APIRouter()
 async def register_content(
     request: RegisterContentRequest,
     handler: Annotated[RegisterContentHandler, Depends(get_register_content_handler)],
-    _=Annotated[TokenData, Depends(require_roles(["admin", "tutor"]))],
+    _: Annotated[TokenData, Depends(require_roles(["admin", "tutor"]))],
 ) -> RegisterContentResponse:
 
     response = await handler.handle(request)
