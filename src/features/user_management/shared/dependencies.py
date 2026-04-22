@@ -28,7 +28,14 @@ from src.features.user_management.shared.user_repository import UserRepository
 from src.infrastructure.database.file_user_recovery_token_repository import (
     FileUserRecoveryTokenRepository,
 )
-from src.infrastructure.database.file_user_repository import FileUserRepository
+from sqlalchemy.ext.asyncio import AsyncSession
+from src.infrastructure.database.sqllite.models.sqllite_user_mapper import (
+    SqlLiteUserMapper,
+)
+from src.infrastructure.database.sqllite.repository.sqllite_user_repository import (
+    SqlLiteUserRepository,
+)
+from src.infrastructure.database.sqllite.shared.sqllite_database_session import get_db
 from src.infrastructure.notification.brevo_notification_service import (
     BrevoNotificationService,
 )
@@ -37,8 +44,10 @@ from src.infrastructure.security.jwt_token_generator import JWTTokenGenerator
 from src.features.shared.notification_service import NotificationService
 
 
-def get_user_repository() -> UserRepository:
-    return FileUserRepository(file_path="db/users.csv")
+def get_user_repository(
+    session: Annotated[AsyncSession, Depends(get_db)],
+) -> UserRepository:
+    return SqlLiteUserRepository(session_factory=session, user_mapper=SqlLiteUserMapper)
 
 
 def get_user_recovery_token_repository() -> UserRecoveryTokenRepository:
