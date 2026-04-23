@@ -4,22 +4,17 @@ from sqlalchemy import String
 from src.infrastructure.database.sqllite.models.sqllite_role_model import RoleEntity
 from src.infrastructure.database.sqllite.shared.sqllite_database_session import Base
 from src.infrastructure.database.sqllite.models.sqllite_role_permission_model import (
-    user_roles,
+    role_permissions,
 )
 
 
-class UserEntity(Base):
-    __tablename__ = "users"
+class PermissionEntity(Base):
+    __tablename__ = "permissions"
 
     id: Mapped[str] = mapped_column(String, primary_key=True, index=True)
-    username: Mapped[str] = mapped_column(String, unique=True, index=True)
-    email: Mapped[str] = mapped_column(String, unique=True, index=True)
-    hashed_password: Mapped[str] = mapped_column(String)
-    status: Mapped[str] = mapped_column(String)
-    role: Mapped[str] = mapped_column(
-        String
-    )  # Se debe eliminar luego de implementar CRUD de roles
+    name: Mapped[str] = mapped_column(String, unique=True, index=True)
+    description: Mapped[str] = mapped_column(String)
 
     roles: Mapped[List["RoleEntity"]] = relationship(
-        "RoleEntity", secondary=user_roles, back_populates="users"
+        "RoleEntity", secondary=role_permissions, back_populates="permissions"
     )
