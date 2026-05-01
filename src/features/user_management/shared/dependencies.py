@@ -26,9 +26,6 @@ from src.features.user_management.shared.user_recovery_token_repository import (
     UserRecoveryTokenRepository,
 )
 from src.features.user_management.shared.user_repository import UserRepository
-from src.infrastructure.database.file_user_recovery_token_repository import (
-    FileUserRecoveryTokenRepository,
-)
 from sqlalchemy.ext.asyncio import AsyncSession
 from src.infrastructure.database.sqllite.models.sqllite_role_mapper import (
     SqlLiteRoleMapper,
@@ -36,8 +33,14 @@ from src.infrastructure.database.sqllite.models.sqllite_role_mapper import (
 from src.infrastructure.database.sqllite.models.sqllite_user_mapper import (
     SqlLiteUserMapper,
 )
+from src.infrastructure.database.sqllite.models.sqllite_user_recovery_token_mapper import (
+    SqlLiteRecoveryTokenMapper,
+)
 from src.infrastructure.database.sqllite.repository.sqllite_role_repository import (
     SqlLiteRoleRepository,
+)
+from src.infrastructure.database.sqllite.repository.sqllite_user_recovery_token_repository import (
+    SqlLiteUserRecoveryTokenRepository,
 )
 from src.infrastructure.database.sqllite.repository.sqllite_user_repository import (
     SqlLiteUserRepository,
@@ -63,8 +66,12 @@ def get_role_repository(
     return SqlLiteRoleRepository(session_factory=session, role_mapper=SqlLiteRoleMapper)
 
 
-def get_user_recovery_token_repository() -> UserRecoveryTokenRepository:
-    return FileUserRecoveryTokenRepository(file_path="db/recovery_tokens.csv")
+def get_user_recovery_token_repository(
+    session: Annotated[AsyncSession, Depends(get_db)],
+) -> UserRecoveryTokenRepository:
+    return SqlLiteUserRecoveryTokenRepository(
+        session_factory=session, mapper=SqlLiteRecoveryTokenMapper
+    )
 
 
 def get_password_hasher() -> PasswordHasher:
