@@ -11,7 +11,7 @@ class SqlLiteUserMapper:
 
     @staticmethod
     def to_entity(user_model: User) -> UserEntity:
-        """Map user domain model into user entity
+        """Map user domain model into user entity.
 
         Args:
             user_model (User): User domain model
@@ -25,37 +25,52 @@ class SqlLiteUserMapper:
             email=user_model.email,
             hashed_password=user_model.password_hashed,
             status=user_model.status.value,
-            role=user_model.role.value,
+            role_id=user_model.role_id,
         )
 
     @staticmethod
     def to_model(user_entity: UserEntity) -> User:
-        """Map user entity into user domain model
+        """Map user entity into user domain model.
+
         Args:
             user_entity (UserEntity): User entity
         Returns:
             User: User domain model
         """
-        return User(
+        role_value: str = (
+            user_entity.role.name
+            if user_entity.role is not None
+            else UserRole.USER.value
+        )
+        user = User(
             username=user_entity.username,
             email=user_entity.email,
             password_hashed=user_entity.hashed_password,
             status=UserStatus(user_entity.status),
-            role=UserRole(user_entity.role),
+            role=UserRole(role_value),
         )
+        if user_entity.role_id:
+            user.set_role_id(user_entity.role_id)
+        return user
 
     @staticmethod
     def to_response(user_entity: UserEntity) -> UserResponse:
-        """Map user entity into user response
+        """Map user entity into user response.
+
         Args:
             user_entity (UserEntity): User entity
         Returns:
             UserResponse: User response
         """
+        role_value: str = (
+            user_entity.role.name
+            if user_entity.role is not None
+            else UserRole.USER.value
+        )
         return UserResponse(
             id=user_entity.id,
             username=user_entity.username,
             email=user_entity.email,
             status=UserStatus(user_entity.status),
-            role=UserRole(user_entity.role),
+            role=UserRole(role_value),
         )

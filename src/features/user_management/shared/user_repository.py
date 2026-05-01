@@ -1,7 +1,7 @@
 from abc import ABC, abstractmethod
 
 from src.features.user_management.assign_role.assign_role_request import (
-    AssignRoleRequest,
+    AssignRoleToUserCommand,
 )
 from src.features.user_management.shared.user import User, UserResponse
 
@@ -81,11 +81,11 @@ class UserRepository(ABC):
         pass
 
     @abstractmethod
-    async def assign_role_to_user(self, request: AssignRoleRequest):
+    async def assign_role_to_user(self, request: AssignRoleToUserCommand):
         """ "Assign a role to a user.
 
         Args:
-            request (AssignRoleRequest): The request object containing user ID and role information.
+            request (AssignRoleToUserCommand): The request object containing user ID and role information.
 
         """
         pass

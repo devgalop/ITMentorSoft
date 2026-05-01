@@ -1,15 +1,20 @@
 from src.features.user_management.assign_role.assign_role_request import (
     AssignRoleRequest,
+    AssignRoleToUserCommand,
 )
 from src.features.user_management.assign_role.assign_role_response import (
     AssignRoleResponse,
 )
+from src.features.user_management.shared.role_repository import RoleRepository
 from src.features.user_management.shared.user_repository import UserRepository
 
 
 class AssignRoleHandler:
-    def __init__(self, user_repository: UserRepository):
+    def __init__(
+        self, user_repository: UserRepository, role_repository: RoleRepository
+    ):
         self.user_repository = user_repository
+        self.role_repository = role_repository
 
     async def handle(self, request: AssignRoleRequest) -> AssignRoleResponse:
         """Handle the role assignment request.
@@ -21,12 +26,18 @@ class AssignRoleHandler:
             AssignRoleResponse: The response object containing the result of the role assignment.
         """
         try:
-            available_roles = await self.user_repository.get_available_roles()
-            if request.role not in available_roles:
+            available_roles = await self.role_repository.get_available_roles()
+            if request.role not in [role.name for role in available_roles]:
                 return AssignRoleResponse(
                     is_success=False, message="Invalid role specified."
                 )
-            await self.user_repository.assign_role_to_user(request)
+            role_selected = available_roles[
+                [role.name for role in available_roles].index(request.role)
+            ]
+            assign_role_command = AssignRoleToUserCommand(
+                user_id=request.user_id, role_id=role_selected.role_id
+            )
+            await self.user_repository.assign_role_to_user(assign_role_command)
             return AssignRoleResponse(
                 is_success=True, message="Role assigned successfully."
             )
