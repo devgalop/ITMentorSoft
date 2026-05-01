@@ -1,11 +1,6 @@
-from typing import List
-from sqlalchemy.orm import Mapped, mapped_column, relationship
+from sqlalchemy.orm import Mapped, mapped_column
 from sqlalchemy import String
-from src.infrastructure.database.sqllite.models.sqllite_role_model import RoleEntity
 from src.infrastructure.database.sqllite.shared.sqllite_database_session import Base
-from src.infrastructure.database.sqllite.models.sqllite_role_permission_model import (
-    user_roles,
-)
 
 
 class UserEntity(Base):
@@ -19,7 +14,3 @@ class UserEntity(Base):
     role: Mapped[str] = mapped_column(
         String
     )  # Se debe eliminar luego de implementar CRUD de roles
-
-    roles: Mapped[List["RoleEntity"]] = relationship(
-        "RoleEntity", secondary=user_roles, back_populates="users"
-    )

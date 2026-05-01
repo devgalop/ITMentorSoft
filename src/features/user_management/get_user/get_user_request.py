@@ -13,8 +13,8 @@ class GetUserRequest(BaseModel):
             raise ValueError("Username is required")
         if len(value) < 3:
             raise ValueError("Username must be at least 3 characters long")
-        if len(value) > 20:
-            raise ValueError("Username must be no more than 20 characters long")
+        if len(value) > 100:
+            raise ValueError("Username must be no more than 100 characters long")
         if not re.match(USERNAME_PATTERN, value):
             raise ValueError(
                 "Username must be alphanumeric and can include underscores"

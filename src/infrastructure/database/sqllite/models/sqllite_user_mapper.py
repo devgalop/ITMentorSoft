@@ -21,10 +21,11 @@ class SqlLiteUserMapper:
         """
         return UserEntity(
             id=user_model.id,
+            username=user_model.username,
             email=user_model.email,
             hashed_password=user_model.password_hashed,
-            status=user_model.status,
-            role=user_model.role,
+            status=user_model.status.value,
+            role=user_model.role.value,
         )
 
     @staticmethod
