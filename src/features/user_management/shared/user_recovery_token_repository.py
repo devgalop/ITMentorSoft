@@ -63,15 +63,6 @@ class UserRecoveryTokenRepository(ABC):
         pass
 
     @abstractmethod
-    async def revoke_token(self, token: str):
-        """Revoke a recovery token from the repository.
-
-        Args:
-            token (str): The recovery token to be revoked.
-        """
-        pass
-
-    @abstractmethod
     async def revoke_tokens_by_user_id(self, user_id: str):
         """Revoke all recovery tokens associated with a given user ID.
 
