@@ -52,6 +52,7 @@ class User:
         self.password_hashed = password_hashed
         self.status = status
         self.role = role
+        self.role_id = ""
 
     def is_active(self) -> bool:
         """Validate if the user is active
@@ -76,6 +77,14 @@ class User:
     def suspend(self):
         """Suspend the user"""
         self.status = UserStatus.SUSPENDED
+
+    def set_role_id(self, role_id: str):
+        """Set the role id for the user
+
+        Args:
+            role_id (str): The role id to set for the user.
+        """
+        self.role_id = role_id
 
 
 class UserResponse:

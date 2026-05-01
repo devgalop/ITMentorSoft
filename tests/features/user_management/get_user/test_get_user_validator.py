@@ -19,9 +19,9 @@ def test_when_user_id_is_too_short_then_exception_is_raised():
 
 def test_when_user_id_is_too_long_then_exception_is_raised():
     with pytest.raises(
-        ValueError, match="Username must be no more than 20 characters long"
+        ValueError, match="Username must be no more than 100 characters long"
     ):
-        GetUserRequest(user_id="a" * 21)
+        GetUserRequest(user_id="a" * 101)
 
 
 def test_when_user_id_contains_invalid_characters_then_exception_is_raised():

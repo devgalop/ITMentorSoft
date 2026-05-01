@@ -22,6 +22,11 @@ BREVO_BASE_API_URL=brevo_base_api       # Reemplaza con la URL base de la API de
 EMAIL_RECOVERY_SENDER=your_email_here   # Reemplaza con el correo electrónico que deseas usar como remitente para los correos de recuperación de contraseña
 RECOVERY_URL_BASE=your_recovery_url_base_here # Reemplaza con la URL base que se usará en los correos de recuperación de contraseña (por ejemplo, http://localhost:8000/reset-password)
 
+DATABASE_URL=sqlite+aiosqlite:///./test.db # Reemplaza con la URL de conexión a tu base de datos. En este caso, se está utilizando SQLite con el driver aiosqlite para soporte asíncrono. Si deseas usar otra base de datos (como PostgreSQL, MySQL, etc.), asegúrate de instalar el driver correspondiente y ajustar la URL de conexión en consecuencia.
+DATABASE_ADMIN_USERNAME=admin_username_here # Reemplaza con el nombre de usuario del administrador para la base de datos
+DATABASE_ADMIN_PASSWORD=admin_password_here # Reemplaza con la contraseña del administrador para la base de datos
+DATABASE_ADMIN_EMAIL=admin_email_here # Reemplaza con el correo electrónico del administrador para la base de datos
+
 ```
 
 **IMPORTANTE**: Recuerda nunca compartir el archivo `.env` ni las claves secretas que contiene, especialmente en repositorios públicos. Asegúrate de agregar el archivo `.env` al archivo `.gitignore` para evitar que se suba al repositorio.

@@ -20,15 +20,32 @@ from src.features.user_management.recovery_password.recovery_password_handler im
     RecoveryPasswordHandler,
 )
 from src.features.user_management.shared.password_hasher import PasswordHasher
+from src.features.user_management.shared.role_repository import RoleRepository
 from src.features.user_management.shared.token_generator import TokenGenerator
 from src.features.user_management.shared.user_recovery_token_repository import (
     UserRecoveryTokenRepository,
 )
 from src.features.user_management.shared.user_repository import UserRepository
-from src.infrastructure.database.file_user_recovery_token_repository import (
-    FileUserRecoveryTokenRepository,
+from sqlalchemy.ext.asyncio import AsyncSession
+from src.infrastructure.database.sqllite.models.sqllite_role_mapper import (
+    SqlLiteRoleMapper,
 )
-from src.infrastructure.database.file_user_repository import FileUserRepository
+from src.infrastructure.database.sqllite.models.sqllite_user_mapper import (
+    SqlLiteUserMapper,
+)
+from src.infrastructure.database.sqllite.models.sqllite_user_recovery_token_mapper import (
+    SqlLiteRecoveryTokenMapper,
+)
+from src.infrastructure.database.sqllite.repository.sqllite_role_repository import (
+    SqlLiteRoleRepository,
+)
+from src.infrastructure.database.sqllite.repository.sqllite_user_recovery_token_repository import (
+    SqlLiteUserRecoveryTokenRepository,
+)
+from src.infrastructure.database.sqllite.repository.sqllite_user_repository import (
+    SqlLiteUserRepository,
+)
+from src.infrastructure.database.sqllite.shared.sqllite_database_session import get_db
 from src.infrastructure.notification.brevo_notification_service import (
     BrevoNotificationService,
 )
@@ -37,12 +54,24 @@ from src.infrastructure.security.jwt_token_generator import JWTTokenGenerator
 from src.features.shared.notification_service import NotificationService
 
 
-def get_user_repository() -> UserRepository:
-    return FileUserRepository(file_path="db/users.csv")
+def get_user_repository(
+    session: Annotated[AsyncSession, Depends(get_db)],
+) -> UserRepository:
+    return SqlLiteUserRepository(session_factory=session, user_mapper=SqlLiteUserMapper)
 
 
-def get_user_recovery_token_repository() -> UserRecoveryTokenRepository:
-    return FileUserRecoveryTokenRepository(file_path="db/recovery_tokens.csv")
+def get_role_repository(
+    session: Annotated[AsyncSession, Depends(get_db)],
+) -> RoleRepository:
+    return SqlLiteRoleRepository(session_factory=session, role_mapper=SqlLiteRoleMapper)
+
+
+def get_user_recovery_token_repository(
+    session: Annotated[AsyncSession, Depends(get_db)],
+) -> UserRecoveryTokenRepository:
+    return SqlLiteUserRecoveryTokenRepository(
+        session_factory=session, mapper=SqlLiteRecoveryTokenMapper
+    )
 
 
 def get_password_hasher() -> PasswordHasher:
@@ -56,8 +85,9 @@ def get_token_generator() -> TokenGenerator:
 def get_create_user_handler(
     user_repository: Annotated[UserRepository, Depends(get_user_repository)],
     password_hasher: Annotated[PasswordHasher, Depends(get_password_hasher)],
+    role_repository: Annotated[RoleRepository, Depends(get_role_repository)],
 ) -> CreateUserHandler:
-    return CreateUserHandler(user_repository, password_hasher)
+    return CreateUserHandler(user_repository, password_hasher, role_repository)
 
 
 def get_login_handler(
@@ -112,11 +142,12 @@ def get_change_password_handler(
 
 def get_assign_role_handler(
     user_repository: Annotated[UserRepository, Depends(get_user_repository)],
+    role_repository: Annotated[RoleRepository, Depends(get_role_repository)],
 ) -> AssignRoleHandler:
-    return AssignRoleHandler(user_repository)
+    return AssignRoleHandler(user_repository, role_repository)
 
 
 def get_get_available_roles_handler(
-    user_repository: Annotated[UserRepository, Depends(get_user_repository)],
+    role_repository: Annotated[RoleRepository, Depends(get_role_repository)],
 ) -> GetAvailableRolesHandler:
-    return GetAvailableRolesHandler(user_repository)
+    return GetAvailableRolesHandler(role_repository)
