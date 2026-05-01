@@ -1,5 +1,8 @@
 from abc import ABC, abstractmethod
 
+from src.features.content_management.rate_content.rate_content_request import (
+    RateContent,
+)
 from src.features.content_management.shared.content import (
     ResourceContent,
     ResourceContentResponse,
@@ -75,5 +78,13 @@ class ResourceContentRepository(ABC):
             topic (str): The related topic of the educational resource contents to be retrieved
         Returns:
             list[ResourceContentResponse]: A list of educational resource contents with the specified category and related topic
+        """
+        pass
+
+    @abstractmethod
+    async def rate_resource_content(self, request: RateContent):
+        """Rate educational resource content
+        Args:
+            request (RateContent): The request containing the content ID, user ID, rating, and optional comment for rating the educational resource content
         """
         pass

@@ -55,6 +55,14 @@ class ResourceContent:
         self.category = ContentCategory.NOVICE
         self.related_topics: list[str] = []
 
+    def add_content_id(self, content_id: str):
+        """Add a content ID to the content
+
+        Args:
+            content_id (str): The content ID to add.
+        """
+        self.content_id = content_id
+
     def add_title(self, title: str):
         """Add a title to the content
 
@@ -101,6 +109,15 @@ class ResourceContentBuilder:
 
     def __init__(self):
         self.content = ResourceContent()
+
+    def set_content_id(self, content_id: str) -> "ResourceContentBuilder":
+        """Set the content ID of the content
+
+        Args:
+            content_id (str): The content ID to set.
+        """
+        self.content.add_content_id(content_id)
+        return self
 
     def set_title(self, title: str) -> "ResourceContentBuilder":
         """Set the title of the content
