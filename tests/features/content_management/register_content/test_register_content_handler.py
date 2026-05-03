@@ -170,3 +170,28 @@ async def test_register_content_when_request_is_valid_should_return_content_id()
         "Test Content"
     )
     content_repository.save.assert_called_once()
+
+
+@pytest.mark.asyncio
+async def test_register_content_when_category_is_empty_string_then_defaults_to_novice():
+    content_repository = AsyncMock()
+    content_repository.get_resource_contents_by_title = AsyncMock(return_value=[])
+    content_repository.save = AsyncMock()
+
+    handler = RegisterContentHandler(content_repository, ResourceContentBuilder)
+
+    request = RegisterContentRequest(
+        title="Test Content",
+        description="This is a test content.",
+        url="https://example.com/test-content",
+        category="novice",
+        related_topic=[],
+    )
+    request.category = ""  # force empty to trigger default branch
+
+    response = await handler.handle(request)
+
+    assert response.is_success
+    call_args = content_repository.save.call_args
+    saved_content = call_args[0][0]
+    assert saved_content.category == ContentCategory.NOVICE

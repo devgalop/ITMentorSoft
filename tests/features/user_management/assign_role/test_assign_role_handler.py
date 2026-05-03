@@ -56,3 +56,20 @@ async def test_when_role_is_invalid_then_should_respond_with_error():
     assert response.message == "Invalid role specified."
     role_repository.get_available_roles.assert_called_once()
     user_repository.assign_role_to_user.assert_not_called()
+
+
+@pytest.mark.asyncio
+async def test_when_repository_raises_exception_then_should_return_failure():
+    role_repository = AsyncMock()
+    role_repository.get_available_roles = AsyncMock(
+        side_effect=Exception("Database connection failed")
+    )
+    user_repository = AsyncMock()
+    handler = AssignRoleHandler(user_repository, role_repository)
+
+    request = AssignRoleRequest(user_id="user123", role="admin")
+    response = await handler.handle(request)
+
+    assert not response.is_success
+    assert "Database connection failed" in response.message
+    user_repository.assign_role_to_user.assert_not_called()
