@@ -4,6 +4,7 @@ from src.features.content_management.rate_content.rate_content_request import (
     RateContent,
 )
 from src.features.content_management.shared.content import (
+    PaginatedResourceContentResult,
     ResourceContent,
     ResourceContentResponse,
 )
@@ -86,5 +87,18 @@ class ResourceContentRepository(ABC):
         """Rate educational resource content
         Args:
             request (RateContent): The request containing the content ID, user ID, rating, and optional comment for rating the educational resource content
+        """
+        pass
+
+    @abstractmethod
+    async def get_all_resource_contents(
+        self, page: int, page_size: int
+    ) -> PaginatedResourceContentResult:
+        """Get all educational resource contents with pagination
+        Args:
+            page (int): The zero-based page index.
+            page_size (int): The number of items per page.
+        Returns:
+            PaginatedResourceContentResult: The paginated result containing the items for the requested page and the total count of all records.
         """
         pass

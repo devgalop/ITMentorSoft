@@ -2,6 +2,9 @@ from typing import Annotated
 from fastapi import Depends
 from sqlalchemy.ext.asyncio import AsyncSession
 
+from src.features.content_management.get_all_contents.get_all_contents_handler import (
+    GetAllContentsHandler,
+)
 from src.features.content_management.rate_content.rate_content_handler import (
     RateContentHandler,
 )
@@ -46,3 +49,11 @@ def get_rate_content_handler(
     ],
 ) -> RateContentHandler:
     return RateContentHandler(content_repository)
+
+
+def get_all_contents_handler(
+    content_repository: Annotated[
+        ResourceContentRepository, Depends(get_resource_content_repository)
+    ],
+) -> GetAllContentsHandler:
+    return GetAllContentsHandler(content_repository)

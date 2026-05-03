@@ -1,10 +1,11 @@
 from typing import Type
-from sqlalchemy import select
+from sqlalchemy import func, select
 from sqlalchemy.ext.asyncio import AsyncSession
 from src.features.content_management.rate_content.rate_content_request import (
     RateContent,
 )
 from src.features.content_management.shared.content import (
+    PaginatedResourceContentResult,
     ResourceContent,
     ResourceContentResponse,
 )
@@ -97,3 +98,18 @@ class SqlLiteResourceContentRepository(ResourceContentRepository):
         entity = self.rating_mapper.to_entity(request)
         self.session_factory.add(entity)
         await self.session_factory.commit()
+
+    async def get_all_resource_contents(
+        self, page: int, page_size: int
+    ) -> PaginatedResourceContentResult:
+        count_smt = select(func.count()).select_from(ResourceContentEntity)
+        total_result = await self.session_factory.execute(count_smt)
+        total = total_result.scalar()
+        if not total:
+            return PaginatedResourceContentResult(items=[], total=0)
+        smt = select(ResourceContentEntity).offset(page * page_size).limit(page_size)
+        result = await self.session_factory.execute(smt)
+        result_items = result.scalars().all()
+        items = [self.mapper.to_model(item) for item in result_items]
+
+        return PaginatedResourceContentResult(items=items, total=total)
