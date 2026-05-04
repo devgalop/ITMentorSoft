@@ -37,9 +37,9 @@ async def test_when_user_not_found_should_return_unsuccessful():
     )
 
     assert not response.is_successful
-    assert response.access_token == ""
-    assert response.refresh_token == ""
-    assert response.expiration_time == 0
+    assert response.access_token is None
+    assert response.refresh_token is None
+    assert response.expiration_time is None
     user_repository.get_user_by_username.assert_called_once_with("testuser")
     refresh_token_repository.get_active_token.assert_not_called()
 
@@ -71,9 +71,9 @@ async def test_when_no_active_token_should_return_unsuccessful():
     )
 
     assert not response.is_successful
-    assert response.access_token == ""
-    assert response.refresh_token == ""
-    assert response.expiration_time == 0
+    assert response.access_token is None
+    assert response.refresh_token is None
+    assert response.expiration_time is None
     refresh_token_repository.get_active_token.assert_called_once_with("user_id")
 
 
@@ -152,9 +152,9 @@ async def test_when_token_is_expired_should_revoke_and_return_unsuccessful():
         )
 
     assert not response.is_successful
-    assert response.access_token == ""
-    assert response.refresh_token == ""
-    assert response.expiration_time == 0
+    assert response.access_token is None
+    assert response.refresh_token is None
+    assert response.expiration_time is None
     refresh_token_repository.revoke_tokens_by_user_id.assert_called_once_with("user_id")
     password_hasher.verify_password.assert_not_called()
     token_generator.generate_token.assert_not_called()
@@ -200,9 +200,9 @@ async def test_when_token_is_invalid_should_return_unsuccessful():
         )
 
     assert not response.is_successful
-    assert response.access_token == ""
-    assert response.refresh_token == ""
-    assert response.expiration_time == 0
+    assert response.access_token is None
+    assert response.refresh_token is None
+    assert response.expiration_time is None
     password_hasher.verify_password.assert_called_once_with(
         "wrong-token", "hashed_token"
     )
