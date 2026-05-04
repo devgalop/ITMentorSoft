@@ -1,4 +1,4 @@
-from fastapi import APIRouter, Depends, HTTPException
+from fastapi import APIRouter, Depends, HTTPException, Response
 from typing import Annotated
 
 from src.features.user_management.login.login_handler import LoginHandler
@@ -44,7 +44,9 @@ router = APIRouter()
     },
 )
 async def login(
-    request: LoginRequest, handler: Annotated[LoginHandler, Depends(get_login_handler)]
+    request: LoginRequest,
+    handler: Annotated[LoginHandler, Depends(get_login_handler)],
+    response_http: Response,
 ):
     """Endpoint for user login.
 
@@ -57,4 +59,10 @@ async def login(
     response = await handler.handle(request)
     if not response.is_successful:
         raise HTTPException(status_code=401, detail=response.model_dump())
+    response_http.set_cookie(
+        key="refresh_token", value=response.refresh_token, httponly=True, secure=True
+    )
+    response_http.set_cookie(
+        key="access_token", value=response.token, httponly=True, secure=True
+    )
     return response

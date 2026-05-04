@@ -77,3 +77,49 @@ def test_when_new_password_has_no_special_char_then_validation_error():
         ValueError, match="Password must contain at least one special character"
     ):
         ChangePasswordRequest(new_password=new_pass)
+
+
+def test_when_token_is_too_short_then_validation_error():
+    new_pass = "NewSecPass123!"
+    with pytest.raises(ValueError, match="Token must be at least 5 characters long"):
+        ChangePasswordRequestWithToken(
+            token="ab",  # len 2 < 5
+            id_trx="valid_id_trx",
+            new_password=new_pass,
+        )
+
+
+def test_when_token_is_too_long_then_validation_error():
+    new_pass = "NewSecPass123!"
+    with pytest.raises(
+        ValueError, match="Token must be no more than 255 characters long"
+    ):
+        ChangePasswordRequestWithToken(
+            token="a" * 256,  # len 256 > 255
+            id_trx="valid_id_trx",
+            new_password=new_pass,
+        )
+
+
+def test_when_id_trx_is_too_short_then_validation_error():
+    new_pass = "NewSecPass123!"
+    with pytest.raises(
+        ValueError, match="Transaction ID must be at least 5 characters long"
+    ):
+        ChangePasswordRequestWithToken(
+            token="valid_token",
+            id_trx="ab",  # len 2 < 5
+            new_password=new_pass,
+        )
+
+
+def test_when_id_trx_is_too_long_then_validation_error():
+    new_pass = "NewSecPass123!"
+    with pytest.raises(
+        ValueError, match="Transaction ID must be no more than 255 characters long"
+    ):
+        ChangePasswordRequestWithToken(
+            token="valid_token",
+            id_trx="a" * 256,  # len 256 > 255
+            new_password=new_pass,
+        )

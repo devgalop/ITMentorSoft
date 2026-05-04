@@ -1,5 +1,6 @@
 from enum import Enum
 import uuid
+from pydantic import BaseModel
 
 
 class ContentCategory(Enum):
@@ -15,7 +16,7 @@ class ContentCategory(Enum):
     PROFICIENT = "proficient"
 
 
-class ResourceContentResponse:
+class ResourceContentResponse(BaseModel):
     """Represents a response for educational resource content
 
     Args:
@@ -27,21 +28,12 @@ class ResourceContentResponse:
         related_topics (list[str]): The related topics of the content.
     """
 
-    def __init__(
-        self,
-        content_id: str,
-        title: str,
-        summary: str,
-        url: str,
-        category: ContentCategory,
-        related_topics: list[str],
-    ):
-        self.content_id = content_id
-        self.title = title
-        self.summary = summary
-        self.url = url
-        self.category = category
-        self.related_topics = related_topics
+    content_id: str
+    title: str
+    summary: str
+    url: str
+    category: ContentCategory
+    related_topics: list[str]
 
 
 class ResourceContent:
@@ -54,6 +46,14 @@ class ResourceContent:
         self.url = ""
         self.category = ContentCategory.NOVICE
         self.related_topics: list[str] = []
+
+    def add_content_id(self, content_id: str):
+        """Add a content ID to the content
+
+        Args:
+            content_id (str): The content ID to add.
+        """
+        self.content_id = content_id
 
     def add_title(self, title: str):
         """Add a title to the content
@@ -96,11 +96,33 @@ class ResourceContent:
         self.related_topics.append(topic)
 
 
+class PaginatedResourceContentResult:
+    """Represents a paginated result of educational resource contents
+
+    Args:
+        items (list[ResourceContentResponse]): The list of educational resource contents for the current page.
+        total (int): The total number of educational resource contents across all pages.
+    """
+
+    def __init__(self, items: list[ResourceContentResponse], total: int):
+        self.items = items
+        self.total = total
+
+
 class ResourceContentBuilder:
     """This class provide a builder for ResourceContent class"""
 
     def __init__(self):
         self.content = ResourceContent()
+
+    def set_content_id(self, content_id: str) -> "ResourceContentBuilder":
+        """Set the content ID of the content
+
+        Args:
+            content_id (str): The content ID to set.
+        """
+        self.content.add_content_id(content_id)
+        return self
 
     def set_title(self, title: str) -> "ResourceContentBuilder":
         """Set the title of the content

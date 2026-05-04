@@ -19,6 +19,9 @@ from src.features.user_management.assign_role.assign_role_endpoint import (
 from src.features.user_management.get_available_roles.get_available_roles_endpoint import (
     router as get_available_roles_router,
 )
+from src.features.user_management.refresh_token.refresh_token_endpoint import (
+    router as refresh_token_router,
+)
 
 router = APIRouter()
 router.include_router(create_user_router)
@@ -28,3 +31,4 @@ router.include_router(get_user_router)
 router.include_router(recovery_password_router)
 router.include_router(change_password_router)
 router.include_router(assign_role_router)
+router.include_router(refresh_token_router)

@@ -1,4 +1,5 @@
 from src.features.user_management.shared.user import (
+    CompleteUserResponse,
     User,
     UserRole,
     UserStatus,
@@ -71,6 +72,29 @@ class SqlLiteUserMapper:
             id=user_entity.id,
             username=user_entity.username,
             email=user_entity.email,
+            status=UserStatus(user_entity.status),
+            role=UserRole(role_value),
+        )
+
+    @staticmethod
+    def to_complete_response(user_entity: UserEntity) -> CompleteUserResponse:
+        """Map user entity into complete user response.
+
+        Args:
+            user_entity (UserEntity): User entity
+        Returns:
+            CompleteUserResponse: Complete user response
+        """
+        role_value: str = (
+            user_entity.role.name
+            if user_entity.role is not None
+            else UserRole.USER.value
+        )
+        return CompleteUserResponse(
+            id=user_entity.id,
+            username=user_entity.username,
+            email=user_entity.email,
+            password_hashed=user_entity.hashed_password,
             status=UserStatus(user_entity.status),
             role=UserRole(role_value),
         )

@@ -50,15 +50,14 @@ class JWTTokenGenerator(TokenGenerator):
             expiration_time=expiration_time.timestamp(),
         )
 
-    def validate_token(self, token: str) -> TokenData:
+    def validate_token(self, token: str, verify_exp: bool = True) -> TokenData:
         try:
             payload = jwt.decode(
-                token, JWT_SECRET_KEY, algorithms=JWT_ALGORITHM
+                token,
+                JWT_SECRET_KEY,
+                algorithms=JWT_ALGORITHM,
+                options={"verify_exp": verify_exp},
             )  # pyright: ignore[reportUnknownMemberType]
-            if datetime.fromtimestamp(payload["exp"], tz=timezone.utc) < datetime.now(
-                tz=timezone.utc
-            ):
-                raise jwt.ExpiredSignatureError("Expired token")
             return TokenData(user_name=payload["user_name"], role=payload["role"])
         except jwt.PyJWTError as e:
             raise InvalidTokenError(str(e)) from e

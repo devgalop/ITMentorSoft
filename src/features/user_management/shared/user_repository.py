@@ -3,7 +3,11 @@ from abc import ABC, abstractmethod
 from src.features.user_management.assign_role.assign_role_request import (
     AssignRoleToUserCommand,
 )
-from src.features.user_management.shared.user import User, UserResponse
+from src.features.user_management.shared.user import (
+    CompleteUserResponse,
+    User,
+    UserResponse,
+)
 
 
 class UserRepository(ABC):
@@ -14,26 +18,26 @@ class UserRepository(ABC):
     """
 
     @abstractmethod
-    async def get_user_by_username(self, username: str) -> User | None:
+    async def get_user_by_username(self, username: str) -> CompleteUserResponse | None:
         """Search user by username field.
 
         Args:
             username (str): The username of the user to search for.
 
         Returns:
-            User: The user object if found, otherwise None.
+            CompleteUserResponse: The complete user response object if found, otherwise None.
         """
         pass
 
     @abstractmethod
-    async def get_user_by_email(self, email: str) -> User | None:
+    async def get_user_by_email(self, email: str) -> CompleteUserResponse | None:
         """Search user by email.
 
         Args:
             email (str): The email of the user to search for.
 
         Returns:
-            User: The user object if found, otherwise None.
+            CompleteUserResponse: The complete user response object if found, otherwise None.
         """
         pass
 
