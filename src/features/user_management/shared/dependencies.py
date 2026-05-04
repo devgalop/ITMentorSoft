@@ -26,6 +26,12 @@ from src.features.user_management.shared.user_recovery_token_repository import (
     UserRecoveryTokenRepository,
 )
 from src.features.user_management.shared.user_repository import UserRepository
+from src.features.user_management.shared.refresh_token_repository import (
+    RefreshTokenRepository,
+)
+from src.features.user_management.refresh_token.refresh_token_handler import (
+    RefreshTokenHandler,
+)
 from sqlalchemy.ext.asyncio import AsyncSession
 from src.infrastructure.database.sqllite.models.sqllite_role_mapper import (
     SqlLiteRoleMapper,
@@ -36,6 +42,9 @@ from src.infrastructure.database.sqllite.models.sqllite_user_mapper import (
 from src.infrastructure.database.sqllite.models.sqllite_user_recovery_token_mapper import (
     SqlLiteRecoveryTokenMapper,
 )
+from src.infrastructure.database.sqllite.models.sqllite_user_refresh_token_mapper import (
+    SqlLiteRefreshTokenMapper,
+)
 from src.infrastructure.database.sqllite.repository.sqllite_role_repository import (
     SqlLiteRoleRepository,
 )
@@ -44,6 +53,9 @@ from src.infrastructure.database.sqllite.repository.sqllite_user_recovery_token_
 )
 from src.infrastructure.database.sqllite.repository.sqllite_user_repository import (
     SqlLiteUserRepository,
+)
+from src.infrastructure.database.sqllite.repository.sqllite_user_refresh_token_repository import (
+    SqlLiteUserRefreshTokenRepository,
 )
 from src.infrastructure.database.sqllite.shared.sqllite_database_session import get_db
 from src.infrastructure.notification.brevo_notification_service import (
@@ -82,6 +94,14 @@ def get_token_generator() -> TokenGenerator:
     return JWTTokenGenerator()
 
 
+def get_refresh_token_repository(
+    session: Annotated[AsyncSession, Depends(get_db)],
+) -> RefreshTokenRepository:
+    return SqlLiteUserRefreshTokenRepository(
+        session_factory=session, mapper=SqlLiteRefreshTokenMapper
+    )
+
+
 def get_create_user_handler(
     user_repository: Annotated[UserRepository, Depends(get_user_repository)],
     password_hasher: Annotated[PasswordHasher, Depends(get_password_hasher)],
@@ -94,8 +114,13 @@ def get_login_handler(
     user_repository: Annotated[UserRepository, Depends(get_user_repository)],
     password_hasher: Annotated[PasswordHasher, Depends(get_password_hasher)],
     token_generator: Annotated[TokenGenerator, Depends(get_token_generator)],
+    refresh_token_repository: Annotated[
+        RefreshTokenRepository, Depends(get_refresh_token_repository)
+    ],
 ) -> LoginHandler:
-    return LoginHandler(user_repository, password_hasher, token_generator)
+    return LoginHandler(
+        user_repository, password_hasher, token_generator, refresh_token_repository
+    )
 
 
 def get_get_user_handler(
@@ -151,3 +176,16 @@ def get_get_available_roles_handler(
     role_repository: Annotated[RoleRepository, Depends(get_role_repository)],
 ) -> GetAvailableRolesHandler:
     return GetAvailableRolesHandler(role_repository)
+
+
+def get_refresh_token_handler(
+    user_repository: Annotated[UserRepository, Depends(get_user_repository)],
+    refresh_token_repository: Annotated[
+        RefreshTokenRepository, Depends(get_refresh_token_repository)
+    ],
+    password_hasher: Annotated[PasswordHasher, Depends(get_password_hasher)],
+    token_generator: Annotated[TokenGenerator, Depends(get_token_generator)],
+) -> RefreshTokenHandler:
+    return RefreshTokenHandler(
+        user_repository, refresh_token_repository, password_hasher, token_generator
+    )

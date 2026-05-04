@@ -5,3 +5,4 @@ class LoginResponse(BaseModel):
     is_successful: bool
     token: str
     expiration_time: float
+    refresh_token: str = ""

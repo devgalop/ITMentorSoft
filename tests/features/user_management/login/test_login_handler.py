@@ -4,7 +4,11 @@ import pytest
 from src.features.user_management.login.login_handler import LoginHandler
 from src.features.user_management.login.login_request import LoginRequest
 from src.features.user_management.shared.token_generator import TokenResponse
-from src.features.user_management.shared.user import User, UserRole, UserStatus
+from src.features.user_management.shared.user import (
+    CompleteUserResponse,
+    UserRole,
+    UserStatus,
+)
 
 
 @pytest.mark.asyncio
@@ -12,9 +16,11 @@ async def test_when_credentials_are_valid_should_login_user():
     user_repository = AsyncMock()
     password_hasher = Mock()
     token_generator = Mock()
+    refresh_token_repository = AsyncMock()
 
     user_repository.get_user_by_email = AsyncMock(
-        return_value=User(
+        return_value=CompleteUserResponse(
+            id="user_id",
             username="testuser",
             email="test@example.com",
             password_hashed="hashed_password",
@@ -26,8 +32,15 @@ async def test_when_credentials_are_valid_should_login_user():
     token_generator.generate_token = Mock(
         return_value=TokenResponse(token="jwt_token", expiration_time=3600)
     )
+    token_generator.generate_random_token = Mock(
+        return_value=TokenResponse(token="refresh_raw", expiration_time=9999)
+    )
+    password_hasher.hash_password = Mock(return_value="hashed_refresh")
+    refresh_token_repository.save_token = AsyncMock()
 
-    handler = LoginHandler(user_repository, password_hasher, token_generator)
+    handler = LoginHandler(
+        user_repository, password_hasher, token_generator, refresh_token_repository
+    )
     sample_pass = "Password123!"
     response = await handler.handle(
         LoginRequest(email="test@example.com", password=sample_pass)
@@ -46,10 +59,13 @@ async def test_when_email_does_not_exist_should_return_empty_response():
     user_repository = AsyncMock()
     password_hasher = Mock()
     token_generator = Mock()
+    refresh_token_repository = AsyncMock()
 
     user_repository.get_user_by_email = AsyncMock(return_value=None)
 
-    handler = LoginHandler(user_repository, password_hasher, token_generator)
+    handler = LoginHandler(
+        user_repository, password_hasher, token_generator, refresh_token_repository
+    )
     response = await handler.handle(
         LoginRequest(email="invalid@example.com", password="Password123!")
     )
@@ -67,9 +83,11 @@ async def test_when_password_is_incorrect_should_return_empty_response():
     user_repository = AsyncMock()
     password_hasher = Mock()
     token_generator = Mock()
+    refresh_token_repository = AsyncMock()
 
     user_repository.get_user_by_email = AsyncMock(
-        return_value=User(
+        return_value=CompleteUserResponse(
+            id="user_id",
             username="testuser",
             email="test@example.com",
             password_hashed="hashed_password",
@@ -79,7 +97,9 @@ async def test_when_password_is_incorrect_should_return_empty_response():
     )
     password_hasher.verify_password = Mock(return_value=False)
 
-    handler = LoginHandler(user_repository, password_hasher, token_generator)
+    handler = LoginHandler(
+        user_repository, password_hasher, token_generator, refresh_token_repository
+    )
     response = await handler.handle(
         LoginRequest(email="test@example.com", password="IncorrectPassword12!")
     )

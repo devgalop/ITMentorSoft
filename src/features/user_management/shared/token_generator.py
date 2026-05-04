@@ -63,11 +63,12 @@ class TokenGenerator(ABC):
         pass
 
     @abstractmethod
-    def validate_token(self, token: str) -> TokenData:
+    def validate_token(self, token: str, verify_exp: bool = True) -> TokenData:
         """Validate the provided token and extract user information.
 
         Args:
             token (str): The token to be validated.
+            verify_exp (bool): Whether to verify the token's expiration. Defaults to True.
         Returns:
             TokenData: The user information extracted from the token if it is valid.
         Raises:

@@ -5,7 +5,12 @@ from sqlalchemy.orm import selectinload
 from src.features.user_management.assign_role.assign_role_request import (
     AssignRoleToUserCommand,
 )
-from src.features.user_management.shared.user import User, UserResponse, UserRole
+from src.features.user_management.shared.user import (
+    CompleteUserResponse,
+    User,
+    UserResponse,
+    UserRole,
+)
 from src.features.user_management.shared.user_repository import UserRepository
 from src.infrastructure.database.sqllite.models.sqllite_user_mapper import (
     SqlLiteUserMapper,
@@ -21,7 +26,7 @@ class SqlLiteUserRepository(UserRepository):
         self.session_factory = session_factory
         self.user_mapper = user_mapper
 
-    async def get_user_by_username(self, username: str) -> User | None:
+    async def get_user_by_username(self, username: str) -> CompleteUserResponse | None:
         stmt = (
             select(UserEntity)
             .options(selectinload(UserEntity.role))
@@ -31,9 +36,9 @@ class SqlLiteUserRepository(UserRepository):
         user_found = result.scalars().first()
         if not user_found:
             return None
-        return self.user_mapper.to_model(user_found)
+        return self.user_mapper.to_complete_response(user_found)
 
-    async def get_user_by_email(self, email: str) -> User | None:
+    async def get_user_by_email(self, email: str) -> CompleteUserResponse | None:
         stmt = (
             select(UserEntity)
             .options(selectinload(UserEntity.role))
@@ -43,7 +48,7 @@ class SqlLiteUserRepository(UserRepository):
         user_found = result.scalars().first()
         if not user_found:
             return None
-        return self.user_mapper.to_model(user_found)
+        return self.user_mapper.to_complete_response(user_found)
 
     async def get_user_response_by_email(self, email: str) -> UserResponse | None:
         stmt = (
