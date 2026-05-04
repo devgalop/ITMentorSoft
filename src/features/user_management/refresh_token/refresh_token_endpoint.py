@@ -35,8 +35,8 @@ security = HTTPBearer()
                 "application/json": {
                     "example": {
                         "is_successful": True,
-                        "access_token": "...new access token...",
-                        "refresh_token": "...new refresh token...",
+                        "access_token": "...new access token...",  # nosec
+                        "refresh_token": "...new refresh token...",  # nosec
                         "expiration_time": 1800,
                     }
                 }
@@ -48,9 +48,9 @@ security = HTTPBearer()
                 "application/json": {
                     "example": {
                         "is_successful": False,
-                        "access_token": "",
-                        "refresh_token": "",
-                        "expiration_time": 0,
+                        "access_token": None,  # nosec
+                        "refresh_token": None,  # nosec
+                        "expiration_time": None,  # nosec
                     }
                 }
             },
