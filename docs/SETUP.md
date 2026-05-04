@@ -27,6 +27,8 @@ DATABASE_ADMIN_USERNAME=admin_username_here # Reemplaza con el nombre de usuario
 DATABASE_ADMIN_PASSWORD=admin_password_here # Reemplaza con la contraseña del administrador para la base de datos
 DATABASE_ADMIN_EMAIL=admin_email_here # Reemplaza con el correo electrónico del administrador para la base de datos
 
+REFRESH_TOKEN_EXPIRATION_DELTA_SECONDS=86400 # Tiempo de expiración para los tokens de actualización (refresh tokens) en segundos. Si no se define, el token de actualización expirará en 24 horas (86400 segundos).
+
 ```
 
 **IMPORTANTE**: Recuerda nunca compartir el archivo `.env` ni las claves secretas que contiene, especialmente en repositorios públicos. Asegúrate de agregar el archivo `.env` al archivo `.gitignore` para evitar que se suba al repositorio.
