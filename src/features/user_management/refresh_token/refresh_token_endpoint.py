@@ -61,6 +61,12 @@ security = HTTPBearer()
                 "application/json": {"example": {"detail": "Refresh token revoked"}}
             },
         },
+        500: {
+            "description": "Internal Server Error. Token generation failed.",
+            "content": {
+                "application/json": {"example": {"detail": "Token generation failed"}}
+            },
+        },
     },
 )
 async def refresh_session(
@@ -97,6 +103,13 @@ async def refresh_session(
     response = await handler.handle(refresh_token_request)
     if not response.is_successful:
         raise HTTPException(status_code=401, detail=response.model_dump())
+
+    if (
+        not response.access_token
+        or not response.refresh_token
+        or not response.expiration_time
+    ):
+        raise HTTPException(status_code=500, detail="Token generation failed")
 
     response_http.set_cookie(
         key="refresh_token", value=response.refresh_token, httponly=True, secure=True
