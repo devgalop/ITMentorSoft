@@ -1,5 +1,17 @@
 from abc import ABC, abstractmethod
 
+from src.features.content_management.get_contents_by_category.get_contents_by_category_request import (
+    GetContentsByCategoryPaginationRequest,
+)
+from src.features.content_management.get_contents_by_category_topic.get_contents_by_category_topic_request import (
+    GetContentsByCategoryTopicPaginationRequest,
+)
+from src.features.content_management.get_contents_by_title.get_contents_by_title_request import (
+    GetContentsByTitlePaginationRequest,
+)
+from src.features.content_management.get_contents_by_topic.get_contents_by_topic_request import (
+    GetContentsByTopicPaginationRequest,
+)
 from src.features.content_management.rate_content.rate_content_request import (
     RateContent,
 )
@@ -35,50 +47,49 @@ class ResourceContentRepository(ABC):
 
     @abstractmethod
     async def get_resource_contents_by_category(
-        self, category: str
-    ) -> list[ResourceContentResponse]:
+        self, request: GetContentsByCategoryPaginationRequest
+    ) -> PaginatedResourceContentResult:
         """Get educational resource contents by category
         Args:
-            category (str): The category of the educational resource contents to be retrieved
+            request (GetContentsByCategoryPaginationRequest): The request containing the category and pagination information
         Returns:
-            list[ResourceContentResponse]: A list of educational resource contents with the specified category
+            PaginatedResourceContentResult: A list of educational resource contents with the specified category
         """
         pass
 
     @abstractmethod
     async def get_resource_contents_by_related_topic(
-        self, topic: str
-    ) -> list[ResourceContentResponse]:
+        self, request: GetContentsByTopicPaginationRequest
+    ) -> PaginatedResourceContentResult:
         """Get educational resource contents by related topic
         Args:
-            topic (str): The related topic of the educational resource contents to be retrieved
+            request (GetContentsByTopicPaginationRequest): The request containing the related topic and pagination information
         Returns:
-            list[ResourceContentResponse]: A list of educational resource contents with the specified related topic
+            PaginatedResourceContentResult: A list of educational resource contents with the specified related topic
         """
         pass
 
     @abstractmethod
     async def get_resource_contents_by_title(
-        self, title: str
-    ) -> list[ResourceContentResponse]:
+        self, request: GetContentsByTitlePaginationRequest
+    ) -> PaginatedResourceContentResult:
         """Get educational resource contents by title
         Args:
-            title (str): The title of the educational resource contents to be retrieved
+            request (GetContentsByTitlePaginationRequest): The request containing the title and pagination information
         Returns:
-            list[ResourceContentResponse]: A list of educational resource contents with the specified title
+            PaginatedResourceContentResult: A list of educational resource contents with the specified title
         """
         pass
 
     @abstractmethod
     async def get_resource_contents_by_category_and_related_topic(
-        self, category: str, topic: str
-    ) -> list[ResourceContentResponse]:
+        self, request: GetContentsByCategoryTopicPaginationRequest
+    ) -> PaginatedResourceContentResult:
         """Get educational resource contents by category and related topic
         Args:
-            category (str): The category of the educational resource contents to be retrieved
-            topic (str): The related topic of the educational resource contents to be retrieved
+            request (GetContentsByCategoryTopicPaginationRequest): The request containing the category, related topic, and pagination information
         Returns:
-            list[ResourceContentResponse]: A list of educational resource contents with the specified category and related topic
+            PaginatedResourceContentResult: A list of educational resource contents with the specified category and related topic
         """
         pass
 

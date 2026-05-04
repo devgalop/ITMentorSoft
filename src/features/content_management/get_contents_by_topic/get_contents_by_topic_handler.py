@@ -1,5 +1,5 @@
 from src.features.content_management.get_contents_by_topic.get_contents_by_topic_request import (
-    GetContentsByTopicRequest,
+    GetContentsByTopicPaginationRequest,
 )
 from src.features.content_management.get_contents_by_topic.get_contents_by_topic_response import (
     GetContentsByTopicResponse,
@@ -14,15 +14,15 @@ class GetContentsByTopicHandler:
         self.content_repository = content_repository
 
     async def handle(
-        self, request: GetContentsByTopicRequest
+        self, request: GetContentsByTopicPaginationRequest
     ) -> GetContentsByTopicResponse:
 
         result = await self.content_repository.get_resource_contents_by_related_topic(
-            request.topic
+            request
         )
         return GetContentsByTopicResponse(
             is_success=True,
             message="Contents retrieved successfully",
-            items=result,
-            total=result.__len__(),
+            items=result.items,
+            total=result.total,
         )

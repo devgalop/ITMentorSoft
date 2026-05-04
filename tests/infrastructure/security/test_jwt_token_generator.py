@@ -10,7 +10,7 @@ from src.features.user_management.shared.token_generator import (
     TokenRequest,
 )
 
-os.environ["JWT_SECRET_KEY"] = "test_secret_key_for_testing"
+os.environ["JWT_SECRET_KEY"] = "test_secret_key_for_testing_purposes_only"
 os.environ["JWT_ALGORITHM"] = "HS256"
 os.environ["JWT_EXPIRATION_DELTA_SECONDS"] = "300"
 os.environ["RANDOM_TOKEN_EXPIRATION_DELTA_SECONDS"] = "180"

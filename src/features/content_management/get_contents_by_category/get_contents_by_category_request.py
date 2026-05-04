@@ -1,21 +1,21 @@
 from pydantic import BaseModel, field_validator
 
 
-class GetContentsByTopicRequest(BaseModel):
-    topic: str
+class GetContentsByCategoryRequest(BaseModel):
+    category: str
 
-    @field_validator("topic")
-    def validate_topic(cls, value: str) -> str:
+    @field_validator("category")
+    def validate_category(cls, value: str) -> str:
         if not value.strip():
-            raise ValueError("Topic must not be empty.")
+            raise ValueError("Category must not be empty.")
         if len(value) > 100:
-            raise ValueError("Topic must not exceed 100 characters.")
+            raise ValueError("Category must not exceed 100 characters.")
         if len(value) < 3:
-            raise ValueError("Topic must be at least 3 characters long.")
+            raise ValueError("Category must be at least 3 characters long.")
         return value.strip()
 
 
-class GetContentsByTopicPaginationRequest(GetContentsByTopicRequest):
+class GetContentsByCategoryPaginationRequest(GetContentsByCategoryRequest):
     page: int = 0
     page_size: int = 10
 

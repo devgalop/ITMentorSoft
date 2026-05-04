@@ -1,6 +1,18 @@
 from typing import Type
 from sqlalchemy import func, select
 from sqlalchemy.ext.asyncio import AsyncSession
+from src.features.content_management.get_contents_by_category.get_contents_by_category_request import (
+    GetContentsByCategoryPaginationRequest,
+)
+from src.features.content_management.get_contents_by_category_topic.get_contents_by_category_topic_request import (
+    GetContentsByCategoryTopicPaginationRequest,
+)
+from src.features.content_management.get_contents_by_title.get_contents_by_title_request import (
+    GetContentsByTitlePaginationRequest,
+)
+from src.features.content_management.get_contents_by_topic.get_contents_by_topic_request import (
+    GetContentsByTopicPaginationRequest,
+)
 from src.features.content_management.rate_content.rate_content_request import (
     RateContent,
 )
@@ -53,46 +65,107 @@ class SqlLiteResourceContentRepository(ResourceContentRepository):
         return self.mapper.to_model(content_entity)
 
     async def get_resource_contents_by_category(
-        self, category: str
-    ) -> list[ResourceContentResponse]:
-        smt = select(ResourceContentEntity).where(
-            ResourceContentEntity.category == category
+        self, request: GetContentsByCategoryPaginationRequest
+    ) -> PaginatedResourceContentResult:
+        count_smt = (
+            select(func.count())
+            .select_from(ResourceContentEntity)
+            .where(ResourceContentEntity.category == request.category)
         )
-        result = await self.session_factory.execute(smt)
-        content_entities = result.scalars().all()
-        return [self.mapper.to_model(entity) for entity in content_entities]
-
-    async def get_resource_contents_by_related_topic(
-        self, topic: str
-    ) -> list[ResourceContentResponse]:
-        smt = select(ResourceContentEntity).where(
-            ResourceContentEntity.related_topics.like(f"%{topic}%")
-        )
-        result = await self.session_factory.execute(smt)
-        content_entities = result.scalars().all()
-        return [self.mapper.to_model(entity) for entity in content_entities]
-
-    async def get_resource_contents_by_title(
-        self, title: str
-    ) -> list[ResourceContentResponse]:
-        smt = select(ResourceContentEntity).where(
-            ResourceContentEntity.title.like(f"%{title}%")
-        )
-        result = await self.session_factory.execute(smt)
-        content_entities = result.scalars().all()
-        return [self.mapper.to_model(entity) for entity in content_entities]
-
-    async def get_resource_contents_by_category_and_related_topic(
-        self, category: str, topic: str
-    ) -> list[ResourceContentResponse]:
+        total_result = await self.session_factory.execute(count_smt)
+        total = total_result.scalar()
+        if not total:
+            return PaginatedResourceContentResult(items=[], total=0)
         smt = (
             select(ResourceContentEntity)
-            .where(ResourceContentEntity.category == category)
-            .where(ResourceContentEntity.related_topics.like(f"%{topic}%"))
+            .where(ResourceContentEntity.category == request.category)
+            .offset(request.page * request.page_size)
+            .limit(request.page_size)
         )
         result = await self.session_factory.execute(smt)
         content_entities = result.scalars().all()
-        return [self.mapper.to_model(entity) for entity in content_entities]
+        return PaginatedResourceContentResult(
+            items=[self.mapper.to_model(entity) for entity in content_entities],
+            total=total,
+        )
+
+    async def get_resource_contents_by_related_topic(
+        self, request: GetContentsByTopicPaginationRequest
+    ) -> PaginatedResourceContentResult:
+        count_smt = (
+            select(func.count())
+            .select_from(ResourceContentEntity)
+            .where(ResourceContentEntity.related_topics.like(f"%{request.topic}%"))
+        )
+        total_result = await self.session_factory.execute(count_smt)
+        total = total_result.scalar()
+        if not total:
+            return PaginatedResourceContentResult(items=[], total=0)
+
+        smt = (
+            select(ResourceContentEntity)
+            .where(ResourceContentEntity.related_topics.like(f"%{request.topic}%"))
+            .offset(request.page * request.page_size)
+            .limit(request.page_size)
+        )
+        result = await self.session_factory.execute(smt)
+        content_entities = result.scalars().all()
+        return PaginatedResourceContentResult(
+            items=[self.mapper.to_model(entity) for entity in content_entities],
+            total=total,
+        )
+
+    async def get_resource_contents_by_title(
+        self, request: GetContentsByTitlePaginationRequest
+    ) -> PaginatedResourceContentResult:
+        count_smt = (
+            select(func.count())
+            .select_from(ResourceContentEntity)
+            .where(ResourceContentEntity.title.like(f"%{request.title}%"))
+        )
+        total_result = await self.session_factory.execute(count_smt)
+        total = total_result.scalar()
+        if not total:
+            return PaginatedResourceContentResult(items=[], total=0)
+        smt = (
+            select(ResourceContentEntity)
+            .where(ResourceContentEntity.title.like(f"%{request.title}%"))
+            .offset(request.page * request.page_size)
+            .limit(request.page_size)
+        )
+        result = await self.session_factory.execute(smt)
+        content_entities = result.scalars().all()
+        return PaginatedResourceContentResult(
+            items=[self.mapper.to_model(entity) for entity in content_entities],
+            total=total,
+        )
+
+    async def get_resource_contents_by_category_and_related_topic(
+        self, request: GetContentsByCategoryTopicPaginationRequest
+    ) -> PaginatedResourceContentResult:
+        count_smt = (
+            select(func.count())
+            .select_from(ResourceContentEntity)
+            .where(ResourceContentEntity.category == request.category)
+            .where(ResourceContentEntity.related_topics.like(f"%{request.topic}%"))
+        )
+        total_result = await self.session_factory.execute(count_smt)
+        total = total_result.scalar()
+        if not total:
+            return PaginatedResourceContentResult(items=[], total=0)
+        smt = (
+            select(ResourceContentEntity)
+            .where(ResourceContentEntity.category == request.category)
+            .where(ResourceContentEntity.related_topics.like(f"%{request.topic}%"))
+            .offset(request.page * request.page_size)
+            .limit(request.page_size)
+        )
+        result = await self.session_factory.execute(smt)
+        content_entities = result.scalars().all()
+        return PaginatedResourceContentResult(
+            items=[self.mapper.to_model(entity) for entity in content_entities],
+            total=total,
+        )
 
     async def rate_resource_content(self, request: RateContent):
         entity = self.rating_mapper.to_entity(request)

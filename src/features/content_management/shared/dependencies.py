@@ -5,6 +5,18 @@ from sqlalchemy.ext.asyncio import AsyncSession
 from src.features.content_management.get_all_contents.get_all_contents_handler import (
     GetAllContentsHandler,
 )
+from src.features.content_management.get_contents_by_topic.get_contents_by_topic_handler import (
+    GetContentsByTopicHandler,
+)
+from src.features.content_management.get_contents_by_category.get_contents_by_category_handler import (
+    GetContentsByCategoryHandler,
+)
+from src.features.content_management.get_contents_by_title.get_contents_by_title_handler import (
+    GetContentsByTitleHandler,
+)
+from src.features.content_management.get_contents_by_category_topic.get_contents_by_category_topic_handler import (
+    GetContentsByCategoryTopicHandler,
+)
 from src.features.content_management.get_resource_content.get_resource_content_handler import (
     GetResourceContentHandler,
 )
@@ -34,7 +46,9 @@ def get_resource_content_repository(
     session: Annotated[AsyncSession, Depends(get_db)],
 ) -> SqlLiteResourceContentRepository:
     return SqlLiteResourceContentRepository(
-        session, ResourceContentMapper, RateContentMapper
+        session_factory=session,
+        mapper=ResourceContentMapper,
+        rating_mapper=RateContentMapper,
     )
 
 
@@ -68,3 +82,35 @@ def get_get_resource_content_handler(
     ],
 ) -> GetResourceContentHandler:
     return GetResourceContentHandler(content_repository)
+
+
+def get_get_contents_by_topic_handler(
+    content_repository: Annotated[
+        ResourceContentRepository, Depends(get_resource_content_repository)
+    ],
+) -> GetContentsByTopicHandler:
+    return GetContentsByTopicHandler(content_repository)
+
+
+def get_get_contents_by_category_handler(
+    content_repository: Annotated[
+        ResourceContentRepository, Depends(get_resource_content_repository)
+    ],
+) -> GetContentsByCategoryHandler:
+    return GetContentsByCategoryHandler(content_repository)
+
+
+def get_get_contents_by_title_handler(
+    content_repository: Annotated[
+        ResourceContentRepository, Depends(get_resource_content_repository)
+    ],
+) -> GetContentsByTitleHandler:
+    return GetContentsByTitleHandler(content_repository)
+
+
+def get_get_contents_by_category_topic_handler(
+    content_repository: Annotated[
+        ResourceContentRepository, Depends(get_resource_content_repository)
+    ],
+) -> GetContentsByCategoryTopicHandler:
+    return GetContentsByCategoryTopicHandler(content_repository)
