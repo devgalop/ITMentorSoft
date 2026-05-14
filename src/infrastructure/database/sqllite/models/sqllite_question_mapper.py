@@ -80,3 +80,12 @@ class SqlliteQuestionMapper:
             score=rubric_score.score,
             explanation=rubric_score.explanation,
         )
+
+    @staticmethod
+    def to_rubric_score_entities(
+        question_id: str, rubric_scores: list[QuestionRubricScore]
+    ) -> list[QuestionRubricScoreEntity]:
+        return [
+            SqlliteQuestionMapper.to_rubric_score_entity(question_id, r)
+            for r in rubric_scores
+        ]

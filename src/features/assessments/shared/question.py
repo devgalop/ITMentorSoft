@@ -218,6 +218,15 @@ class QuestionBuilder:
         self._common_misconception.append(misconception)
         return self
 
+    def add_common_misconceptions(self, misconceptions: list[str]) -> "QuestionBuilder":
+        """Add common misconceptions to the question
+
+        Args:
+            misconceptions (list[str]): The common misconceptions to be added to the question.
+        """
+        self._common_misconception.extend(misconceptions)
+        return self
+
     def add_rubric(self, score: int, explanation: str) -> "QuestionBuilder":
         """Add a rubric scoreto the question
 
@@ -228,6 +237,15 @@ class QuestionBuilder:
         self._rubric.append(QuestionRubricScore(score, explanation))
         return self
 
+    def add_rubrics(self, rubrics: list[QuestionRubricScore]) -> "QuestionBuilder":
+        """Add rubrics to the question
+
+        Args:
+            rubrics (list[QuestionRubricScore]): The rubrics to be added to the question.
+        """
+        self._rubric.extend(rubrics)
+        return self
+
     def add_semantic_keyword(self, keyword: str) -> "QuestionBuilder":
         """Add a semantic keyword to the question
 
@@ -235,6 +253,15 @@ class QuestionBuilder:
             keyword (str): The semantic keyword to be added to the question.
         """
         self._semantic_keywords.append(keyword)
+        return self
+
+    def add_semantic_keywords(self, keywords: list[str]) -> "QuestionBuilder":
+        """Add semantic keywords to the question
+
+        Args:
+            keywords (list[str]): The semantic keywords to be added to the question.
+        """
+        self._semantic_keywords.extend(keywords)
         return self
 
     def set_question_id(self, question_id: str) -> "QuestionBuilder":

@@ -20,7 +20,12 @@ class SqlliteQuestionsRepository(QuestionRepository):
 
     async def save_question(self, question: Question):
         entity = self.mapper.to_entity(question)
+        rubric_entities = self.mapper.to_rubric_score_entities(
+            question.question_id, question.rubric
+        )
         self.session_factory.add(entity)
+        for rubric_entity in rubric_entities:
+            self.session_factory.add(rubric_entity)
         await self.session_factory.commit()
 
     async def get_question(self, question_id: str) -> EvaluativeQuestion | None:
