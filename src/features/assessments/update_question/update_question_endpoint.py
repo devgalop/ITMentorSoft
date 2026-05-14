@@ -1,38 +1,36 @@
 from typing import Annotated
 
-from fastapi import APIRouter, Depends
+from fastapi import APIRouter, Depends, Path
 
-from src.features.assessments.register_question.register_question_handler import (
-    RegisterQuestionHandler,
+from src.features.assessments.shared.dependencies import get_update_question_handler
+from src.features.assessments.update_question.update_question_handler import (
+    UpdateQuestionHandler,
 )
-from src.features.assessments.register_question.register_question_request import (
-    RegisterQuestionRequest,
+from src.features.assessments.update_question.update_question_request import (
+    UpdateQuestionRequest,
 )
-from src.features.assessments.register_question.register_question_response import (
-    RegisterQuestionResponse,
+from src.features.assessments.update_question.update_question_response import (
+    UpdateQuestionResponse,
 )
-from src.features.assessments.shared.dependencies import get_register_question_handler
 from src.features.user_management.shared.require_roles import require_roles
 from src.features.user_management.shared.token_generator import TokenData
 
 router = APIRouter()
 
 
-@router.post(
-    "/questions/register",
-    status_code=201,
-    summary="Register a new question",
-    description="Endpoint to register a new question with its rubric and related information.",
+@router.put(
+    "/questions/{question_id}",
+    summary="Update a question",
+    description="Endpoint to update an existing question with its rubric and related information.",
     tags=["Assessments"],
     responses={
-        201: {
-            "description": "Question registered successfully.",
+        200: {
+            "description": "Question updated successfully.",
             "content": {
                 "application/json": {
                     "example": {
                         "is_success": True,
-                        "message": "Question registered successfully",
-                        "question_id": "123e4567-e89b-12d3-a456-426614174000",
+                        "message": "Question updated successfully",
                     }
                 }
             },
@@ -53,6 +51,14 @@ router = APIRouter()
                 }
             },
         },
+        404: {
+            "description": "Question not found.",
+            "content": {
+                "application/json": {
+                    "example": {"is_success": False, "message": "Question not found"}
+                }
+            },
+        },
         500: {
             "description": "Internal server error.",
             "content": {
@@ -66,15 +72,13 @@ router = APIRouter()
         },
     },
 )
-async def register_question(
-    request: RegisterQuestionRequest,
-    handler: Annotated[RegisterQuestionHandler, Depends(get_register_question_handler)],
+async def update_question(
+    question_id: Annotated[str, Path(description="The ID of the question to update")],
+    request: UpdateQuestionRequest,
+    handler: Annotated[UpdateQuestionHandler, Depends(get_update_question_handler)],
     _: Annotated[TokenData, Depends(require_roles(["admin", "tutor"]))],
-) -> RegisterQuestionResponse:
-
-    response = await handler.handle(request)
+) -> UpdateQuestionResponse:
+    response = await handler.handle(question_id, request)
     if not response.is_success:
-        return RegisterQuestionResponse(
-            is_success=False, message=response.message, question_id=None
-        )
+        return UpdateQuestionResponse(is_success=False, message=response.message)
     return response

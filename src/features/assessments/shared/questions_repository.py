@@ -46,3 +46,12 @@ class QuestionRepository(ABC):
             question (Question): The question to be saved.
         """
         pass
+
+    @abstractmethod
+    async def update_question(self, question: Question):
+        """Update a question
+
+        Args:
+            question (Question): The question to be updated.
+        """
+        pass

@@ -2,8 +2,14 @@ from fastapi.params import Depends
 from typing import Annotated
 from sqlalchemy.ext.asyncio import AsyncSession
 
+from src.features.assessments.get_question_by_id.get_question_by_id_handler import (
+    GetQuestionByIdHandler,
+)
 from src.features.assessments.register_question.register_question_handler import (
     RegisterQuestionHandler,
+)
+from src.features.assessments.update_question.update_question_handler import (
+    UpdateQuestionHandler,
 )
 from src.features.assessments.shared.question import QuestionBuilder
 from src.features.assessments.shared.questions_repository import QuestionRepository
@@ -31,3 +37,19 @@ def get_register_question_handler(
         question_repository=question_repository,
         question_builder=QuestionBuilder,
     )
+
+
+def get_get_question_by_id_handler(
+    question_repository: Annotated[
+        QuestionRepository, Depends(get_question_repository)
+    ],
+) -> GetQuestionByIdHandler:
+    return GetQuestionByIdHandler(question_repository=question_repository)
+
+
+def get_update_question_handler(
+    question_repository: Annotated[
+        QuestionRepository, Depends(get_question_repository)
+    ],
+) -> UpdateQuestionHandler:
+    return UpdateQuestionHandler(question_repository=question_repository)
