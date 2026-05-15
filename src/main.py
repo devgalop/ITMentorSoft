@@ -1,5 +1,6 @@
 from contextlib import asynccontextmanager
 from fastapi import FastAPI
+from src.features.assessments.shared.questions_seeder import seed_questions
 from src.features.user_management.shared.init import router as user_management_router
 from src.features.content_management.shared.init import (
     router as content_management_router,
@@ -15,6 +16,7 @@ async def lifespan(app: FastAPI):
     print("Starting up the application...")
     await init_db()
     await seed_database(BcryptPasswordHasher())
+    await seed_questions()
     yield
     print("Shutting down the application...")
 
