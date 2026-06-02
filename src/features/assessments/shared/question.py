@@ -22,6 +22,18 @@ class QuestionStatus(Enum):
     ARCHIVED = "archived"
 
 
+class QuestionDifficulty(Enum):
+    """Question difficulty
+
+    Args:
+        Enum (Enum): Enum class for question difficulty.
+    """
+
+    EASY = "básico"
+    MEDIUM = "intermedio"
+    HARD = "avanzado"
+
+
 class Question:
     """Represents a question"""
 
@@ -37,6 +49,8 @@ class Question:
         rubric: list[QuestionRubricScore],
         semantic_keywords: list[str],
         status: QuestionStatus = QuestionStatus.DRAFT,
+        difficulty: QuestionDifficulty = QuestionDifficulty.EASY,
+        classification: str = "",
     ):
         self.question_id = uuid.uuid4().hex
         self.text_to_evaluate = text_to_evaluate
@@ -49,6 +63,8 @@ class Question:
         self.rubric = rubric
         self.semantic_keywords = semantic_keywords
         self.status = status
+        self.difficulty = difficulty
+        self.classification = classification
 
     def update_status(self, new_status: QuestionStatus):
         """Update the status of the question
@@ -57,6 +73,22 @@ class Question:
             new_status (QuestionStatus): The new status to be assigned to the question.
         """
         self.status = new_status
+
+    def update_difficulty(self, new_difficulty: QuestionDifficulty):
+        """Update the difficulty of the question
+
+        Args:
+            new_difficulty (QuestionDifficulty): The new difficulty to be assigned to the question.
+        """
+        self.difficulty = new_difficulty
+
+    def update_classification(self, new_classification: str):
+        """Update the classification of the question
+
+        Args:
+            new_classification (str): The new classification to be assigned to the question.
+        """
+        self.classification = new_classification
 
     def update_text_to_evaluate(self, new_text_to_evaluate: str):
         """Update the text to evaluate of the question
@@ -154,6 +186,8 @@ class QuestionBuilder:
         self._rubric: list[QuestionRubricScore] = []
         self._semantic_keywords: list[str] = []
         self._status = QuestionStatus.DRAFT
+        self._difficulty = QuestionDifficulty.EASY
+        self._classification = ""
 
     def set_text_to_evaluate(self, text_to_evaluate: str) -> "QuestionBuilder":
         """Set the text to evaluate of the question
@@ -162,6 +196,24 @@ class QuestionBuilder:
             text_to_evaluate (str): The text to evaluate to be assigned to the question.
         """
         self._text_to_evaluate = text_to_evaluate
+        return self
+
+    def set_difficulty(self, difficulty: QuestionDifficulty) -> "QuestionBuilder":
+        """Set the difficulty of the question
+
+        Args:
+            difficulty (QuestionDifficulty): The difficulty to be assigned to the question.
+        """
+        self._difficulty = difficulty
+        return self
+
+    def set_classification(self, classification: str) -> "QuestionBuilder":
+        """Set the classification of the question
+
+        Args:
+            classification (str): The classification to be assigned to the question.
+        """
+        self._classification = classification
         return self
 
     def set_concept(self, concept: str) -> "QuestionBuilder":
@@ -299,6 +351,8 @@ class QuestionBuilder:
             rubric=self._rubric,
             semantic_keywords=self._semantic_keywords,
             status=self._status,
+            difficulty=self._difficulty,
+            classification=self._classification,
         )
         if self.question_id:
             question.update_question_id(self.question_id)

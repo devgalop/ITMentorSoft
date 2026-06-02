@@ -8,6 +8,7 @@ from sqlalchemy import select
 from src.features.assessments.shared.question import (
     Question,
     QuestionBuilder,
+    QuestionDifficulty,
     QuestionRubricScore,
     QuestionStatus,
 )
@@ -20,9 +21,7 @@ from src.infrastructure.database.sqllite.shared.sqllite_database_session import 
 )
 
 _PROJECT_ROOT = Path(__file__).resolve().parents[4]
-_QUESTIONS_FILE = (
-    _PROJECT_ROOT / "docs" / "resources" / "sample_questions_with_text.json"
-)
+_QUESTIONS_FILE = _PROJECT_ROOT / "docs" / "resources" / "sample_questions.json"
 
 
 def _parse_rubric(raw: dict[str, str]) -> list[QuestionRubricScore]:
@@ -57,6 +56,8 @@ async def read_questions_from_file(file_path: str) -> list[Question]:
             .add_semantic_keywords(item.get("keywords_semanticas", []))
             .add_rubrics(rubric_scores)
             .set_status(QuestionStatus.PUBLISHED)
+            .set_difficulty(QuestionDifficulty(item.get("dificultad", "EASY")))
+            .set_classification(item.get("clasificacion", ""))
         )
 
         questions.append(builder.build())
@@ -78,6 +79,8 @@ def map_question_to_entity(question: Question) -> QuestionEntity:
         common_misconceptions="|".join(question.common_misconception),
         semantic_keywords="|".join(question.semantic_keywords),
         status=question.status.value,
+        difficulty=question.difficulty.value,
+        classification=question.classification,
     )
 
     entity.rubric = [
