@@ -5,6 +5,12 @@ from sqlalchemy.ext.asyncio import AsyncSession
 from src.features.assessments.get_question_by_id.get_question_by_id_handler import (
     GetQuestionByIdHandler,
 )
+from src.features.assessments.get_questions_by_level.get_questions_by_level_handler import (
+    GetQuestionsByLevelHandler,
+)
+from src.features.assessments.get_questions_by_category.get_questions_by_category_handler import (
+    GetQuestionsByCategoryHandler,
+)
 from src.features.assessments.register_question.register_question_handler import (
     RegisterQuestionHandler,
 )
@@ -53,3 +59,19 @@ def get_update_question_handler(
     ],
 ) -> UpdateQuestionHandler:
     return UpdateQuestionHandler(question_repository=question_repository)
+
+
+def get_get_questions_by_level_handler(
+    question_repository: Annotated[
+        QuestionRepository, Depends(get_question_repository)
+    ],
+) -> GetQuestionsByLevelHandler:
+    return GetQuestionsByLevelHandler(question_repository=question_repository)
+
+
+def get_get_questions_by_category_handler(
+    question_repository: Annotated[
+        QuestionRepository, Depends(get_question_repository)
+    ],
+) -> GetQuestionsByCategoryHandler:
+    return GetQuestionsByCategoryHandler(question_repository=question_repository)

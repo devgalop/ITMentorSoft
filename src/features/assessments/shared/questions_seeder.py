@@ -57,7 +57,7 @@ async def read_questions_from_file(file_path: str) -> list[Question]:
             .add_rubrics(rubric_scores)
             .set_status(QuestionStatus.PUBLISHED)
             .set_difficulty(QuestionDifficulty(item.get("dificultad", "EASY")))
-            .set_classification(item.get("clasificacion", ""))
+            .set_classification(item.get("categoria_contenido", ""))
         )
 
         questions.append(builder.build())

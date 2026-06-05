@@ -1,6 +1,13 @@
 from enum import Enum
 import uuid
 
+QUESTION_CATEGORIES = (
+    "APIs y sistemas distribuidos",
+    "Diseño orientado a objetos",
+    "Fundamentos y paradigmas",
+    "Principios de arquitectura y mantenibilidad",
+)
+
 
 class QuestionRubricScore:
     """Define the rubric to assign a score"""
