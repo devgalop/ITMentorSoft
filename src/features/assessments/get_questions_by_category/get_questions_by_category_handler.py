@@ -5,11 +5,13 @@ from src.features.assessments.get_questions_by_category.get_questions_by_categor
     GetQuestionsByCategoryResponse,
     QuestionByCategoryData,
 )
-from src.features.assessments.shared.questions_repository import QuestionRepository
+from src.features.assessments.shared.question_assessment_repository import (
+    QuestionAssessmentRepository,
+)
 
 
 class GetQuestionsByCategoryHandler:
-    def __init__(self, question_repository: QuestionRepository):
+    def __init__(self, question_repository: QuestionAssessmentRepository):
         self.question_repository = question_repository
 
     async def handle(

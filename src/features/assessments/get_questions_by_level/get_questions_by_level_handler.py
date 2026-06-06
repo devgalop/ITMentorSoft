@@ -6,11 +6,13 @@ from src.features.assessments.get_questions_by_level.get_questions_by_level_resp
     GetQuestionsByLevelResponse,
 )
 from src.features.assessments.shared.question import QuestionDifficulty
-from src.features.assessments.shared.questions_repository import QuestionRepository
+from src.features.assessments.shared.question_assessment_repository import (
+    QuestionAssessmentRepository,
+)
 
 
 class GetQuestionsByLevelHandler:
-    def __init__(self, question_repository: QuestionRepository):
+    def __init__(self, question_repository: QuestionAssessmentRepository):
         self.question_repository = question_repository
 
     async def handle(

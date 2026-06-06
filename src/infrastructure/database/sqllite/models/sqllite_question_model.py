@@ -16,6 +16,7 @@ class QuestionEntity(Base):
     wrong_sample: Mapped[str] = mapped_column(String)
     difficulty: Mapped[str] = mapped_column(String)
     classification: Mapped[str] = mapped_column(String)
+    version: Mapped[int] = mapped_column(Integer)
     common_misconceptions: Mapped[str] = mapped_column(
         String
     )  # Store misconceptions as a pipe-separated string

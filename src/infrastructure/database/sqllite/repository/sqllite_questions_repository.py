@@ -5,7 +5,6 @@ from sqlalchemy.ext.asyncio import AsyncSession
 from src.features.assessments.shared.question import (
     EvaluativeQuestion,
     Question,
-    QuestionDifficulty,
 )
 from src.features.assessments.shared.questions_repository import QuestionRepository
 from src.infrastructure.database.sqllite.models.sqllite_question_mapper import (
@@ -83,21 +82,3 @@ class SqlliteQuestionsRepository(QuestionRepository):
         for rubric_entity in new_rubric_entities:
             self.session_factory.add(rubric_entity)
         await self.session_factory.commit()
-
-    async def get_question_by_level(
-        self, difficulty: QuestionDifficulty
-    ) -> list[EvaluativeQuestion]:
-        smt = select(QuestionEntity).where(
-            QuestionEntity.difficulty == difficulty.value
-        )
-        result = await self.session_factory.execute(smt)
-        question_entities = result.scalars().all()
-        return [self.mapper.to_evaluative_model(entity) for entity in question_entities]
-
-    async def get_questions_by_category(
-        self, category: str
-    ) -> list[EvaluativeQuestion]:
-        smt = select(QuestionEntity).where(QuestionEntity.classification == category)
-        result = await self.session_factory.execute(smt)
-        question_entities = result.scalars().all()
-        return [self.mapper.to_evaluative_model(entity) for entity in question_entities]

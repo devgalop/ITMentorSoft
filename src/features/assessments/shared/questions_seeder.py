@@ -58,6 +58,7 @@ async def read_questions_from_file(file_path: str) -> list[Question]:
             .set_status(QuestionStatus.PUBLISHED)
             .set_difficulty(QuestionDifficulty(item.get("dificultad", "EASY")))
             .set_classification(item.get("categoria_contenido", ""))
+            .set_version(1)
         )
 
         questions.append(builder.build())
@@ -81,6 +82,7 @@ def map_question_to_entity(question: Question) -> QuestionEntity:
         status=question.status.value,
         difficulty=question.difficulty.value,
         classification=question.classification,
+        version=question.version,
     )
 
     entity.rubric = [

@@ -47,6 +47,7 @@ class SqlliteQuestionMapper:
             status=QuestionStatus(question.status),
             difficulty=QuestionDifficulty(question.difficulty),
             classification=question.classification,
+            version=question.version,
         )
         model.update_question_id(question.id)
         return model
@@ -74,6 +75,7 @@ class SqlliteQuestionMapper:
             status=question.status.value,
             difficulty=question.difficulty.value,
             classification=question.classification,
+            version=question.version,
         )
 
     @staticmethod
