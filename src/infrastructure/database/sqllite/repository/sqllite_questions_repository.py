@@ -2,7 +2,10 @@ from typing import Type
 from sqlalchemy import select
 from sqlalchemy.orm import selectinload
 from sqlalchemy.ext.asyncio import AsyncSession
-from src.features.assessments.shared.question import EvaluativeQuestion, Question
+from src.features.assessments.shared.question import (
+    EvaluativeQuestion,
+    Question,
+)
 from src.features.assessments.shared.questions_repository import QuestionRepository
 from src.infrastructure.database.sqllite.models.sqllite_question_mapper import (
     SqlliteQuestionMapper,

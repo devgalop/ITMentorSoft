@@ -1,6 +1,9 @@
 from abc import ABC, abstractmethod
 
-from src.features.assessments.shared.question import EvaluativeQuestion, Question
+from src.features.assessments.shared.question import (
+    EvaluativeQuestion,
+    Question,
+)
 
 
 class QuestionRepository(ABC):

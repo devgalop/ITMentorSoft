@@ -1,6 +1,7 @@
 from src.features.assessments.shared.question import (
     EvaluativeQuestion,
     Question,
+    QuestionDifficulty,
     QuestionRubricScore,
     QuestionStatus,
 )
@@ -44,6 +45,9 @@ class SqlliteQuestionMapper:
                 else []
             ),
             status=QuestionStatus(question.status),
+            difficulty=QuestionDifficulty(question.difficulty),
+            classification=question.classification,
+            version=question.version,
         )
         model.update_question_id(question.id)
         return model
@@ -69,6 +73,9 @@ class SqlliteQuestionMapper:
             common_misconceptions=PIPE_SEPARATOR.join(question.common_misconception),
             semantic_keywords=PIPE_SEPARATOR.join(question.semantic_keywords),
             status=question.status.value,
+            difficulty=question.difficulty.value,
+            classification=question.classification,
+            version=question.version,
         )
 
     @staticmethod

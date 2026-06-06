@@ -1,50 +1,53 @@
 [
   {
-  "pregunta_id": "paradigmas_programacion_basico_001",
-  "concepto": "Paradigmas de programación",
-  "definicion": "Un paradigma de programación es un modelo conceptual o enfoque que define cómo se organiza, estructura y desarrolla el software para resolver problemas computacionales.",
-  "explicacion_simple": "Un paradigma de programación es una forma de pensar y escribir programas. Cada paradigma propone diferentes maneras de organizar instrucciones, datos y lógica dentro del software.",
-  "ejemplo_correcto": "Un paradigma de programación es un estilo para desarrollar software. Por ejemplo, la programación orientada a objetos organiza el código mediante clases y objetos, la programación funcional usa funciones puras y la programación imperativa se basa en instrucciones paso a paso.",
-  "ejemplo_incorrecto": "Python, Java y Visual Studio son paradigmas de programación utilizados para crear aplicaciones.",
-  "errores_comunes": [
-    "Confundir lenguajes de programación con paradigmas.",
-    "Mencionar herramientas o tecnologías en lugar de enfoques de programación.",
-    "Definir paradigma de forma demasiado vaga, como 'una manera de programar' sin explicar su función.",
-    "No incluir ejemplos de paradigmas reconocidos.",
-    "Asumir que cada lenguaje pertenece a un único paradigma.",
-    "Describir características de un lenguaje en lugar del modelo de programación."
-  ],
-  "criterios_rubrica": {
-    "0": "La respuesta es incorrecta, vacía o no identifica qué es un paradigma de programación.",
-    "1": "Presenta una idea básica pero confusa del concepto o menciona menos de tres paradigmas correctamente.",
-    "2": "Define parcialmente el concepto y menciona al menos tres paradigmas válidos, aunque con poca claridad o precisión técnica.",
-    "3": "Define claramente el paradigma de programación como un modelo o enfoque de desarrollo de software y menciona correctamente tres o más paradigmas relevantes con terminología adecuada."
+    "pregunta_id": "paradigmas_programacion_basico_001",
+    "concepto": "Paradigmas de programación",
+    "definicion": "Un paradigma de programación es un modelo conceptual o enfoque que define cómo se organiza, estructura y desarrolla el software para resolver problemas computacionales.",
+    "explicacion_simple": "Un paradigma de programación es una forma de pensar y escribir programas. Cada paradigma propone diferentes maneras de organizar instrucciones, datos y lógica dentro del software.",
+    "ejemplo_correcto": "Un paradigma de programación es un estilo para desarrollar software. Por ejemplo, la programación orientada a objetos organiza el código mediante clases y objetos, la programación funcional usa funciones puras y la programación imperativa se basa en instrucciones paso a paso.",
+    "ejemplo_incorrecto": "Python, Java y Visual Studio son paradigmas de programación utilizados para crear aplicaciones.",
+    "errores_comunes": [
+      "Confundir lenguajes de programación con paradigmas.",
+      "Mencionar herramientas o tecnologías en lugar de enfoques de programación.",
+      "Definir paradigma de forma demasiado vaga, como 'una manera de programar' sin explicar su función.",
+      "No incluir ejemplos de paradigmas reconocidos.",
+      "Asumir que cada lenguaje pertenece a un único paradigma.",
+      "Describir características de un lenguaje en lugar del modelo de programación."
+    ],
+    "criterios_rubrica": {
+      "0": "La respuesta es incorrecta, vacía o no identifica qué es un paradigma de programación.",
+      "1": "Presenta una idea básica pero confusa del concepto o menciona menos de tres paradigmas correctamente.",
+      "2": "Define parcialmente el concepto y menciona al menos tres paradigmas válidos, aunque con poca claridad o precisión técnica.",
+      "3": "Define claramente el paradigma de programación como un modelo o enfoque de desarrollo de software y menciona correctamente tres o más paradigmas relevantes con terminología adecuada."
+    },
+    "keywords_semanticas": [
+      "paradigma de programación",
+      "modelo de programación",
+      "estilo de programación",
+      "enfoque de desarrollo",
+      "programación imperativa",
+      "programación orientada a objetos",
+      "POO",
+      "programación funcional",
+      "programación lógica",
+      "programación declarativa",
+      "estructuración de software",
+      "resolución de problemas",
+      "metodología de programación",
+      "paradigmas comunes",
+      "diseño de software",
+      "modelo conceptual",
+      "estilos de desarrollo",
+      "programación procedural",
+      "programación basada en objetos",
+      "enfoques de programación",
+      "conceptos básicos de programación",
+      "fundamentos de programación"
+    ],
+    "text": "Describe qué es Paradigmas de programación, cuáles son sus principales características y cómo se aplica en un contexto real.",
+    "dificultad": "básico",
+    "categoria_contenido": "Diseño orientado a objetos"
   },
-  "keywords_semanticas": [
-    "paradigma de programación",
-    "modelo de programación",
-    "estilo de programación",
-    "enfoque de desarrollo",
-    "programación imperativa",
-    "programación orientada a objetos",
-    "POO",
-    "programación funcional",
-    "programación lógica",
-    "programación declarativa",
-    "estructuración de software",
-    "resolución de problemas",
-    "metodología de programación",
-    "paradigmas comunes",
-    "diseño de software",
-    "modelo conceptual",
-    "estilos de desarrollo",
-    "programación procedural",
-    "programación basada en objetos",
-    "enfoques de programación",
-    "conceptos básicos de programación",
-    "fundamentos de programación"
-  ]
-},
   {
     "pregunta_id": "oop_caracteristicas_002",
     "concepto": "Programación orientada a objetos",
@@ -84,7 +87,10 @@
       "composición",
       "instancia",
       "modelo orientado a objetos"
-    ]
+    ],
+    "text": "Compara y explica Programación orientada a objetos utilizando fundamentos técnicos y ejemplos concretos.",
+    "dificultad": "intermedio",
+    "categoria_contenido": "Principios de arquitectura y mantenibilidad"
   },
   {
     "pregunta_id": "imperativa_vs_declarativa_003",
@@ -123,7 +129,10 @@
       "paradigmas comparativos",
       "procedimiento",
       "declaratividad"
-    ]
+    ],
+    "text": "Describe qué es Comparación entre programación imperativa y declarativa, cuáles son sus principales características y cómo se aplica en un contexto real.",
+    "dificultad": "intermedio",
+    "categoria_contenido": "Fundamentos y paradigmas"
   },
   {
     "pregunta_id": "oop_vs_funcional_004",
@@ -161,7 +170,10 @@
       "clases",
       "paradigmas híbridos",
       "comparación de paradigmas"
-    ]
+    ],
+    "text": "Compara y explica Comparación entre programación orientada a objetos y funcional utilizando fundamentos técnicos y ejemplos concretos.",
+    "dificultad": "avanzado",
+    "categoria_contenido": "Principios de arquitectura y mantenibilidad"
   },
   {
     "pregunta_id": "mantenibilidad_escalabilidad_005",
@@ -198,7 +210,10 @@
       "paradigmas de programación",
       "organización del código",
       "sistemas empresariales"
-    ]
+    ],
+    "text": "Explica el concepto de Impacto del paradigma en mantenibilidad y escalabilidad y proporciona un ejemplo práctico relacionado con desarrollo de software.",
+    "dificultad": "avanzado",
+    "categoria_contenido": "Principios de arquitectura y mantenibilidad"
   },
   {
     "pregunta_id": "funcional_aplicacion_006",
@@ -233,7 +248,10 @@
       "transformaciones de datos",
       "procesamiento paralelo",
       "seguridad en concurrencia"
-    ]
+    ],
+    "text": "Analiza Aplicaciones adecuadas de programación funcional considerando sus ventajas, limitaciones y ejemplos de aplicación.",
+    "dificultad": "avanzado",
+    "categoria_contenido": "APIs y sistemas distribuidos"
   },
   {
     "pregunta_id": "multiparadigma_riesgos_007",
@@ -267,7 +285,10 @@
       "integración tecnológica",
       "trade-offs",
       "diseño de software"
-    ]
+    ],
+    "text": "Compara y explica Uso de múltiples paradigmas en un proyecto utilizando fundamentos técnicos y ejemplos concretos.",
+    "dificultad": "avanzado",
+    "categoria_contenido": "Fundamentos y paradigmas"
   },
   {
     "pregunta_id": "paradigmas_microservicios_008",
@@ -303,7 +324,10 @@
       "procesamiento asíncrono",
       "cloud computing",
       "arquitectura moderna"
-    ]
+    ],
+    "text": "Analiza Paradigmas y arquitecturas distribuidas considerando sus ventajas, limitaciones y ejemplos de aplicación.",
+    "dificultad": "avanzado",
+    "categoria_contenido": "APIs y sistemas distribuidos"
   },
   {
     "pregunta_id": "funcional_vs_logica_009",
@@ -339,7 +363,10 @@
       "Prolog",
       "expresividad",
       "paradigmas declarativos"
-    ]
+    ],
+    "text": "¿Cómo funciona Fundamentos teóricos de programación funcional y lógica y por qué es importante dentro del desarrollo de software moderno?",
+    "dificultad": "avanzado",
+    "categoria_contenido": "Fundamentos y paradigmas"
   },
   {
     "pregunta_id": "seleccion_paradigma_empresarial_010",
@@ -376,7 +403,10 @@
       "toma de decisiones técnicas",
       "arquitectura escalable",
       "software distribuido"
-    ]
+    ],
+    "text": "Describe qué es Selección estratégica de paradigmas de programación, cuáles son sus principales características y cómo se aplica en un contexto real.",
+    "dificultad": "avanzado",
+    "categoria_contenido": "Principios de arquitectura y mantenibilidad"
   },
   {
     "pregunta_id": "poo_clase_objeto_001",
@@ -413,7 +443,10 @@
       "instancia",
       "estructura de software",
       "diseño orientado a objetos"
-    ]
+    ],
+    "text": "Analiza Fundamentos de programación orientada a objetos considerando sus ventajas, limitaciones y ejemplos de aplicación.",
+    "dificultad": "intermedio",
+    "categoria_contenido": "Diseño orientado a objetos"
   },
   {
     "pregunta_id": "pilares_poo_002",
@@ -449,7 +482,10 @@
       "ocultamiento de datos",
       "sobreescritura",
       "extensibilidad"
-    ]
+    ],
+    "text": "Analiza Pilares de la programación orientada a objetos considerando sus ventajas, limitaciones y ejemplos de aplicación.",
+    "dificultad": "intermedio",
+    "categoria_contenido": "Principios de arquitectura y mantenibilidad"
   },
   {
     "pregunta_id": "poo_reutilizacion_mantenimiento_003",
@@ -484,7 +520,10 @@
       "separación de responsabilidades",
       "POO",
       "arquitectura de software"
-    ]
+    ],
+    "text": "Describe qué es Reutilización y mantenibilidad en POO, cuáles son sus principales características y cómo se aplica en un contexto real.",
+    "dificultad": "intermedio",
+    "categoria_contenido": "Principios de arquitectura y mantenibilidad"
   },
   {
     "pregunta_id": "herencia_vs_composicion_004",
@@ -519,7 +558,10 @@
       "jerarquía de clases",
       "componentes",
       "POO"
-    ]
+    ],
+    "text": "Compara y explica Herencia y composición utilizando fundamentos técnicos y ejemplos concretos.",
+    "dificultad": "intermedio",
+    "categoria_contenido": "Principios de arquitectura y mantenibilidad"
   },
   {
     "pregunta_id": "encapsulamiento_seguridad_005",
@@ -553,7 +595,10 @@
       "estabilidad",
       "POO",
       "control de acceso"
-    ]
+    ],
+    "text": "Compara y explica Encapsulamiento y protección de datos utilizando fundamentos técnicos y ejemplos concretos.",
+    "dificultad": "intermedio",
+    "categoria_contenido": "Diseño orientado a objetos"
   },
   {
     "pregunta_id": "polimorfismo_extensibilidad_006",
@@ -587,7 +632,10 @@
       "arquitectura flexible",
       "reutilización",
       "mantenibilidad"
-    ]
+    ],
+    "text": "¿Cómo funciona Polimorfismo y extensibilidad y por qué es importante dentro del desarrollo de software moderno?",
+    "dificultad": "intermedio",
+    "categoria_contenido": "Principios de arquitectura y mantenibilidad"
   },
   {
     "pregunta_id": "poo_vs_otros_paradigmas_007",
@@ -622,7 +670,10 @@
       "rendimiento",
       "escalabilidad",
       "comparación de paradigmas"
-    ]
+    ],
+    "text": "Compara y explica Comparación de POO con otros paradigmas utilizando fundamentos técnicos y ejemplos concretos.",
+    "dificultad": "avanzado",
+    "categoria_contenido": "Principios de arquitectura y mantenibilidad"
   },
   {
     "pregunta_id": "solid_y_poo_008",
@@ -656,7 +707,10 @@
       "mantenibilidad",
       "patrones de diseño",
       "POO"
-    ]
+    ],
+    "text": "Describe qué es Principios SOLID en diseño orientado a objetos, cuáles son sus principales características y cómo se aplica en un contexto real.",
+    "dificultad": "intermedio",
+    "categoria_contenido": "Principios de arquitectura y mantenibilidad"
   },
   {
     "pregunta_id": "arquitectura_ecommerce_poo_009",
@@ -691,7 +745,10 @@
       "responsabilidades",
       "sistema ecommerce",
       "arquitectura empresarial"
-    ]
+    ],
+    "text": "Analiza Arquitectura orientada a objetos para comercio electrónico considerando sus ventajas, limitaciones y ejemplos de aplicación.",
+    "dificultad": "avanzado",
+    "categoria_contenido": "Principios de arquitectura y mantenibilidad"
   },
   {
     "pregunta_id": "limitaciones_poo_concurrencia_010",
@@ -726,7 +783,10 @@
       "bloqueos",
       "arquitectura concurrente",
       "programación reactiva"
-    ]
+    ],
+    "text": "Describe qué es Limitaciones de POO en concurrencia y sistemas distribuidos, cuáles son sus principales características y cómo se aplica en un contexto real.",
+    "dificultad": "avanzado",
+    "categoria_contenido": "APIs y sistemas distribuidos"
   },
   {
     "pregunta_id": "solid_fundamentos_001",
@@ -766,7 +826,10 @@
       "modularidad",
       "bajo acoplamiento",
       "alta cohesión"
-    ]
+    ],
+    "text": "Analiza Principios SOLID considerando sus ventajas, limitaciones y ejemplos de aplicación.",
+    "dificultad": "intermedio",
+    "categoria_contenido": "Principios de arquitectura y mantenibilidad"
   },
   {
     "pregunta_id": "dry_principio_002",
@@ -801,7 +864,10 @@
       "modularidad",
       "arquitectura limpia",
       "deuda técnica"
-    ]
+    ],
+    "text": "Compara y explica Principio DRY utilizando fundamentos técnicos y ejemplos concretos.",
+    "dificultad": "avanzado",
+    "categoria_contenido": "Principios de arquitectura y mantenibilidad"
   },
   {
     "pregunta_id": "kiss_principio_003",
@@ -835,7 +901,10 @@
       "pruebas de software",
       "calidad de software",
       "minimalismo arquitectónico"
-    ]
+    ],
+    "text": "Analiza Principio KISS considerando sus ventajas, limitaciones y ejemplos de aplicación.",
+    "dificultad": "intermedio",
+    "categoria_contenido": "Principios de arquitectura y mantenibilidad"
   },
   {
     "pregunta_id": "srp_violacion_004",
@@ -869,7 +938,10 @@
       "separación de responsabilidades",
       "deuda técnica",
       "pruebas automatizadas"
-    ]
+    ],
+    "text": "¿Cómo funciona Violación del principio de responsabilidad única y por qué es importante dentro del desarrollo de software moderno?",
+    "dificultad": "intermedio",
+    "categoria_contenido": "Principios de arquitectura y mantenibilidad"
   },
   {
     "pregunta_id": "dry_vs_yagni_005",
@@ -903,7 +975,10 @@
       "reutilización",
       "complejidad accidental",
       "diseño de software"
-    ]
+    ],
+    "text": "¿Cómo funciona Conflicto entre DRY y YAGNI y por qué es importante dentro del desarrollo de software moderno?",
+    "dificultad": "avanzado",
+    "categoria_contenido": "Principios de arquitectura y mantenibilidad"
   },
   {
     "pregunta_id": "dip_flexibilidad_testing_006",
@@ -938,7 +1013,10 @@
       "flexibilidad",
       "sustitución de componentes",
       "SOLID"
-    ]
+    ],
+    "text": "Analiza Principio de inversión de dependencias considerando sus ventajas, limitaciones y ejemplos de aplicación.",
+    "dificultad": "intermedio",
+    "categoria_contenido": "Principios de arquitectura y mantenibilidad"
   },
   {
     "pregunta_id": "impacto_kiss_yagni_007",
@@ -972,7 +1050,10 @@
       "arquitectura compleja",
       "evolución de sistemas",
       "gestión tecnológica"
-    ]
+    ],
+    "text": "¿Cómo funciona Impacto de ignorar KISS y YAGNI y por qué es importante dentro del desarrollo de software moderno?",
+    "dificultad": "intermedio",
+    "categoria_contenido": "Principios de arquitectura y mantenibilidad"
   },
   {
     "pregunta_id": "solid_sobrearquitectura_008",
@@ -1006,7 +1087,10 @@
       "diseño de software",
       "arquitectura limpia",
       "flexibilidad"
-    ]
+    ],
+    "text": "Describe qué es Aplicación excesiva de SOLID, cuáles son sus principales características y cómo se aplica en un contexto real.",
+    "dificultad": "avanzado",
+    "categoria_contenido": "Principios de arquitectura y mantenibilidad"
   },
   {
     "pregunta_id": "refactorizacion_monolito_009",
@@ -1042,7 +1126,10 @@
       "deuda técnica",
       "migración arquitectónica",
       "desacoplamiento"
-    ]
+    ],
+    "text": "Analiza Refactorización hacia arquitectura modular considerando sus ventajas, limitaciones y ejemplos de aplicación.",
+    "dificultad": "avanzado",
+    "categoria_contenido": "Principios de arquitectura y mantenibilidad"
   },
   {
     "pregunta_id": "principios_microservicios_cloud_010",
@@ -1079,7 +1166,10 @@
       "mantenibilidad",
       "observabilidad",
       "evolución independiente"
-    ]
+    ],
+    "text": "Compara y explica Principios de diseño en arquitecturas cloud-native utilizando fundamentos técnicos y ejemplos concretos.",
+    "dificultad": "avanzado",
+    "categoria_contenido": "APIs y sistemas distribuidos"
   },
   {
     "pregunta_id": "rest_api_fundamentos_001",
@@ -1114,7 +1204,10 @@
       "arquitectura distribuida",
       "servicios web",
       "comunicación entre aplicaciones"
-    ]
+    ],
+    "text": "¿Cómo funciona API REST y por qué es importante dentro del desarrollo de software moderno?",
+    "dificultad": "avanzado",
+    "categoria_contenido": "APIs y sistemas distribuidos"
   },
   {
     "pregunta_id": "http_methods_002",
@@ -1149,7 +1242,10 @@
       "semántica HTTP",
       "API REST",
       "manipulación de datos"
-    ]
+    ],
+    "text": "Explica el concepto de Métodos HTTP y proporciona un ejemplo práctico relacionado con desarrollo de software.",
+    "dificultad": "intermedio",
+    "categoria_contenido": "APIs y sistemas distribuidos"
   },
   {
     "pregunta_id": "http_status_codes_003",
@@ -1183,7 +1279,10 @@
       "errores servidor",
       "cliente-servidor",
       "API REST"
-    ]
+    ],
+    "text": "Analiza Códigos de estado HTTP considerando sus ventajas, limitaciones y ejemplos de aplicación.",
+    "dificultad": "intermedio",
+    "categoria_contenido": "APIs y sistemas distribuidos"
   },
   {
     "pregunta_id": "endpoint_design_004",
@@ -1217,7 +1316,10 @@
       "arquitectura REST",
       "endpoints",
       "semántica HTTP"
-    ]
+    ],
+    "text": "Analiza Diseño de endpoints REST considerando sus ventajas, limitaciones y ejemplos de aplicación.",
+    "dificultad": "intermedio",
+    "categoria_contenido": "APIs y sistemas distribuidos"
   },
   {
     "pregunta_id": "rest_vs_rpc_005",
@@ -1251,7 +1353,10 @@
       "servicios distribuidos",
       "API design",
       "microservicios"
-    ]
+    ],
+    "text": "¿Cómo funciona REST vs RPC y por qué es importante dentro del desarrollo de software moderno?",
+    "dificultad": "avanzado",
+    "categoria_contenido": "APIs y sistemas distribuidos"
   },
   {
     "pregunta_id": "error_handling_rest_006",
@@ -1285,7 +1390,10 @@
       "developer experience",
       "logging",
       "REST API"
-    ]
+    ],
+    "text": "Analiza Manejo de errores en APIs REST considerando sus ventajas, limitaciones y ejemplos de aplicación.",
+    "dificultad": "avanzado",
+    "categoria_contenido": "APIs y sistemas distribuidos"
   },
   {
     "pregunta_id": "rest_microservices_007",
@@ -1319,7 +1427,10 @@
       "interoperabilidad",
       "arquitectura distribuida",
       "servicios web"
-    ]
+    ],
+    "text": "¿Cómo funciona REST en microservicios y por qué es importante dentro del desarrollo de software moderno?",
+    "dificultad": "avanzado",
+    "categoria_contenido": "APIs y sistemas distribuidos"
   },
   {
     "pregunta_id": "rest_scalability_resilience_008",
@@ -1353,7 +1464,10 @@
       "observabilidad",
       "sistemas distribuidos",
       "cloud-native"
-    ]
+    ],
+    "text": "Describe qué es APIs REST y arquitectura distribuida, cuáles son sus principales características y cómo se aplica en un contexto real.",
+    "dificultad": "avanzado",
+    "categoria_contenido": "APIs y sistemas distribuidos"
   },
   {
     "pregunta_id": "api_versioning_strategy_009",
@@ -1387,7 +1501,10 @@
       "URI versioning",
       "headers versioning",
       "API lifecycle"
-    ]
+    ],
+    "text": "Analiza Versionado de APIs REST considerando sus ventajas, limitaciones y ejemplos de aplicación.",
+    "dificultad": "avanzado",
+    "categoria_contenido": "APIs y sistemas distribuidos"
   },
   {
     "pregunta_id": "rest_security_observability_010",
@@ -1423,7 +1540,10 @@
       "resiliencia operacional",
       "API gateway",
       "seguridad REST"
-    ]
+    ],
+    "text": "Describe qué es Seguridad y observabilidad en APIs REST, cuáles son sus principales características y cómo se aplica en un contexto real.",
+    "dificultad": "avanzado",
+    "categoria_contenido": "APIs y sistemas distribuidos"
   },
   {
     "pregunta_id": "pruebas_unitarias_fundamentos_001",
@@ -1457,7 +1577,10 @@
       "refactorización",
       "software testing",
       "test cases"
-    ]
+    ],
+    "text": "¿Cómo funciona pruebas_unitarias y por qué es importante dentro del desarrollo de software moderno?",
+    "dificultad": "avanzado",
+    "categoria_contenido": "Principios de arquitectura y mantenibilidad"
   },
   {
     "pregunta_id": "estructura_aaa_testing_002",
@@ -1490,7 +1613,10 @@
       "verificación",
       "unit test structure",
       "buenas prácticas testing"
-    ]
+    ],
+    "text": "Compara y explica estructura_aaa utilizando fundamentos técnicos y ejemplos concretos.",
+    "dificultad": "básico",
+    "categoria_contenido": "Fundamentos y paradigmas"
   },
   {
     "pregunta_id": "tdd_fundamentos_003",
@@ -1522,7 +1648,10 @@
       "software craftsmanship",
       "pruebas automatizadas",
       "desarrollo incremental"
-    ]
+    ],
+    "text": "Describe qué es tdd, cuáles son sus principales características y cómo se aplica en un contexto real.",
+    "dificultad": "avanzado",
+    "categoria_contenido": "Principios de arquitectura y mantenibilidad"
   },
   {
     "pregunta_id": "aaa_legibilidad_mantenibilidad_004",
@@ -1554,7 +1683,10 @@
       "buenas prácticas",
       "software maintainability",
       "test organization"
-    ]
+    ],
+    "text": "Explica el concepto de legibilidad_pruebas y proporciona un ejemplo práctico relacionado con desarrollo de software.",
+    "dificultad": "intermedio",
+    "categoria_contenido": "Principios de arquitectura y mantenibilidad"
   },
   {
     "pregunta_id": "tdd_equipos_agiles_005",
@@ -1586,7 +1718,10 @@
       "testing culture",
       "clean code",
       "continuous testing"
-    ]
+    ],
+    "text": "¿Cómo funciona tdd_agil y por qué es importante dentro del desarrollo de software moderno?",
+    "dificultad": "avanzado",
+    "categoria_contenido": "Principios de arquitectura y mantenibilidad"
   },
   {
     "pregunta_id": "pruebas_deuda_tecnica_006",
@@ -1618,7 +1753,10 @@
       "confiabilidad",
       "maintainable software",
       "testing strategy"
-    ]
+    ],
+    "text": "Describe qué es deuda_tecnica_testing, cuáles son sus principales características y cómo se aplica en un contexto real.",
+    "dificultad": "avanzado",
+    "categoria_contenido": "Principios de arquitectura y mantenibilidad"
   },
   {
     "pregunta_id": "acoplamiento_pruebas_unitarias_007",
@@ -1650,7 +1788,10 @@
       "test design",
       "clean testing",
       "software evolution"
-    ]
+    ],
+    "text": "Analiza fragilidad_pruebas considerando sus ventajas, limitaciones y ejemplos de aplicación.",
+    "dificultad": "avanzado",
+    "categoria_contenido": "Principios de arquitectura y mantenibilidad"
   },
   {
     "pregunta_id": "tdd_arquitectura_desacoplamiento_008",
@@ -1682,7 +1823,10 @@
       "software design",
       "SOLID",
       "incremental design"
-    ]
+    ],
+    "text": "Describe qué es tdd_arquitectura, cuáles son sus principales características y cómo se aplica en un contexto real.",
+    "dificultad": "intermedio",
+    "categoria_contenido": "Principios de arquitectura y mantenibilidad"
   },
   {
     "pregunta_id": "estrategia_pruebas_empresarial_009",
@@ -1714,7 +1858,10 @@
       "test automation",
       "business logic testing",
       "software quality assurance"
-    ]
+    ],
+    "text": "Explica el concepto de estrategia_pruebas_unitarias y proporciona un ejemplo práctico relacionado con desarrollo de software.",
+    "dificultad": "básico",
+    "categoria_contenido": "Fundamentos y paradigmas"
   },
   {
     "pregunta_id": "limitaciones_pruebas_unitarias_010",
@@ -1746,7 +1893,10 @@
       "security testing",
       "test strategy",
       "multi level testing"
-    ]
+    ],
+    "text": "Describe qué es limitaciones_testing_unitario, cuáles son sus principales características y cómo se aplica en un contexto real.",
+    "dificultad": "básico",
+    "categoria_contenido": "Fundamentos y paradigmas"
   },
   {
     "pregunta_id": "bases_datos_relacionales_fundamentos_001",
@@ -1780,7 +1930,10 @@
       "schema",
       "structured data",
       "RDBMS"
-    ]
+    ],
+    "text": "Compara y explica base_datos_relacional utilizando fundamentos técnicos y ejemplos concretos.",
+    "dificultad": "básico",
+    "categoria_contenido": "Fundamentos y paradigmas"
   },
   {
     "pregunta_id": "nosql_fundamentos_002",
@@ -1814,7 +1967,10 @@
       "MongoDB",
       "Cassandra",
       "Neo4j"
-    ]
+    ],
+    "text": "Describe qué es bases_datos_nosql, cuáles son sus principales características y cómo se aplica en un contexto real.",
+    "dificultad": "avanzado",
+    "categoria_contenido": "Fundamentos y paradigmas"
   },
   {
     "pregunta_id": "acid_transacciones_003",
@@ -1847,7 +2003,10 @@
       "concurrencia",
       "transaction processing",
       "database reliability"
-    ]
+    ],
+    "text": "Analiza propiedades_acid considerando sus ventajas, limitaciones y ejemplos de aplicación.",
+    "dificultad": "avanzado",
+    "categoria_contenido": "Fundamentos y paradigmas"
   },
   {
     "pregunta_id": "comparacion_relacional_nosql_004",
@@ -1879,7 +2038,10 @@
       "bases distribuidas",
       "high scalability",
       "database comparison"
-    ]
+    ],
+    "text": "Compara y explica comparacion_relacional_nosql utilizando fundamentos técnicos y ejemplos concretos.",
+    "dificultad": "avanzado",
+    "categoria_contenido": "Fundamentos y paradigmas"
   },
   {
     "pregunta_id": "acid_sistemas_financieros_005",
@@ -1911,7 +2073,10 @@
       "concurrency control",
       "persistencia",
       "financial systems"
-    ]
+    ],
+    "text": "Analiza acid_finanzas considerando sus ventajas, limitaciones y ejemplos de aplicación.",
+    "dificultad": "avanzado",
+    "categoria_contenido": "Fundamentos y paradigmas"
   },
   {
     "pregunta_id": "nosql_casos_uso_006",
@@ -1943,7 +2108,10 @@
       "horizontal scaling",
       "low latency",
       "real time processing"
-    ]
+    ],
+    "text": "Analiza casos_uso_nosql considerando sus ventajas, limitaciones y ejemplos de aplicación.",
+    "dificultad": "intermedio",
+    "categoria_contenido": "Fundamentos y paradigmas"
   },
   {
     "pregunta_id": "bases_datos_distribuidas_007",
@@ -1975,7 +2143,10 @@
       "distributed systems",
       "database clustering",
       "horizontal scaling"
-    ]
+    ],
+    "text": "¿Cómo funciona bases_datos_distribuidas y por qué es importante dentro del desarrollo de software moderno?",
+    "dificultad": "avanzado",
+    "categoria_contenido": "Fundamentos y paradigmas"
   },
   {
     "pregunta_id": "acid_cap_distribuidos_008",
@@ -2007,7 +2178,10 @@
       "distributed transactions",
       "cloud databases",
       "network partitions"
-    ]
+    ],
+    "text": "Analiza acid_cap considerando sus ventajas, limitaciones y ejemplos de aplicación.",
+    "dificultad": "avanzado",
+    "categoria_contenido": "Fundamentos y paradigmas"
   },
   {
     "pregunta_id": "persistencia_hibrida_ecommerce_009",
@@ -2039,7 +2213,10 @@
       "transaction systems",
       "cloud persistence",
       "data architecture"
-    ]
+    ],
+    "text": "Explica el concepto de persistencia_hibrida y proporciona un ejemplo práctico relacionado con desarrollo de software.",
+    "dificultad": "básico",
+    "categoria_contenido": "Fundamentos y paradigmas"
   },
   {
     "pregunta_id": "cloud_native_bases_datos_010",
@@ -2072,7 +2249,10 @@
       "fault tolerance",
       "cloud architecture",
       "database scalability"
-    ]
+    ],
+    "text": "Analiza bases_datos_cloud_native considerando sus ventajas, limitaciones y ejemplos de aplicación.",
+    "dificultad": "avanzado",
+    "categoria_contenido": "Fundamentos y paradigmas"
   },
   {
     "pregunta_id": "git_fundamentos_001",
@@ -2106,7 +2286,10 @@
       "source code management",
       "merge",
       "software collaboration"
-    ]
+    ],
+    "text": "Analiza git_control_versiones considerando sus ventajas, limitaciones y ejemplos de aplicación.",
+    "dificultad": "básico",
+    "categoria_contenido": "Fundamentos y paradigmas"
   },
   {
     "pregunta_id": "uml_modificadores_acceso_002",
@@ -2139,7 +2322,10 @@
       "métodos",
       "object oriented programming",
       "class design"
-    ]
+    ],
+    "text": "Describe qué es modificadores_acceso, cuáles son sus principales características y cómo se aplica en un contexto real.",
+    "dificultad": "intermedio",
+    "categoria_contenido": "Diseño orientado a objetos"
   },
   {
     "pregunta_id": "interfaces_uml_poo_003",
@@ -2171,7 +2357,10 @@
       "abstraction",
       "software flexibility",
       "dependency inversion"
-    ]
+    ],
+    "text": "Explica el concepto de interfaces_poo y proporciona un ejemplo práctico relacionado con desarrollo de software.",
+    "dificultad": "intermedio",
+    "categoria_contenido": "Principios de arquitectura y mantenibilidad"
   },
   {
     "pregunta_id": "uml_agregacion_composicion_004",
@@ -2203,7 +2392,10 @@
       "aggregation vs composition",
       "object ownership",
       "software modeling"
-    ]
+    ],
+    "text": "Compara y explica agregacion_composicion utilizando fundamentos técnicos y ejemplos concretos.",
+    "dificultad": "intermedio",
+    "categoria_contenido": "Diseño orientado a objetos"
   },
   {
     "pregunta_id": "git_branches_colaboracion_005",
@@ -2235,7 +2427,10 @@
       "version control workflow",
       "integration",
       "source code collaboration"
-    ]
+    ],
+    "text": "Describe qué es branches_git, cuáles son sus principales características y cómo se aplica en un contexto real.",
+    "dificultad": "básico",
+    "categoria_contenido": "Fundamentos y paradigmas"
   },
   {
     "pregunta_id": "uml_comunicacion_equipos_006",
@@ -2267,7 +2462,10 @@
       "sequence diagram",
       "software design",
       "team collaboration"
-    ]
+    ],
+    "text": "Explica el concepto de uml_comunicacion y proporciona un ejemplo práctico relacionado con desarrollo de software.",
+    "dificultad": "básico",
+    "categoria_contenido": "Fundamentos y paradigmas"
   },
   {
     "pregunta_id": "git_uml_agilidad_007",
@@ -2299,7 +2497,10 @@
       "technical documentation",
       "software maintainability",
       "team coordination"
-    ]
+    ],
+    "text": "Compara y explica git_uml_agil utilizando fundamentos técnicos y ejemplos concretos.",
+    "dificultad": "básico",
+    "categoria_contenido": "Fundamentos y paradigmas"
   },
   {
     "pregunta_id": "uml_branching_mantenibilidad_008",
@@ -2331,7 +2532,10 @@
       "architectural evolution",
       "enterprise development",
       "team coordination"
-    ]
+    ],
+    "text": "Analiza gobernanza_tecnica_git_uml considerando sus ventajas, limitaciones y ejemplos de aplicación.",
+    "dificultad": "avanzado",
+    "categoria_contenido": "Fundamentos y paradigmas"
   },
   {
     "pregunta_id": "estrategia_colaboracion_git_uml_009",
@@ -2363,7 +2567,10 @@
       "software workflow",
       "team development",
       "commit conventions"
-    ]
+    ],
+    "text": "Describe qué es estrategia_colaboracion, cuáles son sus principales características y cómo se aplica en un contexto real.",
+    "dificultad": "básico",
+    "categoria_contenido": "Fundamentos y paradigmas"
   },
   {
     "pregunta_id": "consistencia_codigo_uml_010",
@@ -2395,7 +2602,10 @@
       "diagram consistency",
       "large scale systems",
       "maintainability"
-    ]
+    ],
+    "text": "Describe qué es sincronizacion_codigo_documentacion, cuáles son sus principales características y cómo se aplica en un contexto real.",
+    "dificultad": "básico",
+    "categoria_contenido": "Fundamentos y paradigmas"
   },
   {
     "pregunta_id": "arquitectura_software_001",
@@ -2430,7 +2640,10 @@
       "evolución del sistema",
       "desacoplamiento",
       "sistemas modernos"
-    ]
+    ],
+    "text": "Describe qué es arquitectura_software, cuáles son sus principales características y cómo se aplica en un contexto real.",
+    "dificultad": "avanzado",
+    "categoria_contenido": "Principios de arquitectura y mantenibilidad"
   },
   {
     "pregunta_id": "arquitectura_en_capas_002",
@@ -2464,7 +2677,10 @@
       "enterprise application",
       "flujo arquitectónico",
       "software multicapa"
-    ]
+    ],
+    "text": "¿Cómo funciona arquitectura_en_capas y por qué es importante dentro del desarrollo de software moderno?",
+    "dificultad": "intermedio",
+    "categoria_contenido": "Principios de arquitectura y mantenibilidad"
   },
   {
     "pregunta_id": "microservicios_003",
@@ -2498,7 +2714,10 @@
       "desacoplamiento",
       "monolito",
       "resiliencia"
-    ]
+    ],
+    "text": "¿Cómo funciona microservicios y por qué es importante dentro del desarrollo de software moderno?",
+    "dificultad": "avanzado",
+    "categoria_contenido": "APIs y sistemas distribuidos"
   },
   {
     "pregunta_id": "comparacion_capas_hexagonal_004",
@@ -2531,7 +2750,10 @@
       "mantenibilidad",
       "clean boundaries",
       "software architecture comparison"
-    ]
+    ],
+    "text": "¿Cómo funciona comparacion_capas_hexagonal y por qué es importante dentro del desarrollo de software moderno?",
+    "dificultad": "intermedio",
+    "categoria_contenido": "Principios de arquitectura y mantenibilidad"
   },
   {
     "pregunta_id": "clean_architecture_005",
@@ -2564,7 +2786,10 @@
       "software boundaries",
       "testabilidad",
       "core business"
-    ]
+    ],
+    "text": "Analiza clean_architecture considerando sus ventajas, limitaciones y ejemplos de aplicación.",
+    "dificultad": "intermedio",
+    "categoria_contenido": "Principios de arquitectura y mantenibilidad"
   },
   {
     "pregunta_id": "arquitectura_orientada_eventos_006",
@@ -2598,7 +2823,10 @@
       "sistemas distribuidos",
       "resiliencia",
       "escalabilidad"
-    ]
+    ],
+    "text": "Compara y explica arquitectura_orientada_eventos utilizando fundamentos técnicos y ejemplos concretos.",
+    "dificultad": "avanzado",
+    "categoria_contenido": "APIs y sistemas distribuidos"
   },
   {
     "pregunta_id": "migracion_monolito_microservicios_007",
@@ -2631,7 +2859,10 @@
       "cloud migration",
       "distributed systems",
       "deployment independence"
-    ]
+    ],
+    "text": "Describe qué es migracion_monolito_microservicios, cuáles son sus principales características y cómo se aplica en un contexto real.",
+    "dificultad": "avanzado",
+    "categoria_contenido": "APIs y sistemas distribuidos"
   },
   {
     "pregunta_id": "arquitectura_cloud_native_desacoplada_008",
@@ -2665,7 +2896,10 @@
       "infraestructura independiente",
       "testabilidad",
       "automatización"
-    ]
+    ],
+    "text": "Analiza arquitectura_cloud_native_desacoplada considerando sus ventajas, limitaciones y ejemplos de aplicación.",
+    "dificultad": "avanzado",
+    "categoria_contenido": "APIs y sistemas distribuidos"
   },
   {
     "pregunta_id": "arquitectura_ecommerce_eventos_009",
@@ -2699,7 +2933,10 @@
       "tolerancia a fallos",
       "observabilidad",
       "distributed commerce"
-    ]
+    ],
+    "text": "Explica el concepto de arquitectura_ecommerce_eventos y proporciona un ejemplo práctico relacionado con desarrollo de software.",
+    "dificultad": "avanzado",
+    "categoria_contenido": "APIs y sistemas distribuidos"
   },
   {
     "pregunta_id": "desafios_sistemas_distribuidos_010",
@@ -2733,6 +2970,9 @@
       "microservicios",
       "monitoring",
       "fault tolerance"
-    ]
+    ],
+    "text": "Explica el concepto de desafios_sistemas_distribuidos y proporciona un ejemplo práctico relacionado con desarrollo de software.",
+    "dificultad": "avanzado",
+    "categoria_contenido": "APIs y sistemas distribuidos"
   }
 ]
