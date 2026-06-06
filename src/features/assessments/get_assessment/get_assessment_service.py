@@ -1,4 +1,5 @@
-from random import sample
+from secrets import SystemRandom
+
 
 from src.features.assessments.get_assessment.get_assessment_request import (
     GetAssessmentRequest,
@@ -14,6 +15,8 @@ from src.features.assessments.shared.question import (
 from src.features.assessments.shared.question_assessment_repository import (
     QuestionAssessmentRepository,
 )
+
+_rng = SystemRandom()
 
 
 class GetRandomQuestionsRequest:
@@ -87,7 +90,7 @@ class GetAssessmentService:
         questions = await self.question_repository.get_question_by_level(
             difficulty=request.difficulty_level
         )
-        questions_selected: list[EvaluativeQuestion] = sample(
+        questions_selected: list[EvaluativeQuestion] = _rng.sample(
             questions, request.number_of_questions
         )
         return [
