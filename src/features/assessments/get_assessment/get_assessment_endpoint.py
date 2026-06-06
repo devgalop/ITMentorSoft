@@ -32,16 +32,13 @@ router = APIRouter()
                     "example": {
                         "is_success": True,
                         "message": "Assessment retrieved successfully",
-                        "assessment": {
-                            "assessment_id": "123e4567e89b12d3a456426614174000",
-                            "user_id": "123e4567e89b12d3a456426614174000",
-                            "questions": [
-                                {
-                                    "question_id": "123e4567e89b12d3a456426614174000",
-                                    "text_to_evaluate": "Explain the difference between...",
-                                }
-                            ],
-                        },
+                        "assessment_id": "123e4567e89b12d3a456426614174000",
+                        "questions": [
+                            {
+                                "question_id": "123e4567e89b12d3a456426614174000",
+                                "text_to_evaluate": "Explain the difference between...",
+                            }
+                        ],
                     }
                 }
             },
