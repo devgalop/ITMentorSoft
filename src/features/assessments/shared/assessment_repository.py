@@ -1,16 +1,25 @@
 from abc import ABC, abstractmethod
 
-from src.features.assessments.shared.assessment import Assessment
+from src.features.assessments.shared.assessment import Assessment, AssessmentQuiz
 
 
 class AssessmentRepository(ABC):
 
     @abstractmethod
-    async def save_assessment(self, assessment: Assessment):
+    async def save_assessment(self, assessment: AssessmentQuiz):
         """Save an assessment
 
         Args:
             assessment: The assessment to be saved.
+        """
+        pass
+
+    @abstractmethod
+    async def save_assessment_answers(self, assessment: Assessment):
+        """Save the answers of an assessment
+
+        Args:
+            assessment: The assessment with the answers to be saved.
         """
         pass
 

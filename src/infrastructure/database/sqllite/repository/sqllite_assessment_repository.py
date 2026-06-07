@@ -2,7 +2,7 @@ from typing import Type
 from sqlalchemy import select
 from sqlalchemy.ext.asyncio import AsyncSession
 
-from src.features.assessments.shared.assessment import Assessment
+from src.features.assessments.shared.assessment import Assessment, AssessmentQuiz
 from src.features.assessments.shared.assessment_repository import AssessmentRepository
 from src.infrastructure.database.sqllite.models.sqllite_assessment_mapper import (
     SqlliteAssessmentMapper,
@@ -19,11 +19,15 @@ class SqlliteAssessmentRepository(AssessmentRepository):
         self.session_factory = session_factory
         self.mapper = mapper
 
-    async def save_assessment(self, assessment: Assessment):
-        entity = self.mapper.to_entity(assessment)
-        answers = entity.answers
+    async def save_assessment(self, assessment: AssessmentQuiz):
+        entity = self.mapper.quiz_to_entity(assessment)
         self.session_factory.add(entity)
-        for answer in answers:
+        await self.session_factory.commit()
+
+    async def save_assessment_answers(self, assessment: Assessment):
+        entity = self.mapper.to_entity(assessment)
+        self.session_factory.add(entity)
+        for answer in entity.answers:
             self.session_factory.add(answer)
         await self.session_factory.commit()
 

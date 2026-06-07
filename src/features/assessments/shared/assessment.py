@@ -24,3 +24,11 @@ class Assessment:
 
     def set_id(self, assessment_id: str):
         self.assessment_id = assessment_id
+
+
+class AssessmentQuiz:
+    def __init__(self, user_id: str, created_at: datetime, questions: list[str]):
+        self.assessment_id = uuid.uuid4().hex
+        self.user_id = user_id
+        self.created_at = created_at
+        self.questions = questions
