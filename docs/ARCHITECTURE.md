@@ -163,6 +163,10 @@ infrastructure/
 
 A continuación se presentan los diagramas de arquitectura del proyecto:
 
+### Diagrama de contexto
+
+![diagrama_contexto](./resources/c4_context_tutor.drawio.png)
+
 ### Diagrama de contenedores
 
 ![diagrama_contenedores](./resources/c4_containers_tutor.drawio.png)

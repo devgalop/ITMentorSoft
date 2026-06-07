@@ -1,5 +1,8 @@
 from typing import Type
 
+from src.features.content_management.get_contents_by_title.get_contents_by_title_request import (
+    GetContentsByTitlePaginationRequest,
+)
 from src.features.content_management.register_content.register_content_request import (
     RegisterContentRequest,
 )
@@ -29,7 +32,9 @@ class RegisterContentHandler:
     async def handle(self, request: RegisterContentRequest) -> RegisterContentResponse:
 
         content = await self.content_repository.get_resource_contents_by_title(
-            request.title
+            GetContentsByTitlePaginationRequest(
+                title=request.title, page=0, page_size=1
+            )
         )
         if content:
             return RegisterContentResponse(

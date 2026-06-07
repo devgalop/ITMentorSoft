@@ -1,4 +1,4 @@
-from fastapi import APIRouter, Depends
+from fastapi import APIRouter, Depends, HTTPException
 from typing import Annotated
 
 from src.features.content_management.get_contents_by_title.get_contents_by_title_handler import (
@@ -51,6 +51,29 @@ router = APIRouter()
             "description": "Unauthorized.",
             "content": {"application/json": {"example": {"message": "Unauthorized."}}},
         },
+        404: {
+            "description": "Not Found. No contents found matching the given title criteria.",
+            "content": {
+                "application/json": {
+                    "example": {
+                        "is_success": False,
+                        "message": "No contents found matching the given title criteria",
+                        "items": [],
+                        "total": 0,
+                    }
+                }
+            },
+        },
+        500: {
+            "description": "Internal Server Error.",
+            "content": {
+                "application/json": {
+                    "example": {
+                        "message": "An error occurred while retrieving contents."
+                    }
+                }
+            },
+        },
     },
 )
 async def get_contents_by_title(
@@ -72,4 +95,7 @@ async def get_contents_by_title(
     request = GetContentsByTitlePaginationRequest(
         title=criteria, page=page, page_size=page_size
     )
-    return await handler.handle(request)
+    response = await handler.handle(request)
+    if not response.is_success:
+        raise HTTPException(status_code=404, detail=response.model_dump())
+    return response

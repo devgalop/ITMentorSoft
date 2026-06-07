@@ -1,5 +1,7 @@
 # Proyecto de especialización en desarrollo de software: Tutor inteligente para fundamentos de diseño de software y pensamiento computacional
 
+![banner](docs/resources/banner_mentorsoft.png)
+
 ## Descripción del proyecto
 
 Este proyecto tiene como objetivo principal potenciar el dominio de los fundamentos de desarrollo de software y las habilidades de pensamiento computacional en estudiantes que ingresan a programas de ingeniería de software, mediante el diseño e implementación de un tutor inteligente con capacidades de diagnóstico adaptativo y generación de rutas de aprendizaje personalizadas.
@@ -130,6 +132,16 @@ Para más detalles sobre la arquitectura del proyecto, puedes consultar el docum
 ## Configuración del entorno de desarrollo
 
 Para obtener detalles sobre cómo configurar el entorno de desarrollo, puedes consultar el documento [SETUP.md](docs/SETUP.md).
+
+## Desarrollo mediante Git Flow
+
+Este proyecto sigue el modelo de desarrollo Git Flow, que se basa en ramas específicas para cada tipo de trabajo. Las ramas principales son:
+
+- `master`: Rama principal que contiene el código de producción.
+- `develop`: Rama de desarrollo donde se integran las nuevas funcionalidades antes de ser fusionadas a `master`.
+- `feature/*`: Ramas para el desarrollo de nuevas funcionalidades. Se crean a partir de `develop` y se fusionan de nuevo a `develop` una vez que la funcionalidad está completa.
+- `release/*`: Ramas para preparar una nueva versión. Se crean a partir de `develop` y se fusionan a `master` y `develop` una vez que la versión está lista para ser lanzada.
+- `hotfix/*`: Ramas para corregir errores críticos en producción. Se crean a partir de `master` y se fusionan a `master` y `develop` una vez que el error ha sido corregido.
 
 ## Licencia
 

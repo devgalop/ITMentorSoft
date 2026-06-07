@@ -1,4 +1,4 @@
-from fastapi import APIRouter, Depends
+from fastapi import APIRouter, Depends, HTTPException
 from typing import Annotated
 
 from src.features.content_management.get_contents_by_category.get_contents_by_category_handler import (
@@ -51,6 +51,19 @@ router = APIRouter()
             "description": "Unauthorized.",
             "content": {"application/json": {"example": {"message": "Unauthorized."}}},
         },
+        404: {
+            "description": "Not Found. No contents found for the given category.",
+            "content": {
+                "application/json": {
+                    "example": {
+                        "is_success": False,
+                        "message": "No contents found for the given category",
+                        "items": [],
+                        "total": 0,
+                    }
+                }
+            },
+        },
     },
 )
 async def get_contents_by_category(
@@ -72,4 +85,7 @@ async def get_contents_by_category(
     request = GetContentsByCategoryPaginationRequest(
         category=criteria, page=page, page_size=page_size
     )
-    return await handler.handle(request)
+    response = await handler.handle(request)
+    if not response.is_success:
+        raise HTTPException(status_code=404, detail=response.model_dump())
+    return response

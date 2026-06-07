@@ -1,0 +1,2978 @@
+[
+  {
+    "pregunta_id": "paradigmas_programacion_basico_001",
+    "concepto": "Paradigmas de programación",
+    "definicion": "Un paradigma de programación es un modelo conceptual o enfoque que define cómo se organiza, estructura y desarrolla el software para resolver problemas computacionales.",
+    "explicacion_simple": "Un paradigma de programación es una forma de pensar y escribir programas. Cada paradigma propone diferentes maneras de organizar instrucciones, datos y lógica dentro del software.",
+    "ejemplo_correcto": "Un paradigma de programación es un estilo para desarrollar software. Por ejemplo, la programación orientada a objetos organiza el código mediante clases y objetos, la programación funcional usa funciones puras y la programación imperativa se basa en instrucciones paso a paso.",
+    "ejemplo_incorrecto": "Python, Java y Visual Studio son paradigmas de programación utilizados para crear aplicaciones.",
+    "errores_comunes": [
+      "Confundir lenguajes de programación con paradigmas.",
+      "Mencionar herramientas o tecnologías en lugar de enfoques de programación.",
+      "Definir paradigma de forma demasiado vaga, como 'una manera de programar' sin explicar su función.",
+      "No incluir ejemplos de paradigmas reconocidos.",
+      "Asumir que cada lenguaje pertenece a un único paradigma.",
+      "Describir características de un lenguaje en lugar del modelo de programación."
+    ],
+    "criterios_rubrica": {
+      "0": "La respuesta es incorrecta, vacía o no identifica qué es un paradigma de programación.",
+      "1": "Presenta una idea básica pero confusa del concepto o menciona menos de tres paradigmas correctamente.",
+      "2": "Define parcialmente el concepto y menciona al menos tres paradigmas válidos, aunque con poca claridad o precisión técnica.",
+      "3": "Define claramente el paradigma de programación como un modelo o enfoque de desarrollo de software y menciona correctamente tres o más paradigmas relevantes con terminología adecuada."
+    },
+    "keywords_semanticas": [
+      "paradigma de programación",
+      "modelo de programación",
+      "estilo de programación",
+      "enfoque de desarrollo",
+      "programación imperativa",
+      "programación orientada a objetos",
+      "POO",
+      "programación funcional",
+      "programación lógica",
+      "programación declarativa",
+      "estructuración de software",
+      "resolución de problemas",
+      "metodología de programación",
+      "paradigmas comunes",
+      "diseño de software",
+      "modelo conceptual",
+      "estilos de desarrollo",
+      "programación procedural",
+      "programación basada en objetos",
+      "enfoques de programación",
+      "conceptos básicos de programación",
+      "fundamentos de programación"
+    ],
+    "text": "Describe qué es Paradigmas de programación, cuáles son sus principales características y cómo se aplica en un contexto real.",
+    "dificultad": "básico",
+    "categoria_contenido": "Diseño orientado a objetos"
+  },
+  {
+    "pregunta_id": "oop_caracteristicas_002",
+    "concepto": "Programación orientada a objetos",
+    "definicion": "La programación orientada a objetos es un paradigma que estructura el software mediante clases y objetos que encapsulan datos y comportamientos relacionados.",
+    "explicacion_simple": "Este paradigma organiza un programa como si estuviera compuesto por entidades del mundo real. Cada objeto tiene propiedades y acciones, lo que facilita dividir y reutilizar el código.",
+    "ejemplo_correcto": "En un sistema bancario, una clase CuentaBancaria puede contener atributos como saldo y métodos como depositar o retirar. La herencia permite crear cuentas de ahorro o corrientes reutilizando lógica común.",
+    "ejemplo_incorrecto": "La programación orientada a objetos consiste únicamente en usar ventanas gráficas y crear variables globales para compartir información.",
+    "errores_comunes": [
+      "Confundir objetos con variables simples.",
+      "Mencionar los pilares OOP sin explicar su función.",
+      "Confundir herencia con composición.",
+      "Asumir que OOP solo sirve para interfaces gráficas.",
+      "No relacionar el paradigma con modularidad y reutilización."
+    ],
+    "criterios_rubrica": {
+      "0": "Respuesta incorrecta o sin explicación válida sobre OOP.",
+      "1": "Reconoce parcialmente el paradigma pero presenta definiciones incompletas o confusas.",
+      "2": "Describe correctamente algunos pilares y ventajas, aunque con poca profundidad o ejemplos limitados.",
+      "3": "Explica claramente encapsulamiento, herencia, polimorfismo y abstracción, relacionándolos con reutilización, modularidad y mantenibilidad."
+    },
+    "keywords_semanticas": [
+      "programación orientada a objetos",
+      "OOP",
+      "POO",
+      "clase",
+      "objeto",
+      "encapsulamiento",
+      "herencia",
+      "polimorfismo",
+      "abstracción",
+      "reutilización de código",
+      "modularidad",
+      "diseño orientado a objetos",
+      "relación entre objetos",
+      "mantenibilidad",
+      "arquitectura de software",
+      "composición",
+      "instancia",
+      "modelo orientado a objetos"
+    ],
+    "text": "Compara y explica Programación orientada a objetos utilizando fundamentos técnicos y ejemplos concretos.",
+    "dificultad": "intermedio",
+    "categoria_contenido": "Principios de arquitectura y mantenibilidad"
+  },
+  {
+    "pregunta_id": "imperativa_vs_declarativa_003",
+    "concepto": "Comparación entre programación imperativa y declarativa",
+    "definicion": "La programación imperativa define paso a paso cómo resolver un problema, mientras que la programación declarativa expresa el resultado esperado sin especificar explícitamente el procedimiento.",
+    "explicacion_simple": "En el enfoque imperativo el programador controla cada instrucción. En el declarativo se indica qué se quiere obtener y el sistema decide cómo lograrlo.",
+    "ejemplo_correcto": "En programación imperativa se utilizan instrucciones secuenciales y cambios de estado. En SQL, paradigma declarativo, se consulta información indicando el resultado deseado sin describir el algoritmo interno.",
+    "ejemplo_incorrecto": "La programación declarativa siempre es más rápida que la imperativa y ambas funcionan exactamente igual.",
+    "errores_comunes": [
+      "Confundir el control de flujo entre ambos paradigmas.",
+      "Creer que declarativo significa no programar lógica.",
+      "Usar ejemplos incorrectos de paradigmas.",
+      "No explicar la diferencia fundamental.",
+      "Describir únicamente lenguajes sin comparar enfoques."
+    ],
+    "criterios_rubrica": {
+      "0": "No diferencia correctamente ambos paradigmas.",
+      "1": "Presenta una comparación superficial o parcialmente incorrecta.",
+      "2": "Identifica la diferencia principal y ofrece ejemplos básicos adecuados.",
+      "3": "Compara claramente ambos enfoques explicando control de flujo, manejo del estado y expresión del problema con ejemplos precisos."
+    },
+    "keywords_semanticas": [
+      "programación imperativa",
+      "programación declarativa",
+      "control de flujo",
+      "estado mutable",
+      "algoritmo paso a paso",
+      "expresión del resultado",
+      "SQL",
+      "Prolog",
+      "Java",
+      "C",
+      "flujo de ejecución",
+      "automatización",
+      "resolución de problemas",
+      "paradigmas comparativos",
+      "procedimiento",
+      "declaratividad"
+    ],
+    "text": "Describe qué es Comparación entre programación imperativa y declarativa, cuáles son sus principales características y cómo se aplica en un contexto real.",
+    "dificultad": "intermedio",
+    "categoria_contenido": "Fundamentos y paradigmas"
+  },
+  {
+    "pregunta_id": "oop_vs_funcional_004",
+    "concepto": "Comparación entre programación orientada a objetos y funcional",
+    "definicion": "La programación orientada a objetos organiza el software mediante entidades con estado y comportamiento, mientras que la programación funcional prioriza funciones puras e inmutabilidad para procesar datos.",
+    "explicacion_simple": "OOP se centra en objetos que cambian de estado. La programación funcional trabaja transformando datos mediante funciones sin modificar información original.",
+    "ejemplo_correcto": "En un sistema de usuarios, OOP puede modelar usuarios como objetos con métodos asociados. El enfoque funcional puede procesar listas de usuarios mediante funciones puras y transformaciones inmutables.",
+    "ejemplo_incorrecto": "La programación funcional no utiliza datos y la programación orientada a objetos no puede reutilizar código.",
+    "errores_comunes": [
+      "Reducir la comparación a definiciones teóricas.",
+      "No mencionar diferencias entre mutabilidad e inmutabilidad.",
+      "Ignorar ventajas y limitaciones de ambos paradigmas.",
+      "Confundir funciones puras con funciones matemáticas simples.",
+      "No contextualizar con ejemplos reales."
+    ],
+    "criterios_rubrica": {
+      "0": "Respuesta incorrecta o sin comparación válida.",
+      "1": "Menciona diferencias generales pero sin análisis técnico.",
+      "2": "Describe ventajas y limitaciones básicas de ambos enfoques con ejemplos simples.",
+      "3": "Realiza una comparación profunda considerando estado, modularidad, mantenimiento y escalabilidad con argumentación técnica coherente."
+    },
+    "keywords_semanticas": [
+      "programación funcional",
+      "programación orientada a objetos",
+      "funciones puras",
+      "inmutabilidad",
+      "estado mutable",
+      "estado inmutable",
+      "modularidad",
+      "procesamiento de datos",
+      "escalabilidad",
+      "mantenimiento de software",
+      "transformación de datos",
+      "objetos",
+      "clases",
+      "paradigmas híbridos",
+      "comparación de paradigmas"
+    ],
+    "text": "Compara y explica Comparación entre programación orientada a objetos y funcional utilizando fundamentos técnicos y ejemplos concretos.",
+    "dificultad": "avanzado",
+    "categoria_contenido": "Principios de arquitectura y mantenibilidad"
+  },
+  {
+    "pregunta_id": "mantenibilidad_escalabilidad_005",
+    "concepto": "Impacto del paradigma en mantenibilidad y escalabilidad",
+    "definicion": "El paradigma de programación influye en cómo se estructura el código, afectando la facilidad de mantenimiento, pruebas, extensión y crecimiento del sistema.",
+    "explicacion_simple": "La manera de programar determina si un sistema será fácil de modificar, ampliar o escalar cuando aumenten los requisitos o usuarios.",
+    "ejemplo_correcto": "Un sistema modular basado en OOP puede facilitar mantenimiento mediante encapsulamiento, mientras que un enfoque funcional puede simplificar concurrencia y pruebas gracias a la inmutabilidad.",
+    "ejemplo_incorrecto": "El paradigma no afecta el mantenimiento porque todos los programas pueden modificarse igual.",
+    "errores_comunes": [
+      "Dar respuestas demasiado abstractas.",
+      "No relacionar el paradigma con arquitectura de software.",
+      "Ignorar conceptos como acoplamiento y cohesión.",
+      "No mencionar impacto en pruebas y escalabilidad.",
+      "Asumir que un paradigma es universalmente superior."
+    ],
+    "criterios_rubrica": {
+      "0": "No explica la relación entre paradigma y calidad del sistema.",
+      "1": "Presenta ideas generales sin profundidad técnica.",
+      "2": "Relaciona parcialmente paradigmas con mantenimiento o escalabilidad.",
+      "3": "Analiza cómo organización, modularidad, acoplamiento y pruebas afectan mantenibilidad y escalabilidad en escenarios reales."
+    },
+    "keywords_semanticas": [
+      "mantenibilidad",
+      "escalabilidad",
+      "arquitectura de software",
+      "modularidad",
+      "acoplamiento",
+      "cohesión",
+      "pruebas de software",
+      "mantenimiento evolutivo",
+      "diseño de sistemas",
+      "escalabilidad horizontal",
+      "calidad de software",
+      "paradigmas de programación",
+      "organización del código",
+      "sistemas empresariales"
+    ],
+    "text": "Explica el concepto de Impacto del paradigma en mantenibilidad y escalabilidad y proporciona un ejemplo práctico relacionado con desarrollo de software.",
+    "dificultad": "avanzado",
+    "categoria_contenido": "Principios de arquitectura y mantenibilidad"
+  },
+  {
+    "pregunta_id": "funcional_aplicacion_006",
+    "concepto": "Aplicaciones adecuadas de programación funcional",
+    "definicion": "La programación funcional resulta especialmente adecuada en escenarios donde la inmutabilidad y las funciones puras mejoran la concurrencia, paralelismo y procesamiento de datos.",
+    "explicacion_simple": "Este paradigma funciona bien cuando muchos procesos deben ejecutarse simultáneamente sin modificar datos compartidos.",
+    "ejemplo_correcto": "En procesamiento masivo de datos, funciones puras permiten ejecutar operaciones en paralelo reduciendo errores por cambios de estado compartido.",
+    "ejemplo_incorrecto": "La programación funcional solo sirve para resolver ecuaciones matemáticas pequeñas.",
+    "errores_comunes": [
+      "No justificar técnicamente el escenario propuesto.",
+      "Confundir concurrencia con multitarea simple.",
+      "Ignorar beneficios de la inmutabilidad.",
+      "Dar ejemplos irrelevantes o genéricos.",
+      "No mencionar efectos secundarios."
+    ],
+    "criterios_rubrica": {
+      "0": "No identifica un caso válido para programación funcional.",
+      "1": "Menciona un escenario pero sin explicación técnica suficiente.",
+      "2": "Relaciona parcialmente programación funcional con concurrencia o procesamiento de datos.",
+      "3": "Justifica claramente un caso práctico explicando beneficios de funciones puras, inmutabilidad y paralelismo."
+    },
+    "keywords_semanticas": [
+      "programación funcional",
+      "inmutabilidad",
+      "funciones puras",
+      "concurrencia",
+      "paralelismo",
+      "procesamiento masivo de datos",
+      "sistemas distribuidos",
+      "efectos secundarios",
+      "computación distribuida",
+      "transformaciones de datos",
+      "procesamiento paralelo",
+      "seguridad en concurrencia"
+    ],
+    "text": "Analiza Aplicaciones adecuadas de programación funcional considerando sus ventajas, limitaciones y ejemplos de aplicación.",
+    "dificultad": "avanzado",
+    "categoria_contenido": "APIs y sistemas distribuidos"
+  },
+  {
+    "pregunta_id": "multiparadigma_riesgos_007",
+    "concepto": "Uso de múltiples paradigmas en un proyecto",
+    "definicion": "El enfoque multiparadigma combina diferentes estilos de programación para aprovechar fortalezas específicas según las necesidades del sistema.",
+    "explicacion_simple": "Un proyecto puede usar varios paradigmas para resolver distintos problemas, aunque esto también puede aumentar la complejidad del software.",
+    "ejemplo_correcto": "Un sistema puede usar OOP para modelar entidades y programación funcional para procesamiento concurrente de datos, mejorando flexibilidad y rendimiento.",
+    "ejemplo_incorrecto": "Usar varios paradigmas siempre mejora el software y nunca genera problemas de mantenimiento.",
+    "errores_comunes": [
+      "Analizar solo ventajas o solo desventajas.",
+      "No considerar consistencia arquitectónica.",
+      "Ignorar complejidad accidental.",
+      "No justificar cuándo conviene combinar paradigmas.",
+      "Dar opiniones sin fundamentos técnicos."
+    ],
+    "criterios_rubrica": {
+      "0": "No evalúa correctamente ventajas y riesgos.",
+      "1": "Presenta una visión limitada o superficial.",
+      "2": "Identifica ventajas y riesgos básicos con ejemplos simples.",
+      "3": "Analiza críticamente flexibilidad, reutilización, complejidad y mantenimiento con argumentos equilibrados."
+    },
+    "keywords_semanticas": [
+      "multiparadigma",
+      "integración de paradigmas",
+      "flexibilidad de software",
+      "consistencia arquitectónica",
+      "complejidad accidental",
+      "mantenimiento de sistemas",
+      "reutilización",
+      "arquitectura híbrida",
+      "integración tecnológica",
+      "trade-offs",
+      "diseño de software"
+    ],
+    "text": "Compara y explica Uso de múltiples paradigmas en un proyecto utilizando fundamentos técnicos y ejemplos concretos.",
+    "dificultad": "avanzado",
+    "categoria_contenido": "Fundamentos y paradigmas"
+  },
+  {
+    "pregunta_id": "paradigmas_microservicios_008",
+    "concepto": "Paradigmas y arquitecturas distribuidas",
+    "definicion": "Los paradigmas de programación influyen en cómo se diseñan sistemas distribuidos y arquitecturas basadas en microservicios, especialmente en aspectos de concurrencia, resiliencia y escalabilidad.",
+    "explicacion_simple": "La forma de programar afecta cómo los servicios se comunican, escalan y manejan fallos en sistemas modernos distribuidos.",
+    "ejemplo_correcto": "Paradigmas funcionales y reactivos facilitan sistemas distribuidos porque la inmutabilidad reduce problemas de concurrencia y mejora tolerancia a fallos.",
+    "ejemplo_incorrecto": "Los microservicios funcionan igual independientemente del paradigma utilizado.",
+    "errores_comunes": [
+      "No conectar paradigmas con arquitectura.",
+      "Dar respuestas puramente teóricas.",
+      "Ignorar concurrencia y tolerancia a fallos.",
+      "No mencionar escalabilidad distribuida.",
+      "Usar ejemplos genéricos sin contexto moderno."
+    ],
+    "criterios_rubrica": {
+      "0": "No relaciona paradigmas con sistemas distribuidos.",
+      "1": "Presenta ideas generales sin profundidad técnica.",
+      "2": "Explica parcialmente cómo ciertos paradigmas benefician arquitecturas modernas.",
+      "3": "Integra paradigmas, concurrencia, resiliencia y escalabilidad con análisis técnico avanzado y ejemplos contemporáneos."
+    },
+    "keywords_semanticas": [
+      "microservicios",
+      "sistemas distribuidos",
+      "programación reactiva",
+      "concurrencia",
+      "tolerancia a fallos",
+      "escalabilidad horizontal",
+      "inmutabilidad",
+      "arquitectura distribuida",
+      "comunicación entre servicios",
+      "resiliencia",
+      "procesamiento asíncrono",
+      "cloud computing",
+      "arquitectura moderna"
+    ],
+    "text": "Analiza Paradigmas y arquitecturas distribuidas considerando sus ventajas, limitaciones y ejemplos de aplicación.",
+    "dificultad": "avanzado",
+    "categoria_contenido": "APIs y sistemas distribuidos"
+  },
+  {
+    "pregunta_id": "funcional_vs_logica_009",
+    "concepto": "Fundamentos teóricos de programación funcional y lógica",
+    "definicion": "La programación funcional se fundamenta en el cálculo lambda y la evaluación de funciones, mientras que la programación lógica se basa en lógica formal e inferencia automática.",
+    "explicacion_simple": "La programación funcional resuelve problemas aplicando funciones matemáticas. La lógica utiliza reglas y relaciones para deducir soluciones automáticamente.",
+    "ejemplo_correcto": "La programación funcional usa funciones puras y composición funcional, mientras que la lógica emplea reglas, consultas y backtracking para encontrar soluciones.",
+    "ejemplo_incorrecto": "La programación lógica y la funcional son iguales porque ambas son declarativas.",
+    "errores_comunes": [
+      "Confundir cálculo lambda con lógica formal.",
+      "Describir solo características superficiales.",
+      "No comparar evaluación y flujo de ejecución.",
+      "Ignorar backtracking e inferencia lógica.",
+      "No explicar diferencias conceptuales profundas."
+    ],
+    "criterios_rubrica": {
+      "0": "No comprende los fundamentos teóricos de los paradigmas.",
+      "1": "Presenta definiciones básicas pero incompletas.",
+      "2": "Compara parcialmente ambos paradigmas con precisión moderada.",
+      "3": "Explica rigurosamente cálculo lambda, inferencia lógica, evaluación y modelado del problema con claridad técnica."
+    },
+    "keywords_semanticas": [
+      "programación funcional",
+      "programación lógica",
+      "cálculo lambda",
+      "inferencia lógica",
+      "backtracking",
+      "funciones puras",
+      "declaratividad",
+      "evaluación funcional",
+      "lógica formal",
+      "modelado de problemas",
+      "Prolog",
+      "expresividad",
+      "paradigmas declarativos"
+    ],
+    "text": "¿Cómo funciona Fundamentos teóricos de programación funcional y lógica y por qué es importante dentro del desarrollo de software moderno?",
+    "dificultad": "avanzado",
+    "categoria_contenido": "Fundamentos y paradigmas"
+  },
+  {
+    "pregunta_id": "seleccion_paradigma_empresarial_010",
+    "concepto": "Selección estratégica de paradigmas de programación",
+    "definicion": "La elección del paradigma de programación debe considerar requisitos funcionales y no funcionales como concurrencia, rendimiento, mantenibilidad y escalabilidad.",
+    "explicacion_simple": "Seleccionar un paradigma implica analizar qué enfoque permite construir un sistema eficiente, fácil de mantener y preparado para crecer.",
+    "ejemplo_correcto": "Para un sistema empresarial distribuido puede combinarse OOP para modelado de dominio y programación funcional para concurrencia y procesamiento paralelo, evaluando trade-offs técnicos.",
+    "ejemplo_incorrecto": "Siempre debe utilizarse un único paradigma porque todos los sistemas funcionan igual.",
+    "errores_comunes": [
+      "No justificar decisiones arquitectónicas.",
+      "Ignorar requisitos no funcionales.",
+      "Proponer soluciones genéricas sin contexto.",
+      "No analizar trade-offs técnicos.",
+      "Asumir que un paradigma resuelve todos los problemas."
+    ],
+    "criterios_rubrica": {
+      "0": "No presenta una estrategia válida de selección.",
+      "1": "Menciona criterios generales sin profundidad técnica.",
+      "2": "Relaciona algunos paradigmas con necesidades empresariales concretas.",
+      "3": "Diseña una estrategia sólida considerando concurrencia, rendimiento, mantenibilidad, escalabilidad y combinación de paradigmas con justificación técnica."
+    },
+    "keywords_semanticas": [
+      "arquitectura empresarial",
+      "selección de paradigma",
+      "concurrencia",
+      "alto rendimiento",
+      "mantenibilidad",
+      "escalabilidad",
+      "trade-offs tecnológicos",
+      "paradigma híbrido",
+      "diseño arquitectónico",
+      "sistemas empresariales",
+      "requisitos no funcionales",
+      "toma de decisiones técnicas",
+      "arquitectura escalable",
+      "software distribuido"
+    ],
+    "text": "Describe qué es Selección estratégica de paradigmas de programación, cuáles son sus principales características y cómo se aplica en un contexto real.",
+    "dificultad": "avanzado",
+    "categoria_contenido": "Principios de arquitectura y mantenibilidad"
+  },
+  {
+    "pregunta_id": "poo_clase_objeto_001",
+    "concepto": "Fundamentos de programación orientada a objetos",
+    "definicion": "La programación orientada a objetos es un paradigma que modela entidades mediante objetos que integran datos y comportamientos relacionados.",
+    "explicacion_simple": "La POO organiza programas usando objetos similares a elementos del mundo real. Las clases funcionan como plantillas y los objetos son ejemplos concretos creados a partir de ellas.",
+    "ejemplo_correcto": "Una clase Vehiculo puede definir atributos como color y velocidad, además de métodos como acelerar. Un automóvil específico creado desde esa clase representa un objeto.",
+    "ejemplo_incorrecto": "Una clase es un objeto ya ejecutándose y un objeto es únicamente una variable global.",
+    "errores_comunes": [
+      "Confundir clase con objeto.",
+      "No diferenciar atributos y métodos.",
+      "Definir objetos como simples variables.",
+      "Omitir el concepto de instanciación.",
+      "Explicar POO de manera demasiado genérica."
+    ],
+    "criterios_rubrica": {
+      "0": "Respuesta incorrecta o sin definición válida de POO, clase u objeto.",
+      "1": "Presenta una comprensión básica pero confusa de los conceptos.",
+      "2": "Define parcialmente clase y objeto con terminología aceptable.",
+      "3": "Explica claramente POO, diferenciando correctamente clase, objeto, atributos, métodos e instanciación."
+    },
+    "keywords_semanticas": [
+      "programación orientada a objetos",
+      "POO",
+      "OOP",
+      "clase",
+      "objeto",
+      "atributos",
+      "métodos",
+      "instanciación",
+      "modelo orientado a objetos",
+      "entidades",
+      "encapsulamiento básico",
+      "instancia",
+      "estructura de software",
+      "diseño orientado a objetos"
+    ],
+    "text": "Analiza Fundamentos de programación orientada a objetos considerando sus ventajas, limitaciones y ejemplos de aplicación.",
+    "dificultad": "intermedio",
+    "categoria_contenido": "Diseño orientado a objetos"
+  },
+  {
+    "pregunta_id": "pilares_poo_002",
+    "concepto": "Pilares de la programación orientada a objetos",
+    "definicion": "Los pilares de la POO son principios que permiten estructurar software modular, reutilizable y mantenible mediante abstracción, encapsulamiento, herencia y polimorfismo.",
+    "explicacion_simple": "Estos conceptos ayudan a organizar programas de forma más clara y flexible, permitiendo reutilizar código y controlar cómo interactúan los objetos.",
+    "ejemplo_correcto": "El encapsulamiento protege datos internos, la herencia permite reutilizar funcionalidades, el polimorfismo admite múltiples comportamientos y la abstracción simplifica entidades complejas.",
+    "ejemplo_incorrecto": "Los pilares de POO son variables, ciclos, funciones y compiladores.",
+    "errores_comunes": [
+      "Confundir encapsulamiento con abstracción.",
+      "Mencionar los pilares sin explicar su propósito.",
+      "Describir herencia de manera incorrecta.",
+      "No relacionar teoría con ventajas prácticas.",
+      "Usar definiciones memorísticas sin comprensión."
+    ],
+    "criterios_rubrica": {
+      "0": "No identifica correctamente los pilares fundamentales.",
+      "1": "Menciona algunos pilares pero con explicaciones limitadas o incorrectas.",
+      "2": "Describe adecuadamente los cuatro pilares aunque con poca profundidad.",
+      "3": "Explica claramente encapsulamiento, herencia, polimorfismo y abstracción relacionándolos con reutilización y diseño modular."
+    },
+    "keywords_semanticas": [
+      "encapsulamiento",
+      "herencia",
+      "polimorfismo",
+      "abstracción",
+      "pilares OOP",
+      "programación orientada a objetos",
+      "reutilización de código",
+      "modularidad",
+      "diseño orientado a objetos",
+      "interfaces",
+      "ocultamiento de datos",
+      "sobreescritura",
+      "extensibilidad"
+    ],
+    "text": "Analiza Pilares de la programación orientada a objetos considerando sus ventajas, limitaciones y ejemplos de aplicación.",
+    "dificultad": "intermedio",
+    "categoria_contenido": "Principios de arquitectura y mantenibilidad"
+  },
+  {
+    "pregunta_id": "poo_reutilizacion_mantenimiento_003",
+    "concepto": "Reutilización y mantenibilidad en POO",
+    "definicion": "La programación orientada a objetos favorece la reutilización y mantenibilidad mediante modularidad, separación de responsabilidades y reutilización de componentes.",
+    "explicacion_simple": "La POO permite dividir un sistema en partes organizadas y reutilizables, facilitando cambios y reduciendo errores al mantener el software.",
+    "ejemplo_correcto": "Una clase base Empleado puede reutilizarse para crear desarrolladores y gerentes mediante herencia, evitando duplicación de lógica.",
+    "ejemplo_incorrecto": "La POO mejora el mantenimiento porque todos los objetos comparten las mismas variables globales.",
+    "errores_comunes": [
+      "No explicar mecanismos concretos como herencia o composición.",
+      "Dar respuestas demasiado abstractas.",
+      "No relacionar modularidad con mantenimiento.",
+      "Ignorar separación de responsabilidades.",
+      "No proporcionar ejemplos reales."
+    ],
+    "criterios_rubrica": {
+      "0": "No explica cómo la POO impacta reutilización o mantenimiento.",
+      "1": "Presenta ideas generales pero superficiales.",
+      "2": "Relaciona parcialmente modularidad y reutilización con mantenibilidad.",
+      "3": "Explica claramente cómo modularidad, herencia, composición y bajo acoplamiento mejoran mantenimiento y reutilización."
+    },
+    "keywords_semanticas": [
+      "mantenibilidad",
+      "reutilización",
+      "modularidad",
+      "bajo acoplamiento",
+      "cohesión",
+      "herencia",
+      "composición",
+      "organización del código",
+      "mantenimiento de software",
+      "separación de responsabilidades",
+      "POO",
+      "arquitectura de software"
+    ],
+    "text": "Describe qué es Reutilización y mantenibilidad en POO, cuáles son sus principales características y cómo se aplica en un contexto real.",
+    "dificultad": "intermedio",
+    "categoria_contenido": "Principios de arquitectura y mantenibilidad"
+  },
+  {
+    "pregunta_id": "herencia_vs_composicion_004",
+    "concepto": "Herencia y composición",
+    "definicion": "La herencia modela relaciones jerárquicas donde una clase extiende otra, mientras que la composición construye objetos mediante combinación de componentes independientes.",
+    "explicacion_simple": "La herencia representa una relación de tipo 'es un', mientras que la composición representa 'tiene un'.",
+    "ejemplo_correcto": "Un Perro puede heredar de Animal, mientras que un Auto puede componerse de Motor, Ruedas y Frenos como componentes independientes.",
+    "ejemplo_incorrecto": "La composición y la herencia son exactamente iguales y siempre producen el mismo diseño.",
+    "errores_comunes": [
+      "Confundir relaciones de herencia y composición.",
+      "No analizar ventajas y limitaciones.",
+      "Ignorar impacto sobre acoplamiento.",
+      "No usar ejemplos prácticos.",
+      "Asumir que herencia siempre es mejor."
+    ],
+    "criterios_rubrica": {
+      "0": "No diferencia correctamente ambos enfoques.",
+      "1": "Presenta una comparación superficial o confusa.",
+      "2": "Describe diferencias básicas con ejemplos simples.",
+      "3": "Analiza técnicamente relaciones, flexibilidad, reutilización y acoplamiento justificando escenarios apropiados para cada enfoque."
+    },
+    "keywords_semanticas": [
+      "herencia",
+      "composición",
+      "relación es un",
+      "relación tiene un",
+      "acoplamiento",
+      "flexibilidad",
+      "reutilización",
+      "diseño orientado a objetos",
+      "arquitectura de software",
+      "jerarquía de clases",
+      "componentes",
+      "POO"
+    ],
+    "text": "Compara y explica Herencia y composición utilizando fundamentos técnicos y ejemplos concretos.",
+    "dificultad": "intermedio",
+    "categoria_contenido": "Principios de arquitectura y mantenibilidad"
+  },
+  {
+    "pregunta_id": "encapsulamiento_seguridad_005",
+    "concepto": "Encapsulamiento y protección de datos",
+    "definicion": "El encapsulamiento restringe el acceso directo a los datos internos de un objeto y controla las modificaciones mediante interfaces definidas.",
+    "explicacion_simple": "Este principio protege la información interna de los objetos evitando cambios incorrectos o accesos no autorizados.",
+    "ejemplo_correcto": "Una cuenta bancaria puede ocultar el saldo usando atributos privados y permitir cambios solo mediante métodos controlados como depositar o retirar.",
+    "ejemplo_incorrecto": "El encapsulamiento significa ocultar completamente todos los métodos y datos de un programa.",
+    "errores_comunes": [
+      "Confundir encapsulamiento con privacidad total.",
+      "No mencionar modificadores de acceso.",
+      "Ignorar impacto sobre estabilidad y mantenimiento.",
+      "Dar definiciones únicamente teóricas.",
+      "No explicar control de acceso."
+    ],
+    "criterios_rubrica": {
+      "0": "No explica correctamente el encapsulamiento.",
+      "1": "Describe parcialmente la protección de datos sin contexto práctico.",
+      "2": "Relaciona encapsulamiento con integridad y control de acceso.",
+      "3": "Explica claramente cómo el encapsulamiento mejora seguridad, estabilidad e integridad mediante interfaces y control de modificaciones."
+    },
+    "keywords_semanticas": [
+      "encapsulamiento",
+      "protección de datos",
+      "integridad",
+      "modificadores de acceso",
+      "atributos privados",
+      "interfaces públicas",
+      "seguridad de software",
+      "ocultamiento de implementación",
+      "estabilidad",
+      "POO",
+      "control de acceso"
+    ],
+    "text": "Compara y explica Encapsulamiento y protección de datos utilizando fundamentos técnicos y ejemplos concretos.",
+    "dificultad": "intermedio",
+    "categoria_contenido": "Diseño orientado a objetos"
+  },
+  {
+    "pregunta_id": "polimorfismo_extensibilidad_006",
+    "concepto": "Polimorfismo y extensibilidad",
+    "definicion": "El polimorfismo permite que diferentes objetos respondan de manera distinta a una misma interfaz o método común.",
+    "explicacion_simple": "Con polimorfismo se pueden agregar nuevas funcionalidades sin modificar gran parte del sistema.",
+    "ejemplo_correcto": "En un sistema de pagos, diferentes métodos como tarjeta o transferencia pueden implementar la misma interfaz ProcesadorPago con comportamientos distintos.",
+    "ejemplo_incorrecto": "El polimorfismo consiste únicamente en crear muchas clases diferentes sin relación entre ellas.",
+    "errores_comunes": [
+      "Confundir polimorfismo con herencia.",
+      "No demostrar comportamiento dinámico.",
+      "Dar ejemplos abstractos sin aplicación práctica.",
+      "Ignorar interfaces y sobreescritura.",
+      "No relacionarlo con extensibilidad."
+    ],
+    "criterios_rubrica": {
+      "0": "No explica correctamente el polimorfismo.",
+      "1": "Describe el concepto de manera superficial.",
+      "2": "Presenta un ejemplo válido aunque limitado técnicamente.",
+      "3": "Explica claramente cómo interfaces y sobreescritura permiten extensibilidad y mantenibilidad en sistemas reales."
+    },
+    "keywords_semanticas": [
+      "polimorfismo",
+      "interfaces",
+      "sobreescritura",
+      "extensibilidad",
+      "sustitución",
+      "comportamiento dinámico",
+      "POO",
+      "clases base",
+      "arquitectura flexible",
+      "reutilización",
+      "mantenibilidad"
+    ],
+    "text": "¿Cómo funciona Polimorfismo y extensibilidad y por qué es importante dentro del desarrollo de software moderno?",
+    "dificultad": "intermedio",
+    "categoria_contenido": "Principios de arquitectura y mantenibilidad"
+  },
+  {
+    "pregunta_id": "poo_vs_otros_paradigmas_007",
+    "concepto": "Comparación de POO con otros paradigmas",
+    "definicion": "La programación orientada a objetos ofrece modularidad y reutilización, aunque puede presentar limitaciones frente a paradigmas funcionales, procedimentales o declarativos.",
+    "explicacion_simple": "Cada paradigma tiene ventajas diferentes según el tipo de problema y la arquitectura del sistema.",
+    "ejemplo_correcto": "La POO facilita modelar entidades complejas, mientras que la programación funcional puede simplificar concurrencia gracias a la inmutabilidad.",
+    "ejemplo_incorrecto": "La programación orientada a objetos es siempre superior a cualquier otro paradigma.",
+    "errores_comunes": [
+      "Presentar una visión sesgada.",
+      "No justificar comparaciones.",
+      "Ignorar rendimiento o complejidad.",
+      "Reducir la comparación a opiniones.",
+      "No mencionar otros paradigmas relevantes."
+    ],
+    "criterios_rubrica": {
+      "0": "No realiza una comparación válida entre paradigmas.",
+      "1": "Presenta comparaciones generales sin análisis crítico.",
+      "2": "Identifica algunas ventajas y limitaciones de POO.",
+      "3": "Compara críticamente modularidad, complejidad, escalabilidad y manejo del estado frente a otros paradigmas."
+    },
+    "keywords_semanticas": [
+      "paradigmas de programación",
+      "POO",
+      "programación funcional",
+      "programación procedimental",
+      "programación declarativa",
+      "modularidad",
+      "estado mutable",
+      "complejidad",
+      "flexibilidad",
+      "rendimiento",
+      "escalabilidad",
+      "comparación de paradigmas"
+    ],
+    "text": "Compara y explica Comparación de POO con otros paradigmas utilizando fundamentos técnicos y ejemplos concretos.",
+    "dificultad": "avanzado",
+    "categoria_contenido": "Principios de arquitectura y mantenibilidad"
+  },
+  {
+    "pregunta_id": "solid_y_poo_008",
+    "concepto": "Principios SOLID en diseño orientado a objetos",
+    "definicion": "Los principios SOLID son lineamientos de diseño orientado a objetos que promueven bajo acoplamiento, alta cohesión y sistemas extensibles y mantenibles.",
+    "explicacion_simple": "SOLID ayuda a construir software más organizado, flexible y fácil de modificar sin romper funcionalidades existentes.",
+    "ejemplo_correcto": "Aplicar inversión de dependencias permite desacoplar módulos y facilitar pruebas y extensibilidad en arquitecturas complejas.",
+    "ejemplo_incorrecto": "SOLID consiste únicamente en dividir el código en muchos archivos pequeños.",
+    "errores_comunes": [
+      "Memorizar principios sin relacionarlos con arquitectura.",
+      "No conectar SOLID con mantenibilidad.",
+      "Dar ejemplos irrelevantes.",
+      "No explicar cohesión o acoplamiento.",
+      "Describir conceptos de forma superficial."
+    ],
+    "criterios_rubrica": {
+      "0": "No comprende los principios SOLID ni su relación con POO.",
+      "1": "Menciona principios de forma incompleta o superficial.",
+      "2": "Relaciona parcialmente SOLID con diseño mantenible.",
+      "3": "Analiza cómo SOLID mejora extensibilidad, cohesión y desacoplamiento en arquitecturas orientadas a objetos."
+    },
+    "keywords_semanticas": [
+      "SOLID",
+      "diseño orientado a objetos",
+      "arquitectura limpia",
+      "bajo acoplamiento",
+      "alta cohesión",
+      "inversión de dependencias",
+      "responsabilidad única",
+      "extensibilidad",
+      "mantenibilidad",
+      "patrones de diseño",
+      "POO"
+    ],
+    "text": "Describe qué es Principios SOLID en diseño orientado a objetos, cuáles son sus principales características y cómo se aplica en un contexto real.",
+    "dificultad": "intermedio",
+    "categoria_contenido": "Principios de arquitectura y mantenibilidad"
+  },
+  {
+    "pregunta_id": "arquitectura_ecommerce_poo_009",
+    "concepto": "Arquitectura orientada a objetos para comercio electrónico",
+    "definicion": "Una arquitectura orientada a objetos para comercio electrónico debe organizar responsabilidades mediante módulos, clases e interfaces desacopladas y extensibles.",
+    "explicacion_simple": "El sistema debe dividirse en componentes claros como usuarios, pagos, productos y pedidos para facilitar crecimiento y mantenimiento.",
+    "ejemplo_correcto": "Un diseño puede incluir módulos separados para catálogo, pagos y autenticación usando interfaces para desacoplar proveedores externos.",
+    "ejemplo_incorrecto": "Todo el sistema debe implementarse en una única clase central para simplificar el desarrollo.",
+    "errores_comunes": [
+      "Diseños excesivamente genéricos.",
+      "No justificar decisiones arquitectónicas.",
+      "Ignorar modularización y dependencias.",
+      "No usar interfaces.",
+      "Proponer arquitecturas poco escalables."
+    ],
+    "criterios_rubrica": {
+      "0": "No presenta una arquitectura orientada a objetos coherente.",
+      "1": "Describe componentes básicos sin organización clara.",
+      "2": "Propone módulos y responsabilidades parcialmente estructuradas.",
+      "3": "Diseña una arquitectura modular, escalable y mantenible justificando clases, interfaces y gestión de dependencias."
+    },
+    "keywords_semanticas": [
+      "arquitectura orientada a objetos",
+      "comercio electrónico",
+      "modularización",
+      "interfaces",
+      "patrones de diseño",
+      "escalabilidad",
+      "mantenibilidad",
+      "gestión de dependencias",
+      "clases",
+      "responsabilidades",
+      "sistema ecommerce",
+      "arquitectura empresarial"
+    ],
+    "text": "Analiza Arquitectura orientada a objetos para comercio electrónico considerando sus ventajas, limitaciones y ejemplos de aplicación.",
+    "dificultad": "avanzado",
+    "categoria_contenido": "Principios de arquitectura y mantenibilidad"
+  },
+  {
+    "pregunta_id": "limitaciones_poo_concurrencia_010",
+    "concepto": "Limitaciones de POO en concurrencia y sistemas distribuidos",
+    "definicion": "La programación orientada a objetos puede presentar dificultades en sistemas altamente concurrentes debido al manejo de estado mutable y sincronización compartida.",
+    "explicacion_simple": "Cuando muchos procesos modifican datos al mismo tiempo, los objetos con estado compartido pueden generar errores y complejidad.",
+    "ejemplo_correcto": "En sistemas distribuidos, la sincronización de objetos mutables puede provocar bloqueos y problemas de escalabilidad, mientras enfoques funcionales reducen estos riesgos mediante inmutabilidad.",
+    "ejemplo_incorrecto": "La POO no tiene ninguna limitación en sistemas concurrentes o distribuidos.",
+    "errores_comunes": [
+      "Criticar POO sin fundamentos técnicos.",
+      "Ignorar concurrencia y sincronización.",
+      "No comparar con paradigmas alternativos.",
+      "Dar respuestas simplistas.",
+      "No contextualizar problemas modernos."
+    ],
+    "criterios_rubrica": {
+      "0": "No identifica limitaciones relevantes de POO.",
+      "1": "Menciona problemas generales sin análisis técnico.",
+      "2": "Relaciona parcialmente estado mutable y concurrencia con limitaciones prácticas.",
+      "3": "Analiza críticamente sincronización, escalabilidad y sistemas distribuidos comparando con enfoques funcionales o reactivos."
+    },
+    "keywords_semanticas": [
+      "concurrencia",
+      "estado mutable",
+      "sincronización",
+      "sistemas distribuidos",
+      "POO",
+      "programación funcional",
+      "escalabilidad",
+      "estado compartido",
+      "procesamiento distribuido",
+      "bloqueos",
+      "arquitectura concurrente",
+      "programación reactiva"
+    ],
+    "text": "Describe qué es Limitaciones de POO en concurrencia y sistemas distribuidos, cuáles son sus principales características y cómo se aplica en un contexto real.",
+    "dificultad": "avanzado",
+    "categoria_contenido": "APIs y sistemas distribuidos"
+  },
+  {
+    "pregunta_id": "solid_fundamentos_001",
+    "concepto": "Principios SOLID",
+    "definicion": "SOLID es un conjunto de principios de diseño orientado a objetos que busca crear software mantenible, flexible, desacoplado y fácil de extender.",
+    "explicacion_simple": "Los principios SOLID ayudan a organizar el código para que sea más fácil de modificar, probar y mantener a medida que el sistema crece.",
+    "ejemplo_correcto": "El principio de Responsabilidad Única propone que una clase tenga un único motivo de cambio, mientras que Inversión de Dependencias recomienda depender de interfaces en lugar de implementaciones concretas.",
+    "ejemplo_incorrecto": "SOLID significa escribir más clases y utilizar herencia en todos los casos.",
+    "errores_comunes": [
+      "Confundir los principios entre sí.",
+      "Enumerar las siglas sin explicar su propósito.",
+      "Asumir que SOLID aplica únicamente a lenguajes orientados a objetos específicos.",
+      "Relacionar SOLID exclusivamente con herencia.",
+      "Dar ejemplos irrelevantes o ambiguos."
+    ],
+    "criterios_rubrica": {
+      "0": "No identifica correctamente los principios SOLID.",
+      "1": "Menciona algunos principios pero con definiciones vagas o incompletas.",
+      "2": "Describe adecuadamente la mayoría de principios con precisión parcial.",
+      "3": "Explica claramente los cinco principios relacionándolos con modularidad, mantenibilidad y bajo acoplamiento."
+    },
+    "keywords_semanticas": [
+      "SOLID",
+      "responsabilidad única",
+      "SRP",
+      "abierto cerrado",
+      "OCP",
+      "sustitución de Liskov",
+      "LSP",
+      "segregación de interfaces",
+      "ISP",
+      "inversión de dependencias",
+      "DIP",
+      "diseño orientado a objetos",
+      "arquitectura limpia",
+      "mantenibilidad",
+      "modularidad",
+      "bajo acoplamiento",
+      "alta cohesión"
+    ],
+    "text": "Analiza Principios SOLID considerando sus ventajas, limitaciones y ejemplos de aplicación.",
+    "dificultad": "intermedio",
+    "categoria_contenido": "Principios de arquitectura y mantenibilidad"
+  },
+  {
+    "pregunta_id": "dry_principio_002",
+    "concepto": "Principio DRY",
+    "definicion": "El principio DRY busca evitar la duplicación innecesaria de lógica, reglas o conocimiento dentro de un sistema de software.",
+    "explicacion_simple": "DRY recomienda escribir una sola vez cada lógica importante para evitar inconsistencias y facilitar cambios futuros.",
+    "ejemplo_correcto": "Si varias partes del sistema validan correos electrónicos, la validación puede centralizarse en una función reutilizable para evitar duplicación.",
+    "ejemplo_incorrecto": "Aplicar DRY significa reutilizar cualquier fragmento de código aunque genere dependencias innecesarias.",
+    "errores_comunes": [
+      "Confundir DRY con reutilización excesiva.",
+      "No explicar consecuencias prácticas de la duplicación.",
+      "Creer que cualquier repetición pequeña viola el principio.",
+      "Ignorar impacto sobre mantenimiento y errores.",
+      "Dar respuestas demasiado generales."
+    ],
+    "criterios_rubrica": {
+      "0": "No comprende el principio DRY ni el problema de duplicación.",
+      "1": "Define DRY de manera superficial o incompleta.",
+      "2": "Relaciona duplicación con mantenimiento y consistencia de forma parcial.",
+      "3": "Explica claramente cómo DRY mejora reutilización, consistencia y mantenibilidad reduciendo errores y costos de actualización."
+    },
+    "keywords_semanticas": [
+      "DRY",
+      "Don't Repeat Yourself",
+      "duplicación de código",
+      "reutilización",
+      "centralización de lógica",
+      "consistencia",
+      "mantenimiento",
+      "refactorización",
+      "reducción de errores",
+      "modularidad",
+      "arquitectura limpia",
+      "deuda técnica"
+    ],
+    "text": "Compara y explica Principio DRY utilizando fundamentos técnicos y ejemplos concretos.",
+    "dificultad": "avanzado",
+    "categoria_contenido": "Principios de arquitectura y mantenibilidad"
+  },
+  {
+    "pregunta_id": "kiss_principio_003",
+    "concepto": "Principio KISS",
+    "definicion": "El principio KISS promueve diseñar soluciones simples y comprensibles evitando complejidad innecesaria.",
+    "explicacion_simple": "KISS recomienda resolver problemas de la forma más clara posible para facilitar mantenimiento, pruebas y comprensión del sistema.",
+    "ejemplo_correcto": "En lugar de crear una arquitectura compleja para un requisito pequeño, se implementa una solución modular y fácil de entender.",
+    "ejemplo_incorrecto": "Aplicar KISS significa crear software básico sin estructura ni diseño.",
+    "errores_comunes": [
+      "Confundir simplicidad con falta de arquitectura.",
+      "Interpretar KISS como evitar buenas prácticas.",
+      "No relacionar simplicidad con calidad del software.",
+      "Dar definiciones ambiguas.",
+      "Ignorar complejidad accidental."
+    ],
+    "criterios_rubrica": {
+      "0": "No comprende el principio KISS.",
+      "1": "Describe la simplicidad de manera vaga o superficial.",
+      "2": "Relaciona parcialmente simplicidad con mantenibilidad y legibilidad.",
+      "3": "Explica claramente cómo KISS reduce complejidad accidental y mejora mantenimiento, pruebas y legibilidad."
+    },
+    "keywords_semanticas": [
+      "KISS",
+      "Keep It Simple",
+      "simplicidad",
+      "diseño limpio",
+      "legibilidad",
+      "complejidad accidental",
+      "arquitectura simple",
+      "mantenibilidad",
+      "pruebas de software",
+      "calidad de software",
+      "minimalismo arquitectónico"
+    ],
+    "text": "Analiza Principio KISS considerando sus ventajas, limitaciones y ejemplos de aplicación.",
+    "dificultad": "intermedio",
+    "categoria_contenido": "Principios de arquitectura y mantenibilidad"
+  },
+  {
+    "pregunta_id": "srp_violacion_004",
+    "concepto": "Violación del principio de responsabilidad única",
+    "definicion": "La violación del SRP ocurre cuando una clase o módulo asume múltiples responsabilidades y posee varios motivos de cambio.",
+    "explicacion_simple": "Cuando una sola clase realiza demasiadas tareas, el sistema se vuelve más difícil de mantener, probar y escalar.",
+    "ejemplo_correcto": "Una clase UsuarioService que valida datos, accede a base de datos y genera reportes aumenta acoplamiento y dificulta modificaciones independientes.",
+    "ejemplo_incorrecto": "Separar funcionalidades en diferentes módulos siempre viola el principio SRP.",
+    "errores_comunes": [
+      "No identificar múltiples responsabilidades.",
+      "Dar ejemplos irrelevantes o demasiado abstractos.",
+      "Ignorar impacto sobre pruebas y mantenimiento.",
+      "Confundir SRP con tamaño de clases.",
+      "No explicar consecuencias arquitectónicas."
+    ],
+    "criterios_rubrica": {
+      "0": "No identifica problemas derivados de violar SRP.",
+      "1": "Describe el problema de forma superficial o incompleta.",
+      "2": "Relaciona parcialmente responsabilidades múltiples con mantenimiento y acoplamiento.",
+      "3": "Analiza claramente cómo múltiples responsabilidades incrementan complejidad, errores y dificultad de pruebas y escalabilidad."
+    },
+    "keywords_semanticas": [
+      "SRP",
+      "responsabilidad única",
+      "cohesión",
+      "acoplamiento",
+      "modularidad",
+      "mantenimiento",
+      "arquitectura de software",
+      "clases monolíticas",
+      "separación de responsabilidades",
+      "deuda técnica",
+      "pruebas automatizadas"
+    ],
+    "text": "¿Cómo funciona Violación del principio de responsabilidad única y por qué es importante dentro del desarrollo de software moderno?",
+    "dificultad": "intermedio",
+    "categoria_contenido": "Principios de arquitectura y mantenibilidad"
+  },
+  {
+    "pregunta_id": "dry_vs_yagni_005",
+    "concepto": "Conflicto entre DRY y YAGNI",
+    "definicion": "DRY busca eliminar duplicación mediante reutilización y abstracciones, mientras que YAGNI recomienda no implementar funcionalidades o abstracciones antes de que sean necesarias.",
+    "explicacion_simple": "Crear demasiadas abstracciones para evitar repetición puede generar complejidad innecesaria si el sistema aún no las necesita.",
+    "ejemplo_correcto": "Extraer una arquitectura genérica demasiado pronto para evitar duplicación mínima puede producir sobreingeniería y dificultar mantenimiento.",
+    "ejemplo_incorrecto": "DRY y YAGNI son incompatibles y nunca pueden aplicarse juntos.",
+    "errores_comunes": [
+      "Considerar ambos principios como opuestos absolutos.",
+      "No explicar abstracción prematura.",
+      "Ignorar trade-offs de diseño.",
+      "Dar respuestas excesivamente teóricas.",
+      "No proponer equilibrio práctico."
+    ],
+    "criterios_rubrica": {
+      "0": "No comprende la relación entre DRY y YAGNI.",
+      "1": "Describe el conflicto de forma superficial.",
+      "2": "Relaciona parcialmente reutilización y sobreingeniería.",
+      "3": "Analiza críticamente cómo abstraer prematuramente puede generar complejidad y propone aplicar reutilización de manera incremental y pragmática."
+    },
+    "keywords_semanticas": [
+      "DRY",
+      "YAGNI",
+      "sobreingeniería",
+      "abstracción prematura",
+      "trade-offs",
+      "simplicidad",
+      "evolución incremental",
+      "arquitectura pragmática",
+      "reutilización",
+      "complejidad accidental",
+      "diseño de software"
+    ],
+    "text": "¿Cómo funciona Conflicto entre DRY y YAGNI y por qué es importante dentro del desarrollo de software moderno?",
+    "dificultad": "avanzado",
+    "categoria_contenido": "Principios de arquitectura y mantenibilidad"
+  },
+  {
+    "pregunta_id": "dip_flexibilidad_testing_006",
+    "concepto": "Principio de inversión de dependencias",
+    "definicion": "El principio DIP establece que los módulos deben depender de abstracciones y no de implementaciones concretas.",
+    "explicacion_simple": "Este principio facilita reemplazar componentes y probar el sistema sin modificar gran parte del código.",
+    "ejemplo_correcto": "Un servicio de pagos puede depender de una interfaz ProcesadorPago, permitiendo cambiar proveedores o utilizar mocks durante pruebas automatizadas.",
+    "ejemplo_incorrecto": "DIP significa utilizar únicamente herencia para conectar componentes.",
+    "errores_comunes": [
+      "Confundir DIP con herencia.",
+      "No mencionar abstracciones o interfaces.",
+      "Ignorar testing automatizado.",
+      "Explicar solo teoría sin aplicaciones reales.",
+      "No relacionarlo con desacoplamiento."
+    ],
+    "criterios_rubrica": {
+      "0": "No explica correctamente el principio DIP.",
+      "1": "Presenta definiciones generales sin contexto técnico.",
+      "2": "Relaciona parcialmente DIP con desacoplamiento y pruebas.",
+      "3": "Explica claramente cómo interfaces, inyección de dependencias y mocking mejoran flexibilidad y testabilidad."
+    },
+    "keywords_semanticas": [
+      "DIP",
+      "inversión de dependencias",
+      "interfaces",
+      "abstracciones",
+      "inyección de dependencias",
+      "desacoplamiento",
+      "mocking",
+      "testing automatizado",
+      "arquitectura limpia",
+      "flexibilidad",
+      "sustitución de componentes",
+      "SOLID"
+    ],
+    "text": "Analiza Principio de inversión de dependencias considerando sus ventajas, limitaciones y ejemplos de aplicación.",
+    "dificultad": "intermedio",
+    "categoria_contenido": "Principios de arquitectura y mantenibilidad"
+  },
+  {
+    "pregunta_id": "impacto_kiss_yagni_007",
+    "concepto": "Impacto de ignorar KISS y YAGNI",
+    "definicion": "Ignorar KISS y YAGNI puede provocar sistemas excesivamente complejos, difíciles de mantener y costosos tanto técnica como organizacionalmente.",
+    "explicacion_simple": "Agregar complejidad innecesaria genera más errores, ralentiza equipos y aumenta costos de mantenimiento.",
+    "ejemplo_correcto": "Implementar funcionalidades anticipadas no utilizadas incrementa deuda técnica y dificulta capacitación de nuevos desarrolladores.",
+    "ejemplo_incorrecto": "Agregar más capas y abstracciones siempre mejora la calidad del software.",
+    "errores_comunes": [
+      "Analizar únicamente consecuencias técnicas.",
+      "No conectar complejidad con productividad.",
+      "Ignorar impacto organizacional.",
+      "Generalizar sin ejemplos reales.",
+      "No mencionar deuda técnica."
+    ],
+    "criterios_rubrica": {
+      "0": "No identifica consecuencias relevantes de ignorar KISS y YAGNI.",
+      "1": "Describe impactos de forma superficial.",
+      "2": "Relaciona parcialmente complejidad con mantenimiento y productividad.",
+      "3": "Analiza consecuencias técnicas y organizacionales como deuda técnica, retrasos, costos elevados y dificultades de aprendizaje."
+    },
+    "keywords_semanticas": [
+      "KISS",
+      "YAGNI",
+      "deuda técnica",
+      "sobreingeniería",
+      "complejidad accidental",
+      "productividad del equipo",
+      "mantenimiento",
+      "costos de software",
+      "arquitectura compleja",
+      "evolución de sistemas",
+      "gestión tecnológica"
+    ],
+    "text": "¿Cómo funciona Impacto de ignorar KISS y YAGNI y por qué es importante dentro del desarrollo de software moderno?",
+    "dificultad": "intermedio",
+    "categoria_contenido": "Principios de arquitectura y mantenibilidad"
+  },
+  {
+    "pregunta_id": "solid_sobrearquitectura_008",
+    "concepto": "Aplicación excesiva de SOLID",
+    "definicion": "La aplicación rígida o excesiva de principios SOLID puede generar sobrearquitectura y complejidad innecesaria.",
+    "explicacion_simple": "Usar demasiadas capas, interfaces o abstracciones sin necesidad puede dificultar comprensión y mantenimiento del sistema.",
+    "ejemplo_correcto": "Crear múltiples interfaces y servicios para funcionalidades simples puede aumentar complejidad sin aportar beneficios reales.",
+    "ejemplo_incorrecto": "Aplicar SOLID siempre produce arquitecturas perfectas independientemente del contexto.",
+    "errores_comunes": [
+      "Criticar SOLID sin fundamentos.",
+      "No explicar causas técnicas de la complejidad.",
+      "Ignorar trade-offs de diseño.",
+      "Presentar opiniones extremas.",
+      "No considerar pragmatismo arquitectónico."
+    ],
+    "criterios_rubrica": {
+      "0": "No analiza consecuencias de aplicar SOLID de forma excesiva.",
+      "1": "Presenta críticas generales o superficiales.",
+      "2": "Relaciona parcialmente abstracciones excesivas con complejidad.",
+      "3": "Analiza críticamente sobreingeniería, proliferación de interfaces y equilibrio entre buenas prácticas y pragmatismo."
+    },
+    "keywords_semanticas": [
+      "SOLID",
+      "sobrearquitectura",
+      "sobreingeniería",
+      "complejidad accidental",
+      "trade-offs",
+      "abstracciones excesivas",
+      "arquitectura pragmática",
+      "mantenibilidad",
+      "diseño de software",
+      "arquitectura limpia",
+      "flexibilidad"
+    ],
+    "text": "Describe qué es Aplicación excesiva de SOLID, cuáles son sus principales características y cómo se aplica en un contexto real.",
+    "dificultad": "avanzado",
+    "categoria_contenido": "Principios de arquitectura y mantenibilidad"
+  },
+  {
+    "pregunta_id": "refactorizacion_monolito_009",
+    "concepto": "Refactorización hacia arquitectura modular",
+    "definicion": "La refactorización de un sistema monolítico busca reducir acoplamiento y mejorar cohesión mediante modularización, abstracciones y eliminación de duplicación.",
+    "explicacion_simple": "El sistema debe dividirse gradualmente en componentes independientes y reutilizables para facilitar mantenimiento y evolución.",
+    "ejemplo_correcto": "Una estrategia válida incluye separar responsabilidades, introducir interfaces, crear pruebas automatizadas y eliminar lógica duplicada antes de desacoplar módulos.",
+    "ejemplo_incorrecto": "La mejor estrategia es reescribir completamente el sistema desde cero sin transición gradual.",
+    "errores_comunes": [
+      "Proponer estrategias irreales.",
+      "Ignorar pruebas automatizadas.",
+      "No considerar transición incremental.",
+      "No explicar reducción de dependencias.",
+      "Dar soluciones demasiado abstractas."
+    ],
+    "criterios_rubrica": {
+      "0": "No presenta una estrategia viable de refactorización.",
+      "1": "Describe acciones generales sin estructura metodológica.",
+      "2": "Incluye algunos pasos válidos pero con poca profundidad técnica.",
+      "3": "Diseña una estrategia gradual y coherente considerando modularización, pruebas, desacoplamiento y reducción de duplicación."
+    },
+    "keywords_semanticas": [
+      "refactorización",
+      "monolito",
+      "modularización",
+      "arquitectura limpia",
+      "acoplamiento",
+      "cohesión",
+      "SOLID",
+      "DRY",
+      "interfaces",
+      "testing automatizado",
+      "deuda técnica",
+      "migración arquitectónica",
+      "desacoplamiento"
+    ],
+    "text": "Analiza Refactorización hacia arquitectura modular considerando sus ventajas, limitaciones y ejemplos de aplicación.",
+    "dificultad": "avanzado",
+    "categoria_contenido": "Principios de arquitectura y mantenibilidad"
+  },
+  {
+    "pregunta_id": "principios_microservicios_cloud_010",
+    "concepto": "Principios de diseño en arquitecturas cloud-native",
+    "definicion": "Principios como SOLID, DRY, KISS y YAGNI influyen directamente en la construcción de sistemas desacoplados, mantenibles y escalables en arquitecturas modernas.",
+    "explicacion_simple": "Estos principios ayudan a crear microservicios más simples, independientes y fáciles de evolucionar en entornos distribuidos.",
+    "ejemplo_correcto": "Aplicar KISS y YAGNI evita microservicios excesivamente complejos, mientras SOLID y DRY favorecen desacoplamiento y reutilización controlada.",
+    "ejemplo_incorrecto": "Los principios de diseño tradicionales no tienen relación con arquitecturas cloud-native.",
+    "errores_comunes": [
+      "No relacionar principios con microservicios.",
+      "Dar respuestas genéricas.",
+      "Ignorar tensiones entre simplicidad y reutilización.",
+      "No mencionar escalabilidad distribuida.",
+      "Falta de análisis arquitectónico."
+    ],
+    "criterios_rubrica": {
+      "0": "No conecta principios de diseño con arquitecturas modernas.",
+      "1": "Presenta relaciones superficiales o incompletas.",
+      "2": "Relaciona parcialmente desacoplamiento y mantenibilidad con microservicios.",
+      "3": "Integra principios de diseño con escalabilidad, resiliencia, evolución independiente y automatización en sistemas cloud-native."
+    },
+    "keywords_semanticas": [
+      "microservicios",
+      "cloud-native",
+      "SOLID",
+      "DRY",
+      "KISS",
+      "YAGNI",
+      "desacoplamiento",
+      "escalabilidad horizontal",
+      "arquitectura distribuida",
+      "resiliencia",
+      "automatización",
+      "mantenibilidad",
+      "observabilidad",
+      "evolución independiente"
+    ],
+    "text": "Compara y explica Principios de diseño en arquitecturas cloud-native utilizando fundamentos técnicos y ejemplos concretos.",
+    "dificultad": "avanzado",
+    "categoria_contenido": "APIs y sistemas distribuidos"
+  },
+  {
+    "pregunta_id": "rest_api_fundamentos_001",
+    "concepto": "API REST",
+    "definicion": "Una API REST es una interfaz de comunicación basada en principios REST que utiliza HTTP para permitir el intercambio de información entre sistemas mediante recursos identificados por endpoints.",
+    "explicacion_simple": "Una API REST permite que aplicaciones diferentes se comuniquen entre sí enviando solicitudes y respuestas a través de internet.",
+    "ejemplo_correcto": "Una aplicación móvil consulta el endpoint /usuarios mediante HTTP GET para obtener información almacenada en un servidor.",
+    "ejemplo_incorrecto": "Una API REST es una base de datos donde se almacenan directamente los datos de una aplicación.",
+    "errores_comunes": [
+      "Confundir API REST con base de datos.",
+      "No mencionar HTTP o recursos.",
+      "Explicar REST de manera demasiado genérica.",
+      "Confundir endpoints con interfaces gráficas.",
+      "Ignorar la separación cliente-servidor."
+    ],
+    "criterios_rubrica": {
+      "0": "No comprende qué es una API REST ni su propósito.",
+      "1": "Presenta una definición vaga o incompleta.",
+      "2": "Describe parcialmente REST y su función de integración.",
+      "3": "Explica claramente REST, HTTP, recursos y comunicación cliente-servidor dentro de arquitecturas modernas."
+    },
+    "keywords_semanticas": [
+      "API REST",
+      "REST",
+      "Representational State Transfer",
+      "HTTP",
+      "cliente-servidor",
+      "endpoints",
+      "recursos",
+      "integración de servicios",
+      "interoperabilidad",
+      "arquitectura distribuida",
+      "servicios web",
+      "comunicación entre aplicaciones"
+    ],
+    "text": "¿Cómo funciona API REST y por qué es importante dentro del desarrollo de software moderno?",
+    "dificultad": "avanzado",
+    "categoria_contenido": "APIs y sistemas distribuidos"
+  },
+  {
+    "pregunta_id": "http_methods_002",
+    "concepto": "Métodos HTTP",
+    "definicion": "Los métodos HTTP definen operaciones estándar utilizadas para interactuar con recursos en APIs REST.",
+    "explicacion_simple": "Cada método HTTP representa una acción específica como consultar, crear, actualizar o eliminar información.",
+    "ejemplo_correcto": "GET obtiene datos, POST crea recursos, PUT reemplaza información, PATCH modifica parcialmente y DELETE elimina recursos.",
+    "ejemplo_incorrecto": "POST se utiliza únicamente para consultar información y GET para eliminar recursos.",
+    "errores_comunes": [
+      "Confundir PUT y PATCH.",
+      "Asociar incorrectamente métodos y operaciones.",
+      "No relacionar métodos con CRUD.",
+      "Explicar métodos sin contexto REST.",
+      "Dar definiciones incompletas."
+    ],
+    "criterios_rubrica": {
+      "0": "No identifica correctamente los métodos HTTP.",
+      "1": "Menciona algunos métodos con errores conceptuales.",
+      "2": "Relaciona parcialmente métodos y operaciones CRUD.",
+      "3": "Describe correctamente los principales métodos HTTP y su propósito semántico dentro de APIs REST."
+    },
+    "keywords_semanticas": [
+      "HTTP methods",
+      "GET",
+      "POST",
+      "PUT",
+      "PATCH",
+      "DELETE",
+      "CRUD",
+      "recursos",
+      "operaciones HTTP",
+      "semántica HTTP",
+      "API REST",
+      "manipulación de datos"
+    ],
+    "text": "Explica el concepto de Métodos HTTP y proporciona un ejemplo práctico relacionado con desarrollo de software.",
+    "dificultad": "intermedio",
+    "categoria_contenido": "APIs y sistemas distribuidos"
+  },
+  {
+    "pregunta_id": "http_status_codes_003",
+    "concepto": "Códigos de estado HTTP",
+    "definicion": "Los códigos de estado HTTP indican el resultado de una solicitud realizada entre cliente y servidor.",
+    "explicacion_simple": "Los códigos HTTP informan si una operación fue exitosa o si ocurrió algún error.",
+    "ejemplo_correcto": "200 indica éxito, 201 confirma creación de un recurso, 400 representa una solicitud inválida, 404 significa recurso inexistente y 500 indica un fallo interno del servidor.",
+    "ejemplo_incorrecto": "404 significa que el servidor creó correctamente el recurso solicitado.",
+    "errores_comunes": [
+      "Confundir errores del cliente y del servidor.",
+      "Interpretar incorrectamente los códigos 200 y 201.",
+      "No explicar el propósito general de los códigos HTTP.",
+      "Asociar 500 con errores del usuario.",
+      "Dar definiciones ambiguas."
+    ],
+    "criterios_rubrica": {
+      "0": "No identifica correctamente los códigos HTTP.",
+      "1": "Describe algunos códigos con errores conceptuales.",
+      "2": "Explica parcialmente los principales códigos de estado.",
+      "3": "Interpreta correctamente códigos HTTP y su función en la comunicación cliente-servidor."
+    },
+    "keywords_semanticas": [
+      "HTTP status codes",
+      "200 OK",
+      "201 Created",
+      "400 Bad Request",
+      "404 Not Found",
+      "500 Internal Server Error",
+      "respuesta HTTP",
+      "errores cliente",
+      "errores servidor",
+      "cliente-servidor",
+      "API REST"
+    ],
+    "text": "Analiza Códigos de estado HTTP considerando sus ventajas, limitaciones y ejemplos de aplicación.",
+    "dificultad": "intermedio",
+    "categoria_contenido": "APIs y sistemas distribuidos"
+  },
+  {
+    "pregunta_id": "endpoint_design_004",
+    "concepto": "Diseño de endpoints REST",
+    "definicion": "El diseño coherente de endpoints y códigos HTTP mejora la claridad, mantenibilidad e integración de una API REST.",
+    "explicacion_simple": "Una API bien diseñada facilita que otros desarrolladores comprendan cómo usarla y manejar errores correctamente.",
+    "ejemplo_correcto": "Utilizar endpoints consistentes como /usuarios y devolver códigos HTTP apropiados mejora integración y reduce ambigüedad.",
+    "ejemplo_incorrecto": "Diseñar endpoints sin estructura y responder siempre con código 200 independientemente del resultado.",
+    "errores_comunes": [
+      "No relacionar diseño con experiencia del consumidor.",
+      "Ignorar consistencia de endpoints.",
+      "No explicar importancia de códigos HTTP.",
+      "Dar respuestas abstractas.",
+      "Falta de ejemplos prácticos."
+    ],
+    "criterios_rubrica": {
+      "0": "No comprende la importancia del diseño REST.",
+      "1": "Describe conceptos generales sin análisis técnico.",
+      "2": "Relaciona parcialmente diseño con mantenibilidad y usabilidad.",
+      "3": "Analiza cómo consistencia, contratos API y manejo adecuado de errores mejoran integración y experiencia del desarrollador."
+    },
+    "keywords_semanticas": [
+      "diseño de endpoints",
+      "API usability",
+      "REST best practices",
+      "consistencia",
+      "contratos API",
+      "developer experience",
+      "manejo de errores",
+      "mantenibilidad",
+      "arquitectura REST",
+      "endpoints",
+      "semántica HTTP"
+    ],
+    "text": "Analiza Diseño de endpoints REST considerando sus ventajas, limitaciones y ejemplos de aplicación.",
+    "dificultad": "intermedio",
+    "categoria_contenido": "APIs y sistemas distribuidos"
+  },
+  {
+    "pregunta_id": "rest_vs_rpc_005",
+    "concepto": "REST vs RPC",
+    "definicion": "REST es un modelo orientado a recursos y semántica HTTP, mientras RPC se centra en ejecutar procedimientos o funciones remotas.",
+    "explicacion_simple": "REST trabaja sobre recursos y operaciones estándar, mientras RPC se enfoca en llamar acciones específicas en sistemas remotos.",
+    "ejemplo_correcto": "REST utiliza rutas como /productos/1 con métodos HTTP, mientras RPC expone operaciones como obtenerProducto().",
+    "ejemplo_incorrecto": "REST y RPC son exactamente el mismo modelo arquitectónico.",
+    "errores_comunes": [
+      "Confundir recursos con procedimientos remotos.",
+      "No explicar diferencias de diseño.",
+      "Ignorar acoplamiento y flexibilidad.",
+      "Comparaciones superficiales.",
+      "Falta de análisis técnico."
+    ],
+    "criterios_rubrica": {
+      "0": "No diferencia REST y RPC.",
+      "1": "Presenta diferencias vagas o incorrectas.",
+      "2": "Describe parcialmente orientación a recursos y procedimientos.",
+      "3": "Compara claramente REST y RPC considerando diseño, semántica HTTP, escalabilidad y acoplamiento."
+    },
+    "keywords_semanticas": [
+      "REST",
+      "RPC",
+      "Remote Procedure Call",
+      "orientado a recursos",
+      "procedimientos remotos",
+      "HTTP semantics",
+      "acoplamiento",
+      "arquitectura distribuida",
+      "servicios distribuidos",
+      "API design",
+      "microservicios"
+    ],
+    "text": "¿Cómo funciona REST vs RPC y por qué es importante dentro del desarrollo de software moderno?",
+    "dificultad": "avanzado",
+    "categoria_contenido": "APIs y sistemas distribuidos"
+  },
+  {
+    "pregunta_id": "error_handling_rest_006",
+    "concepto": "Manejo de errores en APIs REST",
+    "definicion": "El manejo de errores en APIs REST debe proporcionar respuestas claras, estructuradas y consistentes para facilitar integración y diagnóstico.",
+    "explicacion_simple": "Una API debe comunicar errores de forma comprensible para que los desarrolladores puedan solucionarlos fácilmente.",
+    "ejemplo_correcto": "Una respuesta de error incluye código HTTP adecuado, mensaje descriptivo, detalles de validación e identificador de trazabilidad.",
+    "ejemplo_incorrecto": "Responder todos los errores con código 200 y mensajes genéricos como 'algo salió mal'.",
+    "errores_comunes": [
+      "Usar códigos HTTP incorrectos.",
+      "Enviar mensajes ambiguos.",
+      "No mantener estructura consistente.",
+      "Ignorar trazabilidad y observabilidad.",
+      "No considerar experiencia del consumidor."
+    ],
+    "criterios_rubrica": {
+      "0": "No comprende cómo manejar errores en APIs REST.",
+      "1": "Presenta soluciones superficiales o incompletas.",
+      "2": "Relaciona parcialmente códigos HTTP y mensajes descriptivos.",
+      "3": "Explica claramente estructuras consistentes, validaciones, trazabilidad y manejo adecuado de errores."
+    },
+    "keywords_semanticas": [
+      "error handling",
+      "API errors",
+      "HTTP errors",
+      "validaciones",
+      "mensajes descriptivos",
+      "contratos API",
+      "observabilidad",
+      "trazabilidad",
+      "developer experience",
+      "logging",
+      "REST API"
+    ],
+    "text": "Analiza Manejo de errores en APIs REST considerando sus ventajas, limitaciones y ejemplos de aplicación.",
+    "dificultad": "avanzado",
+    "categoria_contenido": "APIs y sistemas distribuidos"
+  },
+  {
+    "pregunta_id": "rest_microservices_007",
+    "concepto": "REST en microservicios",
+    "definicion": "REST ofrece interoperabilidad y simplicidad para sistemas distribuidos, aunque presenta desafíos de rendimiento y comunicación en arquitecturas modernas.",
+    "explicacion_simple": "REST facilita integración entre servicios, pero puede generar problemas de latencia y exceso de datos en sistemas complejos.",
+    "ejemplo_correcto": "REST simplifica integración entre microservicios mediante HTTP, aunque múltiples llamadas síncronas pueden aumentar latencia.",
+    "ejemplo_incorrecto": "REST no presenta limitaciones en arquitecturas distribuidas.",
+    "errores_comunes": [
+      "Analizar únicamente ventajas.",
+      "Ignorar problemas de overfetching.",
+      "No mencionar comunicación síncrona.",
+      "Dar respuestas genéricas.",
+      "No relacionar REST con microservicios."
+    ],
+    "criterios_rubrica": {
+      "0": "No evalúa ventajas ni limitaciones de REST.",
+      "1": "Describe beneficios o problemas de forma superficial.",
+      "2": "Relaciona parcialmente REST con escalabilidad y comunicación distribuida.",
+      "3": "Analiza críticamente interoperabilidad, simplicidad, latencia, versionado y limitaciones en microservicios."
+    },
+    "keywords_semanticas": [
+      "REST",
+      "microservicios",
+      "APIs distribuidas",
+      "escalabilidad",
+      "latencia",
+      "overfetching",
+      "comunicación síncrona",
+      "HTTP",
+      "interoperabilidad",
+      "arquitectura distribuida",
+      "servicios web"
+    ],
+    "text": "¿Cómo funciona REST en microservicios y por qué es importante dentro del desarrollo de software moderno?",
+    "dificultad": "avanzado",
+    "categoria_contenido": "APIs y sistemas distribuidos"
+  },
+  {
+    "pregunta_id": "rest_scalability_resilience_008",
+    "concepto": "APIs REST y arquitectura distribuida",
+    "definicion": "El diseño de APIs REST influye directamente en escalabilidad, resiliencia y desacoplamiento dentro de arquitecturas de microservicios.",
+    "explicacion_simple": "Una API bien diseñada facilita evolución independiente de servicios y mejora tolerancia a fallos en sistemas distribuidos.",
+    "ejemplo_correcto": "APIs con contratos claros, operaciones idempotentes y manejo consistente de errores favorecen balanceo de carga y resiliencia.",
+    "ejemplo_incorrecto": "El diseño de APIs no afecta el comportamiento de sistemas distribuidos.",
+    "errores_comunes": [
+      "No conectar REST con resiliencia.",
+      "Ignorar idempotencia.",
+      "Describir REST de forma puramente teórica.",
+      "No relacionar APIs con desacoplamiento.",
+      "Falta de visión arquitectónica."
+    ],
+    "criterios_rubrica": {
+      "0": "No relaciona APIs REST con arquitectura distribuida.",
+      "1": "Describe conceptos generales sin profundidad técnica.",
+      "2": "Relaciona parcialmente APIs con escalabilidad y desacoplamiento.",
+      "3": "Analiza impacto de contratos API, resiliencia, observabilidad e idempotencia en microservicios."
+    },
+    "keywords_semanticas": [
+      "microservicios",
+      "REST API",
+      "escalabilidad",
+      "resiliencia",
+      "desacoplamiento",
+      "idempotencia",
+      "balanceo de carga",
+      "contratos API",
+      "observabilidad",
+      "sistemas distribuidos",
+      "cloud-native"
+    ],
+    "text": "Describe qué es APIs REST y arquitectura distribuida, cuáles son sus principales características y cómo se aplica en un contexto real.",
+    "dificultad": "avanzado",
+    "categoria_contenido": "APIs y sistemas distribuidos"
+  },
+  {
+    "pregunta_id": "api_versioning_strategy_009",
+    "concepto": "Versionado de APIs REST",
+    "definicion": "El versionado de APIs permite evolucionar servicios sin romper compatibilidad con consumidores existentes.",
+    "explicacion_simple": "Una estrategia de versionado ayuda a introducir cambios gradualmente manteniendo estabilidad para los clientes.",
+    "ejemplo_correcto": "La API utiliza versiones en URI como /v1/usuarios, documenta cambios y mantiene compatibilidad hacia atrás durante transición gradual.",
+    "ejemplo_incorrecto": "Modificar endpoints públicos directamente sin considerar clientes existentes.",
+    "errores_comunes": [
+      "Ignorar compatibilidad hacia atrás.",
+      "No considerar deprecación gradual.",
+      "Falta de documentación.",
+      "Estrategias irreales.",
+      "No diferenciar cambios breaking y non-breaking."
+    ],
+    "criterios_rubrica": {
+      "0": "No propone una estrategia viable de versionado.",
+      "1": "Presenta ideas generales sin profundidad técnica.",
+      "2": "Incluye algunos mecanismos de versionado parcialmente correctos.",
+      "3": "Diseña una estrategia clara considerando compatibilidad, documentación, gobernanza y evolución continua."
+    },
+    "keywords_semanticas": [
+      "API versioning",
+      "versionado REST",
+      "compatibilidad hacia atrás",
+      "breaking changes",
+      "deprecación",
+      "contratos API",
+      "gobernanza API",
+      "evolución de APIs",
+      "URI versioning",
+      "headers versioning",
+      "API lifecycle"
+    ],
+    "text": "Analiza Versionado de APIs REST considerando sus ventajas, limitaciones y ejemplos de aplicación.",
+    "dificultad": "avanzado",
+    "categoria_contenido": "APIs y sistemas distribuidos"
+  },
+  {
+    "pregunta_id": "rest_security_observability_010",
+    "concepto": "Seguridad y observabilidad en APIs REST",
+    "definicion": "Las APIs REST públicas requieren mecanismos robustos de seguridad, monitoreo y optimización para operar correctamente en entornos cloud-native.",
+    "explicacion_simple": "Las APIs modernas deben proteger datos, controlar tráfico y facilitar monitoreo para garantizar disponibilidad y rendimiento.",
+    "ejemplo_correcto": "Una API implementa autenticación OAuth2, rate limiting, logging distribuido y métricas de monitoreo para mejorar seguridad y observabilidad.",
+    "ejemplo_incorrecto": "Exponer APIs públicas sin autenticación ni monitoreo porque HTTP ya es suficiente.",
+    "errores_comunes": [
+      "Ignorar autenticación y autorización.",
+      "No considerar observabilidad.",
+      "Omitir protección contra abuso.",
+      "Dar respuestas genéricas.",
+      "No relacionar seguridad con operación cloud-native."
+    ],
+    "criterios_rubrica": {
+      "0": "No identifica desafíos relevantes en APIs REST públicas.",
+      "1": "Describe problemas generales sin profundidad técnica.",
+      "2": "Relaciona parcialmente seguridad, rendimiento y monitoreo.",
+      "3": "Evalúa críticamente autenticación, rate limiting, caching, logging distribuido y resiliencia operacional."
+    },
+    "keywords_semanticas": [
+      "API security",
+      "OAuth2",
+      "JWT",
+      "rate limiting",
+      "caching",
+      "observabilidad",
+      "logging distribuido",
+      "monitoring",
+      "tracing",
+      "cloud-native",
+      "resiliencia operacional",
+      "API gateway",
+      "seguridad REST"
+    ],
+    "text": "Describe qué es Seguridad y observabilidad en APIs REST, cuáles son sus principales características y cómo se aplica en un contexto real.",
+    "dificultad": "avanzado",
+    "categoria_contenido": "APIs y sistemas distribuidos"
+  },
+  {
+    "pregunta_id": "pruebas_unitarias_fundamentos_001",
+    "concepto": "pruebas_unitarias",
+    "definicion": "Las pruebas unitarias son pruebas automatizadas que verifican el comportamiento correcto de una unidad pequeña y aislada de código, como funciones, métodos o clases.",
+    "explicacion_simple": "Permiten comprobar automáticamente que partes específicas del código funcionan correctamente antes de integrar todo el sistema.",
+    "ejemplo_correcto": "Crear una prueba que valide que una función de cálculo de impuestos devuelve el valor esperado para distintos escenarios.",
+    "ejemplo_incorrecto": "Probar toda una aplicación completa con base de datos y servicios externos como si fuera una prueba unitaria.",
+    "errores_comunes": [
+      "Confundir pruebas unitarias con pruebas de integración",
+      "No aislar dependencias externas",
+      "No automatizar las pruebas",
+      "Validar múltiples comportamientos en una sola prueba"
+    ],
+    "criterios_rubrica": {
+      "0": "Respuesta incorrecta o sin relación con pruebas unitarias.",
+      "1": "Define pruebas de manera general sin explicar automatización ni aislamiento.",
+      "2": "Describe correctamente pruebas unitarias y algunos objetivos técnicos.",
+      "3": "Explica claramente el propósito, automatización y beneficios de las pruebas unitarias."
+    },
+    "keywords_semanticas": [
+      "pruebas unitarias",
+      "unit testing",
+      "automatización",
+      "testing automatizado",
+      "unidad de código",
+      "validación de comportamiento",
+      "aislamiento",
+      "calidad de software",
+      "detección temprana de errores",
+      "refactorización",
+      "software testing",
+      "test cases"
+    ],
+    "text": "¿Cómo funciona pruebas_unitarias y por qué es importante dentro del desarrollo de software moderno?",
+    "dificultad": "avanzado",
+    "categoria_contenido": "Principios de arquitectura y mantenibilidad"
+  },
+  {
+    "pregunta_id": "estructura_aaa_testing_002",
+    "concepto": "estructura_aaa",
+    "definicion": "La estructura AAA organiza las pruebas unitarias en tres etapas: preparación del contexto, ejecución de la acción y verificación de resultados.",
+    "explicacion_simple": "AAA ayuda a escribir pruebas claras separando configuración, ejecución y validación.",
+    "ejemplo_correcto": "Preparar datos de entrada, ejecutar un método y luego validar que el resultado sea correcto.",
+    "ejemplo_incorrecto": "Mezclar configuración, ejecución y validaciones en bloques desordenados dentro de una prueba.",
+    "errores_comunes": [
+      "Confundir Arrange con Assert",
+      "Omitir validaciones",
+      "Agregar múltiples acciones en una sola prueba",
+      "No separar claramente las etapas"
+    ],
+    "criterios_rubrica": {
+      "0": "No identifica correctamente las etapas AAA.",
+      "1": "Menciona AAA sin explicar cada etapa.",
+      "2": "Describe parcialmente preparación, acción y validación.",
+      "3": "Explica claramente las tres etapas y su aporte a la organización de pruebas."
+    },
+    "keywords_semanticas": [
+      "AAA testing",
+      "Arrange Act Assert",
+      "estructura AAA",
+      "organización de pruebas",
+      "assertions",
+      "testing patterns",
+      "preparación",
+      "ejecución",
+      "verificación",
+      "unit test structure",
+      "buenas prácticas testing"
+    ],
+    "text": "Compara y explica estructura_aaa utilizando fundamentos técnicos y ejemplos concretos.",
+    "dificultad": "básico",
+    "categoria_contenido": "Fundamentos y paradigmas"
+  },
+  {
+    "pregunta_id": "tdd_fundamentos_003",
+    "concepto": "tdd",
+    "definicion": "TDD es una metodología de desarrollo donde primero se escriben pruebas automatizadas y luego el código necesario para hacerlas pasar.",
+    "explicacion_simple": "El desarrollo se guía mediante pruebas que definen el comportamiento esperado antes de implementar funcionalidades.",
+    "ejemplo_correcto": "Escribir una prueba que falle para una función de autenticación, implementar el código mínimo y luego refactorizar.",
+    "ejemplo_incorrecto": "Desarrollar toda la funcionalidad primero y agregar pruebas al final del proyecto.",
+    "errores_comunes": [
+      "Confundir TDD con testing posterior al desarrollo",
+      "Omitir la fase de refactorización",
+      "Escribir pruebas demasiado grandes",
+      "No seguir el ciclo incremental"
+    ],
+    "criterios_rubrica": {
+      "0": "No comprende el enfoque TDD.",
+      "1": "Menciona pruebas previas sin explicar el ciclo.",
+      "2": "Describe parcialmente Red-Green-Refactor.",
+      "3": "Explica correctamente el flujo completo y propósito de TDD."
+    },
+    "keywords_semanticas": [
+      "TDD",
+      "Test Driven Development",
+      "Red Green Refactor",
+      "desarrollo guiado por pruebas",
+      "testing first",
+      "refactorización",
+      "validación continua",
+      "software craftsmanship",
+      "pruebas automatizadas",
+      "desarrollo incremental"
+    ],
+    "text": "Describe qué es tdd, cuáles son sus principales características y cómo se aplica en un contexto real.",
+    "dificultad": "avanzado",
+    "categoria_contenido": "Principios de arquitectura y mantenibilidad"
+  },
+  {
+    "pregunta_id": "aaa_legibilidad_mantenibilidad_004",
+    "concepto": "legibilidad_pruebas",
+    "definicion": "La estructura AAA mejora la legibilidad y mantenibilidad de pruebas al separar claramente configuración, ejecución y validación.",
+    "explicacion_simple": "Organizar pruebas con AAA facilita entender rápidamente qué se prueba y por qué falla.",
+    "ejemplo_correcto": "En un proyecto grande, las pruebas AAA permiten identificar rápidamente si el error está en preparación, ejecución o validación.",
+    "ejemplo_incorrecto": "Crear pruebas largas y desordenadas donde no se distingue qué parte ejecuta la lógica o valida resultados.",
+    "errores_comunes": [
+      "Escribir pruebas sin estructura clara",
+      "Combinar múltiples escenarios en una sola prueba",
+      "No priorizar legibilidad",
+      "Ignorar mantenibilidad en suites grandes"
+    ],
+    "criterios_rubrica": {
+      "0": "No relaciona AAA con calidad de pruebas.",
+      "1": "Menciona organización básica sin análisis técnico.",
+      "2": "Explica parcialmente beneficios de legibilidad y mantenimiento.",
+      "3": "Analiza claramente cómo AAA mejora colaboración, claridad y mantenibilidad."
+    },
+    "keywords_semanticas": [
+      "legibilidad de pruebas",
+      "mantenibilidad",
+      "AAA pattern",
+      "clean tests",
+      "testing readability",
+      "estructuración de pruebas",
+      "quality assurance",
+      "buenas prácticas",
+      "software maintainability",
+      "test organization"
+    ],
+    "text": "Explica el concepto de legibilidad_pruebas y proporciona un ejemplo práctico relacionado con desarrollo de software.",
+    "dificultad": "intermedio",
+    "categoria_contenido": "Principios de arquitectura y mantenibilidad"
+  },
+  {
+    "pregunta_id": "tdd_equipos_agiles_005",
+    "concepto": "tdd_agil",
+    "definicion": "TDD en equipos ágiles favorece calidad continua y diseño desacoplado, aunque introduce desafíos de adopción y disciplina técnica.",
+    "explicacion_simple": "Escribir pruebas antes del código ayuda a reducir errores y mejorar diseño, pero requiere experiencia y cambios culturales.",
+    "ejemplo_correcto": "Un equipo ágil usa TDD para validar funcionalidades rápidamente y refactorizar con confianza en cada sprint.",
+    "ejemplo_incorrecto": "Aplicar TDD solo como requisito formal sin integrar pruebas al flujo de desarrollo.",
+    "errores_comunes": [
+      "Pensar que TDD solo aumenta tiempo de desarrollo",
+      "No considerar curva de aprendizaje",
+      "Ignorar beneficios de refactorización",
+      "Aplicar TDD de manera inconsistente"
+    ],
+    "criterios_rubrica": {
+      "0": "No identifica ventajas ni desafíos reales.",
+      "1": "Presenta opiniones generales sin fundamentos técnicos.",
+      "2": "Menciona beneficios y dificultades parcialmente.",
+      "3": "Evalúa de forma equilibrada impacto técnico y organizacional de TDD."
+    },
+    "keywords_semanticas": [
+      "TDD ágil",
+      "agile testing",
+      "refactorización",
+      "cobertura de pruebas",
+      "calidad continua",
+      "software craftsmanship",
+      "desarrollo ágil",
+      "testing culture",
+      "clean code",
+      "continuous testing"
+    ],
+    "text": "¿Cómo funciona tdd_agil y por qué es importante dentro del desarrollo de software moderno?",
+    "dificultad": "avanzado",
+    "categoria_contenido": "Principios de arquitectura y mantenibilidad"
+  },
+  {
+    "pregunta_id": "pruebas_deuda_tecnica_006",
+    "concepto": "deuda_tecnica_testing",
+    "definicion": "Las pruebas unitarias ayudan a reducir deuda técnica al detectar regresiones y permitir cambios seguros en el código.",
+    "explicacion_simple": "Mantener pruebas automatizadas evita que errores se acumulen y facilita evolucionar el software con menor riesgo.",
+    "ejemplo_correcto": "Un equipo refactoriza módulos críticos apoyándose en pruebas automatizadas que validan el comportamiento esperado.",
+    "ejemplo_incorrecto": "Modificar funcionalidades críticas sin pruebas, generando errores ocultos y regresiones.",
+    "errores_comunes": [
+      "No relacionar pruebas con sostenibilidad",
+      "Ignorar regresiones",
+      "Pensar que las pruebas solo sirven para detectar errores inmediatos",
+      "No considerar mantenimiento a largo plazo"
+    ],
+    "criterios_rubrica": {
+      "0": "Respuesta incorrecta o superficial.",
+      "1": "Menciona pruebas sin relacionarlas con deuda técnica.",
+      "2": "Describe parcialmente regresiones y mantenimiento.",
+      "3": "Explica claramente cómo las pruebas mejoran calidad y sostenibilidad."
+    },
+    "keywords_semanticas": [
+      "deuda técnica",
+      "technical debt",
+      "regresiones",
+      "refactorización segura",
+      "software quality",
+      "continuous quality",
+      "automatización",
+      "confiabilidad",
+      "maintainable software",
+      "testing strategy"
+    ],
+    "text": "Describe qué es deuda_tecnica_testing, cuáles son sus principales características y cómo se aplica en un contexto real.",
+    "dificultad": "avanzado",
+    "categoria_contenido": "Principios de arquitectura y mantenibilidad"
+  },
+  {
+    "pregunta_id": "acoplamiento_pruebas_unitarias_007",
+    "concepto": "fragilidad_pruebas",
+    "definicion": "Las pruebas demasiado acopladas a la implementación interna son frágiles y dificultan la evolución del sistema.",
+    "explicacion_simple": "Las pruebas deberían validar comportamiento observable y no depender excesivamente de detalles internos.",
+    "ejemplo_correcto": "Validar el resultado esperado de un servicio sin depender de métodos privados internos.",
+    "ejemplo_incorrecto": "Escribir pruebas que fallan cada vez que cambia la estructura interna aunque el comportamiento siga correcto.",
+    "errores_comunes": [
+      "Probar detalles internos innecesarios",
+      "Acoplar pruebas a implementación específica",
+      "Ignorar diseño orientado a comportamiento",
+      "Crear pruebas difíciles de mantener"
+    ],
+    "criterios_rubrica": {
+      "0": "No comprende problemas de acoplamiento en pruebas.",
+      "1": "Menciona dificultades superficiales.",
+      "2": "Describe parcialmente fragilidad y mantenimiento.",
+      "3": "Analiza críticamente consecuencias y buenas prácticas de desacoplamiento."
+    },
+    "keywords_semanticas": [
+      "fragilidad de pruebas",
+      "test fragility",
+      "acoplamiento",
+      "behavior testing",
+      "implementation details",
+      "refactorización",
+      "maintainable tests",
+      "test design",
+      "clean testing",
+      "software evolution"
+    ],
+    "text": "Analiza fragilidad_pruebas considerando sus ventajas, limitaciones y ejemplos de aplicación.",
+    "dificultad": "avanzado",
+    "categoria_contenido": "Principios de arquitectura y mantenibilidad"
+  },
+  {
+    "pregunta_id": "tdd_arquitectura_desacoplamiento_008",
+    "concepto": "tdd_arquitectura",
+    "definicion": "TDD impulsa arquitecturas desacopladas y modulares al promover diseño testeable, separación de responsabilidades e inversión de dependencias.",
+    "explicacion_simple": "Diseñar pensando en pruebas obliga a crear componentes más independientes y fáciles de mantener.",
+    "ejemplo_correcto": "Aplicar inyección de dependencias para facilitar pruebas aisladas de servicios y repositorios.",
+    "ejemplo_incorrecto": "Construir componentes fuertemente acoplados que no pueden probarse sin infraestructura externa.",
+    "errores_comunes": [
+      "No relacionar TDD con diseño arquitectónico",
+      "Ignorar desacoplamiento",
+      "No usar interfaces o inyección de dependencias",
+      "Reducir TDD solo a cobertura"
+    ],
+    "criterios_rubrica": {
+      "0": "No analiza relación entre TDD y arquitectura.",
+      "1": "Menciona modularidad de forma superficial.",
+      "2": "Describe parcialmente desacoplamiento y testabilidad.",
+      "3": "Integra conceptos arquitectónicos avanzados y análisis crítico."
+    },
+    "keywords_semanticas": [
+      "TDD architecture",
+      "desacoplamiento",
+      "testabilidad",
+      "dependency injection",
+      "clean architecture",
+      "interfaces",
+      "modularidad",
+      "software design",
+      "SOLID",
+      "incremental design"
+    ],
+    "text": "Describe qué es tdd_arquitectura, cuáles son sus principales características y cómo se aplica en un contexto real.",
+    "dificultad": "intermedio",
+    "categoria_contenido": "Principios de arquitectura y mantenibilidad"
+  },
+  {
+    "pregunta_id": "estrategia_pruebas_empresarial_009",
+    "concepto": "estrategia_pruebas_unitarias",
+    "definicion": "Una estrategia de pruebas unitarias empresarial define cómo aislar dependencias y validar cada capa del sistema de forma automatizada.",
+    "explicacion_simple": "Cada capa debe probarse de manera independiente utilizando mocks y automatización para garantizar estabilidad.",
+    "ejemplo_correcto": "Usar mocks para bases de datos y validar reglas de negocio sin depender de infraestructura real.",
+    "ejemplo_incorrecto": "Ejecutar pruebas unitarias conectadas permanentemente a servicios externos reales.",
+    "errores_comunes": [
+      "No diferenciar pruebas unitarias e integración",
+      "Ignorar aislamiento de dependencias",
+      "No priorizar lógica de negocio",
+      "Diseñar estrategias poco escalables"
+    ],
+    "criterios_rubrica": {
+      "0": "La estrategia es incorrecta o inviable.",
+      "1": "Describe pruebas sin organización metodológica.",
+      "2": "Presenta una estrategia parcialmente estructurada.",
+      "3": "Diseña una estrategia coherente, aislada y técnicamente viable."
+    },
+    "keywords_semanticas": [
+      "estrategia de testing",
+      "mocking",
+      "stubs",
+      "aislamiento",
+      "capas de aplicación",
+      "integration continuous",
+      "unit test strategy",
+      "test automation",
+      "business logic testing",
+      "software quality assurance"
+    ],
+    "text": "Explica el concepto de estrategia_pruebas_unitarias y proporciona un ejemplo práctico relacionado con desarrollo de software.",
+    "dificultad": "básico",
+    "categoria_contenido": "Fundamentos y paradigmas"
+  },
+  {
+    "pregunta_id": "limitaciones_pruebas_unitarias_010",
+    "concepto": "limitaciones_testing_unitario",
+    "definicion": "Las pruebas unitarias validan componentes aislados, pero no garantizan por sí solas integración, rendimiento, seguridad ni experiencia completa del usuario.",
+    "explicacion_simple": "Las pruebas unitarias son importantes, pero deben complementarse con otros tipos de pruebas para asegurar calidad integral.",
+    "ejemplo_correcto": "Combinar pruebas unitarias con pruebas de integración, end-to-end y pruebas de carga.",
+    "ejemplo_incorrecto": "Confiar únicamente en pruebas unitarias para validar un sistema distribuido complejo.",
+    "errores_comunes": [
+      "Pensar que pruebas unitarias son suficientes",
+      "Ignorar pruebas de integración",
+      "No considerar rendimiento o seguridad",
+      "Reducir testing a cobertura numérica"
+    ],
+    "criterios_rubrica": {
+      "0": "No reconoce limitaciones del testing unitario.",
+      "1": "Menciona limitaciones superficiales.",
+      "2": "Describe algunos problemas y pruebas complementarias.",
+      "3": "Evalúa críticamente límites y necesidad de estrategia multinivel."
+    },
+    "keywords_semanticas": [
+      "limitaciones pruebas unitarias",
+      "integration testing",
+      "end to end testing",
+      "quality assurance",
+      "testing pyramid",
+      "software quality",
+      "performance testing",
+      "security testing",
+      "test strategy",
+      "multi level testing"
+    ],
+    "text": "Describe qué es limitaciones_testing_unitario, cuáles son sus principales características y cómo se aplica en un contexto real.",
+    "dificultad": "básico",
+    "categoria_contenido": "Fundamentos y paradigmas"
+  },
+  {
+    "pregunta_id": "bases_datos_relacionales_fundamentos_001",
+    "concepto": "base_datos_relacional",
+    "definicion": "Una base de datos relacional organiza la información en tablas conectadas mediante relaciones definidas por claves primarias y foráneas.",
+    "explicacion_simple": "Los datos se almacenan en filas y columnas, permitiendo relacionar información de diferentes tablas de forma estructurada y consistente.",
+    "ejemplo_correcto": "Una tienda en línea almacena clientes y pedidos en tablas separadas relacionadas mediante identificadores únicos.",
+    "ejemplo_incorrecto": "Guardar toda la información de usuarios y productos en archivos sin estructura ni relaciones definidas.",
+    "errores_comunes": [
+      "Confundir base de datos con aplicación",
+      "No mencionar relaciones entre tablas",
+      "Ignorar claves primarias y foráneas",
+      "Pensar que SQL es la base de datos"
+    ],
+    "criterios_rubrica": {
+      "0": "Respuesta incorrecta o sin relación con bases de datos relacionales.",
+      "1": "Define tablas de forma básica sin explicar relaciones.",
+      "2": "Describe correctamente tablas y algunas características principales.",
+      "3": "Explica claramente relaciones, integridad referencial y uso de SQL."
+    },
+    "keywords_semanticas": [
+      "base de datos relacional",
+      "relational database",
+      "SQL",
+      "tablas",
+      "filas y columnas",
+      "claves primarias",
+      "claves foráneas",
+      "integridad referencial",
+      "modelo relacional",
+      "schema",
+      "structured data",
+      "RDBMS"
+    ],
+    "text": "Compara y explica base_datos_relacional utilizando fundamentos técnicos y ejemplos concretos.",
+    "dificultad": "básico",
+    "categoria_contenido": "Fundamentos y paradigmas"
+  },
+  {
+    "pregunta_id": "nosql_fundamentos_002",
+    "concepto": "bases_datos_nosql",
+    "definicion": "Las bases de datos NoSQL son sistemas de almacenamiento diseñados para manejar grandes volúmenes de datos distribuidos y esquemas flexibles.",
+    "explicacion_simple": "Permiten almacenar información con estructuras menos rígidas que las bases relacionales y escalar horizontalmente.",
+    "ejemplo_correcto": "Una red social utiliza una base documental para almacenar perfiles con atributos variables.",
+    "ejemplo_incorrecto": "Afirmar que NoSQL significa almacenar datos sin ningún tipo de organización.",
+    "errores_comunes": [
+      "Pensar que NoSQL no tiene estructura",
+      "Confundir tipos de bases NoSQL",
+      "No mencionar distribución o escalabilidad",
+      "Asumir que reemplazan completamente a las relacionales"
+    ],
+    "criterios_rubrica": {
+      "0": "Respuesta incorrecta o incompleta.",
+      "1": "Menciona NoSQL sin explicar características ni tipos.",
+      "2": "Describe algunos tipos y diferencias generales.",
+      "3": "Explica claramente flexibilidad, escalabilidad y múltiples modelos NoSQL."
+    },
+    "keywords_semanticas": [
+      "NoSQL",
+      "bases de datos no relacionales",
+      "document database",
+      "key value",
+      "columnar database",
+      "graph database",
+      "esquema flexible",
+      "scalability",
+      "distributed data",
+      "MongoDB",
+      "Cassandra",
+      "Neo4j"
+    ],
+    "text": "Describe qué es bases_datos_nosql, cuáles son sus principales características y cómo se aplica en un contexto real.",
+    "dificultad": "avanzado",
+    "categoria_contenido": "Fundamentos y paradigmas"
+  },
+  {
+    "pregunta_id": "acid_transacciones_003",
+    "concepto": "propiedades_acid",
+    "definicion": "Las propiedades ACID garantizan confiabilidad y consistencia en transacciones mediante atomicidad, consistencia, aislamiento y durabilidad.",
+    "explicacion_simple": "Estas propiedades aseguran que las operaciones críticas sobre datos se ejecuten correctamente incluso ante errores o concurrencia.",
+    "ejemplo_correcto": "Una transferencia bancaria solo se confirma si el débito y el crédito se realizan completamente.",
+    "ejemplo_incorrecto": "Guardar parcialmente una transacción dejando datos inconsistentes después de un fallo.",
+    "errores_comunes": [
+      "Confundir atomicidad con durabilidad",
+      "No relacionar ACID con transacciones",
+      "Explicar propiedades de manera ambigua",
+      "Ignorar concurrencia y persistencia"
+    ],
+    "criterios_rubrica": {
+      "0": "No identifica correctamente las propiedades ACID.",
+      "1": "Menciona algunas propiedades sin explicación clara.",
+      "2": "Describe parcialmente atomicidad, consistencia, aislamiento y durabilidad.",
+      "3": "Explica correctamente cada propiedad y su impacto en confiabilidad."
+    },
+    "keywords_semanticas": [
+      "ACID",
+      "atomicidad",
+      "consistencia",
+      "aislamiento",
+      "durabilidad",
+      "transacciones",
+      "data integrity",
+      "persistencia",
+      "concurrencia",
+      "transaction processing",
+      "database reliability"
+    ],
+    "text": "Analiza propiedades_acid considerando sus ventajas, limitaciones y ejemplos de aplicación.",
+    "dificultad": "avanzado",
+    "categoria_contenido": "Fundamentos y paradigmas"
+  },
+  {
+    "pregunta_id": "comparacion_relacional_nosql_004",
+    "concepto": "comparacion_relacional_nosql",
+    "definicion": "Las bases relacionales priorizan consistencia y esquemas definidos, mientras que las NoSQL favorecen flexibilidad y escalabilidad distribuida.",
+    "explicacion_simple": "Las relacionales funcionan mejor en sistemas transaccionales estructurados y las NoSQL en aplicaciones distribuidas con datos variables.",
+    "ejemplo_correcto": "Un banco utiliza bases relacionales para transacciones y una plataforma social usa NoSQL para contenido dinámico.",
+    "ejemplo_incorrecto": "Afirmar que una tecnología siempre reemplaza completamente a la otra.",
+    "errores_comunes": [
+      "Generalizar ventajas sin contexto",
+      "Ignorar diferencias de escalabilidad",
+      "No mencionar casos de uso",
+      "Confundir consistencia con rendimiento"
+    ],
+    "criterios_rubrica": {
+      "0": "No compara correctamente ambos modelos.",
+      "1": "Presenta diferencias superficiales.",
+      "2": "Compara estructura y escalabilidad parcialmente.",
+      "3": "Analiza claramente esquemas, consistencia, escalabilidad y aplicaciones prácticas."
+    },
+    "keywords_semanticas": [
+      "SQL vs NoSQL",
+      "relational vs non relational",
+      "escalabilidad horizontal",
+      "schema flexibility",
+      "consistencia",
+      "distributed systems",
+      "modelado de datos",
+      "bases distribuidas",
+      "high scalability",
+      "database comparison"
+    ],
+    "text": "Compara y explica comparacion_relacional_nosql utilizando fundamentos técnicos y ejemplos concretos.",
+    "dificultad": "avanzado",
+    "categoria_contenido": "Fundamentos y paradigmas"
+  },
+  {
+    "pregunta_id": "acid_sistemas_financieros_005",
+    "concepto": "acid_finanzas",
+    "definicion": "Las propiedades ACID permiten mantener integridad y confiabilidad en sistemas financieros mediante transacciones seguras y consistentes.",
+    "explicacion_simple": "Garantizan que operaciones bancarias críticas no pierdan datos ni generen inconsistencias.",
+    "ejemplo_correcto": "Una transferencia bancaria se revierte automáticamente si falla la actualización de una de las cuentas.",
+    "ejemplo_incorrecto": "Permitir que una transacción descuente dinero sin acreditar el saldo destino.",
+    "errores_comunes": [
+      "No relacionar ACID con sistemas reales",
+      "Ignorar recuperación ante fallos",
+      "No explicar concurrencia",
+      "Dar ejemplos abstractos sin contexto financiero"
+    ],
+    "criterios_rubrica": {
+      "0": "No comprende el papel de ACID en sistemas financieros.",
+      "1": "Menciona transacciones de forma general.",
+      "2": "Relaciona parcialmente ACID con integridad y recuperación.",
+      "3": "Explica claramente cómo ACID protege operaciones financieras críticas."
+    },
+    "keywords_semanticas": [
+      "ACID banking",
+      "transacciones financieras",
+      "integridad de datos",
+      "database transactions",
+      "consistencia financiera",
+      "fault recovery",
+      "transaction safety",
+      "concurrency control",
+      "persistencia",
+      "financial systems"
+    ],
+    "text": "Analiza acid_finanzas considerando sus ventajas, limitaciones y ejemplos de aplicación.",
+    "dificultad": "avanzado",
+    "categoria_contenido": "Fundamentos y paradigmas"
+  },
+  {
+    "pregunta_id": "nosql_casos_uso_006",
+    "concepto": "casos_uso_nosql",
+    "definicion": "Las bases de datos NoSQL son adecuadas para aplicaciones distribuidas con grandes volúmenes de datos y estructuras cambiantes.",
+    "explicacion_simple": "Se utilizan cuando se necesita escalabilidad horizontal y flexibilidad para manejar información dinámica.",
+    "ejemplo_correcto": "Un sistema IoT almacena millones de eventos en una base columnar distribuida para análisis en tiempo real.",
+    "ejemplo_incorrecto": "Usar NoSQL para procesos altamente transaccionales que requieren consistencia estricta sin justificarlo.",
+    "errores_comunes": [
+      "Elegir escenarios poco adecuados",
+      "No justificar ventajas técnicas",
+      "Ignorar comparación con relacionales",
+      "Asumir que NoSQL siempre ofrece mejor rendimiento"
+    ],
+    "criterios_rubrica": {
+      "0": "Escenario incorrecto o sin justificación técnica.",
+      "1": "Menciona un caso sin explicar beneficios.",
+      "2": "Describe parcialmente flexibilidad y escalabilidad.",
+      "3": "Justifica técnicamente por qué NoSQL es más adecuado."
+    },
+    "keywords_semanticas": [
+      "NoSQL use cases",
+      "Big Data",
+      "IoT",
+      "redes sociales",
+      "distributed database",
+      "high throughput",
+      "schema flexibility",
+      "horizontal scaling",
+      "low latency",
+      "real time processing"
+    ],
+    "text": "Analiza casos_uso_nosql considerando sus ventajas, limitaciones y ejemplos de aplicación.",
+    "dificultad": "intermedio",
+    "categoria_contenido": "Fundamentos y paradigmas"
+  },
+  {
+    "pregunta_id": "bases_datos_distribuidas_007",
+    "concepto": "bases_datos_distribuidas",
+    "definicion": "Los sistemas distribuidos de bases de datos almacenan y procesan información en múltiples nodos para mejorar disponibilidad y escalabilidad.",
+    "explicacion_simple": "Distribuir datos entre varios servidores permite soportar más usuarios y tolerar fallos.",
+    "ejemplo_correcto": "Una aplicación global replica datos en distintas regiones para reducir latencia y mantener disponibilidad.",
+    "ejemplo_incorrecto": "Asumir que distribuir datos elimina automáticamente problemas de consistencia.",
+    "errores_comunes": [
+      "Ignorar complejidad operativa",
+      "No considerar latencia",
+      "Confundir replicación con respaldo",
+      "No analizar trade-offs"
+    ],
+    "criterios_rubrica": {
+      "0": "No comprende sistemas distribuidos de bases de datos.",
+      "1": "Menciona escalabilidad sin análisis técnico.",
+      "2": "Describe ventajas y algunos desafíos.",
+      "3": "Evalúa equilibradamente beneficios y complejidades distribuidas."
+    },
+    "keywords_semanticas": [
+      "distributed databases",
+      "replicación",
+      "alta disponibilidad",
+      "fault tolerance",
+      "scalability",
+      "latencia",
+      "consistencia distribuida",
+      "distributed systems",
+      "database clustering",
+      "horizontal scaling"
+    ],
+    "text": "¿Cómo funciona bases_datos_distribuidas y por qué es importante dentro del desarrollo de software moderno?",
+    "dificultad": "avanzado",
+    "categoria_contenido": "Fundamentos y paradigmas"
+  },
+  {
+    "pregunta_id": "acid_cap_distribuidos_008",
+    "concepto": "acid_cap",
+    "definicion": "Las propiedades ACID y el teorema CAP representan enfoques distintos para manejar consistencia y disponibilidad en sistemas distribuidos.",
+    "explicacion_simple": "En arquitecturas distribuidas modernas existen compromisos entre consistencia fuerte, disponibilidad y tolerancia a particiones.",
+    "ejemplo_correcto": "Un sistema distribuido prioriza disponibilidad y usa consistencia eventual para soportar fallos de red.",
+    "ejemplo_incorrecto": "Afirmar que un sistema distribuido puede maximizar simultáneamente consistencia, disponibilidad y tolerancia a particiones.",
+    "errores_comunes": [
+      "Confundir ACID con CAP",
+      "Ignorar consistencia eventual",
+      "No explicar trade-offs",
+      "No relacionar particiones de red"
+    ],
+    "criterios_rubrica": {
+      "0": "No comprende ACID ni CAP.",
+      "1": "Menciona conceptos sin diferenciarlos correctamente.",
+      "2": "Describe parcialmente trade-offs distribuidos.",
+      "3": "Analiza críticamente relación entre ACID, CAP y sistemas modernos."
+    },
+    "keywords_semanticas": [
+      "ACID",
+      "CAP theorem",
+      "consistencia eventual",
+      "partition tolerance",
+      "distributed consistency",
+      "availability",
+      "trade offs",
+      "distributed transactions",
+      "cloud databases",
+      "network partitions"
+    ],
+    "text": "Analiza acid_cap considerando sus ventajas, limitaciones y ejemplos de aplicación.",
+    "dificultad": "avanzado",
+    "categoria_contenido": "Fundamentos y paradigmas"
+  },
+  {
+    "pregunta_id": "persistencia_hibrida_ecommerce_009",
+    "concepto": "persistencia_hibrida",
+    "definicion": "La persistencia híbrida combina bases relacionales y NoSQL para optimizar distintos tipos de datos y necesidades operativas.",
+    "explicacion_simple": "Las bases relacionales manejan transacciones críticas y las NoSQL soportan catálogos, caché o analítica distribuida.",
+    "ejemplo_correcto": "Usar PostgreSQL para pagos y MongoDB para catálogos dinámicos de productos.",
+    "ejemplo_incorrecto": "Centralizar toda la plataforma global en una única base sin estrategia de escalabilidad.",
+    "errores_comunes": [
+      "No justificar elección tecnológica",
+      "Ignorar consistencia",
+      "No separar responsabilidades",
+      "Diseñar arquitecturas poco escalables"
+    ],
+    "criterios_rubrica": {
+      "0": "La estrategia es inviable o incoherente.",
+      "1": "Describe tecnologías sin integración arquitectónica.",
+      "2": "Presenta una solución parcialmente estructurada.",
+      "3": "Diseña una estrategia híbrida escalable y técnicamente justificada."
+    },
+    "keywords_semanticas": [
+      "polyglot persistence",
+      "persistencia híbrida",
+      "SQL and NoSQL",
+      "ecommerce architecture",
+      "distributed persistence",
+      "scalable databases",
+      "catalog databases",
+      "transaction systems",
+      "cloud persistence",
+      "data architecture"
+    ],
+    "text": "Explica el concepto de persistencia_hibrida y proporciona un ejemplo práctico relacionado con desarrollo de software.",
+    "dificultad": "básico",
+    "categoria_contenido": "Fundamentos y paradigmas"
+  },
+  {
+    "pregunta_id": "cloud_native_bases_datos_010",
+    "concepto": "bases_datos_cloud_native",
+    "definicion": "Las bases de datos cloud-native enfrentan desafíos relacionados con escalabilidad horizontal, consistencia distribuida y tolerancia a fallos en entornos de alta concurrencia.",
+    "explicacion_simple": "Aplicaciones modernas en la nube requieren sistemas capaces de manejar millones de operaciones manteniendo disponibilidad y rendimiento.",
+    "ejemplo_correcto": "Implementar sharding y replicación para distribuir carga y mejorar disponibilidad global.",
+    "ejemplo_incorrecto": "Depender de una única instancia centralizada para soportar tráfico global masivo.",
+    "errores_comunes": [
+      "Ignorar sistemas distribuidos",
+      "No explicar replicación o sharding",
+      "Confundir disponibilidad con consistencia",
+      "No considerar concurrencia masiva"
+    ],
+    "criterios_rubrica": {
+      "0": "No identifica desafíos cloud-native relevantes.",
+      "1": "Menciona problemas generales sin profundidad técnica.",
+      "2": "Describe algunos desafíos y soluciones parciales.",
+      "3": "Analiza críticamente rendimiento, consistencia y escalabilidad distribuida."
+    },
+    "keywords_semanticas": [
+      "cloud native databases",
+      "sharding",
+      "replicación",
+      "high concurrency",
+      "distributed databases",
+      "horizontal scaling",
+      "high availability",
+      "latency",
+      "fault tolerance",
+      "cloud architecture",
+      "database scalability"
+    ],
+    "text": "Analiza bases_datos_cloud_native considerando sus ventajas, limitaciones y ejemplos de aplicación.",
+    "dificultad": "avanzado",
+    "categoria_contenido": "Fundamentos y paradigmas"
+  },
+  {
+    "pregunta_id": "git_fundamentos_001",
+    "concepto": "git_control_versiones",
+    "definicion": "Git es un sistema de control de versiones distribuido utilizado para registrar, gestionar y coordinar cambios en el código fuente de un proyecto.",
+    "explicacion_simple": "Permite guardar el historial del código, trabajar en equipo y recuperar versiones anteriores sin perder cambios importantes.",
+    "ejemplo_correcto": "Un equipo usa Git para desarrollar nuevas funcionalidades en ramas separadas y luego integrarlas al proyecto principal.",
+    "ejemplo_incorrecto": "Considerar Git únicamente como una plataforma web para alojar repositorios.",
+    "errores_comunes": [
+      "Confundir Git con GitHub",
+      "No mencionar control de versiones",
+      "Ignorar historial y ramas",
+      "Describir Git solo como almacenamiento de archivos"
+    ],
+    "criterios_rubrica": {
+      "0": "Respuesta incorrecta o sin relación con Git.",
+      "1": "Define Git de manera general sin explicar su propósito.",
+      "2": "Describe control de versiones y algunas funcionalidades básicas.",
+      "3": "Explica claramente colaboración, historial y desarrollo paralelo mediante ramas."
+    },
+    "keywords_semanticas": [
+      "Git",
+      "control de versiones",
+      "version control",
+      "repositorio",
+      "commit",
+      "historial",
+      "branches",
+      "colaboración",
+      "distributed version control",
+      "source code management",
+      "merge",
+      "software collaboration"
+    ],
+    "text": "Analiza git_control_versiones considerando sus ventajas, limitaciones y ejemplos de aplicación.",
+    "dificultad": "básico",
+    "categoria_contenido": "Fundamentos y paradigmas"
+  },
+  {
+    "pregunta_id": "uml_modificadores_acceso_002",
+    "concepto": "modificadores_acceso",
+    "definicion": "Los modificadores de acceso controlan la visibilidad de atributos y métodos en programación orientada a objetos y UML.",
+    "explicacion_simple": "El acceso público permite usar elementos desde cualquier parte del sistema, mientras que el privado restringe el acceso a la propia clase.",
+    "ejemplo_correcto": "Un atributo privado almacena datos internos y un método público permite consultarlos de forma controlada.",
+    "ejemplo_incorrecto": "Definir todos los atributos como públicos sin restricciones de acceso.",
+    "errores_comunes": [
+      "Confundir público con global",
+      "No relacionar modificadores con encapsulamiento",
+      "Interpretar incorrectamente símbolos UML",
+      "Ignorar control de acceso"
+    ],
+    "criterios_rubrica": {
+      "0": "No identifica correctamente los modificadores de acceso.",
+      "1": "Menciona acceso público y privado sin explicar diferencias.",
+      "2": "Describe visibilidad y encapsulamiento parcialmente.",
+      "3": "Explica correctamente símbolos UML y control de acceso orientado a objetos."
+    },
+    "keywords_semanticas": [
+      "modificadores de acceso",
+      "public private",
+      "encapsulamiento",
+      "UML visibility",
+      "programación orientada a objetos",
+      "access modifiers",
+      "visibilidad",
+      "atributos",
+      "métodos",
+      "object oriented programming",
+      "class design"
+    ],
+    "text": "Describe qué es modificadores_acceso, cuáles son sus principales características y cómo se aplica en un contexto real.",
+    "dificultad": "intermedio",
+    "categoria_contenido": "Diseño orientado a objetos"
+  },
+  {
+    "pregunta_id": "interfaces_uml_poo_003",
+    "concepto": "interfaces_poo",
+    "definicion": "Una interfaz define un contrato de comportamiento que otras clases deben implementar sin especificar detalles internos.",
+    "explicacion_simple": "Las interfaces permiten que diferentes clases compartan comportamientos comunes manteniendo flexibilidad y desacoplamiento.",
+    "ejemplo_correcto": "Una interfaz de pago define un método procesarPago implementado por diferentes proveedores.",
+    "ejemplo_incorrecto": "Usar una interfaz para almacenar estado o lógica concreta compleja.",
+    "errores_comunes": [
+      "Confundir interfaz con clase abstracta",
+      "No mencionar polimorfismo",
+      "Ignorar desacoplamiento",
+      "No explicar utilidad práctica"
+    ],
+    "criterios_rubrica": {
+      "0": "Respuesta incorrecta o superficial.",
+      "1": "Define interfaz sin explicar propósito arquitectónico.",
+      "2": "Describe contrato e implementación parcialmente.",
+      "3": "Explica claramente desacoplamiento, flexibilidad y polimorfismo."
+    },
+    "keywords_semanticas": [
+      "interfaces",
+      "UML interface",
+      "contrato",
+      "polimorfismo",
+      "desacoplamiento",
+      "implementation",
+      "object oriented design",
+      "abstraction",
+      "software flexibility",
+      "dependency inversion"
+    ],
+    "text": "Explica el concepto de interfaces_poo y proporciona un ejemplo práctico relacionado con desarrollo de software.",
+    "dificultad": "intermedio",
+    "categoria_contenido": "Principios de arquitectura y mantenibilidad"
+  },
+  {
+    "pregunta_id": "uml_agregacion_composicion_004",
+    "concepto": "agregacion_composicion",
+    "definicion": "La agregación representa relaciones débiles entre objetos independientes, mientras que la composición implica dependencia fuerte del ciclo de vida.",
+    "explicacion_simple": "En composición, los objetos dependen del contenedor para existir; en agregación pueden existir por separado.",
+    "ejemplo_correcto": "Una casa contiene habitaciones que dependen de ella en composición, mientras una universidad agrega profesores independientes.",
+    "ejemplo_incorrecto": "Considerar cualquier relación entre objetos como composición.",
+    "errores_comunes": [
+      "Confundir agregación y composición",
+      "No explicar dependencia de existencia",
+      "Ignorar ciclo de vida de objetos",
+      "Dar ejemplos ambiguos"
+    ],
+    "criterios_rubrica": {
+      "0": "No diferencia correctamente agregación y composición.",
+      "1": "Describe relaciones de manera superficial.",
+      "2": "Compara parcialmente independencia y dependencia.",
+      "3": "Explica claramente diferencias estructurales y ejemplos prácticos."
+    },
+    "keywords_semanticas": [
+      "agregación",
+      "composición",
+      "UML relationships",
+      "association",
+      "lifecycle dependency",
+      "object relationships",
+      "class diagrams",
+      "aggregation vs composition",
+      "object ownership",
+      "software modeling"
+    ],
+    "text": "Compara y explica agregacion_composicion utilizando fundamentos técnicos y ejemplos concretos.",
+    "dificultad": "intermedio",
+    "categoria_contenido": "Diseño orientado a objetos"
+  },
+  {
+    "pregunta_id": "git_branches_colaboracion_005",
+    "concepto": "branches_git",
+    "definicion": "Las ramas en Git permiten desarrollar cambios de forma aislada y paralela sin afectar directamente la versión principal del proyecto.",
+    "explicacion_simple": "Cada desarrollador puede trabajar en funcionalidades o correcciones independientes y luego integrarlas controladamente.",
+    "ejemplo_correcto": "Un equipo crea ramas separadas para nuevas funcionalidades y usa pull requests antes de fusionarlas.",
+    "ejemplo_incorrecto": "Modificar directamente la rama principal para todos los cambios sin revisión.",
+    "errores_comunes": [
+      "Confundir ramas con repositorios independientes",
+      "No explicar aislamiento de cambios",
+      "Ignorar merges y pull requests",
+      "Describir ramas solo como copias del código"
+    ],
+    "criterios_rubrica": {
+      "0": "No comprende el uso de ramas en Git.",
+      "1": "Menciona ramas sin explicar colaboración.",
+      "2": "Describe parcialmente aislamiento y desarrollo paralelo.",
+      "3": "Explica claramente colaboración, integración y gestión de cambios."
+    },
+    "keywords_semanticas": [
+      "Git branches",
+      "branching",
+      "merge",
+      "pull request",
+      "collaborative development",
+      "feature branch",
+      "parallel development",
+      "version control workflow",
+      "integration",
+      "source code collaboration"
+    ],
+    "text": "Describe qué es branches_git, cuáles son sus principales características y cómo se aplica en un contexto real.",
+    "dificultad": "básico",
+    "categoria_contenido": "Fundamentos y paradigmas"
+  },
+  {
+    "pregunta_id": "uml_comunicacion_equipos_006",
+    "concepto": "uml_comunicacion",
+    "definicion": "Los diagramas UML facilitan la representación visual estandarizada de sistemas para mejorar comunicación y comprensión técnica.",
+    "explicacion_simple": "UML ayuda a que desarrolladores y equipos entiendan estructuras, relaciones y comportamientos del sistema de manera compartida.",
+    "ejemplo_correcto": "Un equipo usa diagramas de clases y secuencia para coordinar el diseño de un sistema distribuido.",
+    "ejemplo_incorrecto": "Utilizar UML únicamente como documentación estática sin relación con el diseño real.",
+    "errores_comunes": [
+      "Pensar que UML solo sirve para documentación",
+      "No relacionarlo con colaboración",
+      "Ignorar modelado visual",
+      "No explicar reducción de ambigüedad"
+    ],
+    "criterios_rubrica": {
+      "0": "Respuesta incorrecta o irrelevante.",
+      "1": "Menciona UML sin explicar utilidad práctica.",
+      "2": "Describe parcialmente comunicación y documentación.",
+      "3": "Explica claramente cómo UML mejora análisis, colaboración y mantenimiento."
+    },
+    "keywords_semanticas": [
+      "UML",
+      "modelado visual",
+      "software modeling",
+      "diagramas UML",
+      "technical communication",
+      "documentación técnica",
+      "class diagram",
+      "sequence diagram",
+      "software design",
+      "team collaboration"
+    ],
+    "text": "Explica el concepto de uml_comunicacion y proporciona un ejemplo práctico relacionado con desarrollo de software.",
+    "dificultad": "básico",
+    "categoria_contenido": "Fundamentos y paradigmas"
+  },
+  {
+    "pregunta_id": "git_uml_agilidad_007",
+    "concepto": "git_uml_agil",
+    "definicion": "Git y UML aportan trazabilidad, colaboración y claridad estructural en proyectos ágiles, aunque pueden introducir complejidad si se usan incorrectamente.",
+    "explicacion_simple": "Git mejora coordinación y control de cambios, mientras UML facilita comunicación técnica y comprensión del diseño.",
+    "ejemplo_correcto": "Un equipo ágil utiliza Git Flow y diagramas UML ligeros para documentar arquitectura crítica.",
+    "ejemplo_incorrecto": "Mantener diagramas extensos y desactualizados que ralentizan el desarrollo iterativo.",
+    "errores_comunes": [
+      "Tener una visión completamente positiva o negativa",
+      "Ignorar conflictos de merge",
+      "No considerar documentación ligera",
+      "Desconocer limitaciones organizacionales"
+    ],
+    "criterios_rubrica": {
+      "0": "No analiza ventajas ni limitaciones reales.",
+      "1": "Presenta opiniones superficiales sin fundamentos.",
+      "2": "Describe parcialmente beneficios y desafíos.",
+      "3": "Evalúa críticamente Git y UML en contextos ágiles reales."
+    },
+    "keywords_semanticas": [
+      "Git agile",
+      "UML agile",
+      "documentación ligera",
+      "version control",
+      "software collaboration",
+      "merge conflicts",
+      "agile development",
+      "technical documentation",
+      "software maintainability",
+      "team coordination"
+    ],
+    "text": "Compara y explica git_uml_agil utilizando fundamentos técnicos y ejemplos concretos.",
+    "dificultad": "básico",
+    "categoria_contenido": "Fundamentos y paradigmas"
+  },
+  {
+    "pregunta_id": "uml_branching_mantenibilidad_008",
+    "concepto": "gobernanza_tecnica_git_uml",
+    "definicion": "Las estrategias de branching y el modelado UML influyen en mantenibilidad y escalabilidad organizando cambios, arquitectura y coordinación de equipos.",
+    "explicacion_simple": "Un buen diseño UML y una estrategia de ramas adecuada facilitan evolución controlada y reducción de complejidad técnica.",
+    "ejemplo_correcto": "Una empresa usa Git Flow y diagramas arquitectónicos actualizados para coordinar múltiples equipos.",
+    "ejemplo_incorrecto": "Permitir cambios sin estrategia de ramas ni documentación estructural mínima.",
+    "errores_comunes": [
+      "No conectar UML y Git con arquitectura",
+      "Ignorar gobernanza técnica",
+      "No considerar escalabilidad organizacional",
+      "Dar respuestas aisladas sin integración conceptual"
+    ],
+    "criterios_rubrica": {
+      "0": "Respuesta superficial o incorrecta.",
+      "1": "Menciona herramientas sin análisis estratégico.",
+      "2": "Describe parcialmente mantenibilidad y coordinación.",
+      "3": "Integra impacto arquitectónico, organizacional y técnico."
+    },
+    "keywords_semanticas": [
+      "branching strategies",
+      "Git Flow",
+      "trunk based development",
+      "UML architecture",
+      "technical governance",
+      "software maintainability",
+      "scalable collaboration",
+      "architectural evolution",
+      "enterprise development",
+      "team coordination"
+    ],
+    "text": "Analiza gobernanza_tecnica_git_uml considerando sus ventajas, limitaciones y ejemplos de aplicación.",
+    "dificultad": "avanzado",
+    "categoria_contenido": "Fundamentos y paradigmas"
+  },
+  {
+    "pregunta_id": "estrategia_colaboracion_git_uml_009",
+    "concepto": "estrategia_colaboracion",
+    "definicion": "Una estrategia de colaboración con Git y UML define flujos de trabajo, revisión de código y documentación técnica para coordinar equipos de desarrollo.",
+    "explicacion_simple": "Combinar ramas, pull requests y diagramas UML ayuda a mantener control de cambios y comunicación técnica consistente.",
+    "ejemplo_correcto": "Un equipo usa Git Flow, convenciones de commits, revisión por pull requests y actualización periódica de diagramas UML.",
+    "ejemplo_incorrecto": "Trabajar directamente sobre producción sin revisiones ni documentación compartida.",
+    "errores_comunes": [
+      "No definir flujo de ramas",
+      "Ignorar integración continua",
+      "No actualizar diagramas",
+      "Omitir revisión de código"
+    ],
+    "criterios_rubrica": {
+      "0": "La estrategia es inviable o incompleta.",
+      "1": "Describe herramientas sin coordinación metodológica.",
+      "2": "Presenta parcialmente flujo de trabajo y documentación.",
+      "3": "Diseña una estrategia coherente y aplicable a entornos empresariales."
+    },
+    "keywords_semanticas": [
+      "Git Flow",
+      "pull requests",
+      "continuous integration",
+      "branch strategy",
+      "code review",
+      "technical documentation",
+      "UML collaboration",
+      "software workflow",
+      "team development",
+      "commit conventions"
+    ],
+    "text": "Describe qué es estrategia_colaboracion, cuáles son sus principales características y cómo se aplica en un contexto real.",
+    "dificultad": "básico",
+    "categoria_contenido": "Fundamentos y paradigmas"
+  },
+  {
+    "pregunta_id": "consistencia_codigo_uml_010",
+    "concepto": "sincronizacion_codigo_documentacion",
+    "definicion": "Mantener consistencia entre código fuente y diagramas UML es complejo debido a cambios frecuentes, evolución arquitectónica y costos de actualización documental.",
+    "explicacion_simple": "En proyectos grandes los diagramas pueden quedar desactualizados rápidamente si no existen procesos o automatización adecuados.",
+    "ejemplo_correcto": "Automatizar generación parcial de diagramas y revisar documentación durante revisiones de arquitectura.",
+    "ejemplo_incorrecto": "Mantener diagramas manuales sin actualizarlos durante cambios continuos del sistema.",
+    "errores_comunes": [
+      "Ignorar evolución continua",
+      "No considerar automatización",
+      "Subestimar costos de mantenimiento",
+      "Pensar que UML siempre permanece sincronizado automáticamente"
+    ],
+    "criterios_rubrica": {
+      "0": "No identifica desafíos reales de sincronización.",
+      "1": "Menciona desactualización sin análisis técnico.",
+      "2": "Describe algunos problemas y estrategias básicas.",
+      "3": "Analiza críticamente sincronización, gobernanza y automatización documental."
+    },
+    "keywords_semanticas": [
+      "documentation synchronization",
+      "UML maintenance",
+      "architectural evolution",
+      "technical governance",
+      "continuous evolution",
+      "documentation automation",
+      "software architecture",
+      "diagram consistency",
+      "large scale systems",
+      "maintainability"
+    ],
+    "text": "Describe qué es sincronizacion_codigo_documentacion, cuáles son sus principales características y cómo se aplica en un contexto real.",
+    "dificultad": "básico",
+    "categoria_contenido": "Fundamentos y paradigmas"
+  },
+  {
+    "pregunta_id": "arquitectura_software_001",
+    "concepto": "arquitectura_software",
+    "definicion": "La arquitectura de software define la organización estructural de un sistema, incluyendo componentes, responsabilidades, relaciones y principios que guían su construcción y evolución.",
+    "explicacion_simple": "Es el plano técnico de una aplicación. Permite organizar cómo interactúan las partes del sistema para que sea más fácil mantenerlo, ampliarlo y escalarlo.",
+    "ejemplo_correcto": "Una plataforma bancaria separa autenticación, pagos y reportes en componentes independientes para facilitar mantenimiento y crecimiento.",
+    "ejemplo_incorrecto": "Decir que la arquitectura solo consiste en escribir código o elegir un lenguaje de programación.",
+    "errores_comunes": [
+      "Confundir arquitectura con implementación",
+      "Definir arquitectura como únicamente diseño visual",
+      "No relacionar arquitectura con calidad del software",
+      "Omitir conceptos de modularidad y escalabilidad"
+    ],
+    "criterios_rubrica": {
+      "0": "Respuesta incorrecta, vacía o sin relación con arquitectura de software.",
+      "1": "Menciona de forma vaga la organización del sistema pero sin profundidad técnica.",
+      "2": "Describe componentes y beneficios básicos, aunque con poca claridad o ejemplos limitados.",
+      "3": "Explica correctamente la estructura del sistema y relaciona arquitectura con mantenibilidad, escalabilidad y evolución."
+    },
+    "keywords_semanticas": [
+      "arquitectura de software",
+      "estructura del sistema",
+      "componentes",
+      "diseño arquitectónico",
+      "modularidad",
+      "mantenibilidad",
+      "escalabilidad",
+      "organización técnica",
+      "quality attributes",
+      "software design",
+      "evolución del sistema",
+      "desacoplamiento",
+      "sistemas modernos"
+    ],
+    "text": "Describe qué es arquitectura_software, cuáles son sus principales características y cómo se aplica en un contexto real.",
+    "dificultad": "avanzado",
+    "categoria_contenido": "Principios de arquitectura y mantenibilidad"
+  },
+  {
+    "pregunta_id": "arquitectura_en_capas_002",
+    "concepto": "arquitectura_en_capas",
+    "definicion": "La arquitectura en capas organiza una aplicación separando responsabilidades en niveles independientes que interactúan mediante dependencias controladas.",
+    "explicacion_simple": "Cada capa cumple una función específica. Una maneja la interfaz, otra las reglas del negocio y otra los datos, facilitando orden y mantenimiento.",
+    "ejemplo_correcto": "Una aplicación web usa una capa de presentación para la interfaz, una capa de negocio para validaciones y una capa de datos para consultas a base de datos.",
+    "ejemplo_incorrecto": "Permitir que la interfaz acceda directamente a la base de datos sin pasar por lógica de negocio.",
+    "errores_comunes": [
+      "Confundir responsabilidades entre capas",
+      "No explicar el flujo de dependencias",
+      "Reducir las capas solo a frontend y backend",
+      "Ignorar beneficios de separación de responsabilidades"
+    ],
+    "criterios_rubrica": {
+      "0": "No identifica correctamente las capas o la explicación es incorrecta.",
+      "1": "Menciona algunas capas sin explicar sus responsabilidades.",
+      "2": "Describe capas principales y algunos beneficios, aunque con detalles incompletos.",
+      "3": "Explica claramente las capas, sus funciones y cómo mejoran organización y mantenibilidad."
+    },
+    "keywords_semanticas": [
+      "arquitectura en capas",
+      "layered architecture",
+      "separación de responsabilidades",
+      "capa de presentación",
+      "lógica de negocio",
+      "persistencia",
+      "acceso a datos",
+      "dependencias",
+      "modularidad",
+      "enterprise application",
+      "flujo arquitectónico",
+      "software multicapa"
+    ],
+    "text": "¿Cómo funciona arquitectura_en_capas y por qué es importante dentro del desarrollo de software moderno?",
+    "dificultad": "intermedio",
+    "categoria_contenido": "Principios de arquitectura y mantenibilidad"
+  },
+  {
+    "pregunta_id": "microservicios_003",
+    "concepto": "microservicios",
+    "definicion": "La arquitectura de microservicios divide un sistema en servicios pequeños e independientes que implementan capacidades específicas y se comunican mediante APIs o eventos.",
+    "explicacion_simple": "Cada servicio funciona de forma autónoma y puede desarrollarse, desplegarse y escalarse sin afectar todo el sistema.",
+    "ejemplo_correcto": "Un e-commerce separa catálogo, pagos y envíos en servicios independientes conectados por APIs.",
+    "ejemplo_incorrecto": "Un único sistema monolítico donde todas las funcionalidades comparten la misma base de código y despliegue.",
+    "errores_comunes": [
+      "Confundir microservicios con módulos internos",
+      "No mencionar independencia de despliegue",
+      "Ignorar comunicación distribuida",
+      "Creer que todos los servicios deben compartir la misma base de datos"
+    ],
+    "criterios_rubrica": {
+      "0": "Definición incorrecta o sin relación con microservicios.",
+      "1": "Menciona servicios separados pero sin explicar autonomía o comunicación.",
+      "2": "Describe independencia y algunas ventajas, aunque de forma parcial.",
+      "3": "Explica correctamente microservicios y compara ventajas frente a monolitos."
+    },
+    "keywords_semanticas": [
+      "microservicios",
+      "microservices",
+      "servicios independientes",
+      "APIs",
+      "eventos",
+      "escalabilidad independiente",
+      "despliegue autónomo",
+      "arquitectura distribuida",
+      "bounded context",
+      "desacoplamiento",
+      "monolito",
+      "resiliencia"
+    ],
+    "text": "¿Cómo funciona microservicios y por qué es importante dentro del desarrollo de software moderno?",
+    "dificultad": "avanzado",
+    "categoria_contenido": "APIs y sistemas distribuidos"
+  },
+  {
+    "pregunta_id": "comparacion_capas_hexagonal_004",
+    "concepto": "comparacion_capas_hexagonal",
+    "definicion": "La arquitectura en capas organiza dependencias jerárquicas, mientras que la arquitectura hexagonal desacopla el dominio mediante puertos y adaptadores.",
+    "explicacion_simple": "La arquitectura hexagonal protege la lógica de negocio de tecnologías externas, facilitando pruebas y cambios tecnológicos.",
+    "ejemplo_correcto": "Un sistema hexagonal puede cambiar de base de datos sin modificar la lógica de negocio gracias a adaptadores.",
+    "ejemplo_incorrecto": "Acoplar directamente reglas de negocio a frameworks o controladores web.",
+    "errores_comunes": [
+      "Confundir hexagonal con arquitectura en capas tradicional",
+      "No explicar puertos y adaptadores",
+      "Ignorar diferencias de acoplamiento",
+      "No relacionar arquitectura con testabilidad"
+    ],
+    "criterios_rubrica": {
+      "0": "No diferencia ambas arquitecturas.",
+      "1": "Menciona diferencias superficiales sin análisis técnico.",
+      "2": "Compara parcialmente acoplamiento y mantenibilidad.",
+      "3": "Analiza claramente dependencias, desacoplamiento, pruebas y flexibilidad tecnológica."
+    },
+    "keywords_semanticas": [
+      "arquitectura hexagonal",
+      "ports and adapters",
+      "arquitectura en capas",
+      "desacoplamiento",
+      "testabilidad",
+      "dependencias",
+      "dominio",
+      "adaptadores",
+      "mantenibilidad",
+      "clean boundaries",
+      "software architecture comparison"
+    ],
+    "text": "¿Cómo funciona comparacion_capas_hexagonal y por qué es importante dentro del desarrollo de software moderno?",
+    "dificultad": "intermedio",
+    "categoria_contenido": "Principios de arquitectura y mantenibilidad"
+  },
+  {
+    "pregunta_id": "clean_architecture_005",
+    "concepto": "clean_architecture",
+    "definicion": "Clean Architecture organiza el sistema alrededor del dominio y los casos de uso, manteniendo las dependencias orientadas hacia el núcleo del negocio.",
+    "explicacion_simple": "La lógica principal del sistema no depende de frameworks, bases de datos o interfaces externas.",
+    "ejemplo_correcto": "Una aplicación puede reemplazar su base de datos sin modificar reglas de negocio ni casos de uso.",
+    "ejemplo_incorrecto": "Colocar consultas SQL directamente dentro de la lógica del dominio.",
+    "errores_comunes": [
+      "Confundir Clean Architecture con capas tradicionales",
+      "No explicar inversión de dependencias",
+      "Ignorar independencia tecnológica",
+      "Describir solo estructura visual"
+    ],
+    "criterios_rubrica": {
+      "0": "Respuesta incorrecta o irrelevante.",
+      "1": "Menciona separación básica sin explicar dependencias.",
+      "2": "Describe dominio y desacoplamiento parcialmente.",
+      "3": "Explica claramente independencia tecnológica, reglas de dependencia y mantenibilidad."
+    },
+    "keywords_semanticas": [
+      "Clean Architecture",
+      "arquitectura limpia",
+      "dominio",
+      "casos de uso",
+      "dependency inversion",
+      "independencia tecnológica",
+      "mantenibilidad",
+      "framework agnostic",
+      "software boundaries",
+      "testabilidad",
+      "core business"
+    ],
+    "text": "Analiza clean_architecture considerando sus ventajas, limitaciones y ejemplos de aplicación.",
+    "dificultad": "intermedio",
+    "categoria_contenido": "Principios de arquitectura y mantenibilidad"
+  },
+  {
+    "pregunta_id": "arquitectura_orientada_eventos_006",
+    "concepto": "arquitectura_orientada_eventos",
+    "definicion": "La arquitectura orientada a eventos permite que componentes distribuidos reaccionen de forma asíncrona a cambios o sucesos del sistema.",
+    "explicacion_simple": "Los servicios publican eventos y otros sistemas reaccionan sin depender de llamadas directas inmediatas.",
+    "ejemplo_correcto": "En un e-commerce, al confirmar una compra se generan eventos para pagos, inventario y notificaciones.",
+    "ejemplo_incorrecto": "Obligar a todos los servicios a responder de manera síncrona antes de continuar un proceso.",
+    "errores_comunes": [
+      "Confundir eventos con llamadas HTTP tradicionales",
+      "No justificar escenarios distribuidos",
+      "Ignorar asincronía",
+      "No mencionar desacoplamiento"
+    ],
+    "criterios_rubrica": {
+      "0": "No describe arquitectura orientada a eventos.",
+      "1": "Menciona eventos sin explicar utilidad práctica.",
+      "2": "Presenta un escenario válido pero con justificación limitada.",
+      "3": "Explica correctamente un escenario distribuido y sus ventajas técnicas."
+    },
+    "keywords_semanticas": [
+      "event-driven architecture",
+      "arquitectura orientada a eventos",
+      "asincronía",
+      "pub/sub",
+      "eventos",
+      "mensajería",
+      "Kafka",
+      "RabbitMQ",
+      "procesamiento en tiempo real",
+      "sistemas distribuidos",
+      "resiliencia",
+      "escalabilidad"
+    ],
+    "text": "Compara y explica arquitectura_orientada_eventos utilizando fundamentos técnicos y ejemplos concretos.",
+    "dificultad": "avanzado",
+    "categoria_contenido": "APIs y sistemas distribuidos"
+  },
+  {
+    "pregunta_id": "migracion_monolito_microservicios_007",
+    "concepto": "migracion_monolito_microservicios",
+    "definicion": "La migración de monolitos a microservicios implica dividir funcionalidades independientes para mejorar escalabilidad y autonomía operativa, aumentando la complejidad distribuida.",
+    "explicacion_simple": "Separar un sistema grande en servicios independientes ofrece flexibilidad, pero requiere nuevas prácticas operativas y de monitoreo.",
+    "ejemplo_correcto": "Una empresa divide autenticación, pagos y catálogo en microservicios para desplegarlos y escalarlos por separado.",
+    "ejemplo_incorrecto": "Migrar a microservicios sin estrategia de observabilidad ni automatización.",
+    "errores_comunes": [
+      "Pensar que microservicios siempre son mejores",
+      "Ignorar complejidad operativa",
+      "No considerar consistencia distribuida",
+      "Omitir impacto organizacional"
+    ],
+    "criterios_rubrica": {
+      "0": "No analiza ventajas ni desafíos reales.",
+      "1": "Presenta opiniones generales sin fundamentos técnicos.",
+      "2": "Menciona ventajas y algunos desafíos de forma parcial.",
+      "3": "Evalúa equilibradamente beneficios, costos y complejidad organizacional."
+    },
+    "keywords_semanticas": [
+      "monolito",
+      "microservicios",
+      "migración arquitectónica",
+      "DevOps",
+      "observabilidad",
+      "escalabilidad",
+      "consistencia distribuida",
+      "autonomía de equipos",
+      "cloud migration",
+      "distributed systems",
+      "deployment independence"
+    ],
+    "text": "Describe qué es migracion_monolito_microservicios, cuáles son sus principales características y cómo se aplica en un contexto real.",
+    "dificultad": "avanzado",
+    "categoria_contenido": "APIs y sistemas distribuidos"
+  },
+  {
+    "pregunta_id": "arquitectura_cloud_native_desacoplada_008",
+    "concepto": "arquitectura_cloud_native_desacoplada",
+    "definicion": "Las arquitecturas hexagonal y Clean Architecture favorecen sistemas cloud-native resilientes mediante desacoplamiento, inversión de dependencias y separación entre dominio e infraestructura.",
+    "explicacion_simple": "Estas arquitecturas permiten cambiar tecnologías, escalar servicios y automatizar despliegues sin afectar la lógica principal del negocio.",
+    "ejemplo_correcto": "Un sistema desplegado en contenedores reemplaza un adaptador de mensajería sin alterar los casos de uso del dominio.",
+    "ejemplo_incorrecto": "Acoplar la lógica del negocio directamente a proveedores cloud específicos.",
+    "errores_comunes": [
+      "No relacionar arquitectura con cloud-native",
+      "Describir solo teoría sin contexto práctico",
+      "Ignorar resiliencia y automatización",
+      "Confundir adaptadores con lógica de negocio"
+    ],
+    "criterios_rubrica": {
+      "0": "Respuesta superficial o incorrecta.",
+      "1": "Menciona desacoplamiento sin análisis técnico.",
+      "2": "Relaciona parcialmente arquitectura con resiliencia y nube.",
+      "3": "Integra conceptos de dominio, adaptadores, cloud-native y resiliencia avanzada."
+    },
+    "keywords_semanticas": [
+      "cloud-native",
+      "Clean Architecture",
+      "arquitectura hexagonal",
+      "puertos y adaptadores",
+      "dependency inversion",
+      "contenedores",
+      "Kubernetes",
+      "resiliencia",
+      "desacoplamiento",
+      "infraestructura independiente",
+      "testabilidad",
+      "automatización"
+    ],
+    "text": "Analiza arquitectura_cloud_native_desacoplada considerando sus ventajas, limitaciones y ejemplos de aplicación.",
+    "dificultad": "avanzado",
+    "categoria_contenido": "APIs y sistemas distribuidos"
+  },
+  {
+    "pregunta_id": "arquitectura_ecommerce_eventos_009",
+    "concepto": "arquitectura_ecommerce_eventos",
+    "definicion": "Una arquitectura distribuida para e-commerce de alta concurrencia utiliza microservicios independientes y comunicación basada en eventos para escalar y tolerar fallos.",
+    "explicacion_simple": "Cada capacidad del negocio funciona como un servicio autónomo que intercambia eventos para procesar pedidos, pagos e inventario.",
+    "ejemplo_correcto": "Separar catálogo, pagos, usuarios y envíos en microservicios conectados mediante colas de eventos y mensajería.",
+    "ejemplo_incorrecto": "Centralizar todas las operaciones críticas en un único servicio síncrono.",
+    "errores_comunes": [
+      "No considerar observabilidad",
+      "Ignorar consistencia eventual",
+      "Diseñar servicios demasiado acoplados",
+      "No justificar decisiones de comunicación distribuida"
+    ],
+    "criterios_rubrica": {
+      "0": "La propuesta es inviable o incompleta.",
+      "1": "Describe servicios sin coherencia arquitectónica.",
+      "2": "Presenta una arquitectura válida con detalles parciales.",
+      "3": "Diseña una solución escalable, distribuida y técnicamente consistente."
+    },
+    "keywords_semanticas": [
+      "e-commerce architecture",
+      "microservicios",
+      "event-driven architecture",
+      "mensajería",
+      "alta concurrencia",
+      "Kafka",
+      "colas de eventos",
+      "consistencia eventual",
+      "escalabilidad horizontal",
+      "tolerancia a fallos",
+      "observabilidad",
+      "distributed commerce"
+    ],
+    "text": "Explica el concepto de arquitectura_ecommerce_eventos y proporciona un ejemplo práctico relacionado con desarrollo de software.",
+    "dificultad": "avanzado",
+    "categoria_contenido": "APIs y sistemas distribuidos"
+  },
+  {
+    "pregunta_id": "desafios_sistemas_distribuidos_010",
+    "concepto": "desafios_sistemas_distribuidos",
+    "definicion": "Las arquitecturas distribuidas enfrentan desafíos relacionados con consistencia, trazabilidad y tolerancia a fallos debido a la comunicación entre múltiples servicios independientes.",
+    "explicacion_simple": "Cuando un sistema se divide en muchos servicios, es más difícil garantizar datos consistentes, detectar errores y manejar fallos parciales.",
+    "ejemplo_correcto": "Implementar circuit breakers, retries e idempotencia para evitar fallos en cascada entre servicios.",
+    "ejemplo_incorrecto": "Asumir que la comunicación distribuida siempre será inmediata y confiable.",
+    "errores_comunes": [
+      "Ignorar complejidad distribuida",
+      "No explicar consistencia eventual",
+      "Omitir observabilidad",
+      "No mencionar resiliencia ni manejo de fallos"
+    ],
+    "criterios_rubrica": {
+      "0": "No identifica desafíos reales de sistemas distribuidos.",
+      "1": "Menciona problemas generales sin profundidad técnica.",
+      "2": "Describe algunos desafíos y soluciones parcialmente.",
+      "3": "Analiza críticamente consistencia, observabilidad y resiliencia con soluciones técnicas relevantes."
+    },
+    "keywords_semanticas": [
+      "sistemas distribuidos",
+      "observabilidad",
+      "consistencia eventual",
+      "tolerancia a fallos",
+      "idempotencia",
+      "circuit breaker",
+      "retries",
+      "distributed tracing",
+      "resiliencia",
+      "microservicios",
+      "monitoring",
+      "fault tolerance"
+    ],
+    "text": "Explica el concepto de desafios_sistemas_distribuidos y proporciona un ejemplo práctico relacionado con desarrollo de software.",
+    "dificultad": "avanzado",
+    "categoria_contenido": "APIs y sistemas distribuidos"
+  }
+]
