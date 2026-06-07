@@ -1,6 +1,6 @@
 from typing import Annotated
 
-from fastapi import APIRouter, Depends
+from fastapi import APIRouter, Depends, HTTPException
 
 from src.features.assessments.get_question_by_id.get_question_by_id_handler import (
     GetQuestionByIdHandler,
@@ -97,7 +97,5 @@ async def get_question_by_id(
     request = GetQuestionByIdRequest(question_id=question_id)
     response = await handler.handle(request)
     if not response.is_success:
-        return GetQuestionByIdResponse(
-            is_success=False, message=response.message, question=None
-        )
+        raise HTTPException(status_code=404, detail=response.model_dump())
     return response

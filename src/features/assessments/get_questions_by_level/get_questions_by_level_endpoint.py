@@ -1,6 +1,6 @@
 from typing import Annotated
 
-from fastapi import APIRouter, Depends
+from fastapi import APIRouter, Depends, HTTPException
 
 from src.features.assessments.get_questions_by_level.get_questions_by_level_handler import (
     GetQuestionsByLevelHandler,
@@ -60,6 +60,17 @@ router = APIRouter()
                 }
             },
         },
+        404: {
+            "description": "Difficulty level not found.",
+            "content": {
+                "application/json": {
+                    "example": {
+                        "is_success": False,
+                        "message": "Difficulty level not found.",
+                    }
+                }
+            },
+        },
         500: {
             "description": "Internal server error.",
             "content": {
@@ -83,7 +94,5 @@ async def get_questions_by_level(
     request = GetQuestionsByLevelRequest(difficulty=difficulty)
     response = await handler.handle(request)
     if not response.is_success:
-        return GetQuestionsByLevelResponse(
-            is_success=False, message=response.message, questions=[]
-        )
+        raise HTTPException(status_code=404, detail=response.model_dump())
     return response

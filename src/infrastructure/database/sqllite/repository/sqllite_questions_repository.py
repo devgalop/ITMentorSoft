@@ -59,7 +59,11 @@ class SqlliteQuestionsRepository(QuestionRepository):
         return self.mapper.to_model(question_entity)
 
     async def update_question(self, question: Question):
-        smt = select(QuestionEntity).where(QuestionEntity.id == question.question_id)
+        smt = (
+            select(QuestionEntity)
+            .options(selectinload(QuestionEntity.rubric))
+            .where(QuestionEntity.id == question.question_id)
+        )
         result = await self.session_factory.execute(smt)
         entity = result.scalars().first()
         if not entity:

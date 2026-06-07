@@ -1,6 +1,6 @@
 from typing import Annotated
 
-from fastapi import APIRouter, Depends
+from fastapi import APIRouter, Depends, HTTPException
 
 from src.features.assessments.register_question.register_question_handler import (
     RegisterQuestionHandler,
@@ -74,7 +74,5 @@ async def register_question(
 
     response = await handler.handle(request)
     if not response.is_success:
-        return RegisterQuestionResponse(
-            is_success=False, message=response.message, question_id=None
-        )
+        raise HTTPException(status_code=400, detail=response.model_dump())
     return response

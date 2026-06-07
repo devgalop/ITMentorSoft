@@ -1,6 +1,6 @@
 from typing import Annotated
 
-from fastapi import APIRouter, Depends
+from fastapi import APIRouter, Depends, HTTPException
 
 from src.features.assessments.get_questions_by_category.get_questions_by_category_handler import (
     GetQuestionsByCategoryHandler,
@@ -60,6 +60,14 @@ router = APIRouter()
                 }
             },
         },
+        404: {
+            "description": "Category not found.",
+            "content": {
+                "application/json": {
+                    "example": {"is_success": False, "message": "Category not found."}
+                }
+            },
+        },
         500: {
             "description": "Internal server error.",
             "content": {
@@ -83,7 +91,5 @@ async def get_questions_by_category(
     request = GetQuestionsByCategoryRequest(category=category)
     response = await handler.handle(request)
     if not response.is_success:
-        return GetQuestionsByCategoryResponse(
-            is_success=False, message=response.message, questions=[]
-        )
+        raise HTTPException(status_code=404, detail=response.model_dump())
     return response

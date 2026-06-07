@@ -1,6 +1,6 @@
 from typing import Annotated
 
-from fastapi import APIRouter, Depends, Path
+from fastapi import APIRouter, Depends, HTTPException, Path
 
 from src.features.assessments.shared.dependencies import get_update_question_handler
 from src.features.assessments.update_question.update_question_handler import (
@@ -80,5 +80,5 @@ async def update_question(
 ) -> UpdateQuestionResponse:
     response = await handler.handle(question_id, request)
     if not response.is_success:
-        return UpdateQuestionResponse(is_success=False, message=response.message)
+        raise HTTPException(status_code=400, detail=response.model_dump())
     return response

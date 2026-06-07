@@ -56,8 +56,12 @@ async def read_questions_from_file(file_path: str) -> list[Question]:
             .add_semantic_keywords(item.get("keywords_semanticas", []))
             .add_rubrics(rubric_scores)
             .set_difficulty(
-                QuestionDifficulty(item.get("dificultad", QuestionDifficulty.EASY.value))
+                QuestionDifficulty(
+                    item.get("dificultad", QuestionDifficulty.EASY.value)
+                )
             )
+            .set_status(QuestionStatus.PUBLISHED)
+            .set_classification(item.get("clasificacion", ""))
             .set_version(1)
         )
 

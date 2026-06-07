@@ -49,8 +49,8 @@ async def test_get_resource_content_when_content_does_not_exist_should_return_fa
     response = await handler.handle(request)
 
     assert not response.is_success
-    assert response.content is None
     assert response.message == "Content not found"
+    assert response.content is None
 
 
 @pytest.mark.asyncio

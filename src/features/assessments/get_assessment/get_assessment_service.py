@@ -53,14 +53,18 @@ class GetAssessmentService:
         """
         questions: list[EvaluativeQuestionData] = []
         # Se debe implementar la lógica para calcular el numero de preguntas dependiendo del tipo de evaluación (inicial o seguimiento) y el nivel del estudiante
-        number_of_questions: int = request.number_of_questions // len(
+        number_of_questions_base: int = request.number_of_questions // len(
             QuestionDifficulty
         )
+        remaining_questions: int = request.number_of_questions % len(QuestionDifficulty)
 
-        for difficulty in QuestionDifficulty:
+        for index, difficulty in enumerate(QuestionDifficulty):
+            total_questions = number_of_questions_base + (
+                1 if index < remaining_questions else 0
+            )
             questions += await self.get_random_questions(
                 GetRandomQuestionsRequest(
-                    number_of_questions=number_of_questions, difficulty_level=difficulty
+                    number_of_questions=total_questions, difficulty_level=difficulty
                 )
             )
         return questions
@@ -90,6 +94,11 @@ class GetAssessmentService:
         questions = await self.question_repository.get_question_by_level(
             difficulty=request.difficulty_level
         )
+
+        # If the number of questions requested exceeds the available questions, adjust the number to the maximum available.
+        if request.number_of_questions > len(questions):
+            request.number_of_questions = len(questions)
+
         questions_selected: list[EvaluativeQuestion] = _rng.sample(
             questions, request.number_of_questions
         )
