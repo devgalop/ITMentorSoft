@@ -1,3 +1,4 @@
+from datetime import datetime
 from secrets import SystemRandom
 
 
@@ -7,6 +8,7 @@ from src.features.assessments.get_assessment.get_assessment_request import (
 from src.features.assessments.get_assessment.get_assessment_response import (
     EvaluativeQuestionData,
 )
+from src.features.assessments.shared.assessment import AssessmentQuiz
 from src.features.assessments.shared.assessment_repository import AssessmentRepository
 from src.features.assessments.shared.question import (
     EvaluativeQuestion,
@@ -67,6 +69,15 @@ class GetAssessmentService:
                     number_of_questions=total_questions, difficulty_level=difficulty
                 )
             )
+
+        await self.assessment_repository.save_assessment(
+            AssessmentQuiz(
+                user_id=request.student_id,
+                created_at=datetime.now(),
+                questions=[question.question_id for question in questions],
+            )
+        )
+
         return questions
 
     async def is_initial_assessment(self, student_id: str) -> bool:

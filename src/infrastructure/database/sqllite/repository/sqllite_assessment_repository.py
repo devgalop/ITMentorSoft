@@ -2,13 +2,14 @@ from typing import Type
 from sqlalchemy import select
 from sqlalchemy.ext.asyncio import AsyncSession
 
-from src.features.assessments.shared.assessment import Assessment
+from src.features.assessments.shared.assessment import Assessment, AssessmentQuiz
 from src.features.assessments.shared.assessment_repository import AssessmentRepository
 from src.infrastructure.database.sqllite.models.sqllite_assessment_mapper import (
     SqlliteAssessmentMapper,
 )
 from src.infrastructure.database.sqllite.models.sqllite_assessment_model import (
     AssessmentEntity,
+    AssessmentQuizEntity,
 )
 
 
@@ -19,11 +20,15 @@ class SqlliteAssessmentRepository(AssessmentRepository):
         self.session_factory = session_factory
         self.mapper = mapper
 
-    async def save_assessment(self, assessment: Assessment):
-        entity = self.mapper.to_entity(assessment)
-        answers = entity.answers
+    async def save_assessment(self, assessment: AssessmentQuiz):
+        entity = self.mapper.quiz_to_entity(assessment)
         self.session_factory.add(entity)
-        for answer in answers:
+        await self.session_factory.commit()
+
+    async def save_assessment_answers(self, assessment: Assessment):
+        entity = self.mapper.to_entity(assessment)
+        self.session_factory.add(entity)
+        for answer in entity.answers:
             self.session_factory.add(answer)
         await self.session_factory.commit()
 
@@ -40,3 +45,13 @@ class SqlliteAssessmentRepository(AssessmentRepository):
         result = await self.session_factory.execute(smt)
         assessment_entity = result.scalars().first()
         return assessment_entity is not None
+
+    async def get_questions_per_quiz(self, assessment_id: str) -> list[str]:
+        smt = select(AssessmentQuizEntity).where(
+            AssessmentQuizEntity.id == assessment_id
+        )
+        result = await self.session_factory.execute(smt)
+        assessment_entity = result.scalars().first()
+        if not assessment_entity:
+            return []
+        return self.mapper.quiz_to_model(assessment_entity).questions
