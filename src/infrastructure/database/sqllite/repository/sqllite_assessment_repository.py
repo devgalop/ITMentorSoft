@@ -1,5 +1,6 @@
 from typing import Type
 from sqlalchemy import select
+from sqlalchemy.orm import selectinload
 from sqlalchemy.ext.asyncio import AsyncSession
 
 from src.features.assessments.shared.assessment import Assessment, AssessmentQuiz
@@ -33,7 +34,11 @@ class SqlliteAssessmentRepository(AssessmentRepository):
         await self.session_factory.commit()
 
     async def get_assessment(self, assessment_id: str) -> Assessment | None:
-        smt = select(AssessmentEntity).where(AssessmentEntity.id == assessment_id)
+        smt = (
+            select(AssessmentEntity)
+            .options(selectinload(AssessmentEntity.answers))
+            .where(AssessmentEntity.id == assessment_id)
+        )
         result = await self.session_factory.execute(smt)
         assessment_entity = result.scalars().first()
         if not assessment_entity:
@@ -41,7 +46,9 @@ class SqlliteAssessmentRepository(AssessmentRepository):
         return self.mapper.to_model(assessment_entity)
 
     async def has_first_assessment(self, user_id: str) -> bool:
-        smt = select(AssessmentEntity).where(AssessmentEntity.user_id == user_id)
+        smt = select(AssessmentQuizEntity).where(
+            AssessmentQuizEntity.user_id == user_id
+        )
         result = await self.session_factory.execute(smt)
         assessment_entity = result.scalars().first()
         return assessment_entity is not None
@@ -55,3 +62,13 @@ class SqlliteAssessmentRepository(AssessmentRepository):
         if not assessment_entity:
             return []
         return self.mapper.quiz_to_model(assessment_entity).questions
+
+    async def get_assessment_quiz(self, assessment_id: str) -> AssessmentQuiz | None:
+        smt = select(AssessmentQuizEntity).where(
+            AssessmentQuizEntity.id == assessment_id
+        )
+        result = await self.session_factory.execute(smt)
+        assessment_entity = result.scalars().first()
+        if not assessment_entity:
+            return None
+        return self.mapper.quiz_to_model(assessment_entity)

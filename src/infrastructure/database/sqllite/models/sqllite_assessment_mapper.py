@@ -29,9 +29,11 @@ class SqlliteAssessmentMapper:
             SqlliteAssessmentAnswerMapper.to_model(ans) for ans in entity.answers
         ]
         assessment = Assessment(
-            user_id=entity.user_id, created_at=entity.created_at, answers=answers
+            assessment_id=entity.id,
+            user_id=entity.user_id,
+            created_at=entity.created_at,
+            answers=answers,
         )
-        assessment.set_id(entity.id)
         return assessment
 
     @staticmethod

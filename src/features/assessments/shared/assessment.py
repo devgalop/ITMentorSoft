@@ -15,15 +15,16 @@ class Assessment:
     """Represents an assessment taken by a user"""
 
     def __init__(
-        self, user_id: str, created_at: datetime, answers: list[AssessmentAnswer]
+        self,
+        assessment_id: str,
+        user_id: str,
+        created_at: datetime,
+        answers: list[AssessmentAnswer],
     ):
-        self.assessment_id = uuid.uuid4().hex
+        self.assessment_id = assessment_id
         self.user_id = user_id
         self.created_at = created_at
         self.answers = answers
-
-    def set_id(self, assessment_id: str):
-        self.assessment_id = assessment_id
 
 
 class AssessmentQuiz:
