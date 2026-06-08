@@ -9,6 +9,7 @@ from src.infrastructure.database.sqllite.models.sqllite_assessment_mapper import
 )
 from src.infrastructure.database.sqllite.models.sqllite_assessment_model import (
     AssessmentEntity,
+    AssessmentQuizEntity,
 )
 
 
@@ -44,3 +45,13 @@ class SqlliteAssessmentRepository(AssessmentRepository):
         result = await self.session_factory.execute(smt)
         assessment_entity = result.scalars().first()
         return assessment_entity is not None
+
+    async def get_questions_per_quiz(self, assessment_id: str) -> list[str]:
+        smt = select(AssessmentQuizEntity).where(
+            AssessmentQuizEntity.id == assessment_id
+        )
+        result = await self.session_factory.execute(smt)
+        assessment_entity = result.scalars().first()
+        if not assessment_entity:
+            return []
+        return self.mapper.quiz_to_model(assessment_entity).questions

@@ -45,3 +45,15 @@ class AssessmentRepository(ABC):
             True if the user has taken their first assessment, False otherwise.
         """
         pass
+
+    @abstractmethod
+    async def get_questions_per_quiz(self, assessment_id: str) -> list[str]:
+        """Obtain the questions of an assessment quiz by Id
+
+        Args:
+            assessment_id (str): The ID of the assessment quiz to retrieve the questions from.
+
+        Returns:
+            A list of question IDs corresponding to the given assessment quiz ID.
+        """
+        pass
