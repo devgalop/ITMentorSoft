@@ -39,3 +39,16 @@ class AssessmentAnswerEntity(Base):
         "AssessmentEntity", back_populates="answers"
     )
     question: Mapped["QuestionEntity"] = relationship("QuestionEntity")
+
+
+class AssessmentQuizEntity(Base):
+    __tablename__ = "assessment_quizzes"
+
+    id: Mapped[str] = mapped_column(String, primary_key=True, index=True)
+    created_at: Mapped[datetime] = mapped_column(DateTime, default=datetime.now)
+    user_id: Mapped[str] = mapped_column(String, ForeignKey("users.id"), index=True)
+    questions: Mapped[str] = mapped_column(
+        String
+    )  # Store question Ids as comma separated string
+
+    user: Mapped["UserEntity"] = relationship("UserEntity")

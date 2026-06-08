@@ -20,6 +20,12 @@ from src.features.assessments.get_questions_by_category.get_questions_by_categor
 from src.features.assessments.register_question.register_question_handler import (
     RegisterQuestionHandler,
 )
+from src.features.assessments.save_assessments_answers.save_assessments_answers_handler import (
+    SaveAssessmentsAnswersHandler,
+)
+from src.features.assessments.save_assessments_answers.save_assessments_answers_service import (
+    SaveAssessmentsAnswersService,
+)
 from src.features.assessments.shared.assessment_repository import AssessmentRepository
 from src.features.assessments.shared.question_assessment_repository import (
     QuestionAssessmentRepository,
@@ -32,6 +38,8 @@ from src.features.assessments.update_question.update_question_handler import (
 )
 from src.features.assessments.shared.question import QuestionBuilder
 from src.features.assessments.shared.questions_repository import QuestionRepository
+from src.features.user_management.shared.dependencies import get_user_repository
+from src.features.user_management.shared.user_repository import UserRepository
 from src.infrastructure.database.sqllite.models.sqllite_assessment_mapper import (
     SqlliteAssessmentMapper,
 )
@@ -141,3 +149,23 @@ def get_get_assessment_handler(
     ],
 ) -> GetAssessmentHandler:
     return GetAssessmentHandler(get_assessment_service=get_assessment_service)
+
+
+def get_save_assessment_answers_service(
+    assessment_repository: Annotated[
+        AssessmentRepository, Depends(get_assessment_repository)
+    ],
+    user_repository: Annotated[UserRepository, Depends(get_user_repository)],
+) -> SaveAssessmentsAnswersService:
+    return SaveAssessmentsAnswersService(
+        assessment_repository=assessment_repository,
+        user_repository=user_repository,
+    )
+
+
+def get_save_assessment_answers_handler(
+    service: Annotated[
+        SaveAssessmentsAnswersService, Depends(get_save_assessment_answers_service)
+    ],
+) -> SaveAssessmentsAnswersHandler:
+    return SaveAssessmentsAnswersHandler(assessment_service=service)

@@ -1,7 +1,12 @@
-from src.features.assessments.shared.assessment import Assessment, AssessmentAnswer
+from src.features.assessments.shared.assessment import (
+    Assessment,
+    AssessmentAnswer,
+    AssessmentQuiz,
+)
 from src.infrastructure.database.sqllite.models.sqllite_assessment_model import (
     AssessmentAnswerEntity,
     AssessmentEntity,
+    AssessmentQuizEntity,
 )
 
 
@@ -28,6 +33,24 @@ class SqlliteAssessmentMapper:
         )
         assessment.set_id(entity.id)
         return assessment
+
+    @staticmethod
+    def quiz_to_entity(request: AssessmentQuiz) -> AssessmentQuizEntity:
+        return AssessmentQuizEntity(
+            id=request.assessment_id,
+            user_id=request.user_id,
+            created_at=request.created_at,
+            questions=",".join(request.questions),
+        )
+
+    @staticmethod
+    def quiz_to_model(entity: AssessmentQuizEntity) -> AssessmentQuiz:
+        questions = entity.questions.split(",") if entity.questions else []
+        assessment_quiz = AssessmentQuiz(
+            user_id=entity.user_id, created_at=entity.created_at, questions=questions
+        )
+        assessment_quiz.assessment_id = entity.id
+        return assessment_quiz
 
 
 class SqlliteAssessmentAnswerMapper:
