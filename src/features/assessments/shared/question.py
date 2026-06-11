@@ -1,4 +1,5 @@
 from enum import Enum
+import json
 import uuid
 
 QUESTION_CATEGORIES = (
@@ -187,6 +188,30 @@ class Question:
             new_question_id (str): The new question ID to be assigned to the question.
         """
         self.question_id = new_question_id
+
+    def to_text(self) -> str:
+        """Convert the question to a string representation
+        Returns:
+            str: The string representation of the question.
+        """
+        return json.dumps(
+            {
+                "question_id": self.question_id,
+                "text_to_evaluate": self.text_to_evaluate,
+                "concept": self.concept,
+                "definition": self.definition,
+                "simple_explanation": self.simple_explanation,
+                "correct_sample": self.correct_sample,
+                "wrong_sample": self.wrong_sample,
+                "common_misconception": self.common_misconception,
+                "rubric": [vars(r) for r in self.rubric],
+                "semantic_keywords": self.semantic_keywords,
+                "status": self.status.value,
+                "difficulty": self.difficulty.value,
+                "classification": self.classification,
+                "version": self.version,
+            }
+        )
 
 
 class QuestionBuilder:

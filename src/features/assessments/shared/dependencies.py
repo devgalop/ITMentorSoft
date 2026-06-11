@@ -2,6 +2,9 @@ from fastapi.params import Depends
 from typing import Annotated
 from sqlalchemy.ext.asyncio import AsyncSession
 
+from src.features.assessments.evaluate.evaluate_assessment_service import (
+    EvaluateAssessmentService,
+)
 from src.features.assessments.get_assessment.get_assessment_handler import (
     GetAssessmentHandler,
 )
@@ -27,6 +30,7 @@ from src.features.assessments.save_assessments_answers.save_assessments_answers_
     SaveAssessmentsAnswersService,
 )
 from src.features.assessments.shared.assessment_repository import AssessmentRepository
+from src.features.assessments.shared.qualifier_service import QualifierService
 from src.features.assessments.shared.question_assessment_repository import (
     QuestionAssessmentRepository,
 )
@@ -56,6 +60,7 @@ from src.infrastructure.database.sqllite.repository.sqllite_questions_repository
     SqlliteQuestionsRepository,
 )
 from src.infrastructure.database.sqllite.shared.sqllite_database_session import get_db
+from src.infrastructure.qualifier.groq_qualifier_service import GroqQualifierService
 
 
 def get_question_repository(
@@ -151,15 +156,39 @@ def get_get_assessment_handler(
     return GetAssessmentHandler(get_assessment_service=get_assessment_service)
 
 
+def get_qualifier_service() -> QualifierService:
+    return GroqQualifierService()
+
+
+def get_evaluate_assessment_service(
+    assessment_repository: Annotated[
+        AssessmentRepository, Depends(get_assessment_repository)
+    ],
+    qualifier_service: Annotated[QualifierService, Depends(get_qualifier_service)],
+    question_repository: Annotated[
+        QuestionRepository, Depends(get_question_repository)
+    ],
+) -> EvaluateAssessmentService:
+    return EvaluateAssessmentService(
+        assessment_repository=assessment_repository,
+        qualifier_service=qualifier_service,
+        question_repository=question_repository,
+    )
+
+
 def get_save_assessment_answers_service(
     assessment_repository: Annotated[
         AssessmentRepository, Depends(get_assessment_repository)
     ],
     user_repository: Annotated[UserRepository, Depends(get_user_repository)],
+    evaluator_service: Annotated[
+        EvaluateAssessmentService, Depends(get_evaluate_assessment_service)
+    ],
 ) -> SaveAssessmentsAnswersService:
     return SaveAssessmentsAnswersService(
         assessment_repository=assessment_repository,
         user_repository=user_repository,
+        evaluator_service=evaluator_service,
     )
 
 

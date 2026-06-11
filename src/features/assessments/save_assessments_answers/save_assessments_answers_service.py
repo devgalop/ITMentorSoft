@@ -1,5 +1,8 @@
 from datetime import datetime
 
+from src.features.assessments.evaluate.evaluate_assessment_service import (
+    EvaluateAssessmentService,
+)
 from src.features.assessments.save_assessments_answers.save_assessments_answers_request import (
     SaveAssessmentsAnswersRequest,
 )
@@ -20,9 +23,11 @@ class SaveAssessmentsAnswersService:
         self,
         assessment_repository: AssessmentRepository,
         user_repository: UserRepository,
+        evaluator_service: EvaluateAssessmentService,
     ):
         self.assessment_repository = assessment_repository
         self.user_repository = user_repository
+        self.evaluator_service = evaluator_service
 
     async def save_assessment_answers(
         self, request: SaveAssessmentsAnswersRequest
@@ -77,6 +82,8 @@ class SaveAssessmentsAnswersService:
             assessment = self.create_assessment_model(request)
 
             await self.assessment_repository.save_assessment_answers(assessment)
+
+            await self.evaluator_service.evaluate_answers(assessment)
 
             return SaveAssessmentsAnswersResponse(
                 is_success=True, message="Assessment answers saved successfully."
