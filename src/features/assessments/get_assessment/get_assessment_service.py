@@ -1,5 +1,6 @@
 from datetime import datetime
 from secrets import SystemRandom
+import uuid
 
 
 from src.features.assessments.get_assessment.get_assessment_request import (
@@ -72,6 +73,7 @@ class GetAssessmentService:
 
         await self.assessment_repository.save_assessment(
             AssessmentQuiz(
+                assessment_id=uuid.uuid4().hex,
                 user_id=request.student_id,
                 created_at=datetime.now(),
                 questions=[question.question_id for question in questions],
