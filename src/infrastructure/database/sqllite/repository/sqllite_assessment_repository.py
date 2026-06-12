@@ -10,7 +10,6 @@ from src.infrastructure.database.sqllite.models.sqllite_assessment_mapper import
 )
 from src.infrastructure.database.sqllite.models.sqllite_assessment_model import (
     AssessmentEntity,
-    AssessmentQuizEntity,
 )
 
 
@@ -22,15 +21,16 @@ class SqlliteAssessmentRepository(AssessmentRepository):
         self.mapper = mapper
 
     async def save_assessment(self, assessment: AssessmentQuiz):
-        entity = self.mapper.quiz_to_entity(assessment)
-        self.session_factory.add(entity)
+        assessment_entity = self.mapper.quiz_to_assessment_entity(assessment)
+        self.session_factory.add(assessment_entity)
+        for question in assessment.questions:
+            entity = self.mapper.quiz_question_entity(assessment, question)
+            self.session_factory.add(entity)
         await self.session_factory.commit()
 
     async def save_assessment_answers(self, assessment: Assessment):
-        entity = self.mapper.to_entity(assessment)
-        self.session_factory.add(entity)
-        for answer in entity.answers:
-            self.session_factory.add(answer)
+        for answer in assessment.answers:
+            self.session_factory.add(self.mapper.answer_to_entity(answer))
         await self.session_factory.commit()
 
     async def get_assessment(self, assessment_id: str) -> Assessment | None:
@@ -46,16 +46,18 @@ class SqlliteAssessmentRepository(AssessmentRepository):
         return self.mapper.to_model(assessment_entity)
 
     async def has_first_assessment(self, user_id: str) -> bool:
-        smt = select(AssessmentQuizEntity).where(
-            AssessmentQuizEntity.user_id == user_id
+        smt = (
+            select(AssessmentEntity).where(AssessmentEntity.user_id == user_id).limit(1)
         )
         result = await self.session_factory.execute(smt)
         assessment_entity = result.scalars().first()
         return assessment_entity is not None
 
     async def get_questions_per_quiz(self, assessment_id: str) -> list[str]:
-        smt = select(AssessmentQuizEntity).where(
-            AssessmentQuizEntity.id == assessment_id
+        smt = (
+            select(AssessmentEntity)
+            .options(selectinload(AssessmentEntity.questions))
+            .where(AssessmentEntity.id == assessment_id)
         )
         result = await self.session_factory.execute(smt)
         assessment_entity = result.scalars().first()
@@ -64,8 +66,10 @@ class SqlliteAssessmentRepository(AssessmentRepository):
         return self.mapper.quiz_to_model(assessment_entity).questions
 
     async def get_assessment_quiz(self, assessment_id: str) -> AssessmentQuiz | None:
-        smt = select(AssessmentQuizEntity).where(
-            AssessmentQuizEntity.id == assessment_id
+        smt = (
+            select(AssessmentEntity)
+            .options(selectinload(AssessmentEntity.questions))
+            .where(AssessmentEntity.id == assessment_id)
         )
         result = await self.session_factory.execute(smt)
         assessment_entity = result.scalars().first()

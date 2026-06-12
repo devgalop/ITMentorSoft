@@ -58,7 +58,7 @@ class SaveAssessmentsAnswersService:
                 request.assessment_id
             )
 
-            if existing_assessment:
+            if existing_assessment and len(existing_assessment.answers) > 0:
                 return SaveAssessmentsAnswersResponse(
                     is_success=False,
                     message="Assessment answers already exist for the given assessment ID.",
@@ -167,6 +167,7 @@ class SaveAssessmentsAnswersService:
         for answer in request.answers:
             answers.append(
                 AssessmentAnswer(
+                    assessment_id=request.assessment_id,
                     question_id=answer.question_id,
                     answer=answer.answer,
                     time_taken_seconds=answer.takes_time_seconds,
