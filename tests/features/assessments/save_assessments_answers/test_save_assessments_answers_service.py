@@ -12,6 +12,7 @@ from src.features.assessments.save_assessments_answers.save_assessments_answers_
 )
 from src.features.assessments.shared.assessment import (
     Assessment,
+    AssessmentAnswer as DomainAssessmentAnswer,
     AssessmentQuiz,
 )
 from src.features.user_management.shared.user import UserResponse, UserStatus, UserRole
@@ -48,9 +49,14 @@ def make_valid_request(
     )
 
 
-def make_assessment_quiz(user_id: str, questions: list[str]) -> AssessmentQuiz:
+def make_assessment_quiz(
+    user_id: str, questions: list[str], assessment_id: str = VALID_ASSESSMENT_ID
+) -> AssessmentQuiz:
     return AssessmentQuiz(
-        user_id=user_id, created_at=datetime.now(), questions=questions
+        assessment_id=assessment_id,
+        user_id=user_id,
+        created_at=datetime.now(),
+        questions=questions,
     )
 
 
@@ -66,7 +72,10 @@ async def test_when_user_and_quiz_are_valid_then_should_save_and_return_success(
     assessment_repo.get_assessment = AsyncMock(return_value=None)
     assessment_repo.save_assessment_answers = AsyncMock()
 
-    service = SaveAssessmentsAnswersService(assessment_repo, user_repo)
+    evaluator_service = AsyncMock()
+    service = SaveAssessmentsAnswersService(
+        assessment_repo, user_repo, evaluator_service
+    )
     request = make_valid_request()
 
     response = await service.save_assessment_answers(request)
@@ -83,7 +92,10 @@ async def test_when_user_not_found_then_should_return_failure():
 
     assessment_repo = AsyncMock()
 
-    service = SaveAssessmentsAnswersService(assessment_repo, user_repo)
+    evaluator_service = AsyncMock()
+    service = SaveAssessmentsAnswersService(
+        assessment_repo, user_repo, evaluator_service
+    )
     request = make_valid_request()
 
     response = await service.save_assessment_answers(request)
@@ -102,7 +114,10 @@ async def test_when_assessment_quiz_not_found_then_should_return_failure():
     assessment_repo = AsyncMock()
     assessment_repo.get_assessment_quiz = AsyncMock(return_value=None)
 
-    service = SaveAssessmentsAnswersService(assessment_repo, user_repo)
+    evaluator_service = AsyncMock()
+    service = SaveAssessmentsAnswersService(
+        assessment_repo, user_repo, evaluator_service
+    )
     request = make_valid_request()
 
     response = await service.save_assessment_answers(request)
@@ -127,11 +142,21 @@ async def test_when_assessment_already_exists_then_should_return_failure():
             assessment_id=VALID_ASSESSMENT_ID,
             user_id=VALID_USER_ID,
             created_at=datetime.now(),
-            answers=[],
+            answers=[
+                DomainAssessmentAnswer(
+                    assessment_id=VALID_ASSESSMENT_ID,
+                    question_id="q-001-uuid-abc",
+                    answer="Existing answer",
+                    time_taken_seconds=10,
+                )
+            ],
         )
     )
 
-    service = SaveAssessmentsAnswersService(assessment_repo, user_repo)
+    evaluator_service = AsyncMock()
+    service = SaveAssessmentsAnswersService(
+        assessment_repo, user_repo, evaluator_service
+    )
     request = make_valid_request()
 
     response = await service.save_assessment_answers(request)
@@ -156,7 +181,10 @@ async def test_when_quiz_not_assigned_to_user_then_should_return_failure():
     )
     assessment_repo.get_assessment = AsyncMock(return_value=None)
 
-    service = SaveAssessmentsAnswersService(assessment_repo, user_repo)
+    evaluator_service = AsyncMock()
+    service = SaveAssessmentsAnswersService(
+        assessment_repo, user_repo, evaluator_service
+    )
     request = make_valid_request()
 
     response = await service.save_assessment_answers(request)
@@ -177,7 +205,10 @@ async def test_when_answered_question_ids_do_not_match_quiz_then_should_return_f
     )
     assessment_repo.get_assessment = AsyncMock(return_value=None)
 
-    service = SaveAssessmentsAnswersService(assessment_repo, user_repo)
+    evaluator_service = AsyncMock()
+    service = SaveAssessmentsAnswersService(
+        assessment_repo, user_repo, evaluator_service
+    )
     request = make_valid_request(question_ids=["q-001-uuid-abc", "q-999-invalid"])
 
     response = await service.save_assessment_answers(request)
@@ -201,7 +232,10 @@ async def test_when_duplicate_question_ids_in_answers_then_should_return_failure
     )
     assessment_repo.get_assessment = AsyncMock(return_value=None)
 
-    service = SaveAssessmentsAnswersService(assessment_repo, user_repo)
+    evaluator_service = AsyncMock()
+    service = SaveAssessmentsAnswersService(
+        assessment_repo, user_repo, evaluator_service
+    )
     request = SaveAssessmentsAnswersRequest(
         assessment_id=VALID_ASSESSMENT_ID,
         user_id=VALID_USER_ID,
@@ -232,7 +266,10 @@ async def test_when_quiz_has_empty_questions_then_should_return_failure():
     )
     assessment_repo.get_assessment = AsyncMock(return_value=None)
 
-    service = SaveAssessmentsAnswersService(assessment_repo, user_repo)
+    evaluator_service = AsyncMock()
+    service = SaveAssessmentsAnswersService(
+        assessment_repo, user_repo, evaluator_service
+    )
     request = make_valid_request(question_ids=[])
 
     response = await service.save_assessment_answers(request)
@@ -259,7 +296,10 @@ async def test_when_repository_throws_exception_then_should_return_failure():
         side_effect=Exception("Database connection lost")
     )
 
-    service = SaveAssessmentsAnswersService(assessment_repo, user_repo)
+    evaluator_service = AsyncMock()
+    service = SaveAssessmentsAnswersService(
+        assessment_repo, user_repo, evaluator_service
+    )
     request = make_valid_request()
 
     response = await service.save_assessment_answers(request)
@@ -280,7 +320,10 @@ async def test_when_success_then_should_call_save_with_correct_assessment_object
     assessment_repo.get_assessment = AsyncMock(return_value=None)
     assessment_repo.save_assessment_answers = AsyncMock()
 
-    service = SaveAssessmentsAnswersService(assessment_repo, user_repo)
+    evaluator_service = AsyncMock()
+    service = SaveAssessmentsAnswersService(
+        assessment_repo, user_repo, evaluator_service
+    )
     request = make_valid_request()
 
     await service.save_assessment_answers(request)
@@ -309,7 +352,10 @@ async def test_when_success_then_assessment_answers_should_match_request():
     assessment_repo.get_assessment = AsyncMock(return_value=None)
     assessment_repo.save_assessment_answers = AsyncMock()
 
-    service = SaveAssessmentsAnswersService(assessment_repo, user_repo)
+    evaluator_service = AsyncMock()
+    service = SaveAssessmentsAnswersService(
+        assessment_repo, user_repo, evaluator_service
+    )
     request = make_valid_request()
 
     await service.save_assessment_answers(request)
