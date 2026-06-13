@@ -1,6 +1,7 @@
 from fastapi.params import Depends
 from typing import Annotated
 from sqlalchemy.ext.asyncio import AsyncSession
+from functools import lru_cache
 
 from src.features.assessments.evaluate.evaluate_assessment_service import (
     EvaluateAssessmentService,
@@ -156,6 +157,7 @@ def get_get_assessment_handler(
     return GetAssessmentHandler(get_assessment_service=get_assessment_service)
 
 
+@lru_cache()
 def get_qualifier_service() -> QualifierService:
     return GroqQualifierService()
 

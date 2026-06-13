@@ -83,7 +83,10 @@ class SaveAssessmentsAnswersService:
 
             await self.assessment_repository.save_assessment_answers(assessment)
 
-            await self.evaluator_service.evaluate_answers(assessment)
+            try:
+                await self.evaluator_service.evaluate_answers(assessment)
+            except Exception as e:
+                print(f"An error occurred during assessment evaluation: {str(e)}")
 
             return SaveAssessmentsAnswersResponse(
                 is_success=True, message="Assessment answers saved successfully."

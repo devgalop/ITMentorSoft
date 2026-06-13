@@ -67,12 +67,7 @@ class SqlliteAssessmentMapper:
 
     @staticmethod
     def answer_to_entity(answer: AssessmentAnswer) -> AssessmentAnswerEntity:
-        return AssessmentAnswerEntity(
-            assessment_id=answer.assessment_id,
-            question_id=answer.question_id,
-            answer=answer.answer,
-            time_taken_seconds=answer.time_taken_seconds,
-        )
+        return SqlliteAssessmentAnswerMapper.to_entity(answer)
 
 
 class SqlliteAssessmentAnswerMapper:

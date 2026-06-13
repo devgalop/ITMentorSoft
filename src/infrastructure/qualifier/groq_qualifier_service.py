@@ -2,6 +2,7 @@ from dotenv import load_dotenv
 import os
 from groq import Groq
 import json
+import asyncio
 from src.features.assessments.shared.qualifier_service import (
     QualifierPrompt,
     QualifierResult,
@@ -16,11 +17,13 @@ GROQ_API_KEY = os.getenv("GROQ_API_KEY", "")
 class GroqQualifierService(QualifierService):
 
     def __init__(self):
-        self.client = Groq()
+        self.client = Groq(api_key=GROQ_API_KEY)
         self.generic_prompt: str = self.get_generic_prompt()
 
     async def qualify(self, qualifier_prompt: QualifierPrompt) -> QualifierResult:
-        completion = self.client.chat.completions.create(
+
+        completion = await asyncio.to_thread(
+            self.client.chat.completions.create,
             model="qwen/qwen3-32b",
             messages=[
                 {"role": "system", "content": self.get_prompt(qualifier_prompt)},
@@ -38,7 +41,11 @@ class GroqQualifierService(QualifierService):
         if not response:
             raise ValueError("Received empty response from the qualifier service.")
 
-        response = response.split("</think>")[1].strip()
+        if "</think>" in response:
+            response = response.split("</think>")[1].strip()
+
+        if not response.startswith("{") and not response.endswith("}"):
+            raise ValueError(f"Received response is not a valid JSON: {response}")
 
         response_json = json.loads(response)
 
