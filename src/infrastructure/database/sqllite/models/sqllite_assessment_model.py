@@ -20,6 +20,9 @@ class AssessmentEntity(Base):
     answers: Mapped[List["AssessmentAnswerEntity"]] = relationship(
         "AssessmentAnswerEntity", back_populates="assessment"
     )
+    questions: Mapped[List["AssessmentQuizEntity"]] = relationship(
+        "AssessmentQuizEntity", back_populates="assessment"
+    )
 
 
 class AssessmentAnswerEntity(Base):
@@ -44,11 +47,15 @@ class AssessmentAnswerEntity(Base):
 class AssessmentQuizEntity(Base):
     __tablename__ = "assessment_quizzes"
 
-    id: Mapped[str] = mapped_column(String, primary_key=True, index=True)
+    id: Mapped[int] = mapped_column(Integer, primary_key=True, autoincrement=True)
+    assessment_id: Mapped[str] = mapped_column(
+        String, ForeignKey("assessments.id"), index=True
+    )
     created_at: Mapped[datetime] = mapped_column(DateTime, default=datetime.now)
-    user_id: Mapped[str] = mapped_column(String, ForeignKey("users.id"), index=True)
-    questions: Mapped[str] = mapped_column(
-        String
-    )  # Store question Ids as comma separated string
-
-    user: Mapped["UserEntity"] = relationship("UserEntity")
+    question_id: Mapped[str] = mapped_column(
+        String, ForeignKey("questions.id"), index=True
+    )
+    rubric: Mapped["QuestionEntity"] = relationship("QuestionEntity")
+    assessment: Mapped["AssessmentEntity"] = relationship(
+        "AssessmentEntity", back_populates="questions"
+    )

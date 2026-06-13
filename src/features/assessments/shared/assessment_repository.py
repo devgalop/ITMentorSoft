@@ -57,3 +57,15 @@ class AssessmentRepository(ABC):
             A list of question IDs corresponding to the given assessment quiz ID.
         """
         pass
+
+    @abstractmethod
+    async def get_assessment_quiz(self, assessment_id: str) -> AssessmentQuiz | None:
+        """Obtain an assessment quiz by Id
+
+        Args:
+            assessment_id (str): The ID of the assessment quiz to retrieve.
+
+        Returns:
+            The assessment quiz corresponding to the given ID, or None if not found.
+        """
+        pass

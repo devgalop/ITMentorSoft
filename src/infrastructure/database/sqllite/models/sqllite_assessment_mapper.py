@@ -29,34 +29,52 @@ class SqlliteAssessmentMapper:
             SqlliteAssessmentAnswerMapper.to_model(ans) for ans in entity.answers
         ]
         assessment = Assessment(
-            user_id=entity.user_id, created_at=entity.created_at, answers=answers
+            assessment_id=entity.id,
+            user_id=entity.user_id,
+            created_at=entity.created_at,
+            answers=answers,
         )
-        assessment.set_id(entity.id)
         return assessment
 
     @staticmethod
-    def quiz_to_entity(request: AssessmentQuiz) -> AssessmentQuizEntity:
+    def quiz_question_entity(
+        request: AssessmentQuiz, question_id: str
+    ) -> AssessmentQuizEntity:
         return AssessmentQuizEntity(
-            id=request.assessment_id,
-            user_id=request.user_id,
+            assessment_id=request.assessment_id,
+            question_id=question_id,
             created_at=request.created_at,
-            questions=",".join(request.questions),
         )
 
     @staticmethod
-    def quiz_to_model(entity: AssessmentQuizEntity) -> AssessmentQuiz:
-        questions = entity.questions.split(",") if entity.questions else []
-        assessment_quiz = AssessmentQuiz(
-            user_id=entity.user_id, created_at=entity.created_at, questions=questions
+    def quiz_to_assessment_entity(quiz: AssessmentQuiz) -> AssessmentEntity:
+        return AssessmentEntity(
+            id=quiz.assessment_id,
+            user_id=quiz.user_id,
+            created_at=quiz.created_at,
         )
-        assessment_quiz.assessment_id = entity.id
+
+    @staticmethod
+    def quiz_to_model(entity: AssessmentEntity) -> AssessmentQuiz:
+        questions_ids = [q.question_id for q in entity.questions]
+        assessment_quiz = AssessmentQuiz(
+            assessment_id=entity.id,
+            user_id=entity.user_id,
+            created_at=entity.created_at,
+            questions=questions_ids,
+        )
         return assessment_quiz
+
+    @staticmethod
+    def answer_to_entity(answer: AssessmentAnswer) -> AssessmentAnswerEntity:
+        return SqlliteAssessmentAnswerMapper.to_entity(answer)
 
 
 class SqlliteAssessmentAnswerMapper:
     @staticmethod
     def to_entity(request: AssessmentAnswer) -> AssessmentAnswerEntity:
         return AssessmentAnswerEntity(
+            assessment_id=request.assessment_id,
             question_id=request.question_id,
             answer=request.answer,
             time_taken_seconds=request.time_taken_seconds,
@@ -65,6 +83,7 @@ class SqlliteAssessmentAnswerMapper:
     @staticmethod
     def to_model(entity: AssessmentAnswerEntity) -> AssessmentAnswer:
         return AssessmentAnswer(
+            assessment_id=entity.assessment_id,
             question_id=entity.question_id,
             answer=entity.answer,
             time_taken_seconds=entity.time_taken_seconds,
