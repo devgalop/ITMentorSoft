@@ -33,8 +33,10 @@ class EvaluateAssessmentService:
                     qualifier_mode=EVALUATION_MODE,
                     user_id=assessment.user_id,
                     user_answer=answer.answer,
+                    assessment_id=assessment.assessment_id,
+                    answer_id=answer.answer_id,
                 )
             )
-            print(
-                f"Evaluation result for question {answer.question_id}: Score={evaluation_result.score}, Feedback={evaluation_result.feedback}"
+            await self.assessment_repository.save_assessment_qualification(
+                evaluation_result
             )

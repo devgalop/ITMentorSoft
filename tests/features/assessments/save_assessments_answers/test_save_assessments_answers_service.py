@@ -144,6 +144,7 @@ async def test_when_assessment_already_exists_then_should_return_failure():
             created_at=datetime.now(),
             answers=[
                 DomainAssessmentAnswer(
+                    answer_id="answer-001-uuid-xyz",
                     assessment_id=VALID_ASSESSMENT_ID,
                     question_id="q-001-uuid-abc",
                     answer="Existing answer",

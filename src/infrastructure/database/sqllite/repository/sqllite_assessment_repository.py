@@ -5,6 +5,7 @@ from sqlalchemy.ext.asyncio import AsyncSession
 
 from src.features.assessments.shared.assessment import Assessment, AssessmentQuiz
 from src.features.assessments.shared.assessment_repository import AssessmentRepository
+from src.features.assessments.shared.qualifier_service import QualifierResult
 from src.infrastructure.database.sqllite.models.sqllite_assessment_mapper import (
     SqlliteAssessmentMapper,
 )
@@ -76,3 +77,18 @@ class SqlliteAssessmentRepository(AssessmentRepository):
         if not assessment_entity:
             return None
         return self.mapper.quiz_to_model(assessment_entity)
+
+    async def save_assessment_qualification(self, qualifier_result: QualifierResult):
+        qualification_entity = self.mapper.qualifier_result_to_entity(qualifier_result)
+        self.session_factory.add(qualification_entity)
+        for key_concept in qualifier_result.key_concepts_detected:
+            key_concept_entity = self.mapper.qualifier_result_key_concept_to_entity(
+                qualification_entity.id, key_concept
+            )
+            self.session_factory.add(key_concept_entity)
+        for misconception in qualifier_result.misconceptions_detected:
+            misconception_entity = self.mapper.qualifier_result_misconception_to_entity(
+                qualification_entity.id, misconception
+            )
+            self.session_factory.add(misconception_entity)
+        await self.session_factory.commit()
