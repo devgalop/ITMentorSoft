@@ -5,8 +5,14 @@ class AssessmentAnswer:
     """Represents an answer to a question in an assessment"""
 
     def __init__(
-        self, assessment_id: str, question_id: str, answer: str, time_taken_seconds: int
+        self,
+        answer_id: str,
+        assessment_id: str,
+        question_id: str,
+        answer: str,
+        time_taken_seconds: int,
     ):
+        self.answer_id = answer_id
         self.assessment_id = assessment_id
         self.question_id = question_id
         self.answer = answer

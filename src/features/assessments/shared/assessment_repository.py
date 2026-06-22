@@ -1,6 +1,7 @@
 from abc import ABC, abstractmethod
 
 from src.features.assessments.shared.assessment import Assessment, AssessmentQuiz
+from src.features.assessments.shared.qualifier_service import QualifierResult
 
 
 class AssessmentRepository(ABC):
@@ -67,5 +68,14 @@ class AssessmentRepository(ABC):
 
         Returns:
             The assessment quiz corresponding to the given ID, or None if not found.
+        """
+        pass
+
+    @abstractmethod
+    async def save_assessment_qualification(self, qualifier_result: QualifierResult):
+        """Save the qualification result of an assessment
+
+        Args:
+            qualifier_result (QualifierResult): The result of the qualification to be saved.
         """
         pass

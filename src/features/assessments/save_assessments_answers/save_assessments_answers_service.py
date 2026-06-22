@@ -1,4 +1,5 @@
 from datetime import datetime
+import uuid
 
 from src.features.assessments.evaluate.evaluate_assessment_service import (
     EvaluateAssessmentService,
@@ -170,6 +171,7 @@ class SaveAssessmentsAnswersService:
         for answer in request.answers:
             answers.append(
                 AssessmentAnswer(
+                    answer_id=uuid.uuid4().hex,
                     assessment_id=request.assessment_id,
                     question_id=answer.question_id,
                     answer=answer.answer,
