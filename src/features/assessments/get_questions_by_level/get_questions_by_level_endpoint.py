@@ -89,7 +89,7 @@ async def get_questions_by_level(
     handler: Annotated[
         GetQuestionsByLevelHandler, Depends(get_get_questions_by_level_handler)
     ],
-    _: Annotated[TokenData, Depends(require_roles(["admin", "tutor"]))],
+    _: Annotated[TokenData, Depends(require_roles(["admin", "teacher"]))],
 ) -> GetQuestionsByLevelResponse:
     request = GetQuestionsByLevelRequest(difficulty=difficulty)
     response = await handler.handle(request)

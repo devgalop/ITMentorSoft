@@ -57,7 +57,7 @@ async def get_user(
     user_id: str,
     handler: Annotated[GetUserHandler, Depends(get_get_user_handler)],
     _: Annotated[
-        TokenData, Depends(require_roles(["admin", "tutor", "student", "user"]))
+        TokenData, Depends(require_roles(["admin", "teacher", "student", "user"]))
     ],
 ) -> GetUserResponse:
     """Endpoint for retrieving user information by user ID.

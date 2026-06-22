@@ -68,7 +68,7 @@ async def get_resource_content(
     handler: Annotated[
         GetResourceContentHandler, Depends(get_get_resource_content_handler)
     ],
-    _: Annotated[TokenData, Depends(require_roles(["admin", "tutor", "student"]))],
+    _: Annotated[TokenData, Depends(require_roles(["admin", "teacher", "student"]))],
 ) -> GetResourceContentResponse:
 
     request = GetResourceRequest(content_id=content_id)

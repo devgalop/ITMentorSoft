@@ -81,7 +81,7 @@ async def get_contents_by_title(
     handler: Annotated[
         GetContentsByTitleHandler, Depends(get_get_contents_by_title_handler)
     ],
-    _: Annotated[TokenData, Depends(require_roles(["admin", "tutor", "student"]))],
+    _: Annotated[TokenData, Depends(require_roles(["admin", "teacher", "student"]))],
     page: int = 0,
     page_size: int = 10,
 ) -> GetContentsByTitleResponse:

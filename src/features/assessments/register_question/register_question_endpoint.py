@@ -69,7 +69,7 @@ router = APIRouter()
 async def register_question(
     request: RegisterQuestionRequest,
     handler: Annotated[RegisterQuestionHandler, Depends(get_register_question_handler)],
-    _: Annotated[TokenData, Depends(require_roles(["admin", "tutor"]))],
+    _: Annotated[TokenData, Depends(require_roles(["admin", "teacher"]))],
 ) -> RegisterQuestionResponse:
 
     response = await handler.handle(request)

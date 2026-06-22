@@ -49,7 +49,7 @@ async def get_all_contents(
     page: int,
     page_size: int,
     handler: Annotated[GetAllContentsHandler, Depends(get_all_contents_handler)],
-    _: Annotated[TokenData, Depends(require_roles(["admin", "tutor", "student"]))],
+    _: Annotated[TokenData, Depends(require_roles(["admin", "teacher", "student"]))],
 ) -> GetAllContentsResponse:
     if page < 0 or page_size <= 0:
         return GetAllContentsResponse(
