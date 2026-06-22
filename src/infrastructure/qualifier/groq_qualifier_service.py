@@ -51,11 +51,16 @@ class GroqQualifierService(QualifierService):
 
         response_json = json.loads(response)
 
+        try:
+            score_int = int(round(float(response_json.get("score", 0))))
+        except (TypeError, ValueError):
+            score_int = 0
+
         return QualifierResult(
             id=uuid.uuid4().hex,
             question_id=qualifier_prompt.rubric.question_id,
             user_id=qualifier_prompt.user_id,
-            score=response_json.get("score", 0),
+            score=score_int,
             feedback=response_json.get("feedback", ""),
             key_concepts_detected=response_json.get("key_concepts_detected", []),
             misconceptions_detected=response_json.get("misconceptions_detected", []),

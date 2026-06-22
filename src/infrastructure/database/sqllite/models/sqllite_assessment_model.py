@@ -122,8 +122,8 @@ class AssessmentQualificationKeyConceptEntity(Base):
     __tablename__ = "assessment_qualification_key_concepts"
 
     id: Mapped[int] = mapped_column(Integer, primary_key=True, autoincrement=True)
-    qualification_id: Mapped[int] = mapped_column(
-        Integer, ForeignKey("assessment_qualifications.id"), index=True
+    qualification_id: Mapped[str] = mapped_column(
+        String, ForeignKey("assessment_qualifications.id"), index=True
     )
     key_concept: Mapped[str] = mapped_column(String)
 
@@ -136,8 +136,8 @@ class AssessmentMisconceptionEntity(Base):
     __tablename__ = "assessment_misconceptions"
 
     id: Mapped[int] = mapped_column(Integer, primary_key=True, autoincrement=True)
-    qualification_id: Mapped[int] = mapped_column(
-        Integer, ForeignKey("assessment_qualifications.id"), index=True
+    qualification_id: Mapped[str] = mapped_column(
+        String, ForeignKey("assessment_qualifications.id"), index=True
     )
     misconception: Mapped[str] = mapped_column(String)
 
