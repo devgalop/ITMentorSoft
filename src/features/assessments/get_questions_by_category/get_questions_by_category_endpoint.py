@@ -86,7 +86,7 @@ async def get_questions_by_category(
     handler: Annotated[
         GetQuestionsByCategoryHandler, Depends(get_get_questions_by_category_handler)
     ],
-    _: Annotated[TokenData, Depends(require_roles(["admin", "tutor"]))],
+    _: Annotated[TokenData, Depends(require_roles(["admin", "teacher"]))],
 ) -> GetQuestionsByCategoryResponse:
     request = GetQuestionsByCategoryRequest(category=category)
     response = await handler.handle(request)

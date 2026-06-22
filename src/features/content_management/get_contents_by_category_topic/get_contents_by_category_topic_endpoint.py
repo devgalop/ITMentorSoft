@@ -83,7 +83,7 @@ async def get_contents_by_category_topic(
         GetContentsByCategoryTopicHandler,
         Depends(get_get_contents_by_category_topic_handler),
     ],
-    _: Annotated[TokenData, Depends(require_roles(["admin", "tutor", "student"]))],
+    _: Annotated[TokenData, Depends(require_roles(["admin", "teacher", "student"]))],
     page: int = 0,
     page_size: int = 10,
 ) -> GetContentsByCategoryTopicResponse:

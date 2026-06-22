@@ -92,7 +92,7 @@ router = APIRouter()
 async def get_question_by_id(
     question_id: str,
     handler: Annotated[GetQuestionByIdHandler, Depends(get_get_question_by_id_handler)],
-    _: Annotated[TokenData, Depends(require_roles(["admin", "tutor"]))],
+    _: Annotated[TokenData, Depends(require_roles(["admin", "teacher"]))],
 ) -> GetQuestionByIdResponse:
     request = GetQuestionByIdRequest(question_id=question_id)
     response = await handler.handle(request)
