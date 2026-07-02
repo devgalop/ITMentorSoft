@@ -102,12 +102,13 @@ class SqlliteAssessmentRepository(AssessmentRepository):
         smt = select(TopicResultEntity).where(
             TopicResultEntity.user_id == topic_result.user_id,
             TopicResultEntity.topic == topic_result.topic,
+            TopicResultEntity.is_enabled,
         )
         result = await self.session_factory.execute(smt)
-        entity_found = result.scalars().first()
-        if entity_found:
-            entity_found.is_enabled = False
-            entity_found.updated_at = datetime.now()
+        entity_found = result.scalars().all()
+        for entity in entity_found:
+            entity.is_enabled = False
+            entity.updated_at = datetime.now()
         topic_result_entity = self.mapper.topic_result_to_entity(topic_result)
         self.session_factory.add(topic_result_entity)
         await self.session_factory.commit()
