@@ -1,9 +1,14 @@
+from datetime import datetime
+
 from src.features.assessments.shared.assessment import (
     Assessment,
     AssessmentAnswer,
     AssessmentQuiz,
 )
-from src.features.assessments.shared.qualifier_service import QualifierResult
+from src.features.assessments.shared.qualifier_service import (
+    QualifierResult,
+    TopicResult,
+)
 from src.infrastructure.database.sqllite.models.sqllite_assessment_model import (
     AssessmentAnswerEntity,
     AssessmentEntity,
@@ -11,6 +16,7 @@ from src.infrastructure.database.sqllite.models.sqllite_assessment_model import 
     AssessmentQualificationEntity,
     AssessmentQualificationKeyConceptEntity,
     AssessmentQuizEntity,
+    TopicResultEntity,
 )
 
 
@@ -95,6 +101,14 @@ class SqlliteAssessmentMapper:
             qualification_id, misconception
         )
 
+    @staticmethod
+    def topic_result_to_entity(topic_result: TopicResult) -> TopicResultEntity:
+        return SqlliteTopicResultMapper.to_entity(topic_result)
+
+    @staticmethod
+    def topic_result_to_model(entity: TopicResultEntity) -> TopicResult:
+        return SqlliteTopicResultMapper.to_model(entity)
+
 
 class SqlliteAssessmentAnswerMapper:
     @staticmethod
@@ -165,4 +179,26 @@ class SqlliteAssessmentQualificationMapper:
             assessment_id=entity.assessment_id,
             question_difficulty=entity.question_difficulty,
             answer_id=entity.answer_id,
+        )
+
+
+class SqlliteTopicResultMapper:
+    @staticmethod
+    def to_entity(topic_result: TopicResult) -> TopicResultEntity:
+        date_now = datetime.now()
+        return TopicResultEntity(
+            user_id=topic_result.user_id,
+            topic=topic_result.topic,
+            score=topic_result.score,
+            created_at=date_now,
+            updated_at=date_now,
+            is_enabled=True,
+        )
+
+    @staticmethod
+    def to_model(entity: TopicResultEntity) -> TopicResult:
+        return TopicResult(
+            user_id=entity.user_id,
+            topic=entity.topic,
+            score=entity.score,
         )
