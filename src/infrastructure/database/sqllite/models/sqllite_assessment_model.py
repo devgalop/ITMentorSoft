@@ -144,3 +144,20 @@ class AssessmentMisconceptionEntity(Base):
     qualification: Mapped["AssessmentQualificationEntity"] = relationship(
         "AssessmentQualificationEntity", back_populates="misconceptions"
     )
+
+
+class TopicResultEntity(Base):
+    __tablename__ = "topic_results"
+
+    id: Mapped[int] = mapped_column(Integer, primary_key=True, autoincrement=True)
+    user_id: Mapped[str] = mapped_column(
+        String, ForeignKey(CROSSFIELD_USER_ID), index=True
+    )
+    topic: Mapped[str] = mapped_column(String, index=True)
+    score: Mapped[int] = mapped_column(Integer)
+    created_at: Mapped[datetime] = mapped_column(DateTime, default=datetime.now)
+    updated_at: Mapped[datetime] = mapped_column(
+        DateTime, default=datetime.now, onupdate=datetime.now
+    )
+    is_enabled: Mapped[bool] = mapped_column(default=True)
+    user: Mapped["UserEntity"] = relationship("UserEntity")

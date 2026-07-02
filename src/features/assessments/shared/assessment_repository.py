@@ -1,7 +1,10 @@
 from abc import ABC, abstractmethod
 
 from src.features.assessments.shared.assessment import Assessment, AssessmentQuiz
-from src.features.assessments.shared.qualifier_service import QualifierResult
+from src.features.assessments.shared.qualifier_service import (
+    QualifierResult,
+    TopicResult,
+)
 
 
 class AssessmentRepository(ABC):
@@ -77,5 +80,26 @@ class AssessmentRepository(ABC):
 
         Args:
             qualifier_result (QualifierResult): The result of the qualification to be saved.
+        """
+        pass
+
+    @abstractmethod
+    async def save_topic_result(self, topic_result: TopicResult):
+        """Save the topic result of an assessment
+
+        Args:
+            topic_result (TopicResult): The result of the topic to be saved.
+        """
+        pass
+
+    @abstractmethod
+    async def get_knowledge_profile(self, user_id: str) -> list[TopicResult]:
+        """Obtain the knowledge profile of a user
+
+        Args:
+            user_id (str): The ID of the user to retrieve the knowledge profile for.
+
+        Returns:
+            A list of TopicResult corresponding to the given user ID.
         """
         pass
