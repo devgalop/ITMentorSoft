@@ -1,3 +1,4 @@
+from datetime import datetime
 from typing import Type
 from sqlalchemy import select
 from sqlalchemy.orm import selectinload
@@ -5,12 +6,16 @@ from sqlalchemy.ext.asyncio import AsyncSession
 
 from src.features.assessments.shared.assessment import Assessment, AssessmentQuiz
 from src.features.assessments.shared.assessment_repository import AssessmentRepository
-from src.features.assessments.shared.qualifier_service import QualifierResult
+from src.features.assessments.shared.qualifier_service import (
+    QualifierResult,
+    TopicResult,
+)
 from src.infrastructure.database.sqllite.models.sqllite_assessment_mapper import (
     SqlliteAssessmentMapper,
 )
 from src.infrastructure.database.sqllite.models.sqllite_assessment_model import (
     AssessmentEntity,
+    TopicResultEntity,
 )
 
 
@@ -92,3 +97,28 @@ class SqlliteAssessmentRepository(AssessmentRepository):
             )
             self.session_factory.add(misconception_entity)
         await self.session_factory.commit()
+
+    async def save_topic_result(self, topic_result: TopicResult):
+        smt = select(TopicResultEntity).where(
+            TopicResultEntity.user_id == topic_result.user_id,
+            TopicResultEntity.topic == topic_result.topic,
+        )
+        result = await self.session_factory.execute(smt)
+        entity_found = result.scalars().first()
+        if entity_found:
+            entity_found.is_enabled = False
+            entity_found.updated_at = datetime.now()
+        topic_result_entity = self.mapper.topic_result_to_entity(topic_result)
+        self.session_factory.add(topic_result_entity)
+        await self.session_factory.commit()
+
+    async def get_knowledge_profile(self, user_id: str) -> list[TopicResult]:
+        smt = select(TopicResultEntity).where(
+            TopicResultEntity.user_id == user_id, TopicResultEntity.is_enabled
+        )
+        result = await self.session_factory.execute(smt)
+        topic_result_entities = result.scalars().all()
+        return [
+            self.mapper.topic_result_to_model(entity)
+            for entity in topic_result_entities
+        ]

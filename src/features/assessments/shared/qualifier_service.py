@@ -49,6 +49,13 @@ class QualifierResult:
         self.answer_id = answer_id
 
 
+class TopicResult:
+    def __init__(self, user_id: str, topic: str, score: int):
+        self.user_id = user_id
+        self.topic = topic
+        self.score = score
+
+
 class QualifierService(ABC):
 
     @abstractmethod
