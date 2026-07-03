@@ -45,10 +45,17 @@ class EvaluateAssessmentService:
         """
         evaluation_results: list[QualifierResult] = []
 
+        # Pre-fetch all rubrics in a single query
+        question_ids = [answer.question_id for answer in assessment.answers]
+        if not question_ids:
+            return evaluation_results
+
+        rubrics_dict = await self.question_repository.get_question_rubrics_bulk(
+            question_ids
+        )
+
         for answer in assessment.answers:
-            rubric = await self.question_repository.get_question_rubric(
-                answer.question_id
-            )
+            rubric = rubrics_dict.get(answer.question_id)
             if not rubric:
                 continue
             evaluation_results.append(

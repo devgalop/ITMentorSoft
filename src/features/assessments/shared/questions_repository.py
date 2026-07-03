@@ -42,6 +42,21 @@ class QuestionRepository(ABC):
         pass
 
     @abstractmethod
+    async def get_question_rubrics_bulk(
+        self, question_ids: list[str]
+    ) -> dict[str, Question]:
+        """Obtain rubrics for multiple questions in a single query.
+
+        Args:
+            question_ids (list[str]): The IDs of the questions to retrieve rubrics for.
+
+        Returns:
+            dict[str, Question]: A dictionary mapping question_id to Question objects with rubric data.
+                Missing question IDs are omitted from the result.
+        """
+        pass
+
+    @abstractmethod
     async def save_question(self, question: Question):
         """Save a question
 
