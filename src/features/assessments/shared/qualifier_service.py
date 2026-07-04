@@ -1,5 +1,6 @@
 from abc import ABC, abstractmethod
 
+from src.features.assessments.shared.assessment import AssessmentAnswer
 from src.features.assessments.shared.question import Question
 
 
@@ -19,6 +20,36 @@ class QualifierPrompt:
         self.user_answer = user_answer
         self.assessment_id = assessment_id
         self.answer_id = answer_id
+
+
+class BatchQualifierPrompt:
+    """Prompt for batch qualification of multiple answers in a single LLM call."""
+
+    def __init__(
+        self,
+        rubrics: list[Question],
+        answers: list[AssessmentAnswer],
+        qualifier_mode: str,
+        user_id: str,
+        assessment_id: str,
+    ):
+        self.rubrics = rubrics
+        self.answers = answers
+        self.qualifier_mode = qualifier_mode
+        self.user_id = user_id
+        self.assessment_id = assessment_id
+
+
+class BatchQualificationError(Exception):
+    """Raised when a batch LLM response cannot be parsed as a valid JSON array."""
+
+    def __init__(
+        self,
+        raw_response: str,
+        message: str = "Failed to parse batch qualification response",
+    ):
+        self.raw_response = raw_response
+        super().__init__(message)
 
 
 class QualifierResult:
@@ -67,5 +98,16 @@ class QualifierService(ABC):
 
         Returns:
             QualifierResult: The result of the qualification, including score, feedback, key concepts detected, and misconceptions detected.
+        """
+        pass
+
+    @abstractmethod
+    async def qualify_batch(
+        self, batch_prompt: BatchQualifierPrompt
+    ) -> list[QualifierResult]:
+        """Evaluate multiple answers in a single LLM call.
+
+        Returns QualifierResult list in the same order as batch_prompt.answers.
+        Raises BatchQualificationError if response cannot be parsed.
         """
         pass
