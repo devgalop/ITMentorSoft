@@ -43,9 +43,6 @@ class OpencodeQualifierService(QualifierService):
         if not response:
             raise ValueError("Received empty response from the qualifier service.")
 
-        if not response.startswith("{") and not response.endswith("}"):
-            raise ValueError(f"Received response is not a valid JSON: {response}")
-
         response_json = json.loads(response)
         try:
             score_int = int(round(float(response_json.get("score", 0))))

@@ -33,6 +33,10 @@ class BatchQualifierPrompt:
         user_id: str,
         assessment_id: str,
     ):
+        if len(rubrics) != len(answers):
+            raise ValueError(
+                f"BatchQualifierPrompt expects the same number of rubrics and answers, got {len(rubrics)} rubrics and {len(answers)} answers"
+            )
         self.rubrics = rubrics
         self.answers = answers
         self.qualifier_mode = qualifier_mode

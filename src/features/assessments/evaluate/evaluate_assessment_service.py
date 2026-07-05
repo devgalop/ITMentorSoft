@@ -56,16 +56,11 @@ class EvaluateAssessmentService:
         assessment_repository: AssessmentRepository,
         qualifier_service: QualifierService,
         question_repository: QuestionRepository,
-        chunk_size: int | None = None,
     ):
         self.assessment_repository = assessment_repository
         self.qualifier_service = qualifier_service
         self.question_repository = question_repository
-        self.chunk_size = (
-            chunk_size
-            if chunk_size is not None
-            else ASSESSMENT_QUALIFICATION_CHUNK_SIZE
-        )
+        self.chunk_size = ASSESSMENT_QUALIFICATION_CHUNK_SIZE
 
     async def evaluate_answers(self, assessment: Assessment):
         evaluation_results: list[QualifierResult] = await self.qualify_assessment(
@@ -128,7 +123,7 @@ class EvaluateAssessmentService:
                 )
                 batch_results = await self.qualifier_service.qualify_batch(batch_prompt)
                 evaluation_results.extend(batch_results)
-            except BatchQualificationError:
+            except (BatchQualificationError, ValueError):
                 logger.warning(
                     "Batch qualification failed for chunk of %d answers, "
                     "falling back to per-item qualify",

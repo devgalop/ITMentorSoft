@@ -366,8 +366,9 @@ class TestQualifyAssessmentChunking:
         assessment_repo = AsyncMock()
 
         service = EvaluateAssessmentService(
-            assessment_repo, qualifier_service, question_repo, chunk_size=10
+            assessment_repo, qualifier_service, question_repo
         )
+        service.chunk_size = 10
 
         results = await service.qualify_assessment(assessment)
 
@@ -407,8 +408,9 @@ class TestQualifyAssessmentChunking:
         assessment_repo = AsyncMock()
 
         service = EvaluateAssessmentService(
-            assessment_repo, qualifier_service, question_repo, chunk_size=10
+            assessment_repo, qualifier_service, question_repo
         )
+        service.chunk_size = 10
 
         results = await service.qualify_assessment(assessment)
 
@@ -454,8 +456,9 @@ class TestQualifyAssessmentFallback:
         assessment_repo = AsyncMock()
 
         service = EvaluateAssessmentService(
-            assessment_repo, qualifier_service, question_repo, chunk_size=10
+            assessment_repo, qualifier_service, question_repo
         )
+        service.chunk_size = 10
 
         results = await service.qualify_assessment(assessment)
 
@@ -503,8 +506,9 @@ class TestQualifyAssessmentFallback:
         assessment_repo = AsyncMock()
 
         service = EvaluateAssessmentService(
-            assessment_repo, qualifier_service, question_repo, chunk_size=10
+            assessment_repo, qualifier_service, question_repo
         )
+        service.chunk_size = 10
 
         results = await service.qualify_assessment(assessment)
 
