@@ -4,7 +4,7 @@ from typing import Any
 
 from dotenv import load_dotenv
 import os
-from groq import Groq
+from openai import OpenAI
 import json
 import asyncio
 from src.features.assessments.shared.qualifier_service import (
@@ -19,45 +19,31 @@ logger = logging.getLogger(__name__)
 
 load_dotenv()
 
-GROQ_API_KEY = os.getenv("GROQ_API_KEY", "")
+OPENCODE_API_KEY = os.getenv("OPENCODE_API_KEY", "")
+OPENCODE_API_URL = os.getenv("OPENCODE_API_URL", "")
 
 
-class GroqQualifierService(QualifierService):
+class OpencodeQualifierService(QualifierService):
 
     def __init__(self):
-        self.client = Groq(api_key=GROQ_API_KEY)
+        self.client = OpenAI(api_key=OPENCODE_API_KEY, base_url=OPENCODE_API_URL)
         self.generic_prompt: str = self.get_generic_prompt()
         self.batch_generic_prompt: str = self.get_batch_generic_prompt()
 
     async def qualify(self, qualifier_prompt: QualifierPrompt) -> QualifierResult:
-
         completion = await asyncio.to_thread(
             self.client.chat.completions.create,
-            model="qwen/qwen3-32b",
+            model="minimax-m2.7",
             messages=[
                 {"role": "system", "content": self.get_prompt(qualifier_prompt)},
                 {"role": "user", "content": qualifier_prompt.user_answer},
             ],
-            temperature=0.6,
-            max_completion_tokens=4096,
-            top_p=0.95,
-            reasoning_effort="default",
-            stream=False,
-            stop=None,
         )
-
         response = completion.choices[0].message.content
         if not response:
             raise ValueError("Received empty response from the qualifier service.")
 
-        if "</think>" in response:
-            response = response.split("</think>")[1].strip()
-
-        if not response.startswith("{") and not response.endswith("}"):
-            raise ValueError(f"Received response is not a valid JSON: {response}")
-
         response_json = json.loads(response)
-
         try:
             score_int = int(round(float(response_json.get("score", 0))))
         except (TypeError, ValueError):
@@ -113,13 +99,27 @@ class GroqQualifierService(QualifierService):
             return f.read()
 
     def get_batch_system_prompt(self, batch_prompt: BatchQualifierPrompt) -> str:
-        """Generates the system prompt for batch qualification."""
+        """Generates the system prompt for batch qualification.
+
+        Args:
+            batch_prompt (BatchQualifierPrompt): The batch prompt containing qualifier mode.
+
+        Returns:
+            str: The system prompt with %MODO_CALIFICACION% replaced.
+        """
         return self.batch_generic_prompt.replace(
             "%MODO_CALIFICACION%", batch_prompt.qualifier_mode
         )
 
     def build_batch_user_content(self, batch_prompt: BatchQualifierPrompt) -> str:
-        """Builds the user content for batch qualification."""
+        """Builds the user content for batch qualification.
+
+        Args:
+            batch_prompt (BatchQualifierPrompt): Contains rubrics and answers.
+
+        Returns:
+            str: Formatted user content with all rubric-answer pairs.
+        """
         parts: list[str] = []
         for rubric, answer in zip(batch_prompt.rubrics, batch_prompt.answers):
             parts.append(
@@ -142,26 +142,15 @@ class GroqQualifierService(QualifierService):
 
         completion = await asyncio.to_thread(
             self.client.chat.completions.create,
-            model="qwen/qwen3-32b",
+            model="minimax-m2.7",
             messages=[
                 {"role": "system", "content": system_prompt},
                 {"role": "user", "content": user_content},
             ],
-            temperature=0.6,
-            max_completion_tokens=4096,
-            top_p=0.95,
-            reasoning_effort="default",
-            stream=False,
-            stop=None,
         )
-
         response = completion.choices[0].message.content
         if not response:
             raise ValueError("Received empty response from the qualifier service.")
-
-        # Strip <think> tags (Groq-specific)
-        if "</think>" in response:
-            response = response.split("</think>")[1].strip()
 
         try:
             parsed = json.loads(response)
@@ -179,6 +168,7 @@ class GroqQualifierService(QualifierService):
 
         parsed_items: list[dict[str, Any]] = parsed
 
+        # Build lookups for mapping
         answer_lookup = {a.answer_id: a for a in batch_prompt.answers}
         rubric_lookup = {r.question_id: r for r in batch_prompt.rubrics}
 
@@ -216,6 +206,7 @@ class GroqQualifierService(QualifierService):
                 )
             )
 
+        # Sort results to match input answer order
         answer_order = {a.answer_id: i for i, a in enumerate(batch_prompt.answers)}
         results.sort(key=lambda r: answer_order.get(r.answer_id, 999))
         return results

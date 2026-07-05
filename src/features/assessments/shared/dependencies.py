@@ -61,7 +61,10 @@ from src.infrastructure.database.sqllite.repository.sqllite_questions_repository
     SqlliteQuestionsRepository,
 )
 from src.infrastructure.database.sqllite.shared.sqllite_database_session import get_db
-from src.infrastructure.qualifier.groq_qualifier_service import GroqQualifierService
+
+from src.infrastructure.qualifier.opencode_qualifier_service import (
+    OpencodeQualifierService,
+)
 
 
 def get_question_repository(
@@ -159,7 +162,7 @@ def get_get_assessment_handler(
 
 @lru_cache()
 def get_qualifier_service() -> QualifierService:
-    return GroqQualifierService()
+    return OpencodeQualifierService()
 
 
 def get_evaluate_assessment_service(

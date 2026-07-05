@@ -58,6 +58,20 @@ class SqlliteQuestionsRepository(QuestionRepository):
             return None
         return self.mapper.to_model(question_entity)
 
+    async def get_question_rubrics_bulk(
+        self, question_ids: list[str]
+    ) -> dict[str, Question]:
+        if not question_ids:
+            return {}
+        smt = (
+            select(QuestionEntity)
+            .options(selectinload(QuestionEntity.rubric))
+            .where(QuestionEntity.id.in_(question_ids))
+        )
+        result = await self.session_factory.execute(smt)
+        question_entities = result.scalars().all()
+        return {entity.id: self.mapper.to_model(entity) for entity in question_entities}
+
     async def update_question(self, question: Question):
         smt = (
             select(QuestionEntity)
