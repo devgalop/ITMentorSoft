@@ -8,7 +8,7 @@ from src.features.assessments.get_assessment.get_assessment_request import (
 from src.features.assessments.get_assessment.get_assessment_response import (
     EvaluativeQuestionData,
 )
-from src.features.assessments.get_assessment.get_assessment_service import (
+from src.features.assessments.shared.get_assessment_service import (
     GetAssessmentService,
     GetRandomQuestionsRequest,
 )
@@ -25,8 +25,12 @@ VALID_REQUEST = GetAssessmentRequest(
 STUDENT_ID = "a1b2c3d4e5f6a7b8c9d0e1f2a3b4c5d6"
 
 
-def make_evaluative_question(question_id: str, text: str) -> EvaluativeQuestion:
-    return EvaluativeQuestion(question_id=question_id, text_to_evaluate=text)
+def make_evaluative_question(
+    question_id: str, text: str, topic: str = "test-topic"
+) -> EvaluativeQuestion:
+    return EvaluativeQuestion(
+        question_id=question_id, text_to_evaluate=text, topic=topic
+    )
 
 
 def make_question_pool(
@@ -56,13 +60,13 @@ async def test_when_valid_request_with_enough_questions_per_level_then_should_re
     service = GetAssessmentService(question_repo, assessment_repo)
 
     with patch(
-        "src.features.assessments.get_assessment.get_assessment_service._rng"
+        "src.features.assessments.shared.get_assessment_service._rng"
     ) as mock_rng:
         mock_rng.sample.side_effect = lambda seq, k: list(seq[:k])
 
         result = await service.generate_assessment(VALID_REQUEST)
 
-    assert len(result) == 6
+    assert len(result.questions) == 6
     assessment_repo.save_assessment.assert_called_once()
 
 
@@ -77,13 +81,13 @@ async def test_when_generate_assessment_then_should_return_evaluative_question_d
     service = GetAssessmentService(question_repo, assessment_repo)
 
     with patch(
-        "src.features.assessments.get_assessment.get_assessment_service._rng"
+        "src.features.assessments.shared.get_assessment_service._rng"
     ) as mock_rng:
         mock_rng.sample.side_effect = lambda seq, k: list(seq[:k])
 
         result = await service.generate_assessment(VALID_REQUEST)
 
-    for item in result:
+    for item in result.questions:
         assert isinstance(item, EvaluativeQuestionData)
         assert item.question_id is not None
         assert item.text_to_evaluate is not None
@@ -100,7 +104,7 @@ async def test_when_generate_assessment_then_should_save_assessment_with_correct
     service = GetAssessmentService(question_repo, assessment_repo)
 
     with patch(
-        "src.features.assessments.get_assessment.get_assessment_service._rng"
+        "src.features.assessments.shared.get_assessment_service._rng"
     ) as mock_rng:
         mock_rng.sample.side_effect = lambda seq, k: list(seq[:k])
 
@@ -123,7 +127,7 @@ async def test_when_generate_assessment_then_should_query_all_difficulty_levels(
     service = GetAssessmentService(question_repo, assessment_repo)
 
     with patch(
-        "src.features.assessments.get_assessment.get_assessment_service._rng"
+        "src.features.assessments.shared.get_assessment_service._rng"
     ) as mock_rng:
         mock_rng.sample.side_effect = lambda seq, k: list(seq[:k])
 
@@ -151,13 +155,13 @@ async def test_when_not_enough_questions_available_then_should_return_available_
     service = GetAssessmentService(question_repo, assessment_repo)
 
     with patch(
-        "src.features.assessments.get_assessment.get_assessment_service._rng"
+        "src.features.assessments.shared.get_assessment_service._rng"
     ) as mock_rng:
         mock_rng.sample.side_effect = lambda seq, k: list(seq[:k]) if k > 0 else []
 
         result = await service.generate_assessment(VALID_REQUEST)
 
-    assert len(result) == 0
+    assert len(result.questions) == 0
     assessment_repo.save_assessment.assert_called_once()
 
 
@@ -182,15 +186,15 @@ async def test_when_empty_question_pool_for_a_difficulty_then_should_continue_wi
     service = GetAssessmentService(question_repo, assessment_repo)
 
     with patch(
-        "src.features.assessments.get_assessment.get_assessment_service._rng"
+        "src.features.assessments.shared.get_assessment_service._rng"
     ) as mock_rng:
         mock_rng.sample.side_effect = lambda seq, k: list(seq[:k]) if k > 0 else []
 
         result = await service.generate_assessment(VALID_REQUEST)
 
     # 2 questions from EASY (6//3=2), 0 from MEDIUM, 0 from HARD
-    assert len(result) == 2
-    for item in result:
+    assert len(result.questions) == 2
+    for item in result.questions:
         assert item.question_id.startswith("easy-")
 
 
@@ -205,14 +209,14 @@ async def test_when_generate_assessment_then_saved_assessment_should_contain_cor
     service = GetAssessmentService(question_repo, assessment_repo)
 
     with patch(
-        "src.features.assessments.get_assessment.get_assessment_service._rng"
+        "src.features.assessments.shared.get_assessment_service._rng"
     ) as mock_rng:
         mock_rng.sample.side_effect = lambda seq, k: list(seq[:k])
 
         result = await service.generate_assessment(VALID_REQUEST)
 
     saved_quiz: AssessmentQuiz = assessment_repo.save_assessment.call_args[0][0]
-    returned_ids = [q.question_id for q in result]
+    returned_ids = [q.question_id for q in result.questions]
     assert saved_quiz.questions == returned_ids
 
 
@@ -269,7 +273,7 @@ async def test_when_request_n_questions_then_should_return_n_questions():
     )
 
     with patch(
-        "src.features.assessments.get_assessment.get_assessment_service._rng"
+        "src.features.assessments.shared.get_assessment_service._rng"
     ) as mock_rng:
         mock_rng.sample.side_effect = lambda seq, k: list(seq[:k])
 
@@ -293,7 +297,7 @@ async def test_when_requests_more_than_available_then_should_adjust_to_available
     )
 
     with patch(
-        "src.features.assessments.get_assessment.get_assessment_service._rng"
+        "src.features.assessments.shared.get_assessment_service._rng"
     ) as mock_rng:
         mock_rng.sample.side_effect = lambda seq, k: list(seq[:k]) if k > 0 else []
 
@@ -320,7 +324,7 @@ async def test_when_get_random_questions_then_should_map_evaluative_question_to_
     )
 
     with patch(
-        "src.features.assessments.get_assessment.get_assessment_service._rng"
+        "src.features.assessments.shared.get_assessment_service._rng"
     ) as mock_rng:
         mock_rng.sample.side_effect = lambda seq, k: list(seq[:k])
 
@@ -349,7 +353,7 @@ async def test_when_get_random_questions_then_repository_called_with_correct_dif
     )
 
     with patch(
-        "src.features.assessments.get_assessment.get_assessment_service._rng"
+        "src.features.assessments.shared.get_assessment_service._rng"
     ) as mock_rng:
         mock_rng.sample.side_effect = lambda seq, k: list(seq[:k])
 

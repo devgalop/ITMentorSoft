@@ -21,6 +21,9 @@ from src.features.assessments.get_assessment.get_assessment_endpoint import (
 from src.features.assessments.save_assessments_answers.save_assessments_answers_endpoint import (
     router as save_assessment_answers_router,
 )
+from src.features.assessments.get_assessment_by_topic.get_assessment_by_topic_endpoint import (
+    router as get_assessment_by_topic_router,
+)
 
 router = APIRouter()
 router.include_router(register_question_router)
@@ -30,3 +33,4 @@ router.include_router(get_questions_by_category_router)
 router.include_router(update_question_router)
 router.include_router(get_assessment_router)
 router.include_router(save_assessment_answers_router)
+router.include_router(get_assessment_by_topic_router)

@@ -415,6 +415,7 @@ class QuestionBuilder:
 class EvaluativeQuestion:
     """Represents the question to evaluate students"""
 
-    def __init__(self, question_id: str, text_to_evaluate: str):
+    def __init__(self, question_id: str, text_to_evaluate: str, topic: str):
         self.question_id = question_id
         self.text_to_evaluate = text_to_evaluate
+        self.topic = topic

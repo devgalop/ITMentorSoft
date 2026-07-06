@@ -18,7 +18,9 @@ class SqlliteQuestionMapper:
     @staticmethod
     def to_evaluative_model(question: QuestionEntity) -> EvaluativeQuestion:
         return EvaluativeQuestion(
-            question_id=question.id, text_to_evaluate=question.text
+            question_id=question.id,
+            text_to_evaluate=question.text,
+            topic=question.classification,
         )
 
     @staticmethod

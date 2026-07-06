@@ -9,6 +9,7 @@ from src.features.assessments.get_assessment.get_assessment_request import (
 )
 from src.features.assessments.get_assessment.get_assessment_response import (
     EvaluativeQuestionData,
+    GetAssessmentResponse,
 )
 
 STUDENT_ID = "a1b2c3d4e5f6a7b8c9d0e1f2a3b4c5d6"
@@ -27,7 +28,14 @@ async def test_when_request_is_valid_then_should_return_assessment_successfully(
     ]
 
     service = AsyncMock()
-    service.generate_assessment = AsyncMock(return_value=questions)
+    service.generate_assessment = AsyncMock(
+        return_value=GetAssessmentResponse(
+            is_success=True,
+            message="Assessment retrieved successfully",
+            assessment_id="test-assessment-id",
+            questions=questions,
+        )
+    )
 
     handler = GetAssessmentHandler(service)
 
@@ -52,7 +60,14 @@ async def test_when_request_is_valid_then_should_return_questions():
     ]
 
     service = AsyncMock()
-    service.generate_assessment = AsyncMock(return_value=questions)
+    service.generate_assessment = AsyncMock(
+        return_value=GetAssessmentResponse(
+            is_success=True,
+            message="Assessment retrieved successfully",
+            assessment_id="test-assessment-id",
+            questions=questions,
+        )
+    )
 
     handler = GetAssessmentHandler(service)
 
@@ -108,7 +123,14 @@ async def test_when_assessment_success_then_assessment_id_is_string():
     questions = [make_question("q1", "What is OOP?")]
 
     service = AsyncMock()
-    service.generate_assessment = AsyncMock(return_value=questions)
+    service.generate_assessment = AsyncMock(
+        return_value=GetAssessmentResponse(
+            is_success=True,
+            message="Assessment retrieved successfully",
+            assessment_id="test-assessment-id",
+            questions=questions,
+        )
+    )
 
     handler = GetAssessmentHandler(service)
 

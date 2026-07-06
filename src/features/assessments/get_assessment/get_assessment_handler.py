@@ -1,12 +1,10 @@
-import uuid
-
 from src.features.assessments.get_assessment.get_assessment_request import (
     GetAssessmentRequest,
 )
 from src.features.assessments.get_assessment.get_assessment_response import (
     GetAssessmentResponse,
 )
-from src.features.assessments.get_assessment.get_assessment_service import (
+from src.features.assessments.shared.get_assessment_service import (
     GetAssessmentService,
 )
 
@@ -17,13 +15,8 @@ class GetAssessmentHandler:
 
     async def handle(self, request: GetAssessmentRequest) -> GetAssessmentResponse:
         try:
-            questions = await self.get_assessment_service.generate_assessment(request)
-            return GetAssessmentResponse(
-                is_success=True,
-                message="Assessment retrieved successfully",
-                assessment_id=uuid.uuid4().hex,
-                questions=questions,
-            )
+            response = await self.get_assessment_service.generate_assessment(request)
+            return response
         except Exception as e:
             return GetAssessmentResponse(
                 is_success=False,

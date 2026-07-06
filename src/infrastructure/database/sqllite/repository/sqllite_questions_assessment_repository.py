@@ -41,3 +41,14 @@ class SqlLiteQuestionsAssessmentRepository(QuestionAssessmentRepository):
         result = await self.session_factory.execute(smt)
         question_entities = result.scalars().all()
         return [self.mapper.to_evaluative_model(entity) for entity in question_entities]
+
+    async def get_questions_by_topic(
+        self, topic: str, difficulty: QuestionDifficulty
+    ) -> list[EvaluativeQuestion]:
+        smt = select(QuestionEntity).where(
+            QuestionEntity.classification == topic,
+            QuestionEntity.difficulty == difficulty.value,
+        )
+        result = await self.session_factory.execute(smt)
+        question_entities = result.scalars().all()
+        return [self.mapper.to_evaluative_model(entity) for entity in question_entities]
