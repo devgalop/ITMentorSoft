@@ -5,6 +5,7 @@ from sqlalchemy.ext.asyncio import AsyncSession
 from src.features.assessments.shared.question import (
     EvaluativeQuestion,
     Question,
+    QuestionStatus,
 )
 from src.features.assessments.shared.questions_repository import QuestionRepository
 from src.infrastructure.database.sqllite.models.sqllite_question_mapper import (
@@ -105,7 +106,8 @@ class SqlliteQuestionsRepository(QuestionRepository):
         smt = (
             select(QuestionEntity.classification)
             .where(
-                QuestionEntity.version == version, QuestionEntity.status == "published"
+                QuestionEntity.version == version,
+                QuestionEntity.status == QuestionStatus.PUBLISHED.value,
             )
             .distinct()
         )

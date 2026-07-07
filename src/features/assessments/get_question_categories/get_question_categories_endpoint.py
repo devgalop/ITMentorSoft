@@ -47,6 +47,17 @@ router = APIRouter()
                 }
             },
         },
+        404: {
+            "description": "Question categories not found.",
+            "content": {
+                "application/json": {
+                    "example": {
+                        "is_success": False,
+                        "message": "Question categories not found.",
+                    }
+                }
+            },
+        },
         401: {
             "description": "Unauthorized.",
             "content": {
@@ -64,8 +75,11 @@ async def get_question_categories(
     ],
     _: Annotated[TokenData, Depends(require_roles(["student", "teacher", "admin"]))],
 ) -> GetQuestionCategoriesResponse:
-    request = GetQuestionCategoriesRequest(version=version)
-    response = await handler.handle(request)
-    if not response.is_success:
-        raise HTTPException(status_code=400, detail=response.model_dump())
-    return response
+    try:
+        request = GetQuestionCategoriesRequest(version=version)
+        response = await handler.handle(request)
+        if not response.is_success:
+            raise HTTPException(status_code=404, detail=response.model_dump())
+        return response
+    except Exception as e:
+        raise HTTPException(status_code=400, detail=str(e))
