@@ -5,6 +5,10 @@ from src.features.assessments.shared.question import (
     QuestionRubricScore,
     QuestionStatus,
 )
+from src.features.assessments.shared.question_details import (
+    QuestionDetails,
+    RubricScore,
+)
 from src.infrastructure.database.sqllite.models.sqllite_question_model import (
     QuestionEntity,
     QuestionRubricScoreEntity,
@@ -55,10 +59,49 @@ class SqlliteQuestionMapper:
         return model
 
     @staticmethod
+    def to_detailed_model(question: QuestionEntity) -> QuestionDetails:
+        rubric = [
+            SqlliteQuestionMapper.to_rubric_score_response(r) for r in question.rubric
+        ]
+        model = QuestionDetails(
+            question_id=question.id,
+            text_to_evaluate=question.text,
+            concept=question.concept,
+            definition=question.definition,
+            simple_explanation=question.simple_explanation,
+            correct_sample=question.correct_sample,
+            wrong_sample=question.wrong_sample,
+            common_misconception=(
+                question.common_misconceptions.split(PIPE_SEPARATOR)
+                if question.common_misconceptions
+                else []
+            ),
+            rubric=rubric,
+            semantic_keywords=(
+                question.semantic_keywords.split(PIPE_SEPARATOR)
+                if question.semantic_keywords
+                else []
+            ),
+            status=question.status,
+            difficulty=question.difficulty,
+            classification=question.classification,
+            version=question.version,
+        )
+        return model
+
+    @staticmethod
     def to_rubric_score_model(
         rubric_score: QuestionRubricScoreEntity,
     ) -> QuestionRubricScore:
         return QuestionRubricScore(
+            score=rubric_score.score, explanation=rubric_score.explanation
+        )
+
+    @staticmethod
+    def to_rubric_score_response(
+        rubric_score: QuestionRubricScoreEntity,
+    ) -> RubricScore:
+        return RubricScore(
             score=rubric_score.score, explanation=rubric_score.explanation
         )
 

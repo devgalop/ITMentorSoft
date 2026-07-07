@@ -2,6 +2,8 @@ from enum import Enum
 import json
 import uuid
 
+from src.features.assessments.shared.question_details import QuestionDetails
+
 QUESTION_CATEGORIES = (
     "APIs y sistemas distribuidos",
     "Diseño orientado a objetos",
@@ -419,3 +421,16 @@ class EvaluativeQuestion:
         self.question_id = question_id
         self.text_to_evaluate = text_to_evaluate
         self.topic = topic
+
+
+class PaginatedQuestionsResult:
+    """Represents a paginated result of questions
+
+    Args:
+        items (list[QuestionDetails]): The list of questions for the current page.
+        total (int): The total number of questions across all pages.
+    """
+
+    def __init__(self, items: list[QuestionDetails], total: int):
+        self.items = items
+        self.total = total

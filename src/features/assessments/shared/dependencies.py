@@ -6,6 +6,9 @@ from functools import lru_cache
 from src.features.assessments.evaluate.evaluate_assessment_service import (
     EvaluateAssessmentService,
 )
+from src.features.assessments.get_all_questions.get_all_questions_handler import (
+    GetAllQuestionsHandler,
+)
 from src.features.assessments.get_assessment.get_assessment_handler import (
     GetAssessmentHandler,
 )
@@ -225,3 +228,11 @@ def get_get_question_categories_handler(
     ],
 ) -> GetQuestionCategoriesHandler:
     return GetQuestionCategoriesHandler(question_repository=question_repository)
+
+
+def get_get_all_questions_handler(
+    questions_repository: Annotated[
+        QuestionRepository, Depends(get_question_repository)
+    ],
+) -> GetAllQuestionsHandler:
+    return GetAllQuestionsHandler(questions_repository=questions_repository)

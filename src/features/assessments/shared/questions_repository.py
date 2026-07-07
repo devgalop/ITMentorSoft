@@ -2,6 +2,7 @@ from abc import ABC, abstractmethod
 
 from src.features.assessments.shared.question import (
     EvaluativeQuestion,
+    PaginatedQuestionsResult,
     Question,
 )
 
@@ -83,5 +84,20 @@ class QuestionRepository(ABC):
 
         Returns:
             list[str]: A list of all question categories.
+        """
+        pass
+
+    @abstractmethod
+    async def get_all_questions_paginated(
+        self, page: int, page_size: int
+    ) -> PaginatedQuestionsResult:
+        """Obtain all questions with pagination
+
+        Args:
+            page (int): The page number to retrieve.
+            page_size (int): The number of questions per page.
+
+        Returns:
+            PaginatedQuestionsResult: The paginated result containing a list of questions for the specified page and the total number of questions.
         """
         pass
