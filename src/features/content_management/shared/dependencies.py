@@ -30,6 +30,9 @@ from src.features.content_management.shared.content import ResourceContentBuilde
 from src.features.content_management.shared.content_repository import (
     ResourceContentRepository,
 )
+from src.features.content_management.update_resource_content.update_resource_content_handler import (
+    UpdateResourceContentHandler,
+)
 from src.infrastructure.database.sqllite.models.sqllite_content_rating_mapper import (
     RateContentMapper,
 )
@@ -114,3 +117,11 @@ def get_get_contents_by_category_topic_handler(
     ],
 ) -> GetContentsByCategoryTopicHandler:
     return GetContentsByCategoryTopicHandler(content_repository)
+
+
+def get_update_resource_content_handler(
+    content_repository: Annotated[
+        ResourceContentRepository, Depends(get_resource_content_repository)
+    ],
+) -> UpdateResourceContentHandler:
+    return UpdateResourceContentHandler(content_repository)
