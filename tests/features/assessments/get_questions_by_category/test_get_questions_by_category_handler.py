@@ -17,6 +17,7 @@ def make_questions(count: int = 2):
         EvaluativeQuestion(
             question_id=f"question_id_{i}",
             text_to_evaluate=f"Question text {i}",
+            topic=f"topic_{i}",
         )
         for i in range(count)
     ]

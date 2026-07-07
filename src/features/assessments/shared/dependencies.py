@@ -9,7 +9,10 @@ from src.features.assessments.evaluate.evaluate_assessment_service import (
 from src.features.assessments.get_assessment.get_assessment_handler import (
     GetAssessmentHandler,
 )
-from src.features.assessments.get_assessment.get_assessment_service import (
+from src.features.assessments.get_assessment_by_topic.get_assessment_by_topic_handler import (
+    GetAssessmentByTopicHandler,
+)
+from src.features.assessments.shared.get_assessment_service import (
     GetAssessmentService,
 )
 from src.features.assessments.get_question_by_id.get_question_by_id_handler import (
@@ -203,3 +206,11 @@ def get_save_assessment_answers_handler(
     ],
 ) -> SaveAssessmentsAnswersHandler:
     return SaveAssessmentsAnswersHandler(assessment_service=service)
+
+
+def get_get_assessment_by_topic_handler(
+    get_assessment_service: Annotated[
+        GetAssessmentService, Depends(get_assessment_service)
+    ],
+) -> GetAssessmentByTopicHandler:
+    return GetAssessmentByTopicHandler(get_assessment_service=get_assessment_service)

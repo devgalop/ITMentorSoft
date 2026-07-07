@@ -35,3 +35,18 @@ class QuestionAssessmentRepository(ABC):
             list[EvaluativeQuestion]: A list of questions matching the specified category.
         """
         pass
+
+    @abstractmethod
+    async def get_questions_by_topic(
+        self, topic: str, difficulty: QuestionDifficulty
+    ) -> list[EvaluativeQuestion]:
+        """Obtain questions by topic and difficulty level
+
+        Args:
+            topic (str): The topic to filter questions by.
+            difficulty (QuestionDifficulty): The difficulty level to filter questions by.
+
+        Returns:
+            list[EvaluativeQuestion]: A list of questions matching the specified topic and difficulty level.
+        """
+        pass

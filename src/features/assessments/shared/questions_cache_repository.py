@@ -51,6 +51,21 @@ class QuestionsCacheRepository(QuestionAssessmentRepository):
 
         return self._shared_cache[category].questions
 
+    async def get_questions_by_topic(
+        self, topic: str, difficulty: QuestionDifficulty
+    ) -> list[EvaluativeQuestion]:
+        cache_key = f"{topic}_{difficulty.name}"
+        if self.should_refresh_cache(cache_key):
+            questions = await self.assessment_repository.get_questions_by_topic(
+                topic, difficulty
+            )
+            expiration_time = int(time()) + self._cache_expiration_time_seconds
+            self._shared_cache[cache_key] = EvaluativeQuestionsCache(
+                questions, expiration_time
+            )
+
+        return self._shared_cache[cache_key].questions
+
     def should_refresh_cache(self, key: str) -> bool:
         """Validate if the cache should be refreshed for a given key.
 
