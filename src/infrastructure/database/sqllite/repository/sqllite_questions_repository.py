@@ -1,9 +1,10 @@
 from typing import Type
-from sqlalchemy import select
+from sqlalchemy import func, select
 from sqlalchemy.orm import selectinload
 from sqlalchemy.ext.asyncio import AsyncSession
 from src.features.assessments.shared.question import (
     EvaluativeQuestion,
+    PaginatedQuestionsResult,
     Question,
     QuestionStatus,
 )
@@ -116,3 +117,35 @@ class SqlliteQuestionsRepository(QuestionRepository):
         if not categories:
             return []
         return list(categories)
+
+    async def get_all_questions_paginated(
+        self, page: int, page_size: int
+    ) -> PaginatedQuestionsResult:
+        """Get all questions with pagination
+
+        Args:
+            page (int): The zero-based page index.
+            page_size (int): The number of items per page.
+
+        Returns:
+            PaginatedQuestionsResult: The paginated result containing the items for the requested page and the total count of all records. If there are no questions, returns an empty list and a total count of 0.
+        """
+        count_smt = select(func.count()).select_from(QuestionEntity)
+        total_result = await self.session_factory.execute(count_smt)
+        total = total_result.scalar()
+        if not total:
+            return PaginatedQuestionsResult(items=[], total=0)
+
+        smt = (
+            select(QuestionEntity)
+            .options(selectinload(QuestionEntity.rubric))
+            .offset(page * page_size)
+            .limit(page_size)
+        )
+        result = await self.session_factory.execute(smt)
+        question_entities = result.scalars().all()
+        questions = [
+            self.mapper.to_detailed_model(entity) for entity in question_entities
+        ]
+
+        return PaginatedQuestionsResult(items=questions, total=total)
