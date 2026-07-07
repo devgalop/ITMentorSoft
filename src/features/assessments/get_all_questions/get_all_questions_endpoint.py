@@ -67,9 +67,11 @@ async def get_all_questions(
     handler: Annotated[GetAllQuestionsHandler, Depends(get_get_all_questions_handler)],
     _: Annotated[TokenData, Depends(require_roles(["admin", "teacher"]))],
 ) -> GetAllQuestionsResponse:
-    if page < 0 or page_size <= 0:
-        raise HTTPException(
-            status_code=400, detail="Invalid page or page_size parameters."
-        )
-    request = GetAllQuestionsRequest(page=page, page_size=page_size)
-    return await handler.handle(request)
+    try:
+        request = GetAllQuestionsRequest(page=page, page_size=page_size)
+        response = await handler.handle(request)
+        if not response.is_success:
+            raise HTTPException(status_code=400, detail=response.model_dump())
+        return response
+    except ValueError as e:
+        raise HTTPException(status_code=400, detail=str(e))

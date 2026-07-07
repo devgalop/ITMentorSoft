@@ -45,7 +45,7 @@ async def test_when_questions_exist_then_should_return_questions_successfully():
 
     assert response.is_success is True
     assert response.message == "Successfully retrieved all questions."
-    assert len(response.items) == 2
+    assert len(response.questions) == 2
     assert response.total == 100
 
 
@@ -63,7 +63,7 @@ async def test_when_no_questions_exist_then_should_return_empty_list():
 
     assert response.is_success is False
     assert response.message == "No questions found."
-    assert response.items == []
+    assert response.questions == []
     assert response.total == 0
 
 
@@ -80,11 +80,11 @@ async def test_when_questions_exist_then_should_return_full_question_data():
     request = GetAllQuestionsRequest(page=0, page_size=10)
     response = await handler.handle(request)
 
-    assert response.items[0].question_id == "question_id_0"
-    assert response.items[0].text_to_evaluate == "Question text 0"
-    assert response.items[0].concept == "Concept 0"
-    assert response.items[1].question_id == "question_id_1"
-    assert response.items[1].text_to_evaluate == "Question text 1"
+    assert response.questions[0].question_id == "question_id_0"
+    assert response.questions[0].text_to_evaluate == "Question text 0"
+    assert response.questions[0].concept == "Concept 0"
+    assert response.questions[1].question_id == "question_id_1"
+    assert response.questions[1].text_to_evaluate == "Question text 1"
 
 
 @pytest.mark.asyncio

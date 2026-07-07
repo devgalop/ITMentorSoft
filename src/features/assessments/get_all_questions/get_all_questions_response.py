@@ -6,5 +6,5 @@ from src.features.assessments.shared.question import QuestionDetails
 class GetAllQuestionsResponse(BaseModel):
     is_success: bool
     message: str
-    items: list[QuestionDetails] = []
+    questions: list[QuestionDetails] = []
     total: int = 0
