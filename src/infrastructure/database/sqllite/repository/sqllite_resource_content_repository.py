@@ -24,6 +24,9 @@ from src.features.content_management.shared.content import (
 from src.features.content_management.shared.content_repository import (
     ResourceContentRepository,
 )
+from src.features.content_management.update_resource_content.update_resource_content_request import (
+    UpdateResourceContentRequest,
+)
 from src.infrastructure.database.sqllite.models.sqllite_content_rating_mapper import (
     RateContentMapper,
 )
@@ -186,3 +189,24 @@ class SqlLiteResourceContentRepository(ResourceContentRepository):
         items = [self.mapper.to_model(item) for item in result_items]
 
         return PaginatedResourceContentResult(items=items, total=total)
+
+    async def update_resource_content(
+        self, content_id: str, request: UpdateResourceContentRequest
+    ):
+        smt = select(ResourceContentEntity).where(
+            ResourceContentEntity.id == content_id
+        )
+        result = await self.session_factory.execute(smt)
+        content_entity = result.scalars().first()
+
+        if not content_entity:
+            raise ValueError(f"Content with ID {content_id} not found.")
+
+        content_entity.title = request.title
+        content_entity.summary = request.description
+        content_entity.url = request.url
+        content_entity.category = request.category
+        content_entity.related_topics = "|".join(request.related_topic)
+
+        self.session_factory.add(content_entity)
+        await self.session_factory.commit()
