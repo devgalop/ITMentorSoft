@@ -20,6 +20,9 @@ from src.features.content_management.shared.content import (
     ResourceContent,
     ResourceContentResponse,
 )
+from src.features.content_management.update_resource_content.update_resource_content_request import (
+    UpdateResourceContentRequest,
+)
 
 
 class ResourceContentRepository(ABC):
@@ -111,5 +114,16 @@ class ResourceContentRepository(ABC):
             page_size (int): The number of items per page.
         Returns:
             PaginatedResourceContentResult: The paginated result containing the items for the requested page and the total count of all records.
+        """
+        pass
+
+    @abstractmethod
+    async def update_resource_content(
+        self, content_id: str, request: UpdateResourceContentRequest
+    ):
+        """Update educational resource content
+        Args:
+            content_id (str): The content ID of the educational resource content to be updated
+            request (UpdateResourceContentRequest): The request containing the updated information for the educational resource content
         """
         pass

@@ -24,6 +24,9 @@ from src.features.content_management.get_contents_by_title.get_contents_by_title
 from src.features.content_management.get_contents_by_category_topic.get_contents_by_category_topic_endpoint import (
     router as get_contents_by_category_topic_router,
 )
+from src.features.content_management.update_resource_content.update_resource_content_endpoint import (
+    router as update_resource_content_router,
+)
 
 router = APIRouter()
 router.include_router(get_all_contents_router)
@@ -34,3 +37,4 @@ router.include_router(get_contents_by_topic_router)
 router.include_router(get_contents_by_category_router)
 router.include_router(get_contents_by_title_router)
 router.include_router(get_contents_by_category_topic_router)
+router.include_router(update_resource_content_router)
