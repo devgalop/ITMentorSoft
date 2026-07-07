@@ -35,9 +35,11 @@ router = APIRouter()
                         "is_success": True,
                         "message": "Assessment retrieved successfully",
                         "assessment_id": "123e4567e89b12d3a456426614174000",
+                        "topic_id": "123e4567e89b12d3a456426614174000",
                         "questions": [
                             {
                                 "question_id": "123e4567e89b12d3a456426614174000",
+                                "topic": "4567e89b12d3a456426614174000",
                                 "text_to_evaluate": "Explain the difference between...",
                             }
                         ],
@@ -77,5 +79,5 @@ async def get_assessment_by_topic(
     )
     response = await handler.handle(request)
     if not response.is_success:
-        raise HTTPException(status_code=400, detail=response.message)
+        raise HTTPException(status_code=400, detail=response.model_dump())
     return response

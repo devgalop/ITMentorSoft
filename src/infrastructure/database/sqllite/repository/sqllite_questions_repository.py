@@ -100,3 +100,17 @@ class SqlliteQuestionsRepository(QuestionRepository):
         for rubric_entity in new_rubric_entities:
             self.session_factory.add(rubric_entity)
         await self.session_factory.commit()
+
+    async def get_question_categories(self, version: int) -> list[str]:
+        smt = (
+            select(QuestionEntity.classification)
+            .where(
+                QuestionEntity.version == version, QuestionEntity.status == "published"
+            )
+            .distinct()
+        )
+        result = await self.session_factory.execute(smt)
+        categories = result.scalars().all()
+        if not categories:
+            return []
+        return list(categories)

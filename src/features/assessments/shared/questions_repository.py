@@ -73,3 +73,15 @@ class QuestionRepository(ABC):
             question (Question): The question to be updated.
         """
         pass
+
+    @abstractmethod
+    async def get_question_categories(self, version: int) -> list[str]:
+        """Obtain all question categories
+
+        Args:
+            version (int): The version to filter question categories by.
+
+        Returns:
+            list[str]: A list of all question categories.
+        """
+        pass

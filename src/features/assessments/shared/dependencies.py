@@ -12,6 +12,9 @@ from src.features.assessments.get_assessment.get_assessment_handler import (
 from src.features.assessments.get_assessment_by_topic.get_assessment_by_topic_handler import (
     GetAssessmentByTopicHandler,
 )
+from src.features.assessments.get_question_categories.get_question_categories_handler import (
+    GetQuestionCategoriesHandler,
+)
 from src.features.assessments.shared.get_assessment_service import (
     GetAssessmentService,
 )
@@ -214,3 +217,11 @@ def get_get_assessment_by_topic_handler(
     ],
 ) -> GetAssessmentByTopicHandler:
     return GetAssessmentByTopicHandler(get_assessment_service=get_assessment_service)
+
+
+def get_get_question_categories_handler(
+    question_repository: Annotated[
+        QuestionRepository, Depends(get_question_repository)
+    ],
+) -> GetQuestionCategoriesHandler:
+    return GetQuestionCategoriesHandler(question_repository=question_repository)
