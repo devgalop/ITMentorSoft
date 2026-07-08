@@ -7,7 +7,10 @@ from src.features.content_management.shared.init import (
 )
 from src.features.assessments.shared.init import router as assessments_router
 from src.infrastructure.database.sqllite.shared.sqllite_database_session import init_db
-from src.infrastructure.database.sqllite.shared.sqllite_seeder import seed_database
+from src.infrastructure.database.sqllite.shared.sqllite_seeder import (
+    seed_assessments,
+    seed_database,
+)
 from src.infrastructure.security.bcrypt_password_hasher import BcryptPasswordHasher
 
 
@@ -17,6 +20,7 @@ async def lifespan(app: FastAPI):
     await init_db()
     await seed_database(BcryptPasswordHasher())
     await seed_questions()
+    await seed_assessments()
     yield
     print("Shutting down the application...")
 

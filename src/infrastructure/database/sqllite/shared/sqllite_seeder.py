@@ -2,10 +2,21 @@ from typing import Annotated
 import uuid
 from fastapi import Depends
 from sqlalchemy import select
+from datetime import datetime
+import secrets
 import os
 from dotenv import load_dotenv
 from src.features.user_management.shared.dependencies import get_password_hasher
 from src.features.user_management.shared.password_hasher import PasswordHasher
+from src.infrastructure.database.sqllite.models.sqllite_assessment_model import (
+    AssessmentAnswerEntity,
+    AssessmentEntity,
+    AssessmentQuizEntity,
+    TopicResultEntity,
+)
+from src.infrastructure.database.sqllite.models.sqllite_question_model import (
+    QuestionEntity,
+)
 from src.infrastructure.database.sqllite.models.sqllite_role_model import RoleEntity
 from src.infrastructure.database.sqllite.shared.sqllite_database_session import (
     AsyncSessionLocal,
@@ -18,11 +29,36 @@ ADMIN_USERNAME: str = os.getenv("DATABASE_ADMIN_USERNAME", "")
 ADMIN_PASSWORD: str = os.getenv("DATABASE_ADMIN_PASSWORD", "")
 ADMIN_EMAIL: str = os.getenv("DATABASE_ADMIN_EMAIL", "")
 
+TEACHER_PASSWORD: str = os.getenv("DEFAULT_TEACHER_PASSWORD", "")
+STUDENT_PASSWORD: str = os.getenv("DEFAULT_STUDENT_PASSWORD", "")
+
+
+def check_env_variables():
+    """Check if the required environment variables are set."""
+    missing_vars: list[str] = []
+    if not ADMIN_USERNAME:
+        missing_vars.append("DATABASE_ADMIN_USERNAME")
+    if not ADMIN_PASSWORD:
+        missing_vars.append("DATABASE_ADMIN_PASSWORD")
+    if not ADMIN_EMAIL:
+        missing_vars.append("DATABASE_ADMIN_EMAIL")
+    if not TEACHER_PASSWORD:
+        missing_vars.append("DEFAULT_TEACHER_PASSWORD")
+    if not STUDENT_PASSWORD:
+        missing_vars.append("DEFAULT_STUDENT_PASSWORD")
+
+    if missing_vars:
+        raise EnvironmentError(
+            f"Missing required environment variables: {', '.join(missing_vars)}"
+        )
+
 
 async def seed_database(
     password_hasher: Annotated[PasswordHasher, Depends(get_password_hasher)],
 ):
     async with AsyncSessionLocal() as session:
+        check_env_variables()
+
         result = await session.execute(select(RoleEntity))
         roles = result.scalars().all()
 
@@ -54,8 +90,6 @@ async def seed_database(
             description="Default user role with limited permissions.",
         )
         session.add(role_user)
-        await session.commit()
-
         admin = UserEntity(
             id=uuid.uuid4().hex,
             username=ADMIN_USERNAME,
@@ -65,5 +99,107 @@ async def seed_database(
             role_id=role_admin.id,
         )
         session.add(admin)
-        await session.commit()
         print("Admin user created")
+
+        teacher = UserEntity(
+            id=uuid.uuid4().hex,
+            username="default_teacher",
+            email="default_teacher@example.com",
+            hashed_password=password_hasher.hash_password(TEACHER_PASSWORD),
+            status="active",
+            role_id=role_teacher.id,
+        )
+        session.add(teacher)
+        print("Teacher user created")
+
+        for i in range(1, 3):
+            student = UserEntity(
+                id=uuid.uuid4().hex,
+                username=f"student{i}",
+                email=f"student{i}@example.com",
+                hashed_password=password_hasher.hash_password(STUDENT_PASSWORD),
+                status="active",
+                role_id=role_student.id,
+            )
+            session.add(student)
+        print("Student users created")
+        await session.commit()
+
+
+async def seed_assessments():
+    async with AsyncSessionLocal() as session:
+        student_summaries_result = await session.execute(
+            select(TopicResultEntity).limit(1)
+        )
+        student_summaries = student_summaries_result.scalars().all()
+        if student_summaries:
+            print("assessments already seeded. Skipping seeding.")
+            return
+
+        result = await session.execute(
+            select(UserEntity).where(UserEntity.username.contains("student"))
+        )
+        students = result.scalars().all()
+
+        questions_result = await session.execute(select(QuestionEntity).limit(20))
+
+        topics_result = await session.execute(
+            select(QuestionEntity.classification).distinct()
+        )
+        questions = questions_result.scalars().all()
+        topics = topics_result.scalars().all()
+
+        questions_by_assessment = [
+            questions[i : i + 5] for i in range(0, len(questions), 5)
+        ]
+
+        for student in students:
+            for i, question_set in enumerate(questions_by_assessment):
+                assessment_id = uuid.uuid4().hex
+                assessment = AssessmentEntity(
+                    id=assessment_id, user_id=student.id, created_at=datetime.now()
+                )
+                session.add(assessment)
+
+                assessment_answers: list[AssessmentAnswerEntity] = []
+                assessment_quizzes: list[AssessmentQuizEntity] = []
+                for question in question_set:
+                    assessment_quiz = AssessmentQuizEntity(
+                        assessment_id=assessment_id,
+                        question_id=question.id,
+                        created_at=datetime.now(),
+                    )
+                    assessment_quizzes.append(assessment_quiz)
+                    assessment_answer = AssessmentAnswerEntity(
+                        id=uuid.uuid4().hex,
+                        assessment_id=assessment_id,
+                        question_id=question.id,
+                        answer=f"Sample answer for question {question.id}",
+                        time_taken_seconds=30,
+                    )
+                    assessment_answers.append(assessment_answer)
+                session.add_all(assessment_answers)
+                session.add_all(assessment_quizzes)
+                print(
+                    f"Assessment {i} created for student {student.username} with {len(assessment_answers)} answers"
+                )
+
+            number_of_grades = 4
+            for idx in range(4):
+                is_enabled = False
+                if idx == number_of_grades - 1:
+                    is_enabled = True
+                for topic in topics:
+                    random_score = secrets.randbelow(4)
+                    topic_result = TopicResultEntity(
+                        user_id=student.id,
+                        topic=topic,
+                        score=random_score,
+                        is_enabled=is_enabled,
+                    )
+                    session.add(topic_result)
+                print(
+                    f"Knowledge profile created for student {student.username} with status {is_enabled}"
+                )
+
+        await session.commit()
