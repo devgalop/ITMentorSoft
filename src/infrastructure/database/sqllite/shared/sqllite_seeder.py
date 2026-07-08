@@ -33,10 +33,32 @@ TEACHER_PASSWORD: str = os.getenv("DEFAULT_TEACHER_PASSWORD", "")
 STUDENT_PASSWORD: str = os.getenv("DEFAULT_STUDENT_PASSWORD", "")
 
 
+def check_env_variables():
+    """Check if the required environment variables are set."""
+    missing_vars: list[str] = []
+    if not ADMIN_USERNAME:
+        missing_vars.append("DATABASE_ADMIN_USERNAME")
+    if not ADMIN_PASSWORD:
+        missing_vars.append("DATABASE_ADMIN_PASSWORD")
+    if not ADMIN_EMAIL:
+        missing_vars.append("DATABASE_ADMIN_EMAIL")
+    if not TEACHER_PASSWORD:
+        missing_vars.append("DEFAULT_TEACHER_PASSWORD")
+    if not STUDENT_PASSWORD:
+        missing_vars.append("DEFAULT_STUDENT_PASSWORD")
+
+    if missing_vars:
+        raise EnvironmentError(
+            f"Missing required environment variables: {', '.join(missing_vars)}"
+        )
+
+
 async def seed_database(
     password_hasher: Annotated[PasswordHasher, Depends(get_password_hasher)],
 ):
     async with AsyncSessionLocal() as session:
+        check_env_variables()
+
         result = await session.execute(select(RoleEntity))
         roles = result.scalars().all()
 
@@ -106,6 +128,14 @@ async def seed_database(
 
 async def seed_assessments():
     async with AsyncSessionLocal() as session:
+        student_summaries_result = await session.execute(
+            select(TopicResultEntity).limit(1)
+        )
+        student_summaries = student_summaries_result.scalars().all()
+        if student_summaries:
+            print("assessments already seeded. Skipping seeding.")
+            return
+
         result = await session.execute(
             select(UserEntity).where(UserEntity.username.contains("student"))
         )
