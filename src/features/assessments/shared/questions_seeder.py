@@ -61,7 +61,7 @@ async def read_questions_from_file(file_path: str) -> list[Question]:
                 )
             )
             .set_status(QuestionStatus.PUBLISHED)
-            .set_classification(item.get("clasificacion", ""))
+            .set_classification(item.get("categoria_contenido", ""))
             .set_version(1)
         )
 
