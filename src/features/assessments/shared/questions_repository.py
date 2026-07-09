@@ -101,3 +101,18 @@ class QuestionRepository(ABC):
             PaginatedQuestionsResult: The paginated result containing a list of questions for the specified page and the total number of questions.
         """
         pass
+
+    @abstractmethod
+    async def get_questions_pending_review(
+        self, page: int, page_size: int
+    ) -> PaginatedQuestionsResult:
+        """Obtain all questions pending review
+
+        Args:
+            page (int): The page number to retrieve.
+            page_size (int): The number of questions per page.
+
+        Returns:
+            PaginatedQuestionsResult: The paginated result containing a list of questions pending review and the total number of such questions.
+        """
+        pass

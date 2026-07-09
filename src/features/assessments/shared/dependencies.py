@@ -15,6 +15,9 @@ from src.features.assessments.get_assessment.get_assessment_handler import (
 from src.features.assessments.get_assessment_by_topic.get_assessment_by_topic_handler import (
     GetAssessmentByTopicHandler,
 )
+from src.features.assessments.get_pending_approval_questions.get_pending_approval_questions_handler import (
+    GetPendingApprovalQuestionsHandler,
+)
 from src.features.assessments.get_question_categories.get_question_categories_handler import (
     GetQuestionCategoriesHandler,
 )
@@ -236,3 +239,11 @@ def get_get_all_questions_handler(
     ],
 ) -> GetAllQuestionsHandler:
     return GetAllQuestionsHandler(questions_repository=questions_repository)
+
+
+def get_get_pending_approval_questions_handler(
+    questions_repository: Annotated[
+        QuestionRepository, Depends(get_question_repository)
+    ],
+) -> GetPendingApprovalQuestionsHandler:
+    return GetPendingApprovalQuestionsHandler(question_repository=questions_repository)

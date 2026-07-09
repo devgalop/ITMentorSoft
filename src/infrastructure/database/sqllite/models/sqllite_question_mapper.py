@@ -71,7 +71,7 @@ class SqlliteQuestionMapper:
             simple_explanation=question.simple_explanation,
             correct_sample=question.correct_sample,
             wrong_sample=question.wrong_sample,
-            common_misconception=(
+            common_misconceptions=(
                 question.common_misconceptions.split(PIPE_SEPARATOR)
                 if question.common_misconceptions
                 else []
