@@ -14,7 +14,7 @@ class QuestionDetails(BaseModel):
     simple_explanation: str
     correct_sample: str
     wrong_sample: str
-    common_misconception: list[str] = []
+    common_misconceptions: list[str] = []
     rubric: list[RubricScore] = []
     semantic_keywords: list[str] = []
     status: str

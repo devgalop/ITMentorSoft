@@ -15,8 +15,14 @@ from src.features.assessments.get_assessment.get_assessment_handler import (
 from src.features.assessments.get_assessment_by_topic.get_assessment_by_topic_handler import (
     GetAssessmentByTopicHandler,
 )
+from src.features.assessments.get_pending_approval_questions.get_pending_approval_questions_handler import (
+    GetPendingApprovalQuestionsHandler,
+)
 from src.features.assessments.get_question_categories.get_question_categories_handler import (
     GetQuestionCategoriesHandler,
+)
+from src.features.assessments.save_review_question.save_review_question_handler import (
+    SaveReviewQuestionHandler,
 )
 from src.features.assessments.shared.get_assessment_service import (
     GetAssessmentService,
@@ -46,6 +52,9 @@ from src.features.assessments.shared.question_assessment_repository import (
 )
 from src.features.assessments.shared.questions_cache_repository import (
     QuestionsCacheRepository,
+)
+from src.features.assessments.shared.review_question_service import (
+    ReviewQuestionService,
 )
 from src.features.assessments.update_question.update_question_handler import (
     UpdateQuestionHandler,
@@ -236,3 +245,31 @@ def get_get_all_questions_handler(
     ],
 ) -> GetAllQuestionsHandler:
     return GetAllQuestionsHandler(questions_repository=questions_repository)
+
+
+def get_get_pending_approval_questions_handler(
+    questions_repository: Annotated[
+        QuestionRepository, Depends(get_question_repository)
+    ],
+) -> GetPendingApprovalQuestionsHandler:
+    return GetPendingApprovalQuestionsHandler(question_repository=questions_repository)
+
+
+def get_review_question_service(
+    user_repository: Annotated[UserRepository, Depends(get_user_repository)],
+    question_repository: Annotated[
+        QuestionRepository, Depends(get_question_repository)
+    ],
+) -> ReviewQuestionService:
+    return ReviewQuestionService(
+        user_repository=user_repository,
+        question_repository=question_repository,
+    )
+
+
+def get_save_review_question_handler(
+    review_service: Annotated[
+        ReviewQuestionService, Depends(get_review_question_service)
+    ],
+) -> SaveReviewQuestionHandler:
+    return SaveReviewQuestionHandler(review_service=review_service)

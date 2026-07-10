@@ -1,6 +1,8 @@
 from typing import List
 from sqlalchemy.orm import Mapped, mapped_column, relationship
-from sqlalchemy import ForeignKey, Integer, String
+from sqlalchemy import ForeignKey, Integer, String, DateTime
+from datetime import datetime
+from src.infrastructure.database.sqllite.models.sqllite_user_model import UserEntity
 from src.infrastructure.database.sqllite.shared.sqllite_database_session import Base
 
 
@@ -28,6 +30,9 @@ class QuestionEntity(Base):
     rubric: Mapped[List["QuestionRubricScoreEntity"]] = relationship(
         "QuestionRubricScoreEntity", back_populates="question"
     )
+    reviews: Mapped[List["QuestionReviewEntity"]] = relationship(
+        "QuestionReviewEntity", back_populates="question"
+    )
 
 
 class QuestionRubricScoreEntity(Base):
@@ -43,3 +48,21 @@ class QuestionRubricScoreEntity(Base):
     question: Mapped["QuestionEntity"] = relationship(
         "QuestionEntity", back_populates="rubric"
     )
+
+
+class QuestionReviewEntity(Base):
+    __tablename__ = "question_reviews"
+
+    id: Mapped[str] = mapped_column(String, primary_key=True, index=True)
+    question_id: Mapped[str] = mapped_column(
+        String, ForeignKey("questions.id"), index=True
+    )
+    reviewer_id: Mapped[str] = mapped_column(String, ForeignKey("users.id"), index=True)
+    review_comments: Mapped[str] = mapped_column(String)
+    created_at: Mapped[datetime] = mapped_column(DateTime, default=datetime.now)
+
+    question: Mapped["QuestionEntity"] = relationship(
+        "QuestionEntity", back_populates="reviews"
+    )
+
+    reviewer: Mapped["UserEntity"] = relationship("UserEntity")

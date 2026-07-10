@@ -6,6 +6,7 @@ from src.features.assessments.shared.question import (
     EvaluativeQuestion,
     PaginatedQuestionsResult,
     Question,
+    QuestionReview,
     QuestionStatus,
 )
 from src.features.assessments.shared.questions_repository import QuestionRepository
@@ -121,15 +122,6 @@ class SqlliteQuestionsRepository(QuestionRepository):
     async def get_all_questions_paginated(
         self, page: int, page_size: int
     ) -> PaginatedQuestionsResult:
-        """Get all questions with pagination
-
-        Args:
-            page (int): The zero-based page index.
-            page_size (int): The number of items per page.
-
-        Returns:
-            PaginatedQuestionsResult: The paginated result containing the items for the requested page and the total count of all records. If there are no questions, returns an empty list and a total count of 0.
-        """
         count_smt = select(func.count()).select_from(QuestionEntity)
         total_result = await self.session_factory.execute(count_smt)
         total = total_result.scalar()
@@ -149,3 +141,45 @@ class SqlliteQuestionsRepository(QuestionRepository):
         ]
 
         return PaginatedQuestionsResult(items=questions, total=total)
+
+    async def get_questions_pending_review(
+        self, page: int, page_size: int
+    ) -> PaginatedQuestionsResult:
+        count_smt = (
+            select(func.count())
+            .select_from(QuestionEntity)
+            .where(QuestionEntity.status == QuestionStatus.DRAFT.value)
+        )
+        total_result = await self.session_factory.execute(count_smt)
+        total = total_result.scalar()
+        if not total:
+            return PaginatedQuestionsResult(items=[], total=0)
+
+        smt = (
+            select(QuestionEntity)
+            .options(selectinload(QuestionEntity.rubric))
+            .where(QuestionEntity.status == QuestionStatus.DRAFT.value)
+            .offset(page * page_size)
+            .limit(page_size)
+        )
+        result = await self.session_factory.execute(smt)
+        question_entities = result.scalars().all()
+        questions = [
+            self.mapper.to_detailed_model(entity) for entity in question_entities
+        ]
+
+        return PaginatedQuestionsResult(items=questions, total=total)
+
+    async def save_review(self, review: QuestionReview):
+        entity = self.mapper.to_review_entity(review)
+        self.session_factory.add(entity)
+        await self.session_factory.commit()
+
+    async def update_status(self, question_id: str, status: str):
+        smt = select(QuestionEntity).where(QuestionEntity.id == question_id)
+        result = await self.session_factory.execute(smt)
+        entity = result.scalars().first()
+        if not entity:
+            return
+        entity.status = status
+        await self.session_factory.commit()
