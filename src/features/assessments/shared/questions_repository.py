@@ -4,6 +4,7 @@ from src.features.assessments.shared.question import (
     EvaluativeQuestion,
     PaginatedQuestionsResult,
     Question,
+    QuestionReview,
 )
 
 
@@ -99,5 +100,39 @@ class QuestionRepository(ABC):
 
         Returns:
             PaginatedQuestionsResult: The paginated result containing a list of questions for the specified page and the total number of questions.
+        """
+        pass
+
+    @abstractmethod
+    async def get_questions_pending_review(
+        self, page: int, page_size: int
+    ) -> PaginatedQuestionsResult:
+        """Obtain all questions pending review
+
+        Args:
+            page (int): The page number to retrieve.
+            page_size (int): The number of questions per page.
+
+        Returns:
+            PaginatedQuestionsResult: The paginated result containing a list of questions pending review and the total number of such questions.
+        """
+        pass
+
+    @abstractmethod
+    async def save_review(self, review: QuestionReview):
+        """Save a review for a question
+
+        Args:
+            review (QuestionReview): The review to be saved.
+        """
+        pass
+
+    @abstractmethod
+    async def update_status(self, question_id: str, status: str):
+        """Update the status of a question
+
+        Args:
+            question_id (str): The ID of the question to update.
+            status (str): The new status to set for the question.
         """
         pass

@@ -434,3 +434,22 @@ class PaginatedQuestionsResult:
     def __init__(self, items: list[QuestionDetails], total: int):
         self.items = items
         self.total = total
+
+
+class QuestionReview:
+    """Represents a review of a question
+
+    Args:
+        review_id (str): The ID of the review.
+        question_id (str): The ID of the question being reviewed.
+        reviewer_id (str): The ID of the reviewer.
+        review_comments (str): The comments provided by the reviewer.
+    """
+
+    def __init__(
+        self, review_id: str, question_id: str, reviewer_id: str, review_comments: str
+    ):
+        self.review_id = review_id
+        self.question_id = question_id
+        self.reviewer_id = reviewer_id
+        self.review_comments = review_comments
