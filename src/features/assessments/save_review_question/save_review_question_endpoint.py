@@ -79,5 +79,7 @@ async def save_review_question(
         if not response.is_success:
             raise HTTPException(status_code=400, detail=response.message)
         return response
+    except HTTPException:
+        raise
     except Exception as e:
         raise HTTPException(status_code=500, detail=str(e))

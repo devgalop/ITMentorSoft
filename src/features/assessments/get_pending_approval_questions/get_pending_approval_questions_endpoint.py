@@ -75,5 +75,7 @@ async def get_pending_approval_questions(
         if not response.is_success:
             raise HTTPException(status_code=400, detail=response.model_dump())
         return response
+    except HTTPException:
+        raise
     except Exception as e:
         raise HTTPException(status_code=400, detail=f"Invalid request: {str(e)}")
