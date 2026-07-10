@@ -6,6 +6,7 @@ from src.features.assessments.shared.question import (
     EvaluativeQuestion,
     PaginatedQuestionsResult,
     Question,
+    QuestionReview,
     QuestionStatus,
 )
 from src.features.assessments.shared.questions_repository import QuestionRepository
@@ -168,3 +169,17 @@ class SqlliteQuestionsRepository(QuestionRepository):
         ]
 
         return PaginatedQuestionsResult(items=questions, total=total)
+
+    async def save_review(self, review: QuestionReview):
+        entity = self.mapper.to_review_entity(review)
+        self.session_factory.add(entity)
+        await self.session_factory.commit()
+
+    async def update_status(self, question_id: str, status: str):
+        smt = select(QuestionEntity).where(QuestionEntity.id == question_id)
+        result = await self.session_factory.execute(smt)
+        entity = result.scalars().first()
+        if not entity:
+            return
+        entity.status = status
+        await self.session_factory.commit()

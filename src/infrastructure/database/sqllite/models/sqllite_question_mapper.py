@@ -2,6 +2,7 @@ from src.features.assessments.shared.question import (
     EvaluativeQuestion,
     Question,
     QuestionDifficulty,
+    QuestionReview,
     QuestionRubricScore,
     QuestionStatus,
 )
@@ -11,6 +12,7 @@ from src.features.assessments.shared.question_details import (
 )
 from src.infrastructure.database.sqllite.models.sqllite_question_model import (
     QuestionEntity,
+    QuestionReviewEntity,
     QuestionRubricScoreEntity,
 )
 
@@ -88,6 +90,15 @@ class SqlliteQuestionMapper:
             version=question.version,
         )
         return model
+
+    @staticmethod
+    def to_review_entity(review: QuestionReview) -> QuestionReviewEntity:
+        return QuestionReviewEntity(
+            id=review.review_id,
+            question_id=review.question_id,
+            reviewer_id=review.reviewer_id,
+            review_comments=review.review_comments,
+        )
 
     @staticmethod
     def to_rubric_score_model(
