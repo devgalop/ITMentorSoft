@@ -1,54 +1,46 @@
-from typing import Type
-
 from src.features.assessments.register_question.register_question_request import (
     RegisterQuestionRequest,
 )
 from src.features.assessments.register_question.register_question_response import (
     RegisterQuestionResponse,
 )
-from src.features.assessments.shared.question import (
-    Question,
-    QuestionBuilder,
-    QuestionRubricScore,
+from src.features.assessments.shared.question_manager_service import (
+    CreateQuestionRequest,
+    QuestionManagerService,
 )
-from src.features.assessments.shared.questions_repository import QuestionRepository
 
 
 class RegisterQuestionHandler:
     def __init__(
         self,
-        question_repository: QuestionRepository,
-        question_builder: Type[QuestionBuilder],
+        question_service: QuestionManagerService,
     ):
-        self.question_repository = question_repository
-        self.question_builder = question_builder
+        self.question_service = question_service
 
     async def handle(
-        self, request: RegisterQuestionRequest
+        self, request: RegisterQuestionRequest, user_name: str
     ) -> RegisterQuestionResponse:
         try:
-            rubric_scores: list[QuestionRubricScore] = [
-                QuestionRubricScore(score=r.score, explanation=r.criteria)
-                for r in request.rubric
-            ]
-            question: Question = (
-                self.question_builder()
-                .set_text_to_evaluate(request.text)
-                .set_concept(request.concept)
-                .set_definition(request.definition)
-                .set_simple_explanation(request.simple_explanation)
-                .set_correct_sample(request.correct_sample)
-                .set_wrong_sample(request.wrong_sample)
-                .add_common_misconceptions(request.common_misconception)
-                .add_semantic_keywords(request.semantic_keywords)
-                .add_rubrics(rubric_scores)
-                .build()
+            response = await self.question_service.create_question(
+                CreateQuestionRequest(model=request, user_name=user_name)
             )
-            await self.question_repository.save_question(question)
+
+            if not response:
+                return RegisterQuestionResponse(
+                    is_success=False,
+                    message="Failed to register question: Unknown error",
+                )
+
+            if not response.is_success:
+                return RegisterQuestionResponse(
+                    is_success=False,
+                    message=f"Failed to register question: {response.message}",
+                )
+
             return RegisterQuestionResponse(
-                is_success=True,
-                message="Question registered successfully",
-                question_id=question.question_id,
+                is_success=response.is_success,
+                message=response.message,
+                question_id=response.question_id,
             )
         except Exception as e:
             return RegisterQuestionResponse(
