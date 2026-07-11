@@ -47,9 +47,10 @@ def _make_mock_builder_instance(question_id: str = "q-123"):
 
 
 def _make_admin_user(email: str):
-    """Create a simple mock object with an email attribute."""
+    """Create a simple mock object with email and username attributes."""
     user = MagicMock()
     user.email = email
+    user.username = email.split("@")[0]
     return user
 
 
