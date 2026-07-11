@@ -29,14 +29,16 @@ class CreateUserHandler:
             return CreateUserResponse(
                 is_success=False, message="Username already in use"
             )
-        default_role = await self.role_repository.get_role_by_name(UserRole.USER.value)
+        default_role = await self.role_repository.get_role_by_name(
+            UserRole.STUDENT.value
+        )
         password_hashed = self.password_hasher.hash_password(user_data.password)
         user_entity = User(
             username=user_data.username,
             email=user_data.email,
             password_hashed=password_hashed,
             status=UserStatus.ACTIVE,
-            role=UserRole.USER,
+            role=UserRole.STUDENT,
         )
         if default_role:
             user_entity.set_role_id(default_role.role_id)
