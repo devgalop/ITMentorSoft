@@ -12,6 +12,7 @@ from src.features.user_management.shared.user import (
     UserRole,
 )
 from src.features.user_management.shared.user_repository import UserRepository
+from src.infrastructure.database.sqllite.models.sqllite_role_model import RoleEntity
 from src.infrastructure.database.sqllite.models.sqllite_user_mapper import (
     SqlLiteUserMapper,
 )
@@ -107,3 +108,20 @@ class SqlLiteUserRepository(UserRepository):
 
     async def get_available_roles(self) -> list[str]:
         return [role.value for role in UserRole]
+
+    async def get_admin_users(self) -> list[UserResponse]:
+        role_stmt = select(RoleEntity).where(RoleEntity.name == UserRole.ADMIN.value)
+        role = await self.session_factory.execute(role_stmt)
+        role = role.scalars().first()
+        if not role:
+            return []
+        stmt = (
+            select(UserEntity)
+            .options(selectinload(UserEntity.role))
+            .where(UserEntity.role_id == role.id)
+        )
+        result = await self.session_factory.execute(stmt)
+        users_found = result.scalars().all()
+        if not users_found:
+            return []
+        return [self.user_mapper.to_response(user) for user in users_found]

@@ -21,7 +21,9 @@ async def test_when_user_is_valid_should_create_user():
     password_hasher.hash_password = Mock(return_value="hashed_password")
     role_repository = AsyncMock()
     role_repository.get_role_by_name = AsyncMock(
-        return_value=Role(role_id="1", name="user", description="Default user role")
+        return_value=Role(
+            role_id="1", name="student", description="Default student role"
+        )
     )
 
     handler = CreateUserHandler(user_repository, password_hasher, role_repository)
@@ -34,7 +36,7 @@ async def test_when_user_is_valid_should_create_user():
     user_repository.get_user_by_email.assert_called_once_with("test@example.com")
     user_repository.get_user_by_username.assert_called_once_with("testuser")
     password_hasher.hash_password.assert_called_once_with("StrongPassword123!")
-    role_repository.get_role_by_name.assert_called_once_with("user")
+    role_repository.get_role_by_name.assert_called_once_with("student")
     user_repository.save.assert_called_once()
 
 

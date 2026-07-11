@@ -69,10 +69,9 @@ router = APIRouter()
 async def register_question(
     request: RegisterQuestionRequest,
     handler: Annotated[RegisterQuestionHandler, Depends(get_register_question_handler)],
-    _: Annotated[TokenData, Depends(require_roles(["admin", "teacher"]))],
+    user_consumer: Annotated[TokenData, Depends(require_roles(["admin", "teacher"]))],
 ) -> RegisterQuestionResponse:
-
-    response = await handler.handle(request)
+    response = await handler.handle(request, user_consumer.user_name)
     if not response.is_success:
         raise HTTPException(status_code=400, detail=response.model_dump())
     return response

@@ -64,6 +64,8 @@ Gestión completa de usuarios y autenticación:
 - `UserRecoveryTokenRepository` - Abstracción para tokens de recuperación
 - `PasswordHasher` - Abstracción para hashing de contraseñas
 - `TokenGenerator` - Abstracción para generación de JWT
+- `get_current_user` - Servicio para obtener usuario autenticado
+- `require_roles` - Middleware de autorización basada en roles
 
 ### Content Management (`/content`)
 
@@ -79,11 +81,49 @@ Gestión de contenidos educativos:
 | `get_contents_by_category` | Filtrar contenidos por categoría |
 | `get_contents_by_title` | Buscar contenidos por título |
 | `get_contents_by_category_topic` | Filtrar por categoría y tema |
+| `update_resource_content` | Actualizar contenido existente |
 
 **Recursos compartidos:**
 
 - `Content` - Modelo de dominio
 - `ContentRepository` - Abstracción del repositorio de contenidos
+
+### Assessments (`/assessments`)
+
+Gestión de evaluaciones, preguntas y calificación de respuestas:
+
+| Operación | Descripción |
+| ----------- | ------------- |
+| `register_question` | Registrar nueva pregunta |
+| `get_question_by_id` | Obtener pregunta por ID |
+| `get_questions_by_level` | Obtener preguntas por nivel de dificultad |
+| `get_questions_by_category` | Obtener preguntas por categoría |
+| `update_question` | Actualizar pregunta existente |
+| `get_assessment` | Obtener evaluación |
+| `get_assessment_by_topic` | Obtener evaluación por tema |
+| `save_assessments_answers` | Guardar respuestas del estudiante |
+| `evaluate` | Evaluar respuestas con LLM |
+| `get_question_categories` | Listar categorías de preguntas disponibles |
+| `get_all_questions` | Listar todas las preguntas |
+| `get_pending_approval_questions` | Obtener preguntas pendientes de aprobación |
+| `save_review_question` | Guardar revisión de pregunta |
+
+**Recursos compartidos:**
+
+- `Question` - Modelo de dominio de pregunta (con QuestionBuilder, QuestionDifficulty, QuestionStatus, QuestionRubricScore, QuestionReview)
+- `Assessment` - Modelo de dominio de evaluación (con AssessmentAnswer, AssessmentQuiz, EvaluatorQuestion)
+- `PaginatedQuestionsResult` - Resultado paginado de preguntas
+- `QualifierService` - Abstracción del servicio de calificación LLM
+- `QualifierPrompt` / `BatchQualifierPrompt` - Prompts para calificación
+- `QualifierResult` / `TopicResult` - Resultados de calificación
+- `QuestionsRepository` - Abstracción del repositorio de preguntas
+- `QuestionAssessmentRepository` - Abstracción del repositorio de preguntas de evaluación
+- `QuestionsCacheRepository` - Abstracción del repositorio cache de preguntas
+- `AssessmentRepository` - Abstracción del repositorio de evaluaciones
+- `GetAssessmentService` - Servicio de obtención de evaluaciones
+- `ReviewQuestionService` - Servicio de revisión de preguntas
+- `QualifierService` (infrastructure) - Servicio de calificación con LLM
+- `QuestionsSeeder` - Seeder de preguntas desde JSON
 
 ## Infrastructure
 
@@ -101,28 +141,53 @@ infrastructure/
 └── security/
     ├── jwt_token_generator.py         # Implementación JWT
     └── bcrypt_password_hasher.py      # Implementación bcrypt
+└── qualifier/
+    ├── groq_qualifier_service.py      # Calificación con Groq API
+    ├── opencode_qualifier_service.py  # Calificación con OpenAI API
+    ├── input_prompt.txt               # Template prompt individual
+    └── input_prompt_batch.txt         # Template prompt batch
 ```
 
 ### SQLite Models
 
 | Modelo | Descripción |
 | ----------- | ------------- |
-| `SqlliteUser` | Modelo de usuario en BD |
-| `SqlliteRole` | Modelo de rol en BD |
-| `SqlliteResourceContent` | Modelo de contenido educativo |
-| `SqlliteContentRating` | Modelo de calificaciones |
-| `SqlliteQuestion` | Modelo de preguntas |
+| `UserEntity` | Modelo de usuario en BD |
+| `RoleEntity` | Modelo de rol en BD |
+| `ResourceContentEntity` | Modelo de contenido educativo |
+| `ContentRating` | Modelo de calificaciones |
+| `QuestionEntity` | Modelo de pregunta en BD |
+| `AssessmentEntity` | Modelo de evaluación en BD |
 
 ### Repositorios SQLite
 
 | Repositorio | Descripción |
 | ----------- | ------------- |
-| `SqlliteUserRepository` | Persistencia de usuarios |
-| `SqlliteRoleRepository` | Persistencia de roles |
-| `SqlliteResourceContentRepository` | Persistencia de contenidos |
-| `SqlliteContentRatingRepository` | Persistencia de calificaciones |
-| `SqlliteUserRefreshTokenRepository` | Tokens de refresh |
-| `SqlliteUserRecoveryTokenRepository` | Tokens de recuperación |
+| `SqlLiteUserRepository` | Persistencia de usuarios |
+| `SqlLiteRoleRepository` | Persistencia de roles |
+| `SqlLiteResourceContentRepository` | Persistencia de contenidos |
+| `SqlLiteContentRatingRepository` | Persistencia de calificaciones |
+| `SqlLiteUserRefreshTokenRepository` | Tokens de refresh |
+| `SqlLiteUserRecoveryTokenRepository` | Tokens de recuperación |
+| `SqlliteQuestionsRepository` | Persistencia de preguntas |
+| `SqlliteAssessmentRepository` | Persistencia de evaluaciones |
+| `SqlLiteQuestionsAssessmentRepository` | Persistencia de preguntas de evaluación |
+
+### Qualifier (LLM)
+
+Capa de implementación de servicios de calificación inteligente:
+
+| Servicio | Descripción |
+| ----------- | ------------- |
+| `GroqQualifierService` | Calificación de respuestas usando Groq API |
+| `OpencodeQualifierService` | Calificación de respuestas usando OpenAI API |
+
+**Prompt templates:**
+
+| Archivo | Descripción |
+| ----------- | ------------- |
+| `input_prompt.txt` | Template de prompt para calificación individual |
+| `input_prompt_batch.txt` | Template de prompt para calificación en lote |
 
 ## Flujo de dependencias
 
@@ -132,31 +197,36 @@ infrastructure/
 │              (FastAPI app + lifespan)                   │
 └────────────────────────┬────────────────────────────────┘
                          │
-          ┌──────────────┴──────────────┐
-          │                             │
-    ┌─────▼─────┐                 ┌─────▼─────┐
-    │  users    │                 │  content  │
-    │  router   │                 │  router   │
-    └─────┬─────┘                 └─────┬─────┘
-          │                             │
-    ┌─────▼─────┐                 ┌─────▼─────┐
-    │  handler  │                 │  handler  │
-    │  (lógica) │                 │  (lógica) │
-    └─────┬─────┘                 └─────┬─────┘
-          │                             │
-    ┌─────▼─────┐                 ┌─────▼─────┐
-    │  reposit. │                 │  reposit. │
-    │  (interfaz)│                │  (interfaz)│
-    └─────┬─────┘                 └─────┬─────┘
-          │                             │
-    ┌─────▼─────────────────────────────▼─────┐
-    │         infrastructure                  │
-    │   (implementaciones concretas)          │
-    │  ┌──────────┐  ┌────────────┐  ┌───────┐│
-    │  │ SQLite   │  │ Brevo      │  │ JWT   ││
-    │  │          │  │ Notification│ │ Bcrypt││
-    │  └──────────┘  └────────────┘  └───────┘│
-    └──────────────────────────────────────────┘
+           ┌──────────────┼──────────────┐
+           │              │              │
+     ┌─────▼─────┐ ┌─────▼─────┐ ┌─────▼─────┐
+     │  users    │ │  content  │ │assessments│
+     │  router   │ │  router   │ │  router   │
+     └─────┬─────┘ └─────┬─────┘ └─────┬─────┘
+           │              │              │
+     ┌─────▼─────┐ ┌─────▼─────┐ ┌─────▼─────┐
+     │  handler  │ │  handler  │ │  handler  │
+     │  (lógica) │ │  (lógica) │ │  (lógica) │
+     └─────┬─────┘ └─────┬─────┘ └─────┬─────┘
+           │              │              │
+     ┌─────▼──────────────▼──────────────▼─────┐
+     │         interfaces de repositorio       │
+     │         (abstracciones)                 │
+     └─────┬───────────────────────────────────┘
+           │
+     ┌─────▼───────────────────────────────────┐
+     │         infrastructure                  │
+     │   (implementaciones concretas)          │
+     │  ┌──────────┐  ┌────────────┐  ┌───────┐│
+     │  │ SQLite   │  │ Brevo      │  │ JWT   ││
+     │  │          │  │ Notification│ │ Bcrypt││
+     │  └──────────┘  └────────────┘  └───────┘│
+     │  ┌──────────────────────────────────────┐│
+     │  │ Qualifier (LLM)                      ││
+     │  │  GroqQualifierService                ││
+     │  │  OpencodeQualifierService            ││
+     │  └──────────────────────────────────────┘│
+     └──────────────────────────────────────────┘
 ```
 
 ## Diagramas de arquitectura

@@ -1,5 +1,9 @@
 from abc import ABC, abstractmethod
 import uuid
+import os
+from dotenv import load_dotenv
+
+load_dotenv()
 
 
 class NotificationConfig:
@@ -17,8 +21,9 @@ class NotificationConfig:
 class NotificationConfigBuilder:
     """Class to build notification configuration with a fluent interface"""
 
-    def __init__(self, sender: str, destination: str, subject: str):
-        self.config = NotificationConfig(sender, destination, subject)
+    def __init__(self, destination: str, subject: str):
+        default_sender = os.getenv("EMAIL_DEFAULT_SENDER", "")
+        self.config = NotificationConfig(default_sender, destination, subject)
 
     def set_template(self, template: str) -> "NotificationConfigBuilder":
         """Add a template body for the notification.

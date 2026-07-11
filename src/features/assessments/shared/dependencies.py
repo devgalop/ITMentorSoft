@@ -50,6 +50,9 @@ from src.features.assessments.shared.qualifier_service import QualifierService
 from src.features.assessments.shared.question_assessment_repository import (
     QuestionAssessmentRepository,
 )
+from src.features.assessments.shared.question_manager_service import (
+    QuestionManagerService,
+)
 from src.features.assessments.shared.questions_cache_repository import (
     QuestionsCacheRepository,
 )
@@ -61,6 +64,8 @@ from src.features.assessments.update_question.update_question_handler import (
 )
 from src.features.assessments.shared.question import QuestionBuilder
 from src.features.assessments.shared.questions_repository import QuestionRepository
+from src.features.shared.notification_service import NotificationService
+from src.features.shared.template_loader import TemplateLoader
 from src.features.user_management.shared.dependencies import get_user_repository
 from src.features.user_management.shared.user_repository import UserRepository
 from src.infrastructure.database.sqllite.models.sqllite_assessment_mapper import (
@@ -80,6 +85,9 @@ from src.infrastructure.database.sqllite.repository.sqllite_questions_repository
 )
 from src.infrastructure.database.sqllite.shared.sqllite_database_session import get_db
 
+from src.infrastructure.notification.brevo_notification_service import (
+    BrevoNotificationService,
+)
 from src.infrastructure.qualifier.opencode_qualifier_service import (
     OpencodeQualifierService,
 )
@@ -113,15 +121,43 @@ def get_questions_cache_repository(
     )
 
 
-def get_register_question_handler(
+def get_notification_service() -> NotificationService:
+    return BrevoNotificationService()
+
+
+def get_template_loader() -> TemplateLoader:
+    return TemplateLoader()
+
+
+def get_question_manager_service(
     question_repository: Annotated[
         QuestionRepository, Depends(get_question_repository)
     ],
-) -> RegisterQuestionHandler:
-    return RegisterQuestionHandler(
+    notification_service: Annotated[
+        NotificationService,
+        Depends(get_notification_service),
+    ],
+    template_loader: Annotated[
+        TemplateLoader,
+        Depends(get_template_loader),
+    ],
+    user_repository: Annotated[UserRepository, Depends(get_user_repository)],
+) -> QuestionManagerService:
+    return QuestionManagerService(
         question_repository=question_repository,
         question_builder=QuestionBuilder,
+        notification_service=notification_service,
+        template_loader=template_loader,
+        user_repository=user_repository,
     )
+
+
+def get_register_question_handler(
+    question_service: Annotated[
+        QuestionManagerService, Depends(get_question_manager_service)
+    ],
+) -> RegisterQuestionHandler:
+    return RegisterQuestionHandler(question_service=question_service)
 
 
 def get_get_question_by_id_handler(
