@@ -24,7 +24,6 @@ load_dotenv()
 
 
 EMAIL_RECOVERY_SUBJECT = "Recovery Password Instructions"
-EMAIL_RECOVERY_SENDER = os.getenv("EMAIL_RECOVERY_SENDER", "")
 RECOVERY_URL_BASE = os.getenv("RECOVERY_URL_BASE", "")
 
 
@@ -67,7 +66,7 @@ class RecoveryPasswordHandler:
         await self.user_recovery_token_repository.save_token(recovery_token_info)
 
         notification_config_builder = NotificationConfigBuilder(
-            EMAIL_RECOVERY_SENDER, request.email, EMAIL_RECOVERY_SUBJECT
+            request.email, EMAIL_RECOVERY_SUBJECT
         )
 
         html_content = self.template_loader.load("recovery_password")

@@ -102,3 +102,12 @@ class UserRepository(ABC):
             list[str]: A list of available roles in the system.
         """
         pass
+
+    @abstractmethod
+    async def get_admin_users(self) -> list[UserResponse]:
+        """Get the list of admin users.
+
+        Returns:
+            list[UserResponse]: A list of user response objects for admin users.
+        """
+        pass
