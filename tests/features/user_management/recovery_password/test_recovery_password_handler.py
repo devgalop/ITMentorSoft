@@ -11,6 +11,7 @@ from src.features.user_management.recovery_password.recovery_password_response i
     RecoveryPasswordResponse,
 )
 from src.features.shared.notification_service import NotificationService
+from src.features.shared.template_loader import TemplateLoader
 from src.features.user_management.shared.token_generator import TokenGenerator
 from src.features.user_management.shared.password_hasher import PasswordHasher
 from src.features.user_management.shared.user_recovery_token_repository import (
@@ -27,6 +28,7 @@ async def test_when_email_does_not_exist_then_response_message_is_returned():
     user_recovery_repository = AsyncMock(spec=UserRecoveryTokenRepository)
     notification_service = AsyncMock(spec=NotificationService)
     password_hasher = AsyncMock(spec=PasswordHasher)
+    template_loader = TemplateLoader()
 
     handler = RecoveryPasswordHandler(
         user_repository=user_repository,
@@ -34,6 +36,7 @@ async def test_when_email_does_not_exist_then_response_message_is_returned():
         notification_service=notification_service,
         token_generator=token_generator,
         password_hasher=password_hasher,
+        template_loader=template_loader,
     )
 
     request = RecoveryPasswordRequest(email="nonexistent@example.com")
@@ -67,6 +70,7 @@ async def test_when_email_exists_then_recovery_process_is_initiated():
     notification_service = AsyncMock(spec=NotificationService)
     password_hasher = AsyncMock(spec=PasswordHasher)
     password_hasher.hash_password.return_value = "hashed-token"
+    template_loader = TemplateLoader()
 
     handler = RecoveryPasswordHandler(
         user_repository=user_repository,
@@ -74,6 +78,7 @@ async def test_when_email_exists_then_recovery_process_is_initiated():
         notification_service=notification_service,
         token_generator=token_generator,
         password_hasher=password_hasher,
+        template_loader=template_loader,
     )
 
     request = RecoveryPasswordRequest(email="testuser@example.com")

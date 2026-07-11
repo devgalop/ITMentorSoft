@@ -64,6 +64,7 @@ from src.infrastructure.notification.brevo_notification_service import (
 from src.infrastructure.security.bcrypt_password_hasher import BcryptPasswordHasher
 from src.infrastructure.security.jwt_token_generator import JWTTokenGenerator
 from src.features.shared.notification_service import NotificationService
+from src.features.shared.template_loader import TemplateLoader
 
 
 def get_user_repository(
@@ -133,6 +134,10 @@ def get_notification_service() -> NotificationService:
     return BrevoNotificationService()
 
 
+def get_template_loader() -> TemplateLoader:
+    return TemplateLoader()
+
+
 def get_recovery_password_handler(
     user_repository: Annotated[UserRepository, Depends(get_user_repository)],
     user_recovery_token_repository: Annotated[
@@ -143,6 +148,7 @@ def get_recovery_password_handler(
     ],
     token_generator: Annotated[TokenGenerator, Depends(get_token_generator)],
     password_hasher: Annotated[PasswordHasher, Depends(get_password_hasher)],
+    template_loader: Annotated[TemplateLoader, Depends(get_template_loader)],
 ) -> RecoveryPasswordHandler:
     return RecoveryPasswordHandler(
         user_repository,
@@ -150,6 +156,7 @@ def get_recovery_password_handler(
         notification_service,
         token_generator,
         password_hasher,
+        template_loader,
     )
 
 
