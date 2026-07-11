@@ -5,7 +5,11 @@ class TemplateLoader:
     """Loads HTML templates from the assets/templates directory."""
 
     def __init__(self, base_path: str | None = None):
-        self.base_path = Path(base_path) if base_path else Path("src/assets/templates")
+        self.base_path = (
+            Path(base_path)
+            if base_path
+            else Path(__file__).resolve().parents[2] / "assets" / "templates"
+        )
 
     def load(self, template_name: str) -> str:
         """Load a template by name (without .html extension).

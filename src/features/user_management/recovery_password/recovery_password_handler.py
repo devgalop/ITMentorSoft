@@ -69,23 +69,21 @@ class RecoveryPasswordHandler:
             request.email, EMAIL_RECOVERY_SUBJECT
         )
 
-        html_content = self.template_loader.load("recovery_password")
-        html_content = (
-            html_content.replace("%URL_BASE%", RECOVERY_URL_BASE)
-            .replace("%URL_TOKEN%", token.token)
-            .replace("%USER%", user.username)
-            .replace("%ID_TRX%", recovery_token_info.id_trx)
-        )
+        try:
+            html_content = self.template_loader.load("recovery_password")
+            html_content = (
+                html_content.replace("%URL_BASE%", RECOVERY_URL_BASE)
+                .replace("%URL_TOKEN%", token.token)
+                .replace("%USER%", user.username)
+                .replace("%ID_TRX%", recovery_token_info.id_trx)
+            )
+            notification_config_builder.set_template(html_content)
+            notification_config = notification_config_builder.build()
 
-        notification_config_builder.set_template(html_content)
-        notification_config = notification_config_builder.build()
-
-        response = await self.notification_service.send_notification(
-            notification_config
-        )
-
-        if not response:
-            response_message = "Failed to send recovery email. Please try again later."
-            return RecoveryPasswordResponse(message=response_message)
+            _ = await self.notification_service.send_notification(notification_config)
+        except FileNotFoundError:
+            return RecoveryPasswordResponse(
+                message="Email template not found. Please contact support."
+            )
 
         return RecoveryPasswordResponse(message=response_message)
