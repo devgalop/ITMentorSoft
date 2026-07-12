@@ -10,6 +10,7 @@ from src.features.assessments.shared.qualifier_service import (
     QualifierResult,
     TopicResult,
 )
+from src.features.reports.shared.student_report import StudentSummary
 from src.infrastructure.database.sqllite.models.sqllite_assessment_mapper import (
     SqlliteAssessmentMapper,
 )
@@ -123,3 +124,43 @@ class SqlliteAssessmentRepository(AssessmentRepository):
             self.mapper.topic_result_to_model(entity)
             for entity in topic_result_entities
         ]
+
+    async def get_student_summary(self, user_id: str) -> StudentSummary:
+        smt = (
+            select(TopicResultEntity)
+            .options(selectinload(TopicResultEntity.user))
+            .where(TopicResultEntity.user_id == user_id, TopicResultEntity.is_enabled)
+        )
+        result = await self.session_factory.execute(smt)
+        topic_result_entities = result.scalars().all()
+        if not topic_result_entities:
+            return StudentSummary(
+                student_id=user_id,
+                student_name="Unknown Student",
+                knowledge_profiles=[],
+                knowledge_classification="No data available",
+                feedback="No feedback available",
+            )
+
+        knowledge_profiles = [
+            self.mapper.topic_result_to_knowledge_profile(entity)
+            for entity in topic_result_entities
+        ]
+
+        student_name = (
+            topic_result_entities[0].user.username
+            if topic_result_entities
+            else "Unknown Student"
+        )
+
+        # For demonstration purposes, we will use placeholder values for knowledge classification and feedback.
+        knowledge_classification = "This classification will be determined based on the student's knowledge profile."
+        feedback = "This feedback will be generated based on the student's performance and knowledge profile."
+
+        return StudentSummary(
+            student_id=user_id,
+            student_name=student_name,
+            knowledge_profiles=knowledge_profiles,
+            knowledge_classification=knowledge_classification,
+            feedback=feedback,
+        )

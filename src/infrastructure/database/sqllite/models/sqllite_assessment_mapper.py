@@ -9,6 +9,7 @@ from src.features.assessments.shared.qualifier_service import (
     QualifierResult,
     TopicResult,
 )
+from src.features.reports.shared.student_report import StudentKnowledgeProfile
 from src.infrastructure.database.sqllite.models.sqllite_assessment_model import (
     AssessmentAnswerEntity,
     AssessmentEntity,
@@ -109,6 +110,12 @@ class SqlliteAssessmentMapper:
     def topic_result_to_model(entity: TopicResultEntity) -> TopicResult:
         return SqlliteTopicResultMapper.to_model(entity)
 
+    @staticmethod
+    def topic_result_to_knowledge_profile(
+        entity: TopicResultEntity,
+    ) -> StudentKnowledgeProfile:
+        return SqlliteTopicResultMapper.to_knowledge_profile(entity)
+
 
 class SqlliteAssessmentAnswerMapper:
     @staticmethod
@@ -199,6 +206,13 @@ class SqlliteTopicResultMapper:
     def to_model(entity: TopicResultEntity) -> TopicResult:
         return TopicResult(
             user_id=entity.user_id,
+            topic=entity.topic,
+            score=entity.score,
+        )
+
+    @staticmethod
+    def to_knowledge_profile(entity: TopicResultEntity) -> StudentKnowledgeProfile:
+        return StudentKnowledgeProfile(
             topic=entity.topic,
             score=entity.score,
         )
