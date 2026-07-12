@@ -5,6 +5,7 @@ from src.features.assessments.shared.qualifier_service import (
     QualifierResult,
     TopicResult,
 )
+from src.features.reports.shared.student_report import StudentSummary
 
 
 class AssessmentRepository(ABC):
@@ -101,5 +102,17 @@ class AssessmentRepository(ABC):
 
         Returns:
             A list of TopicResult corresponding to the given user ID.
+        """
+        pass
+
+    @abstractmethod
+    async def get_student_summary(self, user_id: str) -> StudentSummary:
+        """Obtain the student summary by user ID
+
+        Args:
+            user_id (str): The ID of the user to retrieve the student summary for.
+
+        Returns:
+            StudentSummary: The student summary corresponding to the given user ID.
         """
         pass

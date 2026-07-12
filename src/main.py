@@ -6,6 +6,7 @@ from src.features.content_management.shared.init import (
     router as content_management_router,
 )
 from src.features.assessments.shared.init import router as assessments_router
+from src.features.reports.shared.init import router as reports_router
 from src.infrastructure.database.sqllite.shared.sqllite_database_session import init_db
 from src.infrastructure.database.sqllite.shared.sqllite_seeder import (
     seed_assessments,
@@ -30,3 +31,4 @@ app = FastAPI(lifespan=lifespan)
 app.include_router(user_management_router, prefix="/users", tags=["users"])
 app.include_router(content_management_router, prefix="/content", tags=["content"])
 app.include_router(assessments_router, prefix="/assessments", tags=["assessments"])
+app.include_router(reports_router, prefix="/reports", tags=["reports"])
