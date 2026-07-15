@@ -1,6 +1,6 @@
 from pydantic import BaseModel
 from src.features.assessments.shared.assessment_repository import AssessmentRepository
-from src.features.reports.shared.student_report import StudentSummary
+from src.features.reports.shared.student_report import StudentProgress, StudentSummary
 from src.features.user_management.shared.user_repository import UserRepository
 
 
@@ -8,6 +8,12 @@ class GetSummaryResponse(BaseModel):
     is_success: bool
     message: str
     student_summary: StudentSummary | None = None
+
+
+class GetProgressByTopic(BaseModel):
+    is_success: bool
+    message: str
+    historical_progress: StudentProgress | None = None
 
 
 class StudentReportService:
@@ -46,4 +52,33 @@ class StudentReportService:
             is_success=True,
             message="Student summary retrieved successfully",
             student_summary=response,
+        )
+
+    async def get_student_progress(self, user_id: str) -> GetProgressByTopic:
+        """Obtain the student progress by user ID
+
+        Args:
+            user_id (str): The ID of the user to retrieve the student progress for.
+
+        Returns:
+            GetProgressByTopic: The student progress corresponding to the given user ID.
+        """
+        student_found = await self.user_repository.get_user_by_id(user_id)
+        if not student_found:
+            return GetProgressByTopic(
+                is_success=False, message="Student not found", historical_progress=None
+            )
+
+        response = await self.assessment_repository.get_student_progress(user_id)
+        if not response or not response.historical_progress:
+            return GetProgressByTopic(
+                is_success=False,
+                message="Student progress not found",
+                historical_progress=None,
+            )
+
+        return GetProgressByTopic(
+            is_success=True,
+            message="Student progress retrieved successfully",
+            historical_progress=response,
         )

@@ -3,6 +3,9 @@ from typing import Annotated
 
 from src.features.assessments.shared.assessment_repository import AssessmentRepository
 from src.features.assessments.shared.dependencies import get_assessment_repository
+from src.features.reports.get_student_progress.get_student_progress_handler import (
+    GetStudentProgressHandler,
+)
 from src.features.reports.get_student_summary.get_student_summary_handler import (
     GetStudentSummaryHandler,
 )
@@ -28,3 +31,15 @@ def get_get_student_summary_handler(
     ],
 ) -> GetStudentSummaryHandler:
     return GetStudentSummaryHandler(student_report_service=student_report_service)
+
+
+def get_get_student_progress_handler(
+    student_report_service: Annotated[
+        StudentReportService, Depends(get_student_report_service)
+    ],
+) -> GetStudentProgressHandler:
+    from src.features.reports.get_student_progress.get_student_progress_handler import (
+        GetStudentProgressHandler,
+    )
+
+    return GetStudentProgressHandler(student_report_service=student_report_service)
