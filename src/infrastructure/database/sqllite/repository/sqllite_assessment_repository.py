@@ -10,7 +10,12 @@ from src.features.assessments.shared.qualifier_service import (
     QualifierResult,
     TopicResult,
 )
-from src.features.reports.shared.student_report import StudentSummary
+from src.features.reports.shared.student_report import (
+    HistoricalResult,
+    StudentProgress,
+    StudentProgressDetail,
+    StudentSummary,
+)
 from src.infrastructure.database.sqllite.models.sqllite_assessment_mapper import (
     SqlliteAssessmentMapper,
 )
@@ -164,3 +169,46 @@ class SqlliteAssessmentRepository(AssessmentRepository):
             knowledge_classification=knowledge_classification,
             feedback=feedback,
         )
+
+    async def get_student_progress(self, user_id: str) -> StudentProgress | None:
+        smt_topic = (
+            select(TopicResultEntity.topic)
+            .where(TopicResultEntity.user_id == user_id)
+            .distinct()
+        )
+        topic_result = await self.session_factory.execute(smt_topic)
+        distinct_topics = topic_result.scalars().all()
+        if not distinct_topics:
+            return None
+
+        smt = (
+            select(TopicResultEntity)
+            .options(selectinload(TopicResultEntity.user))
+            .where(TopicResultEntity.user_id == user_id)
+            .order_by(TopicResultEntity.created_at.asc())
+        )
+        result = await self.session_factory.execute(smt)
+        topic_result_entities = result.scalars().all()
+        if not topic_result_entities:
+            return None
+
+        student_progress = StudentProgress(
+            student_id=user_id,
+            classification="This classification will be determined based on the student's knowledge profile.",
+            historical_progress=[],
+        )
+
+        for topic in distinct_topics:
+            results_for_topic = [
+                entity for entity in topic_result_entities if entity.topic == topic
+            ]
+            student_progress_detail = StudentProgressDetail(
+                topic=topic,
+                result=[
+                    HistoricalResult(topic=entity.topic, score=entity.score, index=i)
+                    for i, entity in enumerate(results_for_topic)
+                ],
+            )
+            student_progress.historical_progress.append(student_progress_detail)
+
+        return student_progress
