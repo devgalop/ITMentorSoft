@@ -86,10 +86,15 @@ async def get_student_progress(
     Returns:
         GetStudentProgressResponse: The response containing the student progress.
     """
-    request = GetStudentProgressRequest(student_id=id)
-    response = await handler.handle(request)
+    if not id:
+        raise HTTPException(status_code=400, detail="User ID is required.")
+    try:
+        request = GetStudentProgressRequest(student_id=id)
+        response = await handler.handle(request)
 
-    if not response.is_success:
-        raise HTTPException(status_code=400, detail=response.message)
+        if not response.is_success:
+            raise HTTPException(status_code=400, detail=response.message)
 
-    return response
+        return response
+    except Exception as e:
+        raise HTTPException(status_code=500, detail=str(e))

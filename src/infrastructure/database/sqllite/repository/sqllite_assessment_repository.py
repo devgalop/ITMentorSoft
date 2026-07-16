@@ -171,7 +171,11 @@ class SqlliteAssessmentRepository(AssessmentRepository):
         )
 
     async def get_student_progress(self, user_id: str) -> StudentProgress | None:
-        smt_topic = select(TopicResultEntity.topic).distinct()
+        smt_topic = (
+            select(TopicResultEntity.topic)
+            .where(TopicResultEntity.user_id == user_id)
+            .distinct()
+        )
         topic_result = await self.session_factory.execute(smt_topic)
         distinct_topics = topic_result.scalars().all()
         if not distinct_topics:

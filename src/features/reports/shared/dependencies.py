@@ -38,8 +38,4 @@ def get_get_student_progress_handler(
         StudentReportService, Depends(get_student_report_service)
     ],
 ) -> GetStudentProgressHandler:
-    from src.features.reports.get_student_progress.get_student_progress_handler import (
-        GetStudentProgressHandler,
-    )
-
     return GetStudentProgressHandler(student_report_service=student_report_service)

@@ -125,6 +125,6 @@ class AssessmentRepository(ABC):
             user_id (str): The ID of the user to retrieve the student progress for.
 
         Returns:
-            StudentProgress: The student progress corresponding to the given user ID.
+            StudentProgress | None: The student progress corresponding to the given user ID.
         """
         pass
