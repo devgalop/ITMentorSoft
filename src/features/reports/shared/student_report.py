@@ -22,6 +22,18 @@ class StudentSummary(BaseModel):
     feedback: str
 
 
+class StudentBasicSummary(BaseModel):
+    student_id: str
+    student_name: str
+    knowledge_classification: str
+
+
+class PaginatedStudentSummary(BaseModel):
+    students: list[StudentBasicSummary]
+    total_students: int
+    page: int
+
+
 class HistoricalResult(BaseModel):
     topic: str
     score: int

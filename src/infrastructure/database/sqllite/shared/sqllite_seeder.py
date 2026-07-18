@@ -12,6 +12,7 @@ from src.infrastructure.database.sqllite.models.sqllite_assessment_model import 
     AssessmentAnswerEntity,
     AssessmentEntity,
     AssessmentQuizEntity,
+    ClassificationResultEntity,
     TopicResultEntity,
 )
 from src.infrastructure.database.sqllite.models.sqllite_question_model import (
@@ -160,6 +161,18 @@ async def seed_assessments():
                     id=assessment_id, user_id=student.id, created_at=datetime.now()
                 )
                 session.add(assessment)
+
+                classification_result = ClassificationResultEntity(
+                    user_id=student.id,
+                    assessment_id=assessment_id,
+                    classification="basic",
+                    feedback="Sample feedback for the student's performance.",
+                    is_enabled=True if i == len(questions_by_assessment) - 1 else False,
+                )
+                session.add(classification_result)
+                print(
+                    f"Assessment {i} created for student {student.username} with classification result {classification_result.classification}"
+                )
 
                 assessment_answers: list[AssessmentAnswerEntity] = []
                 assessment_quizzes: list[AssessmentQuizEntity] = []
