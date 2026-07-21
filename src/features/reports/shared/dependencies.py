@@ -1,17 +1,41 @@
 from fastapi.params import Depends
 from typing import Annotated
+from sqlalchemy.ext.asyncio import AsyncSession
 
 from src.features.assessments.shared.assessment_repository import AssessmentRepository
 from src.features.assessments.shared.dependencies import get_assessment_repository
+from src.features.reports.get_all_students.get_all_students_handler import (
+    GetAllStudentsHandler,
+)
+from src.features.reports.get_all_students_by_category.get_all_students_by_category_handler import (
+    GetStudentsByCategoryHandler,
+)
+from src.features.reports.get_category_summary.get_category_summary_handler import (
+    GetCategorySummaryHandler,
+)
 from src.features.reports.get_student_progress.get_student_progress_handler import (
     GetStudentProgressHandler,
 )
 from src.features.reports.get_student_summary.get_student_summary_handler import (
     GetStudentSummaryHandler,
 )
+from src.features.reports.shared.report_repository import ReportRepository
 from src.features.reports.shared.student_report_service import StudentReportService
 from src.features.user_management.shared.dependencies import get_user_repository
 from src.features.user_management.shared.user_repository import UserRepository
+from src.infrastructure.database.sqllite.models.sqllite_report_mapper import (
+    SqlliteReportMapper,
+)
+from src.infrastructure.database.sqllite.repository.sqllite_report_repository import (
+    SqlliteReportRepository,
+)
+from src.infrastructure.database.sqllite.shared.sqllite_database_session import get_db
+
+
+def get_report_repository(
+    session: Annotated[AsyncSession, Depends(get_db)],
+) -> ReportRepository:
+    return SqlliteReportRepository(session_factory=session, mapper=SqlliteReportMapper)
 
 
 def get_student_report_service(
@@ -19,9 +43,12 @@ def get_student_report_service(
         AssessmentRepository, Depends(get_assessment_repository)
     ],
     user_repository: Annotated[UserRepository, Depends(get_user_repository)],
+    report_repository: Annotated[ReportRepository, Depends(get_report_repository)],
 ) -> StudentReportService:
     return StudentReportService(
-        assessment_repository=assessment_repository, user_repository=user_repository
+        assessment_repository=assessment_repository,
+        user_repository=user_repository,
+        report_repository=report_repository,
     )
 
 
@@ -39,3 +66,29 @@ def get_get_student_progress_handler(
     ],
 ) -> GetStudentProgressHandler:
     return GetStudentProgressHandler(student_report_service=student_report_service)
+
+
+def get_get_category_summary_handler(
+    student_report_service: Annotated[
+        StudentReportService, Depends(get_student_report_service)
+    ],
+) -> GetCategorySummaryHandler:
+    return GetCategorySummaryHandler(report_service=student_report_service)
+
+
+def get_get_all_students_handler(
+    student_report_service: Annotated[
+        StudentReportService, Depends(get_student_report_service)
+    ],
+) -> GetAllStudentsHandler:
+    return GetAllStudentsHandler(report_service=student_report_service)
+
+
+def get_get_students_by_category_handler(
+    student_report_service: Annotated[
+        StudentReportService, Depends(get_student_report_service)
+    ],
+) -> GetStudentsByCategoryHandler:
+    return GetStudentsByCategoryHandler(
+        report_repository=student_report_service.report_repository
+    )

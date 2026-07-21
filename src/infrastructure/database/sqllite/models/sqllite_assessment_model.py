@@ -33,6 +33,9 @@ class AssessmentEntity(Base):
     qualifications: Mapped[List["AssessmentQualificationEntity"]] = relationship(
         "AssessmentQualificationEntity", back_populates="assessment"
     )
+    classification_result: Mapped["ClassificationResultEntity"] = relationship(
+        "ClassificationResultEntity", back_populates="assessment"
+    )
 
 
 class AssessmentAnswerEntity(Base):
@@ -161,3 +164,26 @@ class TopicResultEntity(Base):
     )
     is_enabled: Mapped[bool] = mapped_column(default=True)
     user: Mapped["UserEntity"] = relationship("UserEntity")
+
+
+class ClassificationResultEntity(Base):
+    __tablename__ = "classification_results"
+
+    id: Mapped[int] = mapped_column(Integer, primary_key=True, autoincrement=True)
+    user_id: Mapped[str] = mapped_column(
+        String, ForeignKey(CROSSFIELD_USER_ID), index=True
+    )
+    assessment_id: Mapped[str] = mapped_column(
+        String, ForeignKey(CROSSFIELD_ASSESSMENT_ID), index=True
+    )
+    classification: Mapped[str] = mapped_column(String, index=True)
+    feedback: Mapped[str] = mapped_column(String)
+    created_at: Mapped[datetime] = mapped_column(DateTime, default=datetime.now)
+    updated_at: Mapped[datetime] = mapped_column(
+        DateTime, default=datetime.now, onupdate=datetime.now
+    )
+    is_enabled: Mapped[bool] = mapped_column(default=True)
+    user: Mapped["UserEntity"] = relationship("UserEntity")
+    assessment: Mapped["AssessmentEntity"] = relationship(
+        "AssessmentEntity", back_populates="classification_result"
+    )
