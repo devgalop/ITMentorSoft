@@ -1,6 +1,7 @@
 from abc import ABC, abstractmethod
 
 from src.features.assessments.shared.assessment import Assessment, AssessmentQuiz
+from src.features.assessments.shared.classification_service import ClassificationResult
 from src.features.assessments.shared.qualifier_service import (
     QualifierResult,
     TopicResult,
@@ -126,5 +127,16 @@ class AssessmentRepository(ABC):
 
         Returns:
             StudentProgress | None: The student progress corresponding to the given user ID.
+        """
+        pass
+
+    @abstractmethod
+    async def save_classification_result(
+        self, classification_result: ClassificationResult
+    ):
+        """Save the classification result of an assessment
+
+        Args:
+            classification_result (ClassificationResult): The result of the classification to be saved.
         """
         pass

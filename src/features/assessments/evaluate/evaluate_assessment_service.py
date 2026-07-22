@@ -1,10 +1,17 @@
 import logging
 import os
+import time
 from collections import defaultdict
 from dotenv import load_dotenv
 
 from src.features.assessments.shared.assessment import Assessment
 from src.features.assessments.shared.assessment_repository import AssessmentRepository
+from src.features.assessments.shared.classification_service import (
+    ClassificationPrompt,
+    ClassificationResult,
+    ClassificationService,
+    QuestionAnswerQualification,
+)
 from src.features.assessments.shared.qualifier_service import (
     BatchQualificationError,
     BatchQualifierPrompt,
@@ -56,21 +63,32 @@ class EvaluateAssessmentService:
         assessment_repository: AssessmentRepository,
         qualifier_service: QualifierService,
         question_repository: QuestionRepository,
+        classification_service: ClassificationService,
     ):
         self.assessment_repository = assessment_repository
         self.qualifier_service = qualifier_service
         self.question_repository = question_repository
         self.chunk_size = ASSESSMENT_QUALIFICATION_CHUNK_SIZE
+        self.classification_service = classification_service
 
     async def evaluate_answers(self, assessment: Assessment):
+        start_time = time.perf_counter()
         evaluation_results: list[QualifierResult] = await self.qualify_assessment(
             assessment
+        )
+        end_time = time.perf_counter()
+        evaluation_duration = end_time - start_time
+        print(
+            f"Evaluation of assessment {assessment.assessment_id} took {evaluation_duration:.6f} seconds."
         )
         await self.save_assessment_results(evaluation_results)
         topic_results: list[TopicResult] = self.get_knowledge_profile(
             assessment.user_id, evaluation_results
         )
         await self.save_knowledge_profile(topic_results)
+        qualifications = self.get_answer_qualifications(assessment, evaluation_results)
+        classification = await self.classify_assessment(qualifications)
+        await self.save_classification_result(classification)
 
     async def qualify_assessment(self, assessment: Assessment) -> list[QualifierResult]:
         """Send the assessment answers to the qualifier service for evaluation.
@@ -188,3 +206,71 @@ class EvaluateAssessmentService:
         """
         for topic_result in topic_results:
             await self.assessment_repository.save_topic_result(topic_result)
+
+    def get_answer_qualifications(
+        self, assessment: Assessment, evaluation_results: list[QualifierResult]
+    ) -> list[QuestionAnswerQualification]:
+        """Combine assessment answers with their corresponding evaluation results.
+
+        Args:
+            assessment (Assessment): The assessment containing the answers.
+            evaluation_results (list[QualifierResult]): Results from the qualifier service.
+
+        Returns:
+            list[QuestionAnswerQualification]: A list of question answer qualifications.
+        """
+        # Create a mapping from answer_id to QualifierResult for quick lookup
+        result_map = {result.answer_id: result for result in evaluation_results}
+
+        qualifications: list[QuestionAnswerQualification] = []
+        for answer in assessment.answers:
+            if answer.answer_id in result_map:
+                result = result_map[answer.answer_id]
+                qualifications.append(
+                    QuestionAnswerQualification(
+                        question_id=answer.question_id,
+                        user_id=assessment.user_id,
+                        assessment_id=assessment.assessment_id,
+                        question_difficulty=result.question_difficulty,
+                        answer=answer.answer,
+                        score=result.score,
+                        feedback=result.feedback,
+                        key_concepts_detected=result.key_concepts_detected,
+                        misconceptions_detected=result.misconceptions_detected,
+                    )
+                )
+            else:
+                logger.warning(
+                    "No evaluation result found for answer_id: %s", answer.answer_id
+                )
+
+        return qualifications
+
+    async def classify_assessment(
+        self, answers: list[QuestionAnswerQualification]
+    ) -> ClassificationResult:
+        """Classify the user's knowledge based on their answers to the assessment questions.
+
+        Args:
+            answers (list[QuestionAnswerQualification]): A list of question answer qualifications.
+
+        Returns:
+            ClassificationResult: The result of the classification, including classification and feedback.
+        """
+        classification_prompt = ClassificationPrompt(qualifications=answers)
+        classification_result = await self.classification_service.classify(
+            classification_prompt
+        )
+        return classification_result
+
+    async def save_classification_result(
+        self, classification_result: ClassificationResult
+    ):
+        """Save the classification result for the user.
+
+        Args:
+            classification_result (ClassificationResult): The result of the classification to save.
+        """
+        await self.assessment_repository.save_classification_result(
+            classification_result
+        )

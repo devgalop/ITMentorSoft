@@ -24,6 +24,7 @@ from src.features.assessments.get_question_categories.get_question_categories_ha
 from src.features.assessments.save_review_question.save_review_question_handler import (
     SaveReviewQuestionHandler,
 )
+from src.features.assessments.shared.classification_service import ClassificationService
 from src.features.assessments.shared.get_assessment_service import (
     GetAssessmentService,
 )
@@ -68,6 +69,9 @@ from src.features.shared.notification_service import NotificationService
 from src.features.shared.template_loader import TemplateLoader
 from src.features.user_management.shared.dependencies import get_user_repository
 from src.features.user_management.shared.user_repository import UserRepository
+from src.infrastructure.classifier.opencode_classifier_service import (
+    OpenCodeClassificationService,
+)
 from src.infrastructure.database.sqllite.models.sqllite_assessment_mapper import (
     SqlliteAssessmentMapper,
 )
@@ -219,6 +223,11 @@ def get_qualifier_service() -> QualifierService:
     return OpencodeQualifierService()
 
 
+@lru_cache()
+def get_classification_service() -> ClassificationService:
+    return OpenCodeClassificationService()
+
+
 def get_evaluate_assessment_service(
     assessment_repository: Annotated[
         AssessmentRepository, Depends(get_assessment_repository)
@@ -227,11 +236,15 @@ def get_evaluate_assessment_service(
     question_repository: Annotated[
         QuestionRepository, Depends(get_question_repository)
     ],
+    classification_service: Annotated[
+        ClassificationService, Depends(get_classification_service)
+    ],
 ) -> EvaluateAssessmentService:
     return EvaluateAssessmentService(
         assessment_repository=assessment_repository,
         qualifier_service=qualifier_service,
         question_repository=question_repository,
+        classification_service=classification_service,
     )
 
 
