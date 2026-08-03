@@ -22,6 +22,7 @@ from src.features.user_management.recovery_password.recovery_password_handler im
 from src.features.user_management.shared.password_hasher import PasswordHasher
 from src.features.user_management.shared.role_repository import RoleRepository
 from src.features.user_management.shared.token_generator import TokenGenerator
+from src.features.user_management.shared.user_manager_service import UserManagerService
 from src.features.user_management.shared.user_recovery_token_repository import (
     UserRecoveryTokenRepository,
 )
@@ -65,6 +66,9 @@ from src.infrastructure.security.bcrypt_password_hasher import BcryptPasswordHas
 from src.infrastructure.security.jwt_token_generator import JWTTokenGenerator
 from src.features.shared.notification_service import NotificationService
 from src.features.shared.template_loader import TemplateLoader
+from src.features.user_management.create_user_from_admin.create_user_from_admin_handler import (
+    CreateUserFromAdminHandler,
+)
 
 
 def get_user_repository(
@@ -196,3 +200,30 @@ def get_refresh_token_handler(
     return RefreshTokenHandler(
         user_repository, refresh_token_repository, password_hasher, token_generator
     )
+
+
+def get_user_manager_service(
+    user_repository: Annotated[UserRepository, Depends(get_user_repository)],
+    password_hasher: Annotated[PasswordHasher, Depends(get_password_hasher)],
+    role_repository: Annotated[RoleRepository, Depends(get_role_repository)],
+    notification_service: Annotated[
+        NotificationService, Depends(get_notification_service)
+    ],
+    template_loader: Annotated[TemplateLoader, Depends(get_template_loader)],
+) -> UserManagerService:
+    return UserManagerService(
+        user_repository,
+        password_hasher,
+        role_repository,
+        notification_service,
+        template_loader,
+    )
+
+
+def get_create_user_from_admin_handler(
+    user_manager_service: Annotated[
+        UserManagerService, Depends(get_user_manager_service)
+    ],
+) -> CreateUserFromAdminHandler:
+
+    return CreateUserFromAdminHandler(user_manager_service)
