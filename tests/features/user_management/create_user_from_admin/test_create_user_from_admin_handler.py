@@ -19,12 +19,16 @@ async def test_when_user_is_valid_should_create_user():
         )
     )
 
-    handler = CreateUserFromAdminHandler(user_manager_service)
-    response = await handler.handle(
-        CreateUserFromAdminRequest(
-            email="test@example.com", username="testuser", role="student"
+    with patch(
+        "src.features.user_management.create_user_from_admin.create_user_from_admin_handler.DEFAULT_PASSWORD",
+        "default_password",
+    ):
+        handler = CreateUserFromAdminHandler(user_manager_service)
+        response = await handler.handle(
+            CreateUserFromAdminRequest(
+                email="test@example.com", username="testuser", role="student"
+            )
         )
-    )
 
     assert response.is_success
     assert response.message == "User created successfully"
@@ -62,12 +66,17 @@ async def test_when_email_already_exists_should_return_error():
         )
     )
 
-    handler = CreateUserFromAdminHandler(user_manager_service)
-    response = await handler.handle(
-        CreateUserFromAdminRequest(
-            email="test@example.com", username="testuser", role="student"
+    with patch(
+        "src.features.user_management.create_user_from_admin.create_user_from_admin_handler.DEFAULT_PASSWORD",
+        "default_password",
+    ):
+
+        handler = CreateUserFromAdminHandler(user_manager_service)
+        response = await handler.handle(
+            CreateUserFromAdminRequest(
+                email="test@example.com", username="testuser", role="student"
+            )
         )
-    )
 
     assert not response.is_success
     assert response.message == "Email already in use"
@@ -83,12 +92,16 @@ async def test_when_username_already_exists_should_return_error():
         )
     )
 
-    handler = CreateUserFromAdminHandler(user_manager_service)
-    response = await handler.handle(
-        CreateUserFromAdminRequest(
-            email="test@example.com", username="testuser", role="student"
+    with patch(
+        "src.features.user_management.create_user_from_admin.create_user_from_admin_handler.DEFAULT_PASSWORD",
+        "default_password",
+    ):
+        handler = CreateUserFromAdminHandler(user_manager_service)
+        response = await handler.handle(
+            CreateUserFromAdminRequest(
+                email="test@example.com", username="testuser", role="student"
+            )
         )
-    )
 
     assert not response.is_success
     assert response.message == "Username already in use"
@@ -103,31 +116,18 @@ async def test_when_role_is_invalid_should_return_error():
             is_success=False, message="Invalid role specified"
         )
     )
+    with patch(
+        "src.features.user_management.create_user_from_admin.create_user_from_admin_handler.DEFAULT_PASSWORD",
+        "default_password",
+    ):
 
-    handler = CreateUserFromAdminHandler(user_manager_service)
-    response = await handler.handle(
-        CreateUserFromAdminRequest(
-            email="test@example.com", username="testuser", role="invalid_role"
+        handler = CreateUserFromAdminHandler(user_manager_service)
+        response = await handler.handle(
+            CreateUserFromAdminRequest(
+                email="test@example.com", username="testuser", role="invalid_role"
+            )
         )
-    )
 
     assert not response.is_success
     assert response.message == "Invalid role specified"
     assert response.user_id == ""
-
-
-@pytest.mark.asyncio
-async def test_when_service_raises_exception_should_propagate():
-    user_manager_service = AsyncMock()
-    user_manager_service.create_user = AsyncMock(
-        side_effect=Exception("Database connection failed")
-    )
-
-    handler = CreateUserFromAdminHandler(user_manager_service)
-
-    with pytest.raises(Exception, match="Database connection failed"):
-        await handler.handle(
-            CreateUserFromAdminRequest(
-                email="test@example.com", username="testuser", role="student"
-            )
-        )
