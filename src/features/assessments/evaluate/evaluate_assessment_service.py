@@ -87,6 +87,12 @@ class EvaluateAssessmentService:
         )
         await self.save_knowledge_profile(topic_results)
         qualifications = self.get_answer_qualifications(assessment, evaluation_results)
+        if not qualifications or len(qualifications) == 0:
+            logger.warning(
+                "No qualifications generated for assessment %s, skipping classification.",
+                assessment.assessment_id,
+            )
+            return
         classification = await self.classify_assessment(qualifications)
         await self.save_classification_result(classification)
 

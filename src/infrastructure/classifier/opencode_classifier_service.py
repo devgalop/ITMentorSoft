@@ -23,6 +23,9 @@ class OpenCodeClassificationService(ClassificationService):
         self.generic_prompt: str = self.get_generic_prompt()
 
     async def classify(self, input_data: ClassificationPrompt) -> ClassificationResult:
+        if not input_data.qualifications or len(input_data.qualifications) == 0:
+            raise ValueError("No qualifications provided for classification.")
+
         user_content = self.build_batch_user_content(input_data.qualifications)
 
         completion = await asyncio.to_thread(
