@@ -5,6 +5,7 @@ from src.features.assessments.shared.assessment import (
     AssessmentAnswer,
     AssessmentQuiz,
 )
+from src.features.assessments.shared.classification_service import ClassificationResult
 from src.features.assessments.shared.qualifier_service import (
     QualifierResult,
     TopicResult,
@@ -17,6 +18,7 @@ from src.infrastructure.database.sqllite.models.sqllite_assessment_model import 
     AssessmentQualificationEntity,
     AssessmentQualificationKeyConceptEntity,
     AssessmentQuizEntity,
+    ClassificationResultEntity,
     TopicResultEntity,
 )
 
@@ -115,6 +117,12 @@ class SqlliteAssessmentMapper:
         entity: TopicResultEntity,
     ) -> StudentKnowledgeProfile:
         return SqlliteTopicResultMapper.to_knowledge_profile(entity)
+
+    @staticmethod
+    def classification_result_to_entity(
+        classification_result: ClassificationResult,
+    ) -> ClassificationResultEntity:
+        return SqlliteClassificationResultMapper.to_entity(classification_result)
 
 
 class SqlliteAssessmentAnswerMapper:
@@ -215,4 +223,18 @@ class SqlliteTopicResultMapper:
         return StudentKnowledgeProfile(
             topic=entity.topic,
             score=entity.score,
+        )
+
+
+class SqlliteClassificationResultMapper:
+    @staticmethod
+    def to_entity(
+        classification_result: ClassificationResult,
+    ) -> ClassificationResultEntity:
+        return ClassificationResultEntity(
+            user_id=classification_result.user_id,
+            assessment_id=classification_result.assessment_id,
+            classification=classification_result.classification,
+            feedback=classification_result.feedback,
+            is_enabled=True,
         )

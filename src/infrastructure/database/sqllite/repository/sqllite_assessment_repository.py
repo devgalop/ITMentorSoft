@@ -6,6 +6,7 @@ from sqlalchemy.ext.asyncio import AsyncSession
 
 from src.features.assessments.shared.assessment import Assessment, AssessmentQuiz
 from src.features.assessments.shared.assessment_repository import AssessmentRepository
+from src.features.assessments.shared.classification_service import ClassificationResult
 from src.features.assessments.shared.qualifier_service import (
     QualifierResult,
     TopicResult,
@@ -21,6 +22,7 @@ from src.infrastructure.database.sqllite.models.sqllite_assessment_mapper import
 )
 from src.infrastructure.database.sqllite.models.sqllite_assessment_model import (
     AssessmentEntity,
+    ClassificationResultEntity,
     TopicResultEntity,
 )
 
@@ -212,3 +214,21 @@ class SqlliteAssessmentRepository(AssessmentRepository):
             student_progress.historical_progress.append(student_progress_detail)
 
         return student_progress
+
+    async def save_classification_result(
+        self, classification_result: ClassificationResult
+    ):
+        smt = select(ClassificationResultEntity).where(
+            ClassificationResultEntity.user_id == classification_result.user_id,
+            ClassificationResultEntity.is_enabled,
+        )
+        existing_results = await self.session_factory.execute(smt)
+        existing_results = existing_results.scalars().all()
+        for result in existing_results:
+            result.is_enabled = False
+            result.updated_at = datetime.now()
+        classification_entity = self.mapper.classification_result_to_entity(
+            classification_result
+        )
+        self.session_factory.add(classification_entity)
+        await self.session_factory.commit()
