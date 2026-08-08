@@ -165,7 +165,10 @@ class TopicResultEntity(Base):
     score: Mapped[int] = mapped_column(Integer)
     created_at: Mapped[datetime] = mapped_column(DateTime, server_default=func.now())
     updated_at: Mapped[datetime] = mapped_column(
-        DateTime, server_default=func.now(), server_onupdate=func.now()
+        DateTime,
+        server_default=func.now(),
+        onupdate=datetime.now,
+        server_onupdate=func.now(),
     )
     is_enabled: Mapped[bool] = mapped_column(default=True)
     user: Mapped["UserEntity"] = relationship("UserEntity")
@@ -185,7 +188,10 @@ class ClassificationResultEntity(Base):
     feedback: Mapped[str] = mapped_column(String)
     created_at: Mapped[datetime] = mapped_column(DateTime, server_default=func.now())
     updated_at: Mapped[datetime] = mapped_column(
-        DateTime, server_default=func.now(), server_onupdate=func.now()
+        DateTime,
+        server_default=func.now(),
+        onupdate=datetime.now,
+        server_onupdate=func.now(),
     )
     is_enabled: Mapped[bool] = mapped_column(default=True)
     user: Mapped["UserEntity"] = relationship("UserEntity")
