@@ -7,8 +7,10 @@ from src.features.content_management.shared.init import (
 )
 from src.features.assessments.shared.init import router as assessments_router
 from src.features.reports.shared.init import router as reports_router
-from src.infrastructure.database.sqllite.shared.sqllite_database_session import init_db
-from src.infrastructure.database.sqllite.shared.sqllite_seeder import (
+from src.infrastructure.database.postgresql.shared.postgresql_database_session import (
+    init_db,
+)
+from src.infrastructure.database.postgresql.shared.postgresql_seeder import (
     seed_assessments,
     seed_database,
 )
