@@ -1,6 +1,7 @@
 from typing import List
 from sqlalchemy.orm import Mapped, mapped_column, relationship
 from sqlalchemy import ForeignKey, Integer, String, DateTime
+from sqlalchemy.sql import func
 from datetime import datetime
 from src.infrastructure.database.postgresql.models.postgresql_user_model import (
     UserEntity,
@@ -42,7 +43,7 @@ class QuestionEntity(Base):
 class QuestionRubricScoreEntity(Base):
     __tablename__ = "question_rubric_scores"
 
-    id: Mapped[int] = mapped_column(primary_key=True, autoincrement=True)
+    id: Mapped[int] = mapped_column(primary_key=True)
     question_id: Mapped[str] = mapped_column(
         String, ForeignKey("questions.id"), index=True
     )
@@ -63,7 +64,7 @@ class QuestionReviewEntity(Base):
     )
     reviewer_id: Mapped[str] = mapped_column(String, ForeignKey("users.id"), index=True)
     review_comments: Mapped[str] = mapped_column(String)
-    created_at: Mapped[datetime] = mapped_column(DateTime, default=datetime.now)
+    created_at: Mapped[datetime] = mapped_column(DateTime, server_default=func.now())
 
     question: Mapped["QuestionEntity"] = relationship(
         "QuestionEntity", back_populates="reviews"

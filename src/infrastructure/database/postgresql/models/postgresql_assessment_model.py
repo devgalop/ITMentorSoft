@@ -2,6 +2,7 @@ from datetime import datetime
 from typing import List
 from sqlalchemy.orm import Mapped, mapped_column, relationship
 from sqlalchemy import DateTime, ForeignKey, Integer, String, UniqueConstraint
+from sqlalchemy.sql import func
 from src.infrastructure.database.postgresql.models.postgresql_question_model import (
     QuestionEntity,
 )
@@ -22,7 +23,7 @@ class AssessmentEntity(Base):
     __tablename__ = "assessments"
 
     id: Mapped[str] = mapped_column(String, primary_key=True, index=True)
-    created_at: Mapped[datetime] = mapped_column(DateTime, default=datetime.now)
+    created_at: Mapped[datetime] = mapped_column(DateTime, server_default=func.now())
     user_id: Mapped[str] = mapped_column(
         String, ForeignKey(CROSSFIELD_USER_ID), index=True
     )
@@ -64,11 +65,11 @@ class AssessmentAnswerEntity(Base):
 class AssessmentQuizEntity(Base):
     __tablename__ = "assessment_quizzes"
 
-    id: Mapped[int] = mapped_column(Integer, primary_key=True, autoincrement=True)
+    id: Mapped[int] = mapped_column(Integer, primary_key=True)
     assessment_id: Mapped[str] = mapped_column(
         String, ForeignKey(CROSSFIELD_ASSESSMENT_ID), index=True
     )
-    created_at: Mapped[datetime] = mapped_column(DateTime, default=datetime.now)
+    created_at: Mapped[datetime] = mapped_column(DateTime, server_default=func.now())
     question_id: Mapped[str] = mapped_column(
         String, ForeignKey(CROSSFIELD_QUESTION_ID), index=True
     )
@@ -107,7 +108,7 @@ class AssessmentQualificationEntity(Base):
 
     question_topic: Mapped[str] = mapped_column(String)
     question_difficulty: Mapped[str] = mapped_column(String)
-    evaluated_at: Mapped[datetime] = mapped_column(DateTime, default=datetime.now)
+    evaluated_at: Mapped[datetime] = mapped_column(DateTime, server_default=func.now())
 
     assessment: Mapped["AssessmentEntity"] = relationship(
         "AssessmentEntity", back_populates="qualifications"
@@ -128,7 +129,7 @@ class AssessmentQualificationEntity(Base):
 class AssessmentQualificationKeyConceptEntity(Base):
     __tablename__ = "assessment_qualification_key_concepts"
 
-    id: Mapped[int] = mapped_column(Integer, primary_key=True, autoincrement=True)
+    id: Mapped[int] = mapped_column(Integer, primary_key=True)
     qualification_id: Mapped[str] = mapped_column(
         String, ForeignKey("assessment_qualifications.id"), index=True
     )
@@ -142,7 +143,7 @@ class AssessmentQualificationKeyConceptEntity(Base):
 class AssessmentMisconceptionEntity(Base):
     __tablename__ = "assessment_misconceptions"
 
-    id: Mapped[int] = mapped_column(Integer, primary_key=True, autoincrement=True)
+    id: Mapped[int] = mapped_column(Integer, primary_key=True)
     qualification_id: Mapped[str] = mapped_column(
         String, ForeignKey("assessment_qualifications.id"), index=True
     )
@@ -156,15 +157,15 @@ class AssessmentMisconceptionEntity(Base):
 class TopicResultEntity(Base):
     __tablename__ = "topic_results"
 
-    id: Mapped[int] = mapped_column(Integer, primary_key=True, autoincrement=True)
+    id: Mapped[int] = mapped_column(Integer, primary_key=True)
     user_id: Mapped[str] = mapped_column(
         String, ForeignKey(CROSSFIELD_USER_ID), index=True
     )
     topic: Mapped[str] = mapped_column(String, index=True)
     score: Mapped[int] = mapped_column(Integer)
-    created_at: Mapped[datetime] = mapped_column(DateTime, default=datetime.now)
+    created_at: Mapped[datetime] = mapped_column(DateTime, server_default=func.now())
     updated_at: Mapped[datetime] = mapped_column(
-        DateTime, default=datetime.now, onupdate=datetime.now
+        DateTime, server_default=func.now(), server_onupdate=func.now()
     )
     is_enabled: Mapped[bool] = mapped_column(default=True)
     user: Mapped["UserEntity"] = relationship("UserEntity")
@@ -173,7 +174,7 @@ class TopicResultEntity(Base):
 class ClassificationResultEntity(Base):
     __tablename__ = "classification_results"
 
-    id: Mapped[int] = mapped_column(Integer, primary_key=True, autoincrement=True)
+    id: Mapped[int] = mapped_column(Integer, primary_key=True)
     user_id: Mapped[str] = mapped_column(
         String, ForeignKey(CROSSFIELD_USER_ID), index=True
     )
@@ -182,9 +183,9 @@ class ClassificationResultEntity(Base):
     )
     classification: Mapped[str] = mapped_column(String, index=True)
     feedback: Mapped[str] = mapped_column(String)
-    created_at: Mapped[datetime] = mapped_column(DateTime, default=datetime.now)
+    created_at: Mapped[datetime] = mapped_column(DateTime, server_default=func.now())
     updated_at: Mapped[datetime] = mapped_column(
-        DateTime, default=datetime.now, onupdate=datetime.now
+        DateTime, server_default=func.now(), server_onupdate=func.now()
     )
     is_enabled: Mapped[bool] = mapped_column(default=True)
     user: Mapped["UserEntity"] = relationship("UserEntity")
