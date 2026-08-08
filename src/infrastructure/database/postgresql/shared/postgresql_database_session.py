@@ -18,9 +18,15 @@ def _get_database_name(url: str) -> str:
 
 
 def _get_admin_url(url: str) -> str:
-    """Create admin URL pointing to 'postgres' database."""
+    """Create admin URL pointing to 'postgres' database.
+
+    Strips the SQLAlchemy driver suffix (+asyncpg) since asyncpg.connect()
+    only accepts 'postgresql://' or 'postgres://' schemes.
+    """
     parsed = urlparse(url)
-    admin_parsed = parsed._replace(path="/postgres")
+    # Remove driver suffix: postgresql+asyncpg -> postgresql
+    scheme = parsed.scheme.split("+")[0]
+    admin_parsed = parsed._replace(path="/postgres", scheme=scheme)
     return urlunparse(admin_parsed)
 
 
