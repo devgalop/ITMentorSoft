@@ -1,7 +1,5 @@
 import os
 
-from alembic import command
-from alembic.config import Config
 from dotenv import load_dotenv
 from sqlalchemy.ext.asyncio import create_async_engine, async_sessionmaker
 from sqlalchemy.orm import DeclarativeBase
@@ -36,14 +34,11 @@ async def get_db():
         yield session
 
 
-def run_alembic_upgrade():
-    """Run alembic upgrade head to apply pending migrations."""
-    alembic_cfg = Config("alembic.ini")
-    # Override sqlalchemy.url with the runtime DATABASE_URL
-    alembic_cfg.set_main_option("sqlalchemy.url", DATABASE_URL)
-    command.upgrade(alembic_cfg, "head")
-
-
 async def init_db():
-    """Initialize database by running Alembic migrations."""
-    run_alembic_upgrade()
+    """Initialize database by creating all tables.
+
+    For production, run migrations via CLI: alembic upgrade head
+    This method uses create_all for development/convenience.
+    """
+    async with engine.begin() as conn:
+        await conn.run_sync(Base.metadata.create_all)
