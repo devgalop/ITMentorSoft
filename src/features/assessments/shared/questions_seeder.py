@@ -12,11 +12,11 @@ from src.features.assessments.shared.question import (
     QuestionRubricScore,
     QuestionStatus,
 )
-from src.infrastructure.database.sqllite.models.sqllite_question_model import (
+from src.infrastructure.database.postgresql.models.postgresql_question_model import (
     QuestionEntity,
     QuestionRubricScoreEntity,
 )
-from src.infrastructure.database.sqllite.shared.sqllite_database_session import (
+from src.infrastructure.database.postgresql.shared.postgresql_database_session import (
     AsyncSessionLocal,
 )
 

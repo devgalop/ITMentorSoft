@@ -33,22 +33,24 @@ from src.features.content_management.shared.content_repository import (
 from src.features.content_management.update_resource_content.update_resource_content_handler import (
     UpdateResourceContentHandler,
 )
-from src.infrastructure.database.sqllite.models.sqllite_content_rating_mapper import (
+from src.infrastructure.database.postgresql.models.postgresql_content_rating_mapper import (
     RateContentMapper,
 )
-from src.infrastructure.database.sqllite.models.sqllite_resource_content_mapper import (
+from src.infrastructure.database.postgresql.models.postgresql_resource_content_mapper import (
     ResourceContentMapper,
 )
-from src.infrastructure.database.sqllite.repository.sqllite_resource_content_repository import (
-    SqlLiteResourceContentRepository,
+from src.infrastructure.database.postgresql.repository.postgres_resource_content_repository import (
+    PostgresResourceContentRepository,
 )
-from src.infrastructure.database.sqllite.shared.sqllite_database_session import get_db
+from src.infrastructure.database.postgresql.shared.postgresql_database_session import (
+    get_db,
+)
 
 
 def get_resource_content_repository(
     session: Annotated[AsyncSession, Depends(get_db)],
-) -> SqlLiteResourceContentRepository:
-    return SqlLiteResourceContentRepository(
+) -> PostgresResourceContentRepository:
+    return PostgresResourceContentRepository(
         session_factory=session,
         mapper=ResourceContentMapper,
         rating_mapper=RateContentMapper,

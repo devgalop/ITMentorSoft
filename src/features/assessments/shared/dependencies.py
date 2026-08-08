@@ -72,22 +72,24 @@ from src.features.user_management.shared.user_repository import UserRepository
 from src.infrastructure.classifier.opencode_classifier_service import (
     OpenCodeClassificationService,
 )
-from src.infrastructure.database.sqllite.models.sqllite_assessment_mapper import (
-    SqlliteAssessmentMapper,
+from src.infrastructure.database.postgresql.models.postgresql_assessment_mapper import (
+    PostgresAssessmentMapper,
 )
-from src.infrastructure.database.sqllite.models.sqllite_question_mapper import (
-    SqlliteQuestionMapper,
+from src.infrastructure.database.postgresql.models.postgresql_question_mapper import (
+    PostgresQuestionMapper,
 )
-from src.infrastructure.database.sqllite.repository.sqllite_assessment_repository import (
-    SqlliteAssessmentRepository,
+from src.infrastructure.database.postgresql.repository.postgres_assessment_repository import (
+    PostgresAssessmentRepository,
 )
-from src.infrastructure.database.sqllite.repository.sqllite_questions_assessment_repository import (
-    SqlLiteQuestionsAssessmentRepository,
+from src.infrastructure.database.postgresql.repository.postgres_questions_assessment_repository import (
+    PostgresQuestionsAssessmentRepository,
 )
-from src.infrastructure.database.sqllite.repository.sqllite_questions_repository import (
-    SqlliteQuestionsRepository,
+from src.infrastructure.database.postgresql.repository.postgres_questions_repository import (
+    PostgresQuestionsRepository,
 )
-from src.infrastructure.database.sqllite.shared.sqllite_database_session import get_db
+from src.infrastructure.database.postgresql.shared.postgresql_database_session import (
+    get_db,
+)
 
 from src.infrastructure.notification.brevo_notification_service import (
     BrevoNotificationService,
@@ -100,19 +102,21 @@ from src.infrastructure.qualifier.opencode_qualifier_service import (
 def get_question_repository(
     session_factory: Annotated[AsyncSession, Depends(get_db)],
 ) -> QuestionRepository:
-    return SqlliteQuestionsRepository(session_factory, SqlliteQuestionMapper)
+    return PostgresQuestionsRepository(session_factory, PostgresQuestionMapper)
 
 
 def get_question_assessment_repository(
     session_factory: Annotated[AsyncSession, Depends(get_db)],
 ) -> QuestionAssessmentRepository:
-    return SqlLiteQuestionsAssessmentRepository(session_factory, SqlliteQuestionMapper)
+    return PostgresQuestionsAssessmentRepository(
+        session_factory, PostgresQuestionMapper
+    )
 
 
 def get_assessment_repository(
     session_factory: Annotated[AsyncSession, Depends(get_db)],
 ) -> AssessmentRepository:
-    return SqlliteAssessmentRepository(session_factory, SqlliteAssessmentMapper)
+    return PostgresAssessmentRepository(session_factory, PostgresAssessmentMapper)
 
 
 def get_questions_cache_repository(
