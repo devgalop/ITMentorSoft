@@ -11,7 +11,7 @@ from src.features.assessments.shared.qualifier_service import (
     TopicResult,
 )
 from src.features.reports.shared.student_report import StudentKnowledgeProfile
-from src.infrastructure.database.sqllite.models.sqllite_assessment_model import (
+from src.infrastructure.database.postgresql.models.postgresql_assessment_model import (
     AssessmentAnswerEntity,
     AssessmentEntity,
     AssessmentMisconceptionEntity,
@@ -23,11 +23,11 @@ from src.infrastructure.database.sqllite.models.sqllite_assessment_model import 
 )
 
 
-class SqlliteAssessmentMapper:
+class PostgresAssessmentMapper:
     @staticmethod
     def to_entity(request: Assessment) -> AssessmentEntity:
         answers = [
-            SqlliteAssessmentAnswerMapper.to_entity(ans) for ans in request.answers
+            PostgresAssessmentAnswerMapper.to_entity(ans) for ans in request.answers
         ]
         return AssessmentEntity(
             id=request.assessment_id,
@@ -39,7 +39,7 @@ class SqlliteAssessmentMapper:
     @staticmethod
     def to_model(entity: AssessmentEntity) -> Assessment:
         answers = [
-            SqlliteAssessmentAnswerMapper.to_model(ans) for ans in entity.answers
+            PostgresAssessmentAnswerMapper.to_model(ans) for ans in entity.answers
         ]
         assessment = Assessment(
             assessment_id=entity.id,
@@ -80,19 +80,19 @@ class SqlliteAssessmentMapper:
 
     @staticmethod
     def answer_to_entity(answer: AssessmentAnswer) -> AssessmentAnswerEntity:
-        return SqlliteAssessmentAnswerMapper.to_entity(answer)
+        return PostgresAssessmentAnswerMapper.to_entity(answer)
 
     @staticmethod
     def qualifier_result_to_entity(
         qualifier_result: QualifierResult,
     ) -> AssessmentQualificationEntity:
-        return SqlliteAssessmentQualificationMapper.to_entity(qualifier_result)
+        return PostgresAssessmentQualificationMapper.to_entity(qualifier_result)
 
     @staticmethod
     def qualifier_result_key_concept_to_entity(
         qualification_id: str, key_concept: str
     ) -> AssessmentQualificationKeyConceptEntity:
-        return SqlliteAssessmentQualificationMapper.to_key_concepts_entity(
+        return PostgresAssessmentQualificationMapper.to_key_concepts_entity(
             qualification_id, key_concept
         )
 
@@ -100,32 +100,32 @@ class SqlliteAssessmentMapper:
     def qualifier_result_misconception_to_entity(
         qualification_id: str, misconception: str
     ) -> AssessmentMisconceptionEntity:
-        return SqlliteAssessmentQualificationMapper.to_misconceptions_entity(
+        return PostgresAssessmentQualificationMapper.to_misconceptions_entity(
             qualification_id, misconception
         )
 
     @staticmethod
     def topic_result_to_entity(topic_result: TopicResult) -> TopicResultEntity:
-        return SqlliteTopicResultMapper.to_entity(topic_result)
+        return PostgresTopicResultMapper.to_entity(topic_result)
 
     @staticmethod
     def topic_result_to_model(entity: TopicResultEntity) -> TopicResult:
-        return SqlliteTopicResultMapper.to_model(entity)
+        return PostgresTopicResultMapper.to_model(entity)
 
     @staticmethod
     def topic_result_to_knowledge_profile(
         entity: TopicResultEntity,
     ) -> StudentKnowledgeProfile:
-        return SqlliteTopicResultMapper.to_knowledge_profile(entity)
+        return PostgresTopicResultMapper.to_knowledge_profile(entity)
 
     @staticmethod
     def classification_result_to_entity(
         classification_result: ClassificationResult,
     ) -> ClassificationResultEntity:
-        return SqlliteClassificationResultMapper.to_entity(classification_result)
+        return PostgresClassificationResultMapper.to_entity(classification_result)
 
 
-class SqlliteAssessmentAnswerMapper:
+class PostgresAssessmentAnswerMapper:
     @staticmethod
     def to_entity(request: AssessmentAnswer) -> AssessmentAnswerEntity:
         return AssessmentAnswerEntity(
@@ -147,7 +147,7 @@ class SqlliteAssessmentAnswerMapper:
         )
 
 
-class SqlliteAssessmentQualificationMapper:
+class PostgresAssessmentQualificationMapper:
     @staticmethod
     def to_entity(model: QualifierResult) -> AssessmentQualificationEntity:
         return AssessmentQualificationEntity(
@@ -197,7 +197,7 @@ class SqlliteAssessmentQualificationMapper:
         )
 
 
-class SqlliteTopicResultMapper:
+class PostgresTopicResultMapper:
     @staticmethod
     def to_entity(topic_result: TopicResult) -> TopicResultEntity:
         date_now = datetime.now()
@@ -226,7 +226,7 @@ class SqlliteTopicResultMapper:
         )
 
 
-class SqlliteClassificationResultMapper:
+class PostgresClassificationResultMapper:
     @staticmethod
     def to_entity(
         classification_result: ClassificationResult,

@@ -1,8 +1,10 @@
 from src.features.user_management.shared.role import Role
-from src.infrastructure.database.sqllite.models.sqllite_role_model import RoleEntity
+from src.infrastructure.database.postgresql.models.postgresql_role_model import (
+    RoleEntity,
+)
 
 
-class SqlLiteRoleMapper:
+class PostgresRoleMapper:
     """A mapper class to convert between Role entities and Role domain models."""
 
     @staticmethod

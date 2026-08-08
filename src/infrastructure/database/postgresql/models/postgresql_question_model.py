@@ -2,8 +2,12 @@ from typing import List
 from sqlalchemy.orm import Mapped, mapped_column, relationship
 from sqlalchemy import ForeignKey, Integer, String, DateTime
 from datetime import datetime
-from src.infrastructure.database.sqllite.models.sqllite_user_model import UserEntity
-from src.infrastructure.database.sqllite.shared.sqllite_database_session import Base
+from src.infrastructure.database.postgresql.models.postgresql_user_model import (
+    UserEntity,
+)
+from src.infrastructure.database.postgresql.shared.postgresql_database_session import (
+    Base,
+)
 
 
 class QuestionEntity(Base):

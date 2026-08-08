@@ -7,18 +7,18 @@ from src.features.user_management.shared.refresh_token_repository import (
     RefreshTokenInfo,
     RefreshTokenRepository,
 )
-from src.infrastructure.database.sqllite.models.sqllite_user_refresh_token_mapper import (
-    SqlLiteRefreshTokenMapper,
+from src.infrastructure.database.postgresql.models.postgresql_user_refresh_token_mapper import (
+    PostgresRefreshTokenMapper,
 )
-from src.infrastructure.database.sqllite.models.sqllite_user_refresh_token_model import (
+from src.infrastructure.database.postgresql.models.postgresql_user_refresh_token_model import (
     RefreshTokenEntity,
 )
 
 
-class SqlLiteUserRefreshTokenRepository(RefreshTokenRepository):
+class PostgresUserRefreshTokenRepository(RefreshTokenRepository):
 
     def __init__(
-        self, session_factory: AsyncSession, mapper: Type[SqlLiteRefreshTokenMapper]
+        self, session_factory: AsyncSession, mapper: Type[PostgresRefreshTokenMapper]
     ):
         self.session_factory = session_factory
         self.mapper = mapper

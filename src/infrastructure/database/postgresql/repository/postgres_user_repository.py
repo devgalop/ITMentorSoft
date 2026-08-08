@@ -12,17 +12,21 @@ from src.features.user_management.shared.user import (
     UserRole,
 )
 from src.features.user_management.shared.user_repository import UserRepository
-from src.infrastructure.database.sqllite.models.sqllite_role_model import RoleEntity
-from src.infrastructure.database.sqllite.models.sqllite_user_mapper import (
-    SqlLiteUserMapper,
+from src.infrastructure.database.postgresql.models.postgresql_role_model import (
+    RoleEntity,
 )
-from src.infrastructure.database.sqllite.models.sqllite_user_model import UserEntity
+from src.infrastructure.database.postgresql.models.postgresql_user_mapper import (
+    PostgresUserMapper,
+)
+from src.infrastructure.database.postgresql.models.postgresql_user_model import (
+    UserEntity,
+)
 
 
-class SqlLiteUserRepository(UserRepository):
+class PostgresUserRepository(UserRepository):
 
     def __init__(
-        self, session_factory: AsyncSession, user_mapper: Type[SqlLiteUserMapper]
+        self, session_factory: AsyncSession, user_mapper: Type[PostgresUserMapper]
     ):
         self.session_factory = session_factory
         self.user_mapper = user_mapper

@@ -17,19 +17,19 @@ from src.features.reports.shared.student_report import (
     StudentProgressDetail,
     StudentSummary,
 )
-from src.infrastructure.database.sqllite.models.sqllite_assessment_mapper import (
-    SqlliteAssessmentMapper,
+from src.infrastructure.database.postgresql.models.postgresql_assessment_mapper import (
+    PostgresAssessmentMapper,
 )
-from src.infrastructure.database.sqllite.models.sqllite_assessment_model import (
+from src.infrastructure.database.postgresql.models.postgresql_assessment_model import (
     AssessmentEntity,
     ClassificationResultEntity,
     TopicResultEntity,
 )
 
 
-class SqlliteAssessmentRepository(AssessmentRepository):
+class PostgresAssessmentRepository(AssessmentRepository):
     def __init__(
-        self, session_factory: AsyncSession, mapper: Type[SqlliteAssessmentMapper]
+        self, session_factory: AsyncSession, mapper: Type[PostgresAssessmentMapper]
     ):
         self.session_factory = session_factory
         self.mapper = mapper

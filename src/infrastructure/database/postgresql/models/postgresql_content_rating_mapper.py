@@ -1,7 +1,7 @@
 from src.features.content_management.rate_content.rate_content_request import (
     RateContent,
 )
-from src.infrastructure.database.sqllite.models.sqllite_content_rating import (
+from src.infrastructure.database.postgresql.models.postgresql_content_rating import (
     ContentRating,
 )
 

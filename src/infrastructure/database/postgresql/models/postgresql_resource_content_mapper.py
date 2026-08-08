@@ -3,7 +3,7 @@ from src.features.content_management.shared.content import (
     ResourceContent,
     ResourceContentResponse,
 )
-from src.infrastructure.database.sqllite.models.sqllite_resource_content import (
+from src.infrastructure.database.postgresql.models.postgresql_resource_content import (
     ResourceContentEntity,
 )
 

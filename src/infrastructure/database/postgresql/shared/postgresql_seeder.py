@@ -8,21 +8,25 @@ import os
 from dotenv import load_dotenv
 from src.features.user_management.shared.dependencies import get_password_hasher
 from src.features.user_management.shared.password_hasher import PasswordHasher
-from src.infrastructure.database.sqllite.models.sqllite_assessment_model import (
+from src.infrastructure.database.postgresql.models.postgresql_assessment_model import (
     AssessmentAnswerEntity,
     AssessmentEntity,
     AssessmentQuizEntity,
     ClassificationResultEntity,
     TopicResultEntity,
 )
-from src.infrastructure.database.sqllite.models.sqllite_question_model import (
+from src.infrastructure.database.postgresql.models.postgresql_question_model import (
     QuestionEntity,
 )
-from src.infrastructure.database.sqllite.models.sqllite_role_model import RoleEntity
-from src.infrastructure.database.sqllite.shared.sqllite_database_session import (
+from src.infrastructure.database.postgresql.models.postgresql_role_model import (
+    RoleEntity,
+)
+from src.infrastructure.database.postgresql.shared.postgresql_database_session import (
     AsyncSessionLocal,
 )
-from src.infrastructure.database.sqllite.models.sqllite_user_model import UserEntity
+from src.infrastructure.database.postgresql.models.postgresql_user_model import (
+    UserEntity,
+)
 
 load_dotenv()
 

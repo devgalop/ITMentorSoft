@@ -5,11 +5,15 @@ from typing import TYPE_CHECKING, Optional
 from sqlalchemy import ForeignKey, String
 from sqlalchemy.orm import Mapped, mapped_column, relationship
 
-from src.infrastructure.database.sqllite.shared.sqllite_database_session import Base
+from src.infrastructure.database.postgresql.shared.postgresql_database_session import (
+    Base,
+)
 
 if TYPE_CHECKING:
-    # Imported only for static analysis — avoids a circular import with sqllite_role_model.
-    from src.infrastructure.database.sqllite.models.sqllite_role_model import RoleEntity
+    # Imported only for static analysis — avoids a circular import with postgresql_role_model.
+    from src.infrastructure.database.postgresql.models.postgresql_role_model import (
+        RoleEntity,
+    )
 
 
 class UserEntity(Base):

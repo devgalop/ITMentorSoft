@@ -2,12 +2,12 @@ from src.features.user_management.shared.user_recovery_token_repository import (
     RecoveryTokenInfo,
     UserRecoveryTokenResponse,
 )
-from src.infrastructure.database.sqllite.models.sqllite_user_recovery_token_model import (
+from src.infrastructure.database.postgresql.models.postgresql_user_recovery_token_model import (
     RecoveryTokenEntity,
 )
 
 
-class SqlLiteRecoveryTokenMapper:
+class PostgresRecoveryTokenMapper:
     @staticmethod
     def to_model(
         recovery_token_entity: RecoveryTokenEntity,

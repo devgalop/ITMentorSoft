@@ -27,18 +27,18 @@ from src.features.content_management.shared.content_repository import (
 from src.features.content_management.update_resource_content.update_resource_content_request import (
     UpdateResourceContentRequest,
 )
-from src.infrastructure.database.sqllite.models.sqllite_content_rating_mapper import (
+from src.infrastructure.database.postgresql.models.postgresql_content_rating_mapper import (
     RateContentMapper,
 )
-from src.infrastructure.database.sqllite.models.sqllite_resource_content import (
+from src.infrastructure.database.postgresql.models.postgresql_resource_content import (
     ResourceContentEntity,
 )
-from src.infrastructure.database.sqllite.models.sqllite_resource_content_mapper import (
+from src.infrastructure.database.postgresql.models.postgresql_resource_content_mapper import (
     ResourceContentMapper,
 )
 
 
-class SqlLiteResourceContentRepository(ResourceContentRepository):
+class PostgresResourceContentRepository(ResourceContentRepository):
 
     def __init__(
         self,

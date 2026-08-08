@@ -2,13 +2,13 @@ from src.features.reports.shared.student_report import (
     StudentBasicSummary,
     StudentKnowledgeProfile,
 )
-from src.infrastructure.database.sqllite.models.sqllite_assessment_model import (
+from src.infrastructure.database.postgresql.models.postgresql_assessment_model import (
     ClassificationResultEntity,
     TopicResultEntity,
 )
 
 
-class SqlliteReportMapper:
+class PostgresReportMapper:
     @staticmethod
     def from_classification_result_to_student_basic_summary(
         request: ClassificationResultEntity,

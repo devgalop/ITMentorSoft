@@ -2,11 +2,15 @@ from datetime import datetime
 from typing import List
 from sqlalchemy.orm import Mapped, mapped_column, relationship
 from sqlalchemy import DateTime, ForeignKey, Integer, String, UniqueConstraint
-from src.infrastructure.database.sqllite.models.sqllite_question_model import (
+from src.infrastructure.database.postgresql.models.postgresql_question_model import (
     QuestionEntity,
 )
-from src.infrastructure.database.sqllite.models.sqllite_user_model import UserEntity
-from src.infrastructure.database.sqllite.shared.sqllite_database_session import Base
+from src.infrastructure.database.postgresql.models.postgresql_user_model import (
+    UserEntity,
+)
+from src.infrastructure.database.postgresql.shared.postgresql_database_session import (
+    Base,
+)
 
 CROSSFIELD_QUESTION_ID = "questions.id"
 CROSSFIELD_USER_ID = "users.id"

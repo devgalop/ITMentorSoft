@@ -9,17 +9,17 @@ from src.features.assessments.shared.question import (
 from src.features.assessments.shared.question_assessment_repository import (
     QuestionAssessmentRepository,
 )
-from src.infrastructure.database.sqllite.models.sqllite_question_mapper import (
-    SqlliteQuestionMapper,
+from src.infrastructure.database.postgresql.models.postgresql_question_mapper import (
+    PostgresQuestionMapper,
 )
-from src.infrastructure.database.sqllite.models.sqllite_question_model import (
+from src.infrastructure.database.postgresql.models.postgresql_question_model import (
     QuestionEntity,
 )
 
 
-class SqlLiteQuestionsAssessmentRepository(QuestionAssessmentRepository):
+class PostgresQuestionsAssessmentRepository(QuestionAssessmentRepository):
     def __init__(
-        self, session_factory: AsyncSession, mapper: Type[SqlliteQuestionMapper]
+        self, session_factory: AsyncSession, mapper: Type[PostgresQuestionMapper]
     ):
         self.session_factory = session_factory
         self.mapper = mapper

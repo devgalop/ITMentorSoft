@@ -5,10 +5,12 @@ from src.features.user_management.shared.user import (
     UserStatus,
     UserResponse,
 )
-from src.infrastructure.database.sqllite.models.sqllite_user_model import UserEntity
+from src.infrastructure.database.postgresql.models.postgresql_user_model import (
+    UserEntity,
+)
 
 
-class SqlLiteUserMapper:
+class PostgresUserMapper:
 
     @staticmethod
     def to_entity(user_model: User) -> UserEntity:

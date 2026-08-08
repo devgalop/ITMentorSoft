@@ -2,12 +2,12 @@ from src.features.user_management.shared.refresh_token_repository import (
     RefreshTokenData,
     RefreshTokenInfo,
 )
-from src.infrastructure.database.sqllite.models.sqllite_user_refresh_token_model import (
+from src.infrastructure.database.postgresql.models.postgresql_user_refresh_token_model import (
     RefreshTokenEntity,
 )
 
 
-class SqlLiteRefreshTokenMapper:
+class PostgresRefreshTokenMapper:
     @staticmethod
     def to_model(refresh_token_entity: RefreshTokenEntity) -> RefreshTokenData:
         """Convert a RefreshTokenEntity to a RefreshTokenData.

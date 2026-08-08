@@ -10,7 +10,7 @@ from src.features.assessments.shared.question_details import (
     QuestionDetails,
     RubricScore,
 )
-from src.infrastructure.database.sqllite.models.sqllite_question_model import (
+from src.infrastructure.database.postgresql.models.postgresql_question_model import (
     QuestionEntity,
     QuestionReviewEntity,
     QuestionRubricScoreEntity,
@@ -19,7 +19,7 @@ from src.infrastructure.database.sqllite.models.sqllite_question_model import (
 PIPE_SEPARATOR = "|"
 
 
-class SqlliteQuestionMapper:
+class PostgresQuestionMapper:
 
     @staticmethod
     def to_evaluative_model(question: QuestionEntity) -> EvaluativeQuestion:
@@ -32,7 +32,7 @@ class SqlliteQuestionMapper:
     @staticmethod
     def to_model(question: QuestionEntity) -> Question:
         rubric = [
-            SqlliteQuestionMapper.to_rubric_score_model(r) for r in question.rubric
+            PostgresQuestionMapper.to_rubric_score_model(r) for r in question.rubric
         ]
         model = Question(
             text_to_evaluate=question.text,
@@ -63,7 +63,7 @@ class SqlliteQuestionMapper:
     @staticmethod
     def to_detailed_model(question: QuestionEntity) -> QuestionDetails:
         rubric = [
-            SqlliteQuestionMapper.to_rubric_score_response(r) for r in question.rubric
+            PostgresQuestionMapper.to_rubric_score_response(r) for r in question.rubric
         ]
         model = QuestionDetails(
             question_id=question.id,
@@ -149,6 +149,6 @@ class SqlliteQuestionMapper:
         question_id: str, rubric_scores: list[QuestionRubricScore]
     ) -> list[QuestionRubricScoreEntity]:
         return [
-            SqlliteQuestionMapper.to_rubric_score_entity(question_id, r)
+            PostgresQuestionMapper.to_rubric_score_entity(question_id, r)
             for r in rubric_scores
         ]

@@ -4,10 +4,12 @@ from typing import List
 
 from sqlalchemy.orm import Mapped, mapped_column, relationship
 from sqlalchemy import String
-from src.infrastructure.database.sqllite.models.sqllite_content_rating import (
+from src.infrastructure.database.postgresql.models.postgresql_content_rating import (
     ContentRating,
 )
-from src.infrastructure.database.sqllite.shared.sqllite_database_session import Base
+from src.infrastructure.database.postgresql.shared.postgresql_database_session import (
+    Base,
+)
 
 
 class ResourceContentEntity(Base):

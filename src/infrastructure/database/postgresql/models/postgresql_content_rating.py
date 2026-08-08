@@ -5,10 +5,12 @@ from typing import TYPE_CHECKING
 from sqlalchemy import ForeignKey, Integer, String
 from sqlalchemy.orm import Mapped, mapped_column, relationship
 
-from src.infrastructure.database.sqllite.shared.sqllite_database_session import Base
+from src.infrastructure.database.postgresql.shared.postgresql_database_session import (
+    Base,
+)
 
 if TYPE_CHECKING:
-    from src.infrastructure.database.sqllite.models.sqllite_resource_content import (
+    from src.infrastructure.database.postgresql.models.postgresql_resource_content import (
         ResourceContentEntity,
     )
 

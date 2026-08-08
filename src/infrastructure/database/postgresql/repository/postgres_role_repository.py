@@ -3,16 +3,18 @@ from sqlalchemy.ext.asyncio import AsyncSession
 from sqlalchemy import select
 from src.features.user_management.shared.role import Role
 from src.features.user_management.shared.role_repository import RoleRepository
-from src.infrastructure.database.sqllite.models.sqllite_role_mapper import (
-    SqlLiteRoleMapper,
+from src.infrastructure.database.postgresql.models.postgresql_role_mapper import (
+    PostgresRoleMapper,
 )
-from src.infrastructure.database.sqllite.models.sqllite_role_model import RoleEntity
+from src.infrastructure.database.postgresql.models.postgresql_role_model import (
+    RoleEntity,
+)
 
 
-class SqlLiteRoleRepository(RoleRepository):
+class PostgresRoleRepository(RoleRepository):
 
     def __init__(
-        self, session_factory: AsyncSession, role_mapper: Type[SqlLiteRoleMapper]
+        self, session_factory: AsyncSession, role_mapper: Type[PostgresRoleMapper]
     ):
         self.session_factory = session_factory
         self.role_mapper = role_mapper

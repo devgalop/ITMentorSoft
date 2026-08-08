@@ -9,17 +9,17 @@ from src.features.reports.shared.student_report import (
     PaginatedStudentSummary,
     StudentBasicSummary,
 )
-from src.infrastructure.database.sqllite.models.sqllite_assessment_model import (
+from src.infrastructure.database.postgresql.models.postgresql_assessment_model import (
     ClassificationResultEntity,
 )
-from src.infrastructure.database.sqllite.models.sqllite_report_mapper import (
-    SqlliteReportMapper,
+from src.infrastructure.database.postgresql.models.postgresql_report_mapper import (
+    PostgresReportMapper,
 )
 
 
-class SqlliteReportRepository(ReportRepository):
+class PostgresReportRepository(ReportRepository):
     def __init__(
-        self, session_factory: AsyncSession, mapper: Type[SqlliteReportMapper]
+        self, session_factory: AsyncSession, mapper: Type[PostgresReportMapper]
     ):
         self.session_factory = session_factory
         self.mapper = mapper

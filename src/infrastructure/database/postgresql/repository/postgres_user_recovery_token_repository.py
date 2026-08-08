@@ -6,18 +6,18 @@ from src.features.user_management.shared.user_recovery_token_repository import (
     UserRecoveryTokenRepository,
     UserRecoveryTokenResponse,
 )
-from src.infrastructure.database.sqllite.models.sqllite_user_recovery_token_mapper import (
-    SqlLiteRecoveryTokenMapper,
+from src.infrastructure.database.postgresql.models.postgresql_user_recovery_token_mapper import (
+    PostgresRecoveryTokenMapper,
 )
-from src.infrastructure.database.sqllite.models.sqllite_user_recovery_token_model import (
+from src.infrastructure.database.postgresql.models.postgresql_user_recovery_token_model import (
     RecoveryTokenEntity,
 )
 
 
-class SqlLiteUserRecoveryTokenRepository(UserRecoveryTokenRepository):
+class PostgresUserRecoveryTokenRepository(UserRecoveryTokenRepository):
 
     def __init__(
-        self, session_factory: AsyncSession, mapper: Type[SqlLiteRecoveryTokenMapper]
+        self, session_factory: AsyncSession, mapper: Type[PostgresRecoveryTokenMapper]
     ):
         self.session_factory = session_factory
         self.mapper = mapper
