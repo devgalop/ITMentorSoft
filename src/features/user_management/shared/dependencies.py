@@ -34,31 +34,33 @@ from src.features.user_management.refresh_token.refresh_token_handler import (
     RefreshTokenHandler,
 )
 from sqlalchemy.ext.asyncio import AsyncSession
-from src.infrastructure.database.sqllite.models.sqllite_role_mapper import (
-    SqlLiteRoleMapper,
+from src.infrastructure.database.postgresql.models.postgresql_role_mapper import (
+    PostgresRoleMapper,
 )
-from src.infrastructure.database.sqllite.models.sqllite_user_mapper import (
-    SqlLiteUserMapper,
+from src.infrastructure.database.postgresql.models.postgresql_user_mapper import (
+    PostgresUserMapper,
 )
-from src.infrastructure.database.sqllite.models.sqllite_user_recovery_token_mapper import (
-    SqlLiteRecoveryTokenMapper,
+from src.infrastructure.database.postgresql.models.postgresql_user_recovery_token_mapper import (
+    PostgresRecoveryTokenMapper,
 )
-from src.infrastructure.database.sqllite.models.sqllite_user_refresh_token_mapper import (
-    SqlLiteRefreshTokenMapper,
+from src.infrastructure.database.postgresql.models.postgresql_user_refresh_token_mapper import (
+    PostgresRefreshTokenMapper,
 )
-from src.infrastructure.database.sqllite.repository.sqllite_role_repository import (
-    SqlLiteRoleRepository,
+from src.infrastructure.database.postgresql.repository.postgres_role_repository import (
+    PostgresRoleRepository,
 )
-from src.infrastructure.database.sqllite.repository.sqllite_user_recovery_token_repository import (
-    SqlLiteUserRecoveryTokenRepository,
+from src.infrastructure.database.postgresql.repository.postgres_user_recovery_token_repository import (
+    PostgresUserRecoveryTokenRepository,
 )
-from src.infrastructure.database.sqllite.repository.sqllite_user_repository import (
-    SqlLiteUserRepository,
+from src.infrastructure.database.postgresql.repository.postgres_user_repository import (
+    PostgresUserRepository,
 )
-from src.infrastructure.database.sqllite.repository.sqllite_user_refresh_token_repository import (
-    SqlLiteUserRefreshTokenRepository,
+from src.infrastructure.database.postgresql.repository.postgres_user_refresh_token_repository import (
+    PostgresUserRefreshTokenRepository,
 )
-from src.infrastructure.database.sqllite.shared.sqllite_database_session import get_db
+from src.infrastructure.database.postgresql.shared.postgresql_database_session import (
+    get_db,
+)
 from src.infrastructure.notification.brevo_notification_service import (
     BrevoNotificationService,
 )
@@ -74,20 +76,24 @@ from src.features.user_management.create_user_from_admin.create_user_from_admin_
 def get_user_repository(
     session: Annotated[AsyncSession, Depends(get_db)],
 ) -> UserRepository:
-    return SqlLiteUserRepository(session_factory=session, user_mapper=SqlLiteUserMapper)
+    return PostgresUserRepository(
+        session_factory=session, user_mapper=PostgresUserMapper
+    )
 
 
 def get_role_repository(
     session: Annotated[AsyncSession, Depends(get_db)],
 ) -> RoleRepository:
-    return SqlLiteRoleRepository(session_factory=session, role_mapper=SqlLiteRoleMapper)
+    return PostgresRoleRepository(
+        session_factory=session, role_mapper=PostgresRoleMapper
+    )
 
 
 def get_user_recovery_token_repository(
     session: Annotated[AsyncSession, Depends(get_db)],
 ) -> UserRecoveryTokenRepository:
-    return SqlLiteUserRecoveryTokenRepository(
-        session_factory=session, mapper=SqlLiteRecoveryTokenMapper
+    return PostgresUserRecoveryTokenRepository(
+        session_factory=session, mapper=PostgresRecoveryTokenMapper
     )
 
 
@@ -102,8 +108,8 @@ def get_token_generator() -> TokenGenerator:
 def get_refresh_token_repository(
     session: Annotated[AsyncSession, Depends(get_db)],
 ) -> RefreshTokenRepository:
-    return SqlLiteUserRefreshTokenRepository(
-        session_factory=session, mapper=SqlLiteRefreshTokenMapper
+    return PostgresUserRefreshTokenRepository(
+        session_factory=session, mapper=PostgresRefreshTokenMapper
     )
 
 

@@ -23,19 +23,23 @@ from src.features.reports.shared.report_repository import ReportRepository
 from src.features.reports.shared.student_report_service import StudentReportService
 from src.features.user_management.shared.dependencies import get_user_repository
 from src.features.user_management.shared.user_repository import UserRepository
-from src.infrastructure.database.sqllite.models.sqllite_report_mapper import (
-    SqlliteReportMapper,
+from src.infrastructure.database.postgresql.models.postgresql_report_mapper import (
+    PostgresReportMapper,
 )
-from src.infrastructure.database.sqllite.repository.sqllite_report_repository import (
-    SqlliteReportRepository,
+from src.infrastructure.database.postgresql.repository.postgres_report_repository import (
+    PostgresReportRepository,
 )
-from src.infrastructure.database.sqllite.shared.sqllite_database_session import get_db
+from src.infrastructure.database.postgresql.shared.postgresql_database_session import (
+    get_db,
+)
 
 
 def get_report_repository(
     session: Annotated[AsyncSession, Depends(get_db)],
 ) -> ReportRepository:
-    return SqlliteReportRepository(session_factory=session, mapper=SqlliteReportMapper)
+    return PostgresReportRepository(
+        session_factory=session, mapper=PostgresReportMapper
+    )
 
 
 def get_student_report_service(
