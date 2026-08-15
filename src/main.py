@@ -15,6 +15,7 @@ from src.infrastructure.database.postgresql.shared.postgresql_seeder import (
     seed_database,
 )
 from src.infrastructure.security.bcrypt_password_hasher import BcryptPasswordHasher
+from src.infrastructure.broker.aws.services.aws_sqs_manager import SqsManagerService
 
 
 @asynccontextmanager
@@ -24,6 +25,10 @@ async def lifespan(app: FastAPI):
     await seed_database(BcryptPasswordHasher())
     await seed_questions()
     await seed_assessments()
+    print("Application startup complete.")
+    print("Starting the SQS consumer services...")
+    SqsManagerService.create_queues()
+    SqsManagerService.start_consumer_services()
     yield
     print("Shutting down the application...")
 
