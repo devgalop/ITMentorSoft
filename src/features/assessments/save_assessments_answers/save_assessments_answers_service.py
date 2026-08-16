@@ -4,6 +4,7 @@ import uuid
 from src.features.assessments.evaluate.evaluate_assessment_service import (
     EvaluateAssessmentService,
 )
+from src.features.assessments.evaluate.evaluate_message import EvaluateMessage
 from src.features.assessments.save_assessments_answers.save_assessments_answers_request import (
     SaveAssessmentsAnswersRequest,
 )
@@ -16,6 +17,7 @@ from src.features.assessments.shared.assessment import (
     AssessmentQuiz,
 )
 from src.features.assessments.shared.assessment_repository import AssessmentRepository
+from src.features.shared.publisher_service import PublisherService
 from src.features.user_management.shared.user_repository import UserRepository
 
 
@@ -25,10 +27,12 @@ class SaveAssessmentsAnswersService:
         assessment_repository: AssessmentRepository,
         user_repository: UserRepository,
         evaluator_service: EvaluateAssessmentService,
+        publisher_service: PublisherService,
     ):
         self.assessment_repository = assessment_repository
         self.user_repository = user_repository
         self.evaluator_service = evaluator_service
+        self.publisher_service = publisher_service
 
     async def save_assessment_answers(
         self, request: SaveAssessmentsAnswersRequest
@@ -84,10 +88,7 @@ class SaveAssessmentsAnswersService:
 
             await self.assessment_repository.save_assessment_answers(assessment)
 
-            try:
-                await self.evaluator_service.evaluate_answers(assessment)
-            except Exception as e:
-                print(f"An error occurred during assessment evaluation: {str(e)}")
+            await self.publisher_service.publish(request=EvaluateMessage(assessment))
 
             return SaveAssessmentsAnswersResponse(
                 is_success=True, message="Assessment answers saved successfully."

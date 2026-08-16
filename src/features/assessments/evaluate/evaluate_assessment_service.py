@@ -21,6 +21,27 @@ from src.features.assessments.shared.qualifier_service import (
     TopicResult,
 )
 from src.features.assessments.shared.questions_repository import QuestionRepository
+from src.infrastructure.classifier.opencode_classifier_service import (
+    OpenCodeClassificationService,
+)
+from src.infrastructure.database.postgresql.models.postgresql_assessment_mapper import (
+    PostgresAssessmentMapper,
+)
+from src.infrastructure.database.postgresql.models.postgresql_question_mapper import (
+    PostgresQuestionMapper,
+)
+from src.infrastructure.database.postgresql.repository.postgres_assessment_repository import (
+    PostgresAssessmentRepository,
+)
+from src.infrastructure.database.postgresql.repository.postgres_questions_repository import (
+    PostgresQuestionsRepository,
+)
+from src.infrastructure.database.postgresql.shared.postgresql_database_session import (
+    AsyncSessionLocal,
+)
+from src.infrastructure.qualifier.opencode_qualifier_service import (
+    OpencodeQualifierService,
+)
 
 logger = logging.getLogger(__name__)
 
@@ -58,43 +79,51 @@ ASSESSMENT_QUALIFICATION_CHUNK_SIZE = _validate_chunk_size(_raw_chunk_size)
 
 
 class EvaluateAssessmentService:
-    def __init__(
-        self,
-        assessment_repository: AssessmentRepository,
-        qualifier_service: QualifierService,
-        question_repository: QuestionRepository,
-        classification_service: ClassificationService,
-    ):
-        self.assessment_repository = assessment_repository
-        self.qualifier_service = qualifier_service
-        self.question_repository = question_repository
+    def __init__(self):
         self.chunk_size = ASSESSMENT_QUALIFICATION_CHUNK_SIZE
-        self.classification_service = classification_service
+        self.assessment_repository: AssessmentRepository | None = None
+        self.question_repository: QuestionRepository | None = None
+        self.qualifier_service: QualifierService | None = None
+        self.classification_service: ClassificationService | None = None
 
-    async def evaluate_answers(self, assessment: Assessment):
-        start_time = time.perf_counter()
-        evaluation_results: list[QualifierResult] = await self.qualify_assessment(
-            assessment
-        )
-        end_time = time.perf_counter()
-        evaluation_duration = end_time - start_time
-        print(
-            f"Evaluation of assessment {assessment.assessment_id} took {evaluation_duration:.6f} seconds."
-        )
-        await self.save_assessment_results(evaluation_results)
-        topic_results: list[TopicResult] = self.get_knowledge_profile(
-            assessment.user_id, evaluation_results
-        )
-        await self.save_knowledge_profile(topic_results)
-        qualifications = self.get_answer_qualifications(assessment, evaluation_results)
-        if not qualifications or len(qualifications) == 0:
-            logger.warning(
-                "No qualifications generated for assessment %s, skipping classification.",
-                assessment.assessment_id,
+    async def evaluate_answers(
+        self, assessment: Assessment
+    ) -> list[QuestionAnswerQualification]:
+        async with AsyncSessionLocal() as session:
+            self.assessment_repository = PostgresAssessmentRepository(
+                session, PostgresAssessmentMapper
             )
-            return
-        classification = await self.classify_assessment(qualifications)
-        await self.save_classification_result(classification)
+            self.question_repository = PostgresQuestionsRepository(
+                session, PostgresQuestionMapper
+            )
+            self.qualifier_service = OpencodeQualifierService()
+            self.classification_service = OpenCodeClassificationService()
+            start_time = time.perf_counter()
+            evaluation_results: list[QualifierResult] = await self.qualify_assessment(
+                assessment
+            )
+            end_time = time.perf_counter()
+            evaluation_duration = end_time - start_time
+            print(
+                f"Evaluation of assessment {assessment.assessment_id} took {evaluation_duration:.6f} seconds."
+            )
+            await self.save_assessment_results(evaluation_results)
+            topic_results: list[TopicResult] = self.get_knowledge_profile(
+                assessment.user_id, evaluation_results
+            )
+            await self.save_knowledge_profile(topic_results)
+            qualifications = self.get_answer_qualifications(
+                assessment, evaluation_results
+            )
+            if not qualifications or len(qualifications) == 0:
+                logger.warning(
+                    "No qualifications generated for assessment %s, skipping classification.",
+                    assessment.assessment_id,
+                )
+                return []
+            classification = await self.classify_assessment(qualifications)
+            await self.save_classification_result(classification)
+            return qualifications
 
     async def qualify_assessment(self, assessment: Assessment) -> list[QualifierResult]:
         """Send the assessment answers to the qualifier service for evaluation.
@@ -108,6 +137,11 @@ class EvaluateAssessmentService:
         Returns:
             list[QualifierResult]: A list of results from the qualifier service.
         """
+        if not self.question_repository or not self.qualifier_service:
+            raise RuntimeError(
+                "Question repository and qualifier service must be initialized before calling qualify_assessment."
+            )
+
         evaluation_results: list[QualifierResult] = []
 
         # Pre-fetch all rubrics in a single query
@@ -175,6 +209,10 @@ class EvaluateAssessmentService:
         Args:
             results (list[QualifierResult]): A list of results from the qualifier service.
         """
+        if not self.assessment_repository:
+            raise RuntimeError(
+                "Assessment repository must be initialized before calling save_assessment_results."
+            )
         for result in results:
             await self.assessment_repository.save_assessment_qualification(result)
 
@@ -210,6 +248,10 @@ class EvaluateAssessmentService:
         Args:
             topic_results (list[TopicResult]): Topic results to save.
         """
+        if not self.assessment_repository:
+            raise RuntimeError(
+                "Assessment repository must be initialized before calling save_knowledge_profile."
+            )
         for topic_result in topic_results:
             await self.assessment_repository.save_topic_result(topic_result)
 
@@ -263,6 +305,10 @@ class EvaluateAssessmentService:
         Returns:
             ClassificationResult: The result of the classification, including classification and feedback.
         """
+        if not self.classification_service:
+            raise RuntimeError(
+                "Classification service must be initialized before calling classify_assessment."
+            )
         classification_prompt = ClassificationPrompt(qualifications=answers)
         classification_result = await self.classification_service.classify(
             classification_prompt
@@ -277,6 +323,10 @@ class EvaluateAssessmentService:
         Args:
             classification_result (ClassificationResult): The result of the classification to save.
         """
+        if not self.assessment_repository:
+            raise RuntimeError(
+                "Assessment repository must be initialized before calling save_classification_result."
+            )
         await self.assessment_repository.save_classification_result(
             classification_result
         )

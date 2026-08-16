@@ -65,3 +65,15 @@ This document lists all environment variables required to run the IT MentorSoft 
 | Variable | Example | Description |
 |---|---|---|
 | `ASSESSMENT_QUALIFICATION_CHUNK_SIZE` | `5` | Number of questions sent to the LLM qualifier in a single batch. Controls throughput vs. cost trade-off during automated assessment grading. |
+
+---
+
+## AWS / SQS
+
+| Variable | Example | Description |
+|---|---|---|
+| `AWS_ACCESS_KEY_ID` | `test` | AWS access key. For Floci use `test`. |
+| `AWS_SECRET_ACCESS_KEY` | `test` | AWS secret key. For Floci use `test`. |
+| `AWS_REGION` | `us-east-1` | AWS region for SQS. |
+| `AWS_ENDPOINT_URL` | `http://localhost:4566` | Endpoint URL for Floci or production AWS. |
+| `AWS_SQS_QUALIFICATION_QUEUE_URL` | `http://localhost:4566/000000000000/mq-itmentorsoft-qualify-001` | URL of the qualification queue. |
