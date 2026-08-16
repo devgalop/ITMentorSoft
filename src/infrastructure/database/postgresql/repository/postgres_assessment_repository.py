@@ -264,3 +264,14 @@ class PostgresAssessmentRepository(AssessmentRepository):
         if not assessment_entity:
             return None
         return self.mapper.to_assessment_result(assessment_entity)
+
+    async def is_qualification_completed(
+        self, user_id: str, assessment_id: str
+    ) -> bool:
+        smt = select(ClassificationResultEntity).where(
+            ClassificationResultEntity.user_id == user_id,
+            ClassificationResultEntity.assessment_id == assessment_id,
+        )
+        result = await self.session_factory.execute(smt)
+        existing_result = result.scalars().first()
+        return existing_result is not None

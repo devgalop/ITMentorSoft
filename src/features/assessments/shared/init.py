@@ -39,6 +39,9 @@ from src.features.assessments.save_review_question.save_review_question_endpoint
 from src.features.assessments.get_assessment_result.get_assessment_result_endpoint import (
     router as get_assessment_result_router,
 )
+from src.features.assessments.get_qualification_status.get_qualification_status_endpoint import (
+    router as get_qualification_status_router,
+)
 
 router = APIRouter()
 router.include_router(register_question_router)
@@ -54,3 +57,4 @@ router.include_router(get_all_questions_router)
 router.include_router(get_pending_approval_questions_router)
 router.include_router(save_review_question_router)
 router.include_router(get_assessment_result_router)
+router.include_router(get_qualification_status_router)

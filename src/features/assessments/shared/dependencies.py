@@ -24,6 +24,9 @@ from src.features.assessments.get_assessment_result.get_assessment_result_handle
 from src.features.assessments.get_pending_approval_questions.get_pending_approval_questions_handler import (
     GetPendingApprovalQuestionsHandler,
 )
+from src.features.assessments.get_qualification_status.get_qualification_status_handler import (
+    GetQualificationStatusHandler,
+)
 from src.features.assessments.get_question_categories.get_question_categories_handler import (
     GetQuestionCategoriesHandler,
 )
@@ -353,3 +356,11 @@ def get_get_assessment_result_handler(
     ],
 ) -> GetAssessmentResultHandler:
     return GetAssessmentResultHandler(assessment_repository=assessment_repository)
+
+
+def get_get_qualification_status_handler(
+    assessment_repository: Annotated[
+        AssessmentRepository, Depends(get_assessment_repository)
+    ],
+) -> GetQualificationStatusHandler:
+    return GetQualificationStatusHandler(assessment_repository=assessment_repository)

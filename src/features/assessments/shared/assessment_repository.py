@@ -159,3 +159,18 @@ class AssessmentRepository(ABC):
             StudentAssessmentResult | None: The assessment result corresponding to the given assessment ID and user ID, or None if not found.
         """
         pass
+
+    @abstractmethod
+    async def is_qualification_completed(
+        self, user_id: str, assessment_id: str
+    ) -> bool:
+        """Check if the qualification process is completed for a user
+
+        Args:
+            user_id (str): The ID of the user to check.
+            assessment_id (str): The ID of the assessment to check.
+
+        Returns:
+            bool: True if the qualification process is completed for the user and assessment, False otherwise.
+        """
+        pass
