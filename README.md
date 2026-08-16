@@ -8,15 +8,16 @@ Este proyecto tiene como objetivo principal potenciar el dominio de los fundamen
 
 ## Stack tecnológico
 
-- Python 3.13
-- FastAPI
-- SQLAlchemy (ORM)
-- SQLite (base de datos)
-- JWT (autenticación)
-- Brevo (servicio de notificaciones email)
-- Groq / OpenAI (calificación de respuestas con LLM)
-- Sentry (monitoreo de errores)
-- pytest (testing)
+- **Lenguaje:** Python 3.13
+- **Framework:** FastAPI (async)
+- **ORM:** SQLAlchemy 2.x con soporte async (asyncpg)
+- **Base de datos:** PostgreSQL 16 (via Docker en desarrollo)
+- **Cola de mensajes:** AWS SQS (Floci en desarrollo)
+- **Autenticación:** JWT con refresh tokens
+- **Email:** Brevo (transaccional)
+- **LLM Qualifiers:** Groq / OpenCode (calificación con modelos de lenguaje)
+- **Testing:** pytest con fixtures asíncronas
+- **Infraestructura:** Docker Compose (PostgreSQL + Floci en desarrollo)
 
 ## Arquitectura del proyecto
 
@@ -31,7 +32,8 @@ La estructura del proyecto se organizará de la siguiente manera:
     - `assessments/`: Gestión de evaluaciones y preguntas (registrar preguntas, obtener preguntas por nivel/categoría, actualizar preguntas, obtener evaluación, guardar respuestas, evaluar, obtener categorías de preguntas, obtener todas las preguntas, obtener preguntas pendientes de aprobación, revisar preguntas)
     - `shared/`: Abstracciones compartidas como NotificationService
   - `infrastructure/`: Implementación de infraestructura concreta.
-    - `database/sqllite/`: Repositorios y modelos SQLite (user, role, content, ratings, tokens, questions, assessments)
+    - `database/postgresql/`: Repositorios y modelos PostgreSQL (user, role, content, ratings, tokens, questions, assessments)
+    - `broker/aws/`: Implementación de AWS SQS (publisher, consumer, connection factory)
     - `notification/`: Implementación del servicio de notificaciones (Brevo)
     - `qualifier/`: Implementación de servicios de calificación con LLM (Groq, OpenCode)
     - `security/`: Implementación de seguridad (JWT token generator, Bcrypt password hasher)
@@ -110,37 +112,49 @@ src/
 │       └── notification_service.py
 ├── infrastructure/
 │   ├── database/
-│   │   └── sqllite/
+│   │   └── postgresql/
 │   │       ├── models/
-│   │       │   ├── sqllite_user_model.py
-│   │       │   ├── sqllite_user_mapper.py
-│   │       │   ├── sqllite_role_model.py
-│   │       │   ├── sqllite_role_mapper.py
-│   │       │   ├── sqllite_resource_content.py
-│   │       │   ├── sqllite_resource_content_mapper.py
-│   │       │   ├── sqllite_content_rating.py
-│   │       │   ├── sqllite_content_rating_mapper.py
-│   │       │   ├── sqllite_question_model.py
-│   │       │   ├── sqllite_question_mapper.py
-│   │       │   ├── sqllite_assessment_model.py
-│   │       │   ├── sqllite_assessment_mapper.py
-│   │       │   ├── sqllite_user_refresh_token_model.py
-│   │       │   ├── sqllite_user_refresh_token_mapper.py
-│   │       │   ├── sqllite_user_recovery_token_model.py
-│   │       │   └── sqllite_user_recovery_token_mapper.py
+│   │       │   ├── postgresql_user_model.py
+│   │       │   ├── postgresql_user_mapper.py
+│   │       │   ├── postgresql_role_model.py
+│   │       │   ├── postgresql_role_mapper.py
+│   │       │   ├── postgresql_resource_content.py
+│   │       │   ├── postgresql_resource_content_mapper.py
+│   │       │   ├── postgresql_content_rating.py
+│   │       │   ├── postgresql_content_rating_mapper.py
+│   │       │   ├── postgresql_question_model.py
+│   │       │   ├── postgresql_question_mapper.py
+│   │       │   ├── postgresql_assessment_model.py
+│   │       │   ├── postgresql_assessment_mapper.py
+│   │       │   ├── postgresql_user_refresh_token_model.py
+│   │       │   ├── postgresql_user_refresh_token_mapper.py
+│   │       │   ├── postgresql_user_recovery_token_model.py
+│   │       │   └── postgresql_user_recovery_token_mapper.py
 │   │       ├── repository/
-│   │       │   ├── sqllite_user_repository.py
-│   │       │   ├── sqllite_role_repository.py
-│   │       │   ├── sqllite_resource_content_repository.py
-│   │       │   ├── sqllite_content_rating_repository.py
-│   │       │   ├── sqllite_user_refresh_token_repository.py
-│   │       │   ├── sqllite_user_recovery_token_repository.py
-│   │       │   ├── sqllite_questions_repository.py
-│   │       │   ├── sqllite_assessment_repository.py
-│   │       │   └── sqllite_questions_assessment_repository.py
+│   │       │   ├── postgresql_user_repository.py
+│   │       │   ├── postgresql_role_repository.py
+│   │       │   ├── postgresql_resource_content_repository.py
+│   │       │   ├── postgresql_content_rating_repository.py
+│   │       │   ├── postgresql_user_refresh_token_repository.py
+│   │       │   ├── postgresql_user_recovery_token_repository.py
+│   │       │   ├── postgresql_questions_repository.py
+│   │       │   ├── postgresql_assessment_repository.py
+│   │       │   └── postgresql_questions_assessment_repository.py
 │   │       └── shared/
-│   │           ├── sqllite_database_session.py
-│   │           └── sqllite_seeder.py
+│   │           ├── postgresql_database_session.py
+│   │           └── postgresql_seeder.py
+│   ├── broker/
+│   │   └── aws/
+│   │       ├── models/
+│   │       │   ├── aws_sqs_client.py
+│   │       │   └── aws_sqs_consumer_config.py
+│   │       └── services/
+│   │           ├── aws_sqs_connection_factory.py
+│   │           ├── aws_sqs_publisher_service.py
+│   │           ├── aws_sqs_consumer_service.py
+│   │           ├── aws_sqs_consumer_qualification.py
+│   │           ├── aws_sqs_creator_service.py
+│   │           └── aws_sqs_manager.py
 │   ├── notification/
 │   │   └── brevo_notification_service.py
 │   ├── qualifier/
