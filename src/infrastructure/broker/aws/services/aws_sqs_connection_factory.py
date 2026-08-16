@@ -14,7 +14,7 @@ class SqsConnectionFactoryService:
 
     def create_connection(self) -> SqsConnection:
         client: Any = boto3.client(
-            "sqs",
+            service_name="sqs",
             endpoint_url=self.connection_request.endpoint_url,
             aws_access_key_id=self.connection_request.access_key,
             aws_secret_access_key=self.connection_request.secret_key,

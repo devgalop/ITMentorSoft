@@ -73,8 +73,9 @@ async def test_when_user_and_quiz_are_valid_then_should_save_and_return_success(
     assessment_repo.save_assessment_answers = AsyncMock()
 
     evaluator_service = AsyncMock()
+    publisher_service = AsyncMock()
     service = SaveAssessmentsAnswersService(
-        assessment_repo, user_repo, evaluator_service
+        assessment_repo, user_repo, evaluator_service, publisher_service
     )
     request = make_valid_request()
 
@@ -93,8 +94,9 @@ async def test_when_user_not_found_then_should_return_failure():
     assessment_repo = AsyncMock()
 
     evaluator_service = AsyncMock()
+    publisher_service = AsyncMock()
     service = SaveAssessmentsAnswersService(
-        assessment_repo, user_repo, evaluator_service
+        assessment_repo, user_repo, evaluator_service, publisher_service
     )
     request = make_valid_request()
 
@@ -115,8 +117,9 @@ async def test_when_assessment_quiz_not_found_then_should_return_failure():
     assessment_repo.get_assessment_quiz = AsyncMock(return_value=None)
 
     evaluator_service = AsyncMock()
+    publisher_service = AsyncMock()
     service = SaveAssessmentsAnswersService(
-        assessment_repo, user_repo, evaluator_service
+        assessment_repo, user_repo, evaluator_service, publisher_service
     )
     request = make_valid_request()
 
@@ -155,8 +158,9 @@ async def test_when_assessment_already_exists_then_should_return_failure():
     )
 
     evaluator_service = AsyncMock()
+    publisher_service = AsyncMock()
     service = SaveAssessmentsAnswersService(
-        assessment_repo, user_repo, evaluator_service
+        assessment_repo, user_repo, evaluator_service, publisher_service
     )
     request = make_valid_request()
 
@@ -183,8 +187,9 @@ async def test_when_quiz_not_assigned_to_user_then_should_return_failure():
     assessment_repo.get_assessment = AsyncMock(return_value=None)
 
     evaluator_service = AsyncMock()
+    publisher_service = AsyncMock()
     service = SaveAssessmentsAnswersService(
-        assessment_repo, user_repo, evaluator_service
+        assessment_repo, user_repo, evaluator_service, publisher_service
     )
     request = make_valid_request()
 
@@ -207,8 +212,9 @@ async def test_when_answered_question_ids_do_not_match_quiz_then_should_return_f
     assessment_repo.get_assessment = AsyncMock(return_value=None)
 
     evaluator_service = AsyncMock()
+    publisher_service = AsyncMock()
     service = SaveAssessmentsAnswersService(
-        assessment_repo, user_repo, evaluator_service
+        assessment_repo, user_repo, evaluator_service, publisher_service
     )
     request = make_valid_request(question_ids=["q-001-uuid-abc", "q-999-invalid"])
 
@@ -234,8 +240,9 @@ async def test_when_duplicate_question_ids_in_answers_then_should_return_failure
     assessment_repo.get_assessment = AsyncMock(return_value=None)
 
     evaluator_service = AsyncMock()
+    publisher_service = AsyncMock()
     service = SaveAssessmentsAnswersService(
-        assessment_repo, user_repo, evaluator_service
+        assessment_repo, user_repo, evaluator_service, publisher_service
     )
     request = SaveAssessmentsAnswersRequest(
         assessment_id=VALID_ASSESSMENT_ID,
@@ -268,8 +275,9 @@ async def test_when_quiz_has_empty_questions_then_should_return_failure():
     assessment_repo.get_assessment = AsyncMock(return_value=None)
 
     evaluator_service = AsyncMock()
+    publisher_service = AsyncMock()
     service = SaveAssessmentsAnswersService(
-        assessment_repo, user_repo, evaluator_service
+        assessment_repo, user_repo, evaluator_service, publisher_service
     )
     request = make_valid_request(question_ids=[])
 
@@ -298,8 +306,9 @@ async def test_when_repository_throws_exception_then_should_return_failure():
     )
 
     evaluator_service = AsyncMock()
+    publisher_service = AsyncMock()
     service = SaveAssessmentsAnswersService(
-        assessment_repo, user_repo, evaluator_service
+        assessment_repo, user_repo, evaluator_service, publisher_service
     )
     request = make_valid_request()
 
@@ -322,8 +331,9 @@ async def test_when_success_then_should_call_save_with_correct_assessment_object
     assessment_repo.save_assessment_answers = AsyncMock()
 
     evaluator_service = AsyncMock()
+    publisher_service = AsyncMock()
     service = SaveAssessmentsAnswersService(
-        assessment_repo, user_repo, evaluator_service
+        assessment_repo, user_repo, evaluator_service, publisher_service
     )
     request = make_valid_request()
 
@@ -354,8 +364,9 @@ async def test_when_success_then_assessment_answers_should_match_request():
     assessment_repo.save_assessment_answers = AsyncMock()
 
     evaluator_service = AsyncMock()
+    publisher_service = AsyncMock()
     service = SaveAssessmentsAnswersService(
-        assessment_repo, user_repo, evaluator_service
+        assessment_repo, user_repo, evaluator_service, publisher_service
     )
     request = make_valid_request()
 

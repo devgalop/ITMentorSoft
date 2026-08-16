@@ -169,7 +169,7 @@ async def seed_assessments():
                 classification_result = ClassificationResultEntity(
                     user_id=student.id,
                     assessment_id=assessment_id,
-                    classification="basic",
+                    classification="básico",
                     feedback="Sample feedback for the student's performance.",
                     is_enabled=True if i == len(questions_by_assessment) - 1 else False,
                 )

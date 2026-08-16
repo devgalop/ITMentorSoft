@@ -27,11 +27,12 @@ class SqsConsumerService(ABC):
                 continue
 
             try:
-                messages = self.sqs_client.client.receive_message(
+                messages = await asyncio.to_thread(
+                    self.sqs_client.client.receive_message,
                     QueueUrl=self.sqs_config.queue_url,
                     MaxNumberOfMessages=self.sqs_config.max_messages,
                     WaitTimeSeconds=self.sqs_config.wait_time_seconds,
-                    MessageAttributeNames=["ApproximateReceiveCount"],
+                    AttributeNames=["ApproximateReceiveCount"],
                 )
                 if not messages or "Messages" not in messages:
                     await asyncio.sleep(30)
@@ -46,13 +47,19 @@ class SqsConsumerService(ABC):
                             message["Attributes"].get("ApproximateReceiveCount", 0)
                         ),
                     )
-                    await self.process_message(message_recieved)
+                    result = await self.process_message(message_recieved)
+                    if result:
+                        await asyncio.to_thread(
+                            self.sqs_client.client.delete_message,
+                            QueueUrl=self.sqs_config.queue_url,
+                            ReceiptHandle=message_recieved.receipt_handle,
+                        )
             except Exception as e:
                 print(f"Error processing messages: {e}")
             await asyncio.sleep(30)
 
     @abstractmethod
-    async def process_message(self, message: SqsMessageReceived):
+    async def process_message(self, message: SqsMessageReceived) -> bool:
         pass
 
     async def stop_consumer(self):

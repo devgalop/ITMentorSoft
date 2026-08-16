@@ -3,6 +3,9 @@ from typing import Annotated
 from sqlalchemy.ext.asyncio import AsyncSession
 from functools import lru_cache
 
+from src.features.assessments.evaluate.evaluate_assessment_contract import (
+    EvaluateAssessmentContract,
+)
 from src.features.assessments.evaluate.evaluate_assessment_service import (
     EvaluateAssessmentService,
 )
@@ -66,9 +69,17 @@ from src.features.assessments.update_question.update_question_handler import (
 from src.features.assessments.shared.question import QuestionBuilder
 from src.features.assessments.shared.questions_repository import QuestionRepository
 from src.features.shared.notification_service import NotificationService
+from src.features.shared.publisher_service import PublisherService
 from src.features.shared.template_loader import TemplateLoader
 from src.features.user_management.shared.dependencies import get_user_repository
 from src.features.user_management.shared.user_repository import UserRepository
+from src.infrastructure.broker.aws.services.aws_sqs_connection_factory import (
+    SqsConnection,
+)
+from src.infrastructure.broker.aws.services.aws_sqs_manager import SqsManagerService
+from src.infrastructure.broker.aws.services.aws_sqs_publisher_service import (
+    EvaluateAssessmentPublishAdapter,
+)
 from src.infrastructure.classifier.opencode_classifier_service import (
     OpenCodeClassificationService,
 )
@@ -232,24 +243,25 @@ def get_classification_service() -> ClassificationService:
     return OpenCodeClassificationService()
 
 
-def get_evaluate_assessment_service(
-    assessment_repository: Annotated[
-        AssessmentRepository, Depends(get_assessment_repository)
+def get_evaluate_assessment_service() -> EvaluateAssessmentService:
+    return EvaluateAssessmentService()
+
+
+@lru_cache()
+def get_sqs_connection(
+    evaluate_contract: Annotated[
+        EvaluateAssessmentContract, Depends(get_evaluate_assessment_service)
     ],
-    qualifier_service: Annotated[QualifierService, Depends(get_qualifier_service)],
-    question_repository: Annotated[
-        QuestionRepository, Depends(get_question_repository)
-    ],
-    classification_service: Annotated[
-        ClassificationService, Depends(get_classification_service)
-    ],
-) -> EvaluateAssessmentService:
-    return EvaluateAssessmentService(
-        assessment_repository=assessment_repository,
-        qualifier_service=qualifier_service,
-        question_repository=question_repository,
-        classification_service=classification_service,
-    )
+) -> SqsConnection:
+    sqs_manager_service = SqsManagerService(evaluate_contract=evaluate_contract)
+    sqs_connection_factory = sqs_manager_service.create_connection_factory()
+    return sqs_connection_factory.create_connection()
+
+
+def get_qualify_publisher_service(
+    sqs_connection: Annotated[SqsConnection, Depends(get_sqs_connection)],
+) -> PublisherService:
+    return EvaluateAssessmentPublishAdapter(sqs_client=sqs_connection)
 
 
 def get_save_assessment_answers_service(
@@ -260,11 +272,15 @@ def get_save_assessment_answers_service(
     evaluator_service: Annotated[
         EvaluateAssessmentService, Depends(get_evaluate_assessment_service)
     ],
+    publisher_service: Annotated[
+        PublisherService, Depends(get_qualify_publisher_service)
+    ],
 ) -> SaveAssessmentsAnswersService:
     return SaveAssessmentsAnswersService(
         assessment_repository=assessment_repository,
         user_repository=user_repository,
         evaluator_service=evaluator_service,
+        publisher_service=publisher_service,
     )
 
 
