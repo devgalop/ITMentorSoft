@@ -6,7 +6,11 @@ from src.features.assessments.shared.qualifier_service import (
     QualifierResult,
     TopicResult,
 )
-from src.features.reports.shared.student_report import StudentProgress, StudentSummary
+from src.features.reports.shared.student_report import (
+    StudentAssessmentResult,
+    StudentProgress,
+    StudentSummary,
+)
 
 
 class AssessmentRepository(ABC):
@@ -138,5 +142,35 @@ class AssessmentRepository(ABC):
 
         Args:
             classification_result (ClassificationResult): The result of the classification to be saved.
+        """
+        pass
+
+    @abstractmethod
+    async def get_assessment_result(
+        self, assessment_id: str, user_id: str
+    ) -> StudentAssessmentResult | None:
+        """Obtain the assessment result of an assessment by assessment ID and user ID
+
+        Args:
+            assessment_id (str): The ID of the assessment to retrieve the assessment result for.
+            user_id (str): The ID of the user to retrieve the assessment result for.
+
+        Returns:
+            StudentAssessmentResult | None: The assessment result corresponding to the given assessment ID and user ID, or None if not found.
+        """
+        pass
+
+    @abstractmethod
+    async def is_qualification_completed(
+        self, user_id: str, assessment_id: str
+    ) -> bool:
+        """Check if the qualification process is completed for a user
+
+        Args:
+            user_id (str): The ID of the user to check.
+            assessment_id (str): The ID of the assessment to check.
+
+        Returns:
+            bool: True if the qualification process is completed for the user and assessment, False otherwise.
         """
         pass
