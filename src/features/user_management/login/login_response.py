@@ -6,3 +6,4 @@ class LoginResponse(BaseModel):
     token: str
     expiration_time: float
     refresh_token: str = ""
+    user_id: str | None

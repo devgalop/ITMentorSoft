@@ -60,6 +60,7 @@ class RefreshTokenHandler:
                 access_token=None,
                 refresh_token=None,
                 expiration_time=None,
+                user_id=None,
             )
 
         record = await self.refresh_token_repository.get_active_token(user_found.id)
@@ -70,6 +71,7 @@ class RefreshTokenHandler:
                 access_token=None,
                 refresh_token=None,
                 expiration_time=None,
+                user_id=None,
             )
 
         if record.status == "revoked":
@@ -84,6 +86,7 @@ class RefreshTokenHandler:
                 access_token=None,
                 refresh_token=None,
                 expiration_time=None,
+                user_id=None,
             )
 
         is_valid = self.password_hasher.verify_password(
@@ -96,6 +99,7 @@ class RefreshTokenHandler:
                 access_token=None,
                 refresh_token=None,
                 expiration_time=None,
+                user_id=None,
             )
 
         await self.refresh_token_repository.revoke_tokens_by_user_id(record.user_id)
@@ -122,4 +126,5 @@ class RefreshTokenHandler:
             access_token=token_response.token,
             refresh_token=new_refresh_token.token,
             expiration_time=token_response.expiration_time,
+            user_id=record.user_id,
         )

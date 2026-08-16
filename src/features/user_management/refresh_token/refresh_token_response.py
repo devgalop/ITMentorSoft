@@ -6,3 +6,4 @@ class RefreshTokenResponse(BaseModel):
     access_token: str | None
     refresh_token: str | None
     expiration_time: float | None
+    user_id: str | None

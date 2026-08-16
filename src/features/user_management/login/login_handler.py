@@ -37,14 +37,14 @@ class LoginHandler:
         user = await self.user_repository.get_user_by_email(request.email)
         if not user:
             return LoginResponse(
-                is_successful=False, token="", expiration_time=0
+                is_successful=False, token="", expiration_time=0, user_id=None
             )  # nosec
 
         if not self.password_hasher.verify_password(
             request.password, user.password_hashed
         ):
             return LoginResponse(
-                is_successful=False, token="", expiration_time=0
+                is_successful=False, token="", expiration_time=0, user_id=None
             )  # nosec
 
         token_response = self.token_generator.generate_token(
@@ -69,4 +69,5 @@ class LoginHandler:
             token=token_response.token,
             expiration_time=token_response.expiration_time,
             refresh_token=refresh_token_response.token,
+            user_id=user.id,
         )
