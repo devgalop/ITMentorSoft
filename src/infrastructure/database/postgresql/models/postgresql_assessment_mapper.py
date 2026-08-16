@@ -10,7 +10,11 @@ from src.features.assessments.shared.qualifier_service import (
     QualifierResult,
     TopicResult,
 )
-from src.features.reports.shared.student_report import StudentKnowledgeProfile
+from src.features.reports.shared.student_report import (
+    StudentAnswerScore,
+    StudentAssessmentResult,
+    StudentKnowledgeProfile,
+)
 from src.infrastructure.database.postgresql.models.postgresql_assessment_model import (
     AssessmentAnswerEntity,
     AssessmentEntity,
@@ -48,6 +52,61 @@ class PostgresAssessmentMapper:
             answers=answers,
         )
         return assessment
+
+    @staticmethod
+    def to_assessment_result(entity: AssessmentEntity) -> StudentAssessmentResult:
+        answer_scores = []
+        for qualification in entity.qualifications:
+            answer_score = StudentAnswerScore(
+                question_id=qualification.question_id,
+                question_text=next(
+                    (
+                        q.question.text
+                        for q in entity.answers
+                        if q.question_id == qualification.question_id
+                    ),
+                    "",
+                ),
+                answer=next(
+                    (
+                        ans.answer
+                        for ans in entity.answers
+                        if ans.id == qualification.answer_id
+                    ),
+                    "",
+                ),
+                score=qualification.score,
+                feedback=qualification.feedback,
+                misconceptions=[
+                    mc.misconception for mc in qualification.misconceptions
+                ],
+                key_concepts=[kc.key_concept for kc in qualification.key_concepts],
+            )
+            answer_scores.append(answer_score)
+
+        avg_score = (
+            sum(qualification.score for qualification in entity.qualifications)
+            / len(entity.qualifications)
+            if entity.qualifications
+            else 0.0
+        )
+
+        return StudentAssessmentResult(
+            assessment_id=entity.id,
+            student_id=entity.user_id,
+            avg_score=avg_score,
+            classification=(
+                entity.classification_result.classification
+                if entity.classification_result
+                else ""
+            ),
+            feedback=(
+                entity.classification_result.feedback
+                if entity.classification_result
+                else ""
+            ),
+            answer_scores=answer_scores,
+        )
 
     @staticmethod
     def quiz_question_entity(
