@@ -18,6 +18,9 @@ from src.features.assessments.get_assessment.get_assessment_handler import (
 from src.features.assessments.get_assessment_by_topic.get_assessment_by_topic_handler import (
     GetAssessmentByTopicHandler,
 )
+from src.features.assessments.get_assessment_result.get_assessment_result_handler import (
+    GetAssessmentResultHandler,
+)
 from src.features.assessments.get_pending_approval_questions.get_pending_approval_questions_handler import (
     GetPendingApprovalQuestionsHandler,
 )
@@ -342,3 +345,11 @@ def get_save_review_question_handler(
     ],
 ) -> SaveReviewQuestionHandler:
     return SaveReviewQuestionHandler(review_service=review_service)
+
+
+def get_get_assessment_result_handler(
+    assessment_repository: Annotated[
+        AssessmentRepository, Depends(get_assessment_repository)
+    ],
+) -> GetAssessmentResultHandler:
+    return GetAssessmentResultHandler(assessment_repository=assessment_repository)

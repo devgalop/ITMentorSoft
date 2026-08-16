@@ -13,6 +13,7 @@ from src.features.assessments.shared.qualifier_service import (
 )
 from src.features.reports.shared.student_report import (
     HistoricalResult,
+    StudentAssessmentResult,
     StudentProgress,
     StudentProgressDetail,
     StudentSummary,
@@ -21,7 +22,9 @@ from src.infrastructure.database.postgresql.models.postgresql_assessment_mapper 
     PostgresAssessmentMapper,
 )
 from src.infrastructure.database.postgresql.models.postgresql_assessment_model import (
+    AssessmentAnswerEntity,
     AssessmentEntity,
+    AssessmentQualificationEntity,
     ClassificationResultEntity,
     TopicResultEntity,
 )
@@ -232,3 +235,32 @@ class PostgresAssessmentRepository(AssessmentRepository):
         )
         self.session_factory.add(classification_entity)
         await self.session_factory.commit()
+
+    async def get_assessment_result(
+        self, assessment_id: str, user_id: str
+    ) -> StudentAssessmentResult | None:
+        smt = (
+            select(AssessmentEntity)
+            .options(
+                selectinload(AssessmentEntity.answers).selectinload(
+                    AssessmentAnswerEntity.question
+                ),
+                selectinload(AssessmentEntity.questions),
+                selectinload(AssessmentEntity.qualifications).selectinload(
+                    AssessmentQualificationEntity.key_concepts,
+                ),
+                selectinload(AssessmentEntity.qualifications).selectinload(
+                    AssessmentQualificationEntity.misconceptions,
+                ),
+                selectinload(AssessmentEntity.classification_result),
+            )
+            .where(
+                AssessmentEntity.id == assessment_id,
+                AssessmentEntity.user_id == user_id,
+            )
+        )
+        result = await self.session_factory.execute(smt)
+        assessment_entity = result.scalars().first()
+        if not assessment_entity:
+            return None
+        return self.mapper.to_assessment_result(assessment_entity)
