@@ -77,6 +77,9 @@ from src.features.assessments.update_question.update_question_handler import (
 )
 from src.features.assessments.shared.question import QuestionBuilder
 from src.features.assessments.shared.questions_repository import QuestionRepository
+from src.features.assessments.update_question_status.update_question_status_handler import (
+    UpdateQuestionStatusHandler,
+)
 from src.features.shared.notification_service import NotificationService
 from src.features.shared.publisher_service import PublisherService
 from src.features.shared.template_loader import TemplateLoader
@@ -375,3 +378,11 @@ def get_get_questions_topics_handler(
     ],
 ) -> GetQuestionsTopicsHandler:
     return GetQuestionsTopicsHandler(questions_repository=questions_repository)
+
+
+def get_update_question_status_handler(
+    question_repository: Annotated[
+        QuestionRepository, Depends(get_question_repository)
+    ],
+) -> UpdateQuestionStatusHandler:
+    return UpdateQuestionStatusHandler(question_repository=question_repository)

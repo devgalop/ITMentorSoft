@@ -193,3 +193,13 @@ class PostgresQuestionsRepository(QuestionRepository):
         result = await self.session_factory.execute(smt)
         topics = result.scalars().all()
         return list(topics) if topics else []
+
+    async def update_question_status(self, question_id: str, status: bool) -> bool:
+        smt = select(QuestionEntity).where(QuestionEntity.id == question_id)
+        result = await self.session_factory.execute(smt)
+        entity = result.scalars().first()
+        if not entity:
+            return False
+        entity.is_enabled = status
+        await self.session_factory.commit()
+        return True
