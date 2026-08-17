@@ -38,6 +38,7 @@ class QuestionEntity(Base):
     reviews: Mapped[List["QuestionReviewEntity"]] = relationship(
         "QuestionReviewEntity", back_populates="question"
     )
+    is_enabled: Mapped[bool] = mapped_column(default=True)
 
 
 class QuestionRubricScoreEntity(Base):

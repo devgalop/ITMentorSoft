@@ -33,6 +33,9 @@ from src.features.content_management.shared.content_repository import (
 from src.features.content_management.update_resource_content.update_resource_content_handler import (
     UpdateResourceContentHandler,
 )
+from src.features.content_management.update_resource_status.update_resource_status_handler import (
+    UpdateResourceStatusHandler,
+)
 from src.infrastructure.database.postgresql.models.postgresql_content_rating_mapper import (
     RateContentMapper,
 )
@@ -127,3 +130,11 @@ def get_update_resource_content_handler(
     ],
 ) -> UpdateResourceContentHandler:
     return UpdateResourceContentHandler(content_repository)
+
+
+def get_update_resource_status_handler(
+    content_repository: Annotated[
+        ResourceContentRepository, Depends(get_resource_content_repository)
+    ],
+) -> UpdateResourceStatusHandler:
+    return UpdateResourceStatusHandler(content_repository)

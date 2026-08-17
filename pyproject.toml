@@ -1,2 +1,8 @@
 [tool.pytest.ini_options]
 pythonpath = ["."]
+
+[tool.ruff]
+extend-exclude = [
+    "./src/infrastructure/database/postgresql/models/__init__.py",
+    "./alembic/env.py",
+]

@@ -127,3 +127,14 @@ class ResourceContentRepository(ABC):
             request (UpdateResourceContentRequest): The request containing the updated information for the educational resource content
         """
         pass
+
+    @abstractmethod
+    async def update_resource_status(self, content_id: str, new_status: bool) -> bool:
+        """Update the status of an educational resource content
+        Args:
+            content_id (str): The content ID of the educational resource content to be updated
+            new_status (bool): The new status to be set for the educational resource content
+        Returns:
+            bool: True if the update was successful, False otherwise
+        """
+        pass

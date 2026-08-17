@@ -30,6 +30,9 @@ from src.features.assessments.get_qualification_status.get_qualification_status_
 from src.features.assessments.get_question_categories.get_question_categories_handler import (
     GetQuestionCategoriesHandler,
 )
+from src.features.assessments.get_questions_topics.get_questions_topics_handler import (
+    GetQuestionsTopicsHandler,
+)
 from src.features.assessments.save_review_question.save_review_question_handler import (
     SaveReviewQuestionHandler,
 )
@@ -74,6 +77,9 @@ from src.features.assessments.update_question.update_question_handler import (
 )
 from src.features.assessments.shared.question import QuestionBuilder
 from src.features.assessments.shared.questions_repository import QuestionRepository
+from src.features.assessments.update_question_status.update_question_status_handler import (
+    UpdateQuestionStatusHandler,
+)
 from src.features.shared.notification_service import NotificationService
 from src.features.shared.publisher_service import PublisherService
 from src.features.shared.template_loader import TemplateLoader
@@ -364,3 +370,19 @@ def get_get_qualification_status_handler(
     ],
 ) -> GetQualificationStatusHandler:
     return GetQualificationStatusHandler(assessment_repository=assessment_repository)
+
+
+def get_get_questions_topics_handler(
+    questions_repository: Annotated[
+        QuestionRepository, Depends(get_question_repository)
+    ],
+) -> GetQuestionsTopicsHandler:
+    return GetQuestionsTopicsHandler(questions_repository=questions_repository)
+
+
+def get_update_question_status_handler(
+    question_repository: Annotated[
+        QuestionRepository, Depends(get_question_repository)
+    ],
+) -> UpdateQuestionStatusHandler:
+    return UpdateQuestionStatusHandler(question_repository=question_repository)

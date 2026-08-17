@@ -9,6 +9,7 @@ from src.features.content_management.register_content.register_content_request i
 )
 from src.features.content_management.shared.content import (
     ContentCategory,
+    PaginatedResourceContentResult,
     ResourceContent,
     ResourceContentBuilder,
 )
@@ -17,7 +18,9 @@ from src.features.content_management.shared.content import (
 @pytest.mark.asyncio
 async def test_register_content_when_is_valid_then_should_register_content_successfully():
     content_repository = AsyncMock()
-    content_repository.get_resource_contents_by_title = AsyncMock(return_value=[])
+    content_repository.get_resource_contents_by_title = AsyncMock(
+        return_value=PaginatedResourceContentResult(items=[], total=0)
+    )
     content_repository.save = AsyncMock()
 
     handler = RegisterContentHandler(content_repository, ResourceContentBuilder)
@@ -26,7 +29,7 @@ async def test_register_content_when_is_valid_then_should_register_content_succe
         title="Test Content",
         description="This is a test content.",
         url="https://example.com/test-content",
-        category="novice",
+        category="principiante",
         related_topic=["Python", "Testing"],
     )
     response = await handler.handle(request)
@@ -43,7 +46,7 @@ async def test_register_content_when_title_already_exists_should_return_failure(
     existing_content = ResourceContent()
     existing_content.add_title("Test Content")
     content_repository.get_resource_contents_by_title = AsyncMock(
-        return_value=[existing_content]
+        return_value=PaginatedResourceContentResult(items=[existing_content], total=1)
     )
 
     handler = RegisterContentHandler(content_repository, ResourceContentBuilder)
@@ -52,7 +55,7 @@ async def test_register_content_when_title_already_exists_should_return_failure(
         title="Test Content",
         description="This is a test content.",
         url="https://example.com/test-content",
-        category="novice",
+        category="principiante",
         related_topic=["Python"],
     )
     response = await handler.handle(request)
@@ -67,7 +70,9 @@ async def test_register_content_when_title_already_exists_should_return_failure(
 @pytest.mark.asyncio
 async def test_register_content_when_category_is_invalid_should_return_failure():
     content_repository = AsyncMock()
-    content_repository.get_resource_contents_by_title = AsyncMock(return_value=[])
+    content_repository.get_resource_contents_by_title = AsyncMock(
+        return_value=PaginatedResourceContentResult(items=[], total=0)
+    )
 
     handler = RegisterContentHandler(content_repository, ResourceContentBuilder)
 
@@ -90,7 +95,9 @@ async def test_register_content_when_category_is_invalid_should_return_failure()
 @pytest.mark.asyncio
 async def test_register_content_when_category_is_not_provided_should_use_default_novice():
     content_repository = AsyncMock()
-    content_repository.get_resource_contents_by_title = AsyncMock(return_value=[])
+    content_repository.get_resource_contents_by_title = AsyncMock(
+        return_value=PaginatedResourceContentResult(items=[], total=0)
+    )
     content_repository.save = AsyncMock()
 
     handler = RegisterContentHandler(content_repository, ResourceContentBuilder)
@@ -99,7 +106,7 @@ async def test_register_content_when_category_is_not_provided_should_use_default
         title="Test Content",
         description="This is a test content.",
         url="https://example.com/test-content",
-        category="novice",
+        category="principiante",
         related_topic=[],
     )
     await handler.handle(request)
@@ -114,7 +121,9 @@ async def test_register_content_when_category_is_not_provided_should_use_default
 @pytest.mark.asyncio
 async def test_register_content_when_related_topic_is_not_provided_should_use_default_empty_list():
     content_repository = AsyncMock()
-    content_repository.get_resource_contents_by_title = AsyncMock(return_value=[])
+    content_repository.get_resource_contents_by_title = AsyncMock(
+        return_value=PaginatedResourceContentResult(items=[], total=0)
+    )
     content_repository.save = AsyncMock()
 
     handler = RegisterContentHandler(content_repository, ResourceContentBuilder)
@@ -123,7 +132,7 @@ async def test_register_content_when_related_topic_is_not_provided_should_use_de
         title="Test Content",
         description="This is a test content.",
         url="https://example.com/test-content",
-        category="novice",
+        category="principiante",
         related_topic=[],
     )
     await handler.handle(request)
@@ -138,7 +147,9 @@ async def test_register_content_when_related_topic_is_not_provided_should_use_de
 @pytest.mark.asyncio
 async def test_register_content_when_request_is_valid_should_return_content_id():
     content_repository = AsyncMock()
-    content_repository.get_resource_contents_by_title = AsyncMock(return_value=[])
+    content_repository.get_resource_contents_by_title = AsyncMock(
+        return_value=PaginatedResourceContentResult(items=[], total=0)
+    )
     content_repository.save = AsyncMock()
 
     handler = RegisterContentHandler(content_repository, ResourceContentBuilder)
@@ -147,7 +158,7 @@ async def test_register_content_when_request_is_valid_should_return_content_id()
         title="Test Content",
         description="This is a test content.",
         url="https://example.com/test-content",
-        category="novice",
+        category="principiante",
         related_topic=["Python"],
     )
     response = await handler.handle(request)
@@ -163,7 +174,9 @@ async def test_register_content_when_request_is_valid_should_return_content_id()
 @pytest.mark.asyncio
 async def test_register_content_when_category_is_empty_string_then_defaults_to_novice():
     content_repository = AsyncMock()
-    content_repository.get_resource_contents_by_title = AsyncMock(return_value=[])
+    content_repository.get_resource_contents_by_title = AsyncMock(
+        return_value=PaginatedResourceContentResult(items=[], total=0)
+    )
     content_repository.save = AsyncMock()
 
     handler = RegisterContentHandler(content_repository, ResourceContentBuilder)
@@ -172,7 +185,7 @@ async def test_register_content_when_category_is_empty_string_then_defaults_to_n
         title="Test Content",
         description="This is a test content.",
         url="https://example.com/test-content",
-        category="novice",
+        category="principiante",
         related_topic=[],
     )
     request.category = ""  # force empty to trigger default branch

@@ -16,7 +16,7 @@ def make_request(
     title: str = "Python Basics Guide",
     description: str = "A comprehensive guide to Python programming fundamentals",
     url: str = "https://example.com/python-basics",
-    category: str = "novice",
+    category: str = "principiante",
     related_topic: list[str] | None = None,
 ) -> UpdateResourceContentRequest:
     return UpdateResourceContentRequest(

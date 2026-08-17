@@ -136,3 +136,25 @@ class QuestionRepository(ABC):
             status (str): The new status to set for the question.
         """
         pass
+
+    @abstractmethod
+    async def get_questions_topics(self) -> list[str]:
+        """Obtain all unique topics from the questions
+
+        Returns:
+            list[str]: A list of unique topics.
+        """
+        pass
+
+    @abstractmethod
+    async def update_question_status(self, question_id: str, status: bool) -> bool:
+        """Update the status of a question
+
+        Args:
+            question_id (str): The ID of the question to update.
+            status (bool): The new status to set for the question.
+
+        Returns:
+            bool: True if the update was successful, False otherwise.
+        """
+        pass
