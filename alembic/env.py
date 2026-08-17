@@ -3,6 +3,7 @@ import os
 from logging.config import fileConfig
 
 from alembic import context
+from dotenv import load_dotenv
 from sqlalchemy import pool
 from sqlalchemy.engine import Connection
 from sqlalchemy.ext.asyncio import async_engine_from_config
@@ -11,6 +12,22 @@ from sqlalchemy.ext.asyncio import async_engine_from_config
 from src.infrastructure.database.postgresql.shared.postgresql_database_session import (
     Base,
 )
+from src.infrastructure.database.postgresql.models import (
+    AssessmentEntity,
+    AssessmentAnswerEntity,
+    AssessmentQuizEntity,
+    AssessmentQualificationEntity,
+    ClassificationResultEntity,
+    ContentRating,
+    QuestionEntity,
+    QuestionRubricScoreEntity,
+    QuestionReviewEntity,
+    ResourceContentEntity,
+    UserEntity,
+    RoleEntity,
+    RecoveryTokenEntity,
+    RefreshTokenEntity,
+)
 
 # this is the Alembic Config object, which provides
 # access to the values within the .ini file in use.
@@ -18,9 +35,12 @@ config = context.config
 
 # Override sqlalchemy.url with DATABASE_URL from environment.
 # The alembic.ini placeholder is replaced at runtime.
+load_dotenv()
 database_url = os.getenv("DATABASE_URL")
 if database_url:
-    config.set_main_option("sqlalchemy.url", database_url)
+    # Escape '%' because ConfigParser treats it as interpolation syntax.
+    escaped_database_url = database_url.replace("%", "%%")
+    config.set_main_option("sqlalchemy.url", escaped_database_url)
 
 # Interpret the config file for Python logging.
 # This line sets up loggers basically.

@@ -74,6 +74,7 @@ class PostgresResourceContentRepository(ResourceContentRepository):
             select(func.count())
             .select_from(ResourceContentEntity)
             .where(ResourceContentEntity.category == request.category)
+            .where(ResourceContentEntity.is_enabled)
         )
         total_result = await self.session_factory.execute(count_smt)
         total = total_result.scalar()
@@ -82,6 +83,7 @@ class PostgresResourceContentRepository(ResourceContentRepository):
         smt = (
             select(ResourceContentEntity)
             .where(ResourceContentEntity.category == request.category)
+            .where(ResourceContentEntity.is_enabled)
             .offset(request.page * request.page_size)
             .limit(request.page_size)
         )
@@ -99,6 +101,7 @@ class PostgresResourceContentRepository(ResourceContentRepository):
             select(func.count())
             .select_from(ResourceContentEntity)
             .where(ResourceContentEntity.related_topics.like(f"%{request.topic}%"))
+            .where(ResourceContentEntity.is_enabled)
         )
         total_result = await self.session_factory.execute(count_smt)
         total = total_result.scalar()
@@ -108,6 +111,7 @@ class PostgresResourceContentRepository(ResourceContentRepository):
         smt = (
             select(ResourceContentEntity)
             .where(ResourceContentEntity.related_topics.like(f"%{request.topic}%"))
+            .where(ResourceContentEntity.is_enabled)
             .offset(request.page * request.page_size)
             .limit(request.page_size)
         )
@@ -125,6 +129,7 @@ class PostgresResourceContentRepository(ResourceContentRepository):
             select(func.count())
             .select_from(ResourceContentEntity)
             .where(ResourceContentEntity.title.like(f"%{request.title}%"))
+            .where(ResourceContentEntity.is_enabled)
         )
         total_result = await self.session_factory.execute(count_smt)
         total = total_result.scalar()
@@ -133,6 +138,7 @@ class PostgresResourceContentRepository(ResourceContentRepository):
         smt = (
             select(ResourceContentEntity)
             .where(ResourceContentEntity.title.like(f"%{request.title}%"))
+            .where(ResourceContentEntity.is_enabled)
             .offset(request.page * request.page_size)
             .limit(request.page_size)
         )
@@ -151,6 +157,7 @@ class PostgresResourceContentRepository(ResourceContentRepository):
             .select_from(ResourceContentEntity)
             .where(ResourceContentEntity.category == request.category)
             .where(ResourceContentEntity.related_topics.like(f"%{request.topic}%"))
+            .where(ResourceContentEntity.is_enabled)
         )
         total_result = await self.session_factory.execute(count_smt)
         total = total_result.scalar()
@@ -160,6 +167,7 @@ class PostgresResourceContentRepository(ResourceContentRepository):
             select(ResourceContentEntity)
             .where(ResourceContentEntity.category == request.category)
             .where(ResourceContentEntity.related_topics.like(f"%{request.topic}%"))
+            .where(ResourceContentEntity.is_enabled)
             .offset(request.page * request.page_size)
             .limit(request.page_size)
         )
@@ -210,3 +218,18 @@ class PostgresResourceContentRepository(ResourceContentRepository):
 
         self.session_factory.add(content_entity)
         await self.session_factory.commit()
+
+    async def update_resource_status(self, content_id: str, new_status: bool) -> bool:
+        smt = select(ResourceContentEntity).where(
+            ResourceContentEntity.id == content_id
+        )
+        result = await self.session_factory.execute(smt)
+        content_entity = result.scalars().first()
+
+        if not content_entity:
+            return False
+
+        content_entity.is_enabled = new_status
+        self.session_factory.add(content_entity)
+        await self.session_factory.commit()
+        return True

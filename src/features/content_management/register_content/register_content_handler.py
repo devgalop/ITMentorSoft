@@ -36,7 +36,7 @@ class RegisterContentHandler:
                 title=request.title, page=0, page_size=1
             )
         )
-        if content:
+        if content.total > 0:
             return RegisterContentResponse(
                 is_success=False,
                 content_id=None,

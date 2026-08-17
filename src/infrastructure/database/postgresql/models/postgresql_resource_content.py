@@ -29,3 +29,4 @@ class ResourceContentEntity(Base):
         back_populates="content",
         cascade="all, delete-orphan",
     )
+    is_enabled: Mapped[bool] = mapped_column(default=True)

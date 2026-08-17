@@ -10,10 +10,10 @@ class ContentCategory(Enum):
         Enum (Enum): Enum class for content category.
     """
 
-    NOVICE = "novice"
-    EMERGING = "emerging"
-    AVERAGE = "average"
-    PROFICIENT = "proficient"
+    NOVICE = "principiante"
+    EMERGING = "básico"
+    AVERAGE = "intermedio"
+    PROFICIENT = "avanzado"
 
 
 class ResourceContentResponse(BaseModel):
