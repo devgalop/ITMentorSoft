@@ -136,3 +136,12 @@ class QuestionRepository(ABC):
             status (str): The new status to set for the question.
         """
         pass
+
+    @abstractmethod
+    async def get_questions_topics(self) -> list[str]:
+        """Obtain all unique topics from the questions
+
+        Returns:
+            list[str]: A list of unique topics.
+        """
+        pass

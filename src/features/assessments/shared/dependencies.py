@@ -30,6 +30,9 @@ from src.features.assessments.get_qualification_status.get_qualification_status_
 from src.features.assessments.get_question_categories.get_question_categories_handler import (
     GetQuestionCategoriesHandler,
 )
+from src.features.assessments.get_questions_topics.get_questions_topics_handler import (
+    GetQuestionsTopicsHandler,
+)
 from src.features.assessments.save_review_question.save_review_question_handler import (
     SaveReviewQuestionHandler,
 )
@@ -364,3 +367,11 @@ def get_get_qualification_status_handler(
     ],
 ) -> GetQualificationStatusHandler:
     return GetQualificationStatusHandler(assessment_repository=assessment_repository)
+
+
+def get_get_questions_topics_handler(
+    questions_repository: Annotated[
+        QuestionRepository, Depends(get_question_repository)
+    ],
+) -> GetQuestionsTopicsHandler:
+    return GetQuestionsTopicsHandler(questions_repository=questions_repository)
