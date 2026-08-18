@@ -63,13 +63,10 @@ router = APIRouter()
 )
 async def get_assessment(
     user_id: str,
-    number_of_questions: int,
     handler: Annotated[GetAssessmentHandler, Depends(get_get_assessment_handler)],
     _: Annotated[TokenData, Depends(require_roles(["student", "admin"]))],
 ) -> GetAssessmentResponse:
-    request = GetAssessmentRequest(
-        number_of_questions=number_of_questions, student_id=user_id
-    )
+    request = GetAssessmentRequest(student_id=user_id)
     response = await handler.handle(request)
     if not response.is_success:
         raise HTTPException(status_code=400, detail=response.model_dump())

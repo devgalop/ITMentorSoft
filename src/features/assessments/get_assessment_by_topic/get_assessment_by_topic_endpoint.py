@@ -68,15 +68,12 @@ router = APIRouter()
 async def get_assessment_by_topic(
     topic: str,
     user_id: str,
-    number_of_questions: int,
     handler: Annotated[
         GetAssessmentByTopicHandler, Depends(get_get_assessment_by_topic_handler)
     ],
     _: Annotated[TokenData, Depends(require_roles(["student", "admin"]))],
 ) -> GetAssessmentByTopicResponse:
-    request = GetAssessmentByTopicRequest(
-        topic_id=topic, number_of_questions=number_of_questions, student_id=user_id
-    )
+    request = GetAssessmentByTopicRequest(topic_id=topic, student_id=user_id)
     response = await handler.handle(request)
     if not response.is_success:
         raise HTTPException(status_code=400, detail=response.model_dump())
