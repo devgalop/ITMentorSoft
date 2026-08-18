@@ -2,14 +2,7 @@ from pydantic import BaseModel, field_validator
 
 
 class GetAssessmentRequest(BaseModel):
-    number_of_questions: int
     student_id: str
-
-    @field_validator("number_of_questions")
-    def validate_number_of_questions(cls, value: int) -> int:
-        if value <= 0:
-            raise ValueError("Number of questions must be a positive integer")
-        return value
 
     @field_validator("student_id")
     def validate_student_id(cls, value: str) -> str:

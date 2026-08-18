@@ -27,6 +27,7 @@ async def test_when_student_has_progress_should_return_progress():
     historical_progress = StudentProgress(
         student_id="123e4567e89b12d3a456426614174000",
         classification="Intermediate",
+        feedback="Keep up the good work! Focus on improving your Science knowledge.",
         historical_progress=[
             StudentProgressDetail(
                 topic="Mathematics",

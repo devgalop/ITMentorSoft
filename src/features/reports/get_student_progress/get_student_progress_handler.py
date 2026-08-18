@@ -63,4 +63,5 @@ class GetStudentProgressHandler:
             student_id=student_progress.student_id,
             classification=student_progress.classification,
             knowledge_profile=results,
+            feedback=student_progress.feedback,
         )

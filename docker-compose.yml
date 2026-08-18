@@ -11,7 +11,7 @@ services:
     volumes:
       - postgres_data:/var/lib/postgresql/data
 
-  localstack:
+  floci:
     image: floci/floci:latest
     container_name: floci
     ports:

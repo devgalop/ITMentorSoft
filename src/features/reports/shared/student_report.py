@@ -56,6 +56,7 @@ class StudentProgressDetail(BaseModel):
 class StudentProgress(BaseModel):
     student_id: str
     classification: str
+    feedback: str
     historical_progress: list[StudentProgressDetail]
 
 

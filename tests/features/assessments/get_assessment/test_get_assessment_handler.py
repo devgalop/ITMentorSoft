@@ -39,9 +39,7 @@ async def test_when_request_is_valid_then_should_return_assessment_successfully(
 
     handler = GetAssessmentHandler(service)
 
-    request = GetAssessmentRequest(
-        number_of_questions=NUMBER_OF_QUESTIONS, student_id=STUDENT_ID
-    )
+    request = GetAssessmentRequest(student_id=STUDENT_ID)
     response = await handler.handle(request)
 
     assert response.is_success is True
@@ -71,9 +69,7 @@ async def test_when_request_is_valid_then_should_return_questions():
 
     handler = GetAssessmentHandler(service)
 
-    request = GetAssessmentRequest(
-        number_of_questions=NUMBER_OF_QUESTIONS, student_id=STUDENT_ID
-    )
+    request = GetAssessmentRequest(student_id=STUDENT_ID)
     response = await handler.handle(request)
 
     assert response.questions is not None
@@ -90,9 +86,7 @@ async def test_when_service_raises_exception_then_should_return_failure():
 
     handler = GetAssessmentHandler(service)
 
-    request = GetAssessmentRequest(
-        number_of_questions=NUMBER_OF_QUESTIONS, student_id=STUDENT_ID
-    )
+    request = GetAssessmentRequest(student_id=STUDENT_ID)
     response = await handler.handle(request)
 
     assert response.is_success is False
@@ -110,9 +104,7 @@ async def test_when_request_is_valid_then_should_call_service_with_request():
 
     handler = GetAssessmentHandler(service)
 
-    request = GetAssessmentRequest(
-        number_of_questions=NUMBER_OF_QUESTIONS, student_id=STUDENT_ID
-    )
+    request = GetAssessmentRequest(student_id=STUDENT_ID)
     await handler.handle(request)
 
     service.generate_assessment.assert_called_once_with(request)
@@ -134,9 +126,7 @@ async def test_when_assessment_success_then_assessment_id_is_string():
 
     handler = GetAssessmentHandler(service)
 
-    request = GetAssessmentRequest(
-        number_of_questions=NUMBER_OF_QUESTIONS, student_id=STUDENT_ID
-    )
+    request = GetAssessmentRequest(student_id=STUDENT_ID)
     response = await handler.handle(request)
 
     assert response.assessment_id is not None

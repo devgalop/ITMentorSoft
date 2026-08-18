@@ -1,6 +1,8 @@
 from datetime import datetime
 from secrets import SystemRandom
 import uuid
+import os
+from dotenv import load_dotenv
 
 
 from src.features.assessments.get_assessment.get_assessment_request import (
@@ -27,7 +29,10 @@ from src.features.assessments.shared.question_assessment_repository import (
     QuestionAssessmentRepository,
 )
 
+load_dotenv()
 _rng = SystemRandom()
+
+NUMBER_OF_QUESTIONS = int(os.getenv("ASSESSMENT_MAX_QUESTIONS_NUMBER", 10))
 
 
 class GetRandomQuestionsRequest:
@@ -75,10 +80,8 @@ class GetAssessmentService:
         """
         questions: list[EvaluativeQuestionData] = []
         # Se debe implementar la lógica para calcular el numero de preguntas dependiendo del tipo de evaluación (inicial o seguimiento) y el nivel del estudiante
-        number_of_questions_base: int = request.number_of_questions // len(
-            QuestionDifficulty
-        )
-        remaining_questions: int = request.number_of_questions % len(QuestionDifficulty)
+        number_of_questions_base: int = NUMBER_OF_QUESTIONS // len(QuestionDifficulty)
+        remaining_questions: int = NUMBER_OF_QUESTIONS % len(QuestionDifficulty)
 
         for index, difficulty in enumerate(QuestionDifficulty):
             total_questions = number_of_questions_base + (
@@ -163,10 +166,8 @@ class GetAssessmentService:
         """
         questions: list[EvaluativeQuestionDataByTopic] = []
         # Se debe implementar la lógica para calcular el numero de preguntas dependiendo del tipo de evaluación (inicial o seguimiento) y el nivel del estudiante
-        number_of_questions_base: int = request.number_of_questions // len(
-            QuestionDifficulty
-        )
-        remaining_questions: int = request.number_of_questions % len(QuestionDifficulty)
+        number_of_questions_base: int = NUMBER_OF_QUESTIONS // len(QuestionDifficulty)
+        remaining_questions: int = NUMBER_OF_QUESTIONS % len(QuestionDifficulty)
 
         for index, difficulty in enumerate(QuestionDifficulty):
             total_questions = number_of_questions_base + (
