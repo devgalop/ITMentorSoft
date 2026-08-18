@@ -10,6 +10,7 @@ class KnowledgeProfile(BaseModel):
 class ProgressResponse(BaseModel):
     student_id: str
     classification: str
+    feedback: str
     knowledge_profile: list[KnowledgeProfile]
 
 

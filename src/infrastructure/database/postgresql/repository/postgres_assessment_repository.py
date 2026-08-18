@@ -197,9 +197,23 @@ class PostgresAssessmentRepository(AssessmentRepository):
         if not topic_result_entities:
             return None
 
+        smt_classification = (
+            select(ClassificationResultEntity)
+            .where(
+                ClassificationResultEntity.user_id == user_id,
+                ClassificationResultEntity.is_enabled,
+            )
+            .order_by(ClassificationResultEntity.created_at.desc())
+            .limit(1)
+        )
+        classification_result = await self.session_factory.execute(smt_classification)
+        classification_result = classification_result.scalars().first()
         student_progress = StudentProgress(
             student_id=user_id,
-            classification="This classification will be determined based on the student's knowledge profile.",
+            classification=(
+                classification_result.classification if classification_result else ""
+            ),
+            feedback=classification_result.feedback if classification_result else "",
             historical_progress=[],
         )
 
