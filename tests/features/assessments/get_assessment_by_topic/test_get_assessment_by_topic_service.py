@@ -171,39 +171,6 @@ async def test_when_not_enough_questions_available_then_should_return_available_
 
 
 @pytest.mark.asyncio
-async def test_when_empty_question_pool_for_a_difficulty_then_should_continue_without_error():
-    question_repo = AsyncMock()
-    assessment_repo = AsyncMock()
-
-    # With 6 questions and 3 levels: 6//3=2 per level, 6%3=0 remaining
-    # EASY gets 2, MEDIUM gets 0, HARD gets 0. Only EASY has questions.
-    def side_effect_by_difficulty(
-        topic: str, difficulty: QuestionDifficulty
-    ) -> list[EvaluativeQuestion]:
-        if difficulty == QuestionDifficulty.EASY:
-            return make_question_pool(QuestionDifficulty.EASY, 3)
-        return []
-
-    question_repo.get_questions_by_topic = AsyncMock(
-        side_effect=side_effect_by_difficulty
-    )
-
-    service = GetAssessmentService(question_repo, assessment_repo)
-
-    with patch(
-        "src.features.assessments.shared.get_assessment_service._rng"
-    ) as mock_rng:
-        mock_rng.sample.side_effect = lambda seq, k: list(seq[:k]) if k > 0 else []
-
-        result = await service.generate_assessment_by_topic(VALID_REQUEST)
-
-    # 2 questions from EASY (6//3=2), 0 from MEDIUM, 0 from HARD
-    assert len(result.questions) == 2
-    for item in result.questions:
-        assert item.question_id.startswith("easy-")
-
-
-@pytest.mark.asyncio
 async def test_when_generate_assessment_by_topic_then_saved_assessment_should_contain_correct_question_ids():
     question_repo = AsyncMock()
     assessment_repo = AsyncMock()

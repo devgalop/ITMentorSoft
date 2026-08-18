@@ -47,7 +47,6 @@ async def test_when_request_is_valid_then_should_return_assessment_successfully(
 
     request = GetAssessmentByTopicRequest(
         topic_id=TOPIC_ID,
-        number_of_questions=NUMBER_OF_QUESTIONS,
         student_id=STUDENT_ID,
     )
     response = await handler.handle(request)
@@ -82,7 +81,6 @@ async def test_when_request_is_valid_then_should_return_questions():
 
     request = GetAssessmentByTopicRequest(
         topic_id=TOPIC_ID,
-        number_of_questions=NUMBER_OF_QUESTIONS,
         student_id=STUDENT_ID,
     )
     response = await handler.handle(request)
@@ -104,7 +102,6 @@ async def test_when_service_raises_exception_then_should_return_failure():
 
     request = GetAssessmentByTopicRequest(
         topic_id=TOPIC_ID,
-        number_of_questions=NUMBER_OF_QUESTIONS,
         student_id=STUDENT_ID,
     )
     response = await handler.handle(request)
@@ -134,7 +131,6 @@ async def test_when_request_is_valid_then_should_call_service_with_request():
 
     request = GetAssessmentByTopicRequest(
         topic_id=TOPIC_ID,
-        number_of_questions=NUMBER_OF_QUESTIONS,
         student_id=STUDENT_ID,
     )
     await handler.handle(request)
@@ -161,7 +157,6 @@ async def test_when_assessment_success_then_assessment_id_is_string():
 
     request = GetAssessmentByTopicRequest(
         topic_id=TOPIC_ID,
-        number_of_questions=NUMBER_OF_QUESTIONS,
         student_id=STUDENT_ID,
     )
     response = await handler.handle(request)
@@ -189,7 +184,6 @@ async def test_when_assessment_success_then_response_includes_topic_id():
 
     request = GetAssessmentByTopicRequest(
         topic_id=TOPIC_ID,
-        number_of_questions=NUMBER_OF_QUESTIONS,
         student_id=STUDENT_ID,
     )
     response = await handler.handle(request)
